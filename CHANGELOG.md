@@ -8,6 +8,8 @@ Release process: see [docs/RELEASING.md](docs/RELEASING.md).
 
 ## [Unreleased]
 
+## [1.6.5] — beta
+
 ### Added
 - **Edit an account's icon and colour** (#158). Hold an account → **Edit**,
   or the ✏️ on its page, to change its name, colour and icon together. Two

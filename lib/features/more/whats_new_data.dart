@@ -23,6 +23,56 @@ class WhatsNewEntry {
 
 const whatsNewEntries = <WhatsNewEntry>[
   WhatsNewEntry(
+    icon: Icons.swap_vert_rounded,
+    title: 'Money in and Money out',
+    location: 'Everywhere',
+    description:
+        'Income and Expense are now Money in and Money out — a refund or a '
+        'meal voucher isn’t income, and not every payment is an expense. '
+        'Your data and backups don’t change.',
+  ),
+  WhatsNewEntry(
+    icon: Icons.palette_outlined,
+    title: 'Pick your own colours',
+    location: 'Settings → General → Colours',
+    description:
+        'Choose the colour for money in, money out, transfers and people — '
+        'from the swatches or any hex colour. Transaction icons can follow '
+        'their category, the money colour, or one colour for all.',
+  ),
+  WhatsNewEntry(
+    icon: Icons.view_agenda_outlined,
+    title: 'All your accounts in one card',
+    location: 'Settings → General → Customize dashboard → Accounts widget',
+    description:
+        'Pick One card to see every account and its balance at a glance, '
+        'with nothing to swipe. Slider keeps the row of cards.',
+  ),
+  WhatsNewEntry(
+    icon: Icons.edit_outlined,
+    title: 'Change an account’s icon and colour',
+    location: 'Accounts → hold an account → Edit',
+    description:
+        'Rename it and pick a new colour and icon together — two accounts '
+        'that looked alike no longer have to be deleted and re-created.',
+  ),
+  WhatsNewEntry(
+    icon: Icons.inventory_2_outlined,
+    title: 'Bring back an archived category',
+    location: 'More → Categories → archive button',
+    description:
+        'Restore any archived category — a parent brings its subcategories '
+        'back. One that was never used can be deleted for good.',
+  ),
+  WhatsNewEntry(
+    icon: Icons.add_a_photo_outlined,
+    title: 'A photo for anyone',
+    location: 'Persons → hold a person → Edit',
+    description:
+        'Pick a profile photo from your gallery — no contact needed. It’s '
+        'shrunk to avatar size and kept on your phone.',
+  ),
+  WhatsNewEntry(
     icon: Icons.add_reaction_outlined,
     title: 'Your own emoji as a category icon',
     location: 'More → Categories → a category → Icon',

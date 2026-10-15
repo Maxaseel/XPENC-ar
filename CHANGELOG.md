@@ -12,6 +12,14 @@ Release process: see [docs/RELEASING.md](docs/RELEASING.md).
 - **Edit an account's icon and colour** (#158). Hold an account → **Edit**,
   or the ✏️ on its page, to change its name, colour and icon together. Two
   accounts that looked alike no longer have to be deleted and re-created.
+- **Archived categories** (#162). Categories → the archive button lists
+  every archived category, by kind, with **Restore**. Restoring a parent
+  brings its subcategories back; restoring a subcategory brings back its
+  parent too. Archiving a category now offers **Undo**.
+- **Delete a category made by mistake** (#162). From Archived categories,
+  a category nothing has ever used can be deleted for good. One that any
+  transaction, budget, rule, reminder, goal or loan uses can't — it says
+  what still uses it and stays archived, so past reports never break.
 
 ## [1.6.4] — 2026-10-10
 

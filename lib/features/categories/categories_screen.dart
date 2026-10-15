@@ -27,9 +27,10 @@ const _presetColors = <int>[
   0xFFEC4899,
 ];
 
-/// Manage expense and income categories. Categories are archived, never
-/// hard-deleted — every past transaction keeps its category so reports stay
-/// intact.
+/// Manage expense and income categories. Categories are archived rather than
+/// deleted — every past transaction keeps its category so reports stay
+/// intact. Archived ones live behind the top bar's archive button, where
+/// they can be restored (or, if never used, deleted).
 class CategoriesScreen extends ConsumerStatefulWidget {
   const CategoriesScreen({super.key});
 
@@ -59,6 +60,11 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen>
       appBar: AppTopBar(
         title: const Text('Categories'),
         actions: [
+          IconButton(
+            icon: const AppIcon(Icons.inventory_2_outlined),
+            tooltip: 'Archived categories',
+            onPressed: () => context.push('/more/categories/archived'),
+          ),
           IconButton(
             icon: const AppIcon(Icons.dashboard_customize_outlined),
             tooltip: 'Templates',
@@ -158,8 +164,9 @@ class _CategoryList extends ConsumerWidget {
             const SizedBox(height: 20),
             Text(
               'Group related categories under a parent — a subcategory rolls its '
-              'spending up into its parent. Categories are archived, never '
-              'deleted, so past reports stay intact.',
+              'spending up into its parent. Categories are archived, not '
+              'deleted, so past reports stay intact — restore them from the '
+              'archive button above.',
               textAlign: TextAlign.center,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
@@ -382,7 +389,15 @@ Future<void> _confirmArchive(
   if (confirmed != true) return;
 
   await db.archiveCategory(category.id);
-  messenger.showSnackBar(const SnackBar(content: Text('Category archived')));
+  messenger.showSnackBar(
+    SnackBar(
+      content: const Text('Category archived'),
+      action: SnackBarAction(
+        label: 'Undo',
+        onPressed: () => db.unarchiveCategory(category.id),
+      ),
+    ),
+  );
 }
 
 /// Create or edit a category: name, parent, colour, icon.

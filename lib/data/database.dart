@@ -6394,6 +6394,123 @@ class AppDatabase extends _$AppDatabase {
     );
   });
 
+  /// Every archived category, both kinds — the Archived categories screen
+  /// (GitHub #162).
+  Stream<List<CategoryRow>> watchArchivedCategories() =>
+      (select(categories)
+            ..where((c) => c.isArchived.equals(true))
+            ..orderBy([(c) => OrderingTerm(expression: c.sortOrder)]))
+          .watch();
+
+  /// GitHub #162 — the way back from [archiveCategory], and its mirror:
+  /// restoring a parent brings its subcategories back with it (archiving it
+  /// took them too). Restoring a subcategory also restores its parent, so it
+  /// never comes back stranded under a hidden one — but not the parent's
+  /// other subcategories.
+  Future<void> unarchiveCategory(int id) => transaction(() async {
+    final self = await categoryById(id);
+    if (self == null) return;
+    await (update(categories)..where((c) => c.id.equals(id))).write(
+      const CategoriesCompanion(isArchived: Value(false)),
+    );
+    if (self.parentId == null) {
+      await (update(categories)..where((c) => c.parentId.equals(id))).write(
+        const CategoriesCompanion(isArchived: Value(false)),
+      );
+    } else {
+      await (update(categories)..where((c) => c.id.equals(self.parentId!)))
+          .write(const CategoriesCompanion(isArchived: Value(false)));
+    }
+  });
+
+  /// GitHub #162 — permanently removes an archived category that nothing
+  /// has ever used: one made by mistake. Archive stays the normal path
+  /// ([archiveCategory]); deleting a category that past transactions,
+  /// budgets or rules still name would orphan them and break old reports,
+  /// so this refuses — with a user-facing reason — whenever anything does.
+  /// Only archived categories, so it's always a deliberate second step.
+  Future<void> deleteCategory(int id) => transaction(() async {
+    final self = await categoryById(id);
+    if (self == null) return;
+    if (!self.isArchived) {
+      throw ArgumentError('Archive this category before deleting it.');
+    }
+    final child =
+        await (select(categories)
+              ..where((c) => c.parentId.equals(id))
+              ..limit(1))
+            .getSingleOrNull();
+    if (child != null) {
+      throw ArgumentError(
+        'It still has subcategories (like "${child.name}"). Delete those '
+        'first.',
+      );
+    }
+    final reason = await _categoryInUseReason(id);
+    if (reason != null) throw ArgumentError(reason);
+    await (delete(categories)..where((c) => c.id.equals(id))).go();
+  });
+
+  /// Why [deleteCategory] must refuse [id], or null when nothing points at
+  /// it. Covers every table with a `references(Categories, #id)` column —
+  /// a new one must be added here too (the foreign key would still refuse
+  /// the delete, just without a readable reason).
+  Future<String?> _categoryInUseReason(int id) async {
+    Future<bool> any<T extends HasResultSet, D>(
+      SimpleSelectStatement<T, D> q,
+    ) async => (await (q..limit(1)).get()).isNotEmpty;
+
+    if (await any(
+          select(transactions)..where((t) => t.categoryId.equals(id)),
+        ) ||
+        await any(
+          select(transactionSplits)..where((s) => s.categoryId.equals(id)),
+        )) {
+      return 'Transactions still use this category. Keep it archived so '
+          'your past reports stay right.';
+    }
+    if (await any(
+          select(personEntries)..where((e) => e.categoryId.equals(id)),
+        ) ||
+        await any(
+          select(groupExpenses)..where((e) => e.categoryId.equals(id)),
+        )) {
+      return 'People or group entries still use this category. Keep it '
+          'archived.';
+    }
+    if (await any(
+          select(budgets)..where(
+            (b) =>
+                b.categoryId.equals(id) | b.overflowTargetCategoryId.equals(id),
+          ),
+        ) ||
+        await any(select(allocations)..where((a) => a.categoryId.equals(id))) ||
+        await any(
+          select(budgetAlerts)..where((a) => a.categoryId.equals(id)),
+        )) {
+      return 'A budget still uses this category. Keep it archived.';
+    }
+    if (await any(select(reminders)..where((r) => r.categoryId.equals(id))) ||
+        await any(
+          select(recurringRules)..where((r) => r.categoryId.equals(id)),
+        ) ||
+        await any(
+          select(merchantRules)..where((r) => r.categoryId.equals(id)),
+        ) ||
+        await any(
+          select(transactionTemplates)..where((t) => t.categoryId.equals(id)),
+        )) {
+      return 'A reminder, Auto rule or template still uses this category. '
+          'Change that first, or keep it archived.';
+    }
+    if (await any(select(goalDetails)..where((g) => g.categoryId.equals(id))) ||
+        await any(select(loanDetails)..where((l) => l.categoryId.equals(id)))) {
+      return 'A savings goal or loan still uses this category. Keep it '
+          'archived.';
+    }
+    return null;
+  }
+
   Future<int> countTransactionsForCategory(int categoryId) async {
     final rows = await (select(
       transactions,

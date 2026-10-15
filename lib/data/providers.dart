@@ -62,6 +62,10 @@ final categoriesProvider =
       (ref, kind) => ref.watch(dbProvider).watchCategories(kind),
     );
 
+final archivedCategoriesProvider = StreamProvider<List<CategoryRow>>(
+  (ref) => ref.watch(dbProvider).watchArchivedCategories(),
+);
+
 /// Every category, keyed by id — for resolving names/icons on list rows.
 final categoryMapProvider = Provider<Map<int, CategoryRow>>((ref) {
   final income =

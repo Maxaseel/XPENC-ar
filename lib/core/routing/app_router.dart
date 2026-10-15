@@ -19,6 +19,7 @@ import '../../features/budgets/ready_to_assign_screen.dart';
 import '../../features/calendar/calendar_screen.dart';
 import '../../features/calculators/calculator_kind.dart';
 import '../../features/calculators/calculator_screen.dart';
+import '../../features/categories/archived_categories_screen.dart';
 import '../../features/categories/categories_screen.dart';
 import '../../features/categories/category_templates_screen.dart';
 import '../../features/dashboard/dashboard_screen.dart';
@@ -328,6 +329,11 @@ final appRouter = GoRouter(
                       path: 'templates',
                       parentNavigatorKey: _rootKey,
                       builder: (_, _) => const CategoryTemplatesScreen(),
+                    ),
+                    GoRoute(
+                      path: 'archived',
+                      parentNavigatorKey: _rootKey,
+                      builder: (_, _) => const ArchivedCategoriesScreen(),
                     ),
                   ],
                 ),

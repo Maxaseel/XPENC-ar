@@ -199,7 +199,7 @@ class AppDatabase extends _$AppDatabase {
       );
 
   @override
-  int get schemaVersion => 79;
+  int get schemaVersion => 80;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -733,6 +733,10 @@ class AppDatabase extends _$AppDatabase {
       if (from < 79) {
         // NCT — non-capturable transactions (GitHub #143).
         await _addColumnIfMissing(m, transactions, transactions.isNct);
+      }
+      if (from < 80) {
+        // Dashboard Accounts widget: slider or one card (GitHub #164).
+        await _addColumnIfMissing(m, settings, settings.dashboardAccountsStyle);
       }
     },
     beforeOpen: (details) async {
@@ -5994,6 +5998,11 @@ class AppDatabase extends _$AppDatabase {
       settings,
     ).write(SettingsCompanion(dashboardLayout: Value(encoded)));
   }
+
+  Future<void> setDashboardAccountsStyle(DashboardAccountsStyle style) =>
+      update(
+        settings,
+      ).write(SettingsCompanion(dashboardAccountsStyle: Value(style)));
 
   Future<void> setShowBottomNavLabels(bool value) => update(
     settings,

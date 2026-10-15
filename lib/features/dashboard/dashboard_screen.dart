@@ -1006,6 +1006,8 @@ class _NetLine extends StatelessWidget {
 // ── 3. Accounts strip ─────────────────────────────────────────────────────
 
 /// Each account's balance — today's, or as it closed the picked past month.
+/// A sideways slider of cards, or every account in one card (GitHub #164),
+/// per Customize dashboard.
 class _AccountsStrip extends ConsumerWidget {
   const _AccountsStrip();
 
@@ -1022,22 +1024,37 @@ class _AccountsStrip extends ConsumerWidget {
       return const Padding(padding: _sectionPad, child: _InlineLoader());
     }
     final asOf = past ? _periodEndLabel(ref) : null;
+    final oneCard =
+        ref.watch(dashboardAccountsStyleProvider) ==
+        DashboardAccountsStyle.oneCard;
+    final title = asOf == null ? 'Accounts' : 'Accounts on $asOf';
+    final seeAll = TextButton(
+      onPressed: () => context.push('/more/accounts'),
+      child: const Text('See all'),
+    );
 
     return accounts.when(
       data: (list) {
         if (list.isEmpty) return const SizedBox.shrink();
+        if (oneCard) {
+          return _CardSection(
+            title: title,
+            trailing: seeAll,
+            children: [
+              for (final a in list)
+                _AccountRow(
+                  account: a,
+                  balance: closing?[a.id] ?? a.currentBalance,
+                ),
+            ],
+          );
+        }
         return Padding(
           padding: const EdgeInsets.only(bottom: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _SectionHeader(
-                asOf == null ? 'Accounts' : 'Accounts on $asOf',
-                trailing: TextButton(
-                  onPressed: () => context.push('/more/accounts'),
-                  child: const Text('See all'),
-                ),
-              ),
+              _SectionHeader(title, trailing: seeAll),
               SizedBox(
                 // 16px padding top+bottom + icon(38) + name + balance needs
                 // ~116. 112 overflowed by 4px; leave headroom for text scale.
@@ -1061,6 +1078,60 @@ class _AccountsStrip extends ConsumerWidget {
           const Padding(padding: _sectionPad, child: _InlineLoader()),
       error: (_, _) =>
           const Padding(padding: _sectionPad, child: _InlineError()),
+    );
+  }
+}
+
+/// One account in the one-card layout: its icon, name and balance on a
+/// single row, so every account reads at a glance without swiping.
+class _AccountRow extends StatelessWidget {
+  const _AccountRow({required this.account, required this.balance});
+
+  final AccountRow account;
+  final Money balance;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final color = Color(account.colorValue);
+
+    return AppListTile(
+      onTap: () => context.push('/account/${account.id}'),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+      leading: Container(
+        width: 34,
+        height: 34,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: color.withValues(alpha: 0.14),
+        ),
+        child: IconWell(
+          AppIcons.resolve(account.iconKey),
+          size: 18,
+          color: color,
+        ),
+      ),
+      title: Text(
+        account.name,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
+      ),
+      // A lakh-sized balance must shrink, not shove the name off the row.
+      trailing: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 140),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.centerRight,
+          child: BalanceText(
+            balance,
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

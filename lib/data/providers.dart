@@ -1237,6 +1237,13 @@ final moreScreenViewModeProvider = Provider<MoreScreenViewMode>((ref) {
       MoreScreenViewMode.list;
 });
 
+/// How the Dashboard's Accounts widget lays out — see
+/// [DashboardAccountsStyle].
+final dashboardAccountsStyleProvider = Provider<DashboardAccountsStyle>((ref) {
+  return ref.watch(settingsProvider).valueOrNull?.dashboardAccountsStyle ??
+      DashboardAccountsStyle.slider;
+});
+
 /// Whether every amount app-wide is masked — the top bar's eye icon. See
 /// `AmountVisibilityScope` in `money_text.dart`.
 final hideAmountsProvider = Provider<bool>((ref) {

@@ -20,6 +20,10 @@ Release process: see [docs/RELEASING.md](docs/RELEASING.md).
   a category nothing has ever used can be deleted for good. One that any
   transaction, budget, rule, reminder, goal or loan uses can't — it says
   what still uses it and stays archived, so past reports never break.
+- **Accounts widget as one card** (#164). Settings → Customize dashboard →
+  Accounts widget: **Slider** (the row of cards you swipe through, as
+  before) or **One card** — every account and its balance in a single card,
+  so all of them read at a glance.
 
 ## [1.6.4] — 2026-10-10
 

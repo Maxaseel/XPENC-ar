@@ -163,6 +163,12 @@ enum UnlockMethod { pin, masterPhrase, totp }
 /// row instead, still grouped the same way.
 enum MoreScreenViewMode { list, cards }
 
+/// How the Dashboard's Accounts widget lays out (GitHub #164). `slider` is
+/// the original row of cards, swiped sideways; `oneCard` lists every
+/// account and its balance in a single card, so all of them read at a
+/// glance with nothing to swipe.
+enum DashboardAccountsStyle { slider, oneCard }
+
 /// Legacy — superseded by `Settings.rtaEnabled` (GitHub #100 v2). Budget
 /// (the per-category ceiling system) is now always on for everyone, and
 /// Ready to Assign is a single on/off layer on top of it rather than a
@@ -1257,6 +1263,12 @@ class Settings extends Table {
   /// layout. Every id is kept, hidden ones included, so a widget added in a
   /// later version is told apart from one the user removed.
   TextColumn get dashboardLayout => text().withDefault(const Constant(''))();
+
+  /// How the Dashboard's Accounts widget lays out — see
+  /// [DashboardAccountsStyle]. Defaults to `slider`, the original layout, so
+  /// nobody's dashboard changes until they pick the other one.
+  TextColumn get dashboardAccountsStyle => textEnum<DashboardAccountsStyle>()
+      .withDefault(const Constant('slider'))();
 
   @override
   Set<Column> get primaryKey => {id};

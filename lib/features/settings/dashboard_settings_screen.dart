@@ -10,13 +10,15 @@ import '../../core/widgets/money_text.dart';
 import '../../core/widgets/nav_bar_inset.dart';
 import '../../data/database.dart';
 import '../../data/providers.dart';
+import '../../data/tables.dart';
 import '../dashboard/dashboard_layout.dart';
 import 'settings_common.dart';
 
 /// Settings ▸ Customize dashboard: which widgets the Dashboard shows and in
-/// what order — drag to reorder, − to take one off, + to add one back — and
-/// which accounts count toward Net Worth, shown wherever that figure appears
-/// (Dashboard, Accounts screen total, More screen subtitle).
+/// what order — drag to reorder, − to take one off, + to add one back — how
+/// the Accounts widget lays out, and which accounts count toward Net Worth,
+/// shown wherever that figure appears (Dashboard, Accounts screen total,
+/// More screen subtitle).
 class DashboardSettingsScreen extends ConsumerStatefulWidget {
   const DashboardSettingsScreen({super.key});
 
@@ -222,6 +224,8 @@ class _DashboardSettingsScreenState
                         ),
                       ),
                     ),
+                  settingsSectionLabel(context, 'Accounts widget'),
+                  const _AccountsStylePicker(),
                   settingsSectionLabel(context, 'Included in Net Worth'),
                 ],
               ),
@@ -309,6 +313,56 @@ class _WidgetRow extends StatelessWidget {
           action,
         ],
       ),
+    );
+  }
+}
+
+/// Slider (the original row of cards, swiped sideways) or One card (every
+/// account and its balance in a single card) — GitHub #164.
+class _AccountsStylePicker extends ConsumerWidget {
+  const _AccountsStylePicker();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final style = ref.watch(dashboardAccountsStyleProvider);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: double.infinity,
+          child: SegmentedButton<DashboardAccountsStyle>(
+            showSelectedIcon: false,
+            segments: const [
+              ButtonSegment(
+                value: DashboardAccountsStyle.slider,
+                icon: AppIcon(Icons.view_carousel_outlined),
+                label: Text('Slider'),
+              ),
+              ButtonSegment(
+                value: DashboardAccountsStyle.oneCard,
+                icon: AppIcon(Icons.view_agenda_outlined),
+                label: Text('One card'),
+              ),
+            ],
+            selected: {style},
+            onSelectionChanged: (s) =>
+                ref.read(dbProvider).setDashboardAccountsStyle(s.first),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(4, 8, 4, 0),
+          child: Text(
+            style == DashboardAccountsStyle.slider
+                ? 'One card per account — swipe across to see them all.'
+                : 'Every account and its balance in one card — nothing to '
+                      'swipe.',
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

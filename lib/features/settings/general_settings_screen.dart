@@ -145,8 +145,8 @@ class GeneralSettingsScreen extends ConsumerWidget {
               leading: const AppIcon(Icons.dashboard_customize_outlined),
               title: const Text('Customize dashboard'),
               subtitle: Text(
-                'Add, remove and reorder widgets, and pick what counts toward '
-                'Net Worth.',
+                'Add, remove and reorder widgets, lay out Accounts, and pick '
+                'what counts toward Net Worth.',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: cs.onSurfaceVariant,
                 ),

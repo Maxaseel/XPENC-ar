@@ -102,6 +102,7 @@ void main() {
       moreScreenViewMode: MoreScreenViewMode.list,
       frequentIconKeys: '',
       dashboardLayout: '',
+      dashboardAccountsStyle: DashboardAccountsStyle.slider,
       budgetingMode: BudgetingMode.budgets,
       rtaEnabled: false,
     );

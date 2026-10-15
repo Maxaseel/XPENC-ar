@@ -10195,6 +10195,19 @@ class $SettingsTable extends Settings
     defaultValue: const Constant(''),
   );
   @override
+  late final GeneratedColumnWithTypeConverter<DashboardAccountsStyle, String>
+  dashboardAccountsStyle =
+      GeneratedColumn<String>(
+        'dashboard_accounts_style',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+        defaultValue: const Constant('slider'),
+      ).withConverter<DashboardAccountsStyle>(
+        $SettingsTable.$converterdashboardAccountsStyle,
+      );
+  @override
   List<GeneratedColumn> get $columns => [
     id,
     currencyCode,
@@ -10268,6 +10281,7 @@ class $SettingsTable extends Settings
     extraBottomInset,
     frequentIconKeys,
     dashboardLayout,
+    dashboardAccountsStyle,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -11135,6 +11149,13 @@ class $SettingsTable extends Settings
         DriftSqlType.string,
         data['${effectivePrefix}dashboard_layout'],
       )!,
+      dashboardAccountsStyle: $SettingsTable.$converterdashboardAccountsStyle
+          .fromSql(
+            attachedDatabase.typeMapping.read(
+              DriftSqlType.string,
+              data['${effectivePrefix}dashboard_accounts_style'],
+            )!,
+          ),
     );
   }
 
@@ -11169,6 +11190,11 @@ class $SettingsTable extends Settings
   $converterbackupRetentionMode = const EnumNameConverter<BackupRetentionMode>(
     BackupRetentionMode.values,
   );
+  static JsonTypeConverter2<DashboardAccountsStyle, String, String>
+  $converterdashboardAccountsStyle =
+      const EnumNameConverter<DashboardAccountsStyle>(
+        DashboardAccountsStyle.values,
+      );
 }
 
 class SettingRow extends DataClass implements Insertable<SettingRow> {
@@ -11524,6 +11550,11 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
   /// layout. Every id is kept, hidden ones included, so a widget added in a
   /// later version is told apart from one the user removed.
   final String dashboardLayout;
+
+  /// How the Dashboard's Accounts widget lays out — see
+  /// [DashboardAccountsStyle]. Defaults to `slider`, the original layout, so
+  /// nobody's dashboard changes until they pick the other one.
+  final DashboardAccountsStyle dashboardAccountsStyle;
   const SettingRow({
     required this.id,
     required this.currencyCode,
@@ -11597,6 +11628,7 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     required this.extraBottomInset,
     required this.frequentIconKeys,
     required this.dashboardLayout,
+    required this.dashboardAccountsStyle,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -11745,6 +11777,13 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     map['extra_bottom_inset'] = Variable<int>(extraBottomInset);
     map['frequent_icon_keys'] = Variable<String>(frequentIconKeys);
     map['dashboard_layout'] = Variable<String>(dashboardLayout);
+    {
+      map['dashboard_accounts_style'] = Variable<String>(
+        $SettingsTable.$converterdashboardAccountsStyle.toSql(
+          dashboardAccountsStyle,
+        ),
+      );
+    }
     return map;
   }
 
@@ -11854,6 +11893,7 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
       extraBottomInset: Value(extraBottomInset),
       frequentIconKeys: Value(frequentIconKeys),
       dashboardLayout: Value(dashboardLayout),
+      dashboardAccountsStyle: Value(dashboardAccountsStyle),
     );
   }
 
@@ -11989,6 +12029,10 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
       extraBottomInset: serializer.fromJson<int>(json['extraBottomInset']),
       frequentIconKeys: serializer.fromJson<String>(json['frequentIconKeys']),
       dashboardLayout: serializer.fromJson<String>(json['dashboardLayout']),
+      dashboardAccountsStyle: $SettingsTable.$converterdashboardAccountsStyle
+          .fromJson(
+            serializer.fromJson<String>(json['dashboardAccountsStyle']),
+          ),
     );
   }
   @override
@@ -12099,6 +12143,11 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
       'extraBottomInset': serializer.toJson<int>(extraBottomInset),
       'frequentIconKeys': serializer.toJson<String>(frequentIconKeys),
       'dashboardLayout': serializer.toJson<String>(dashboardLayout),
+      'dashboardAccountsStyle': serializer.toJson<String>(
+        $SettingsTable.$converterdashboardAccountsStyle.toJson(
+          dashboardAccountsStyle,
+        ),
+      ),
     };
   }
 
@@ -12175,6 +12224,7 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     int? extraBottomInset,
     String? frequentIconKeys,
     String? dashboardLayout,
+    DashboardAccountsStyle? dashboardAccountsStyle,
   }) => SettingRow(
     id: id ?? this.id,
     currencyCode: currencyCode ?? this.currencyCode,
@@ -12269,6 +12319,8 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     extraBottomInset: extraBottomInset ?? this.extraBottomInset,
     frequentIconKeys: frequentIconKeys ?? this.frequentIconKeys,
     dashboardLayout: dashboardLayout ?? this.dashboardLayout,
+    dashboardAccountsStyle:
+        dashboardAccountsStyle ?? this.dashboardAccountsStyle,
   );
   SettingRow copyWithCompanion(SettingsCompanion data) {
     return SettingRow(
@@ -12468,6 +12520,9 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
       dashboardLayout: data.dashboardLayout.present
           ? data.dashboardLayout.value
           : this.dashboardLayout,
+      dashboardAccountsStyle: data.dashboardAccountsStyle.present
+          ? data.dashboardAccountsStyle.value
+          : this.dashboardAccountsStyle,
     );
   }
 
@@ -12549,7 +12604,8 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
           ..write('fontFamily: $fontFamily, ')
           ..write('extraBottomInset: $extraBottomInset, ')
           ..write('frequentIconKeys: $frequentIconKeys, ')
-          ..write('dashboardLayout: $dashboardLayout')
+          ..write('dashboardLayout: $dashboardLayout, ')
+          ..write('dashboardAccountsStyle: $dashboardAccountsStyle')
           ..write(')'))
         .toString();
   }
@@ -12628,6 +12684,7 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     extraBottomInset,
     frequentIconKeys,
     dashboardLayout,
+    dashboardAccountsStyle,
   ]);
   @override
   bool operator ==(Object other) =>
@@ -12707,7 +12764,8 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
           other.fontFamily == this.fontFamily &&
           other.extraBottomInset == this.extraBottomInset &&
           other.frequentIconKeys == this.frequentIconKeys &&
-          other.dashboardLayout == this.dashboardLayout);
+          other.dashboardLayout == this.dashboardLayout &&
+          other.dashboardAccountsStyle == this.dashboardAccountsStyle);
 }
 
 class SettingsCompanion extends UpdateCompanion<SettingRow> {
@@ -12783,6 +12841,7 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
   final Value<int> extraBottomInset;
   final Value<String> frequentIconKeys;
   final Value<String> dashboardLayout;
+  final Value<DashboardAccountsStyle> dashboardAccountsStyle;
   const SettingsCompanion({
     this.id = const Value.absent(),
     this.currencyCode = const Value.absent(),
@@ -12856,6 +12915,7 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     this.extraBottomInset = const Value.absent(),
     this.frequentIconKeys = const Value.absent(),
     this.dashboardLayout = const Value.absent(),
+    this.dashboardAccountsStyle = const Value.absent(),
   });
   SettingsCompanion.insert({
     this.id = const Value.absent(),
@@ -12930,6 +12990,7 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     this.extraBottomInset = const Value.absent(),
     this.frequentIconKeys = const Value.absent(),
     this.dashboardLayout = const Value.absent(),
+    this.dashboardAccountsStyle = const Value.absent(),
   });
   static Insertable<SettingRow> custom({
     Expression<int>? id,
@@ -13004,6 +13065,7 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     Expression<int>? extraBottomInset,
     Expression<String>? frequentIconKeys,
     Expression<String>? dashboardLayout,
+    Expression<String>? dashboardAccountsStyle,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -13101,6 +13163,8 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
       if (extraBottomInset != null) 'extra_bottom_inset': extraBottomInset,
       if (frequentIconKeys != null) 'frequent_icon_keys': frequentIconKeys,
       if (dashboardLayout != null) 'dashboard_layout': dashboardLayout,
+      if (dashboardAccountsStyle != null)
+        'dashboard_accounts_style': dashboardAccountsStyle,
     });
   }
 
@@ -13177,6 +13241,7 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     Value<int>? extraBottomInset,
     Value<String>? frequentIconKeys,
     Value<String>? dashboardLayout,
+    Value<DashboardAccountsStyle>? dashboardAccountsStyle,
   }) {
     return SettingsCompanion(
       id: id ?? this.id,
@@ -13264,6 +13329,8 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
       extraBottomInset: extraBottomInset ?? this.extraBottomInset,
       frequentIconKeys: frequentIconKeys ?? this.frequentIconKeys,
       dashboardLayout: dashboardLayout ?? this.dashboardLayout,
+      dashboardAccountsStyle:
+          dashboardAccountsStyle ?? this.dashboardAccountsStyle,
     );
   }
 
@@ -13534,6 +13601,13 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     if (dashboardLayout.present) {
       map['dashboard_layout'] = Variable<String>(dashboardLayout.value);
     }
+    if (dashboardAccountsStyle.present) {
+      map['dashboard_accounts_style'] = Variable<String>(
+        $SettingsTable.$converterdashboardAccountsStyle.toSql(
+          dashboardAccountsStyle.value,
+        ),
+      );
+    }
     return map;
   }
 
@@ -13615,7 +13689,8 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
           ..write('fontFamily: $fontFamily, ')
           ..write('extraBottomInset: $extraBottomInset, ')
           ..write('frequentIconKeys: $frequentIconKeys, ')
-          ..write('dashboardLayout: $dashboardLayout')
+          ..write('dashboardLayout: $dashboardLayout, ')
+          ..write('dashboardAccountsStyle: $dashboardAccountsStyle')
           ..write(')'))
         .toString();
   }
@@ -34647,6 +34722,7 @@ typedef $$SettingsTableCreateCompanionBuilder =
       Value<int> extraBottomInset,
       Value<String> frequentIconKeys,
       Value<String> dashboardLayout,
+      Value<DashboardAccountsStyle> dashboardAccountsStyle,
     });
 typedef $$SettingsTableUpdateCompanionBuilder =
     SettingsCompanion Function({
@@ -34722,6 +34798,7 @@ typedef $$SettingsTableUpdateCompanionBuilder =
       Value<int> extraBottomInset,
       Value<String> frequentIconKeys,
       Value<String> dashboardLayout,
+      Value<DashboardAccountsStyle> dashboardAccountsStyle,
     });
 
 final class $$SettingsTableReferences
@@ -35127,6 +35204,16 @@ class $$SettingsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnWithTypeConverterFilters<
+    DashboardAccountsStyle,
+    DashboardAccountsStyle,
+    String
+  >
+  get dashboardAccountsStyle => $composableBuilder(
+    column: $table.dashboardAccountsStyle,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
   $$AccountsTableFilterComposer get quickAddAccountId {
     final $$AccountsTableFilterComposer composer = $composerBuilder(
       composer: this,
@@ -35515,6 +35602,11 @@ class $$SettingsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get dashboardAccountsStyle => $composableBuilder(
+    column: $table.dashboardAccountsStyle,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$AccountsTableOrderingComposer get quickAddAccountId {
     final $$AccountsTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -35889,6 +35981,12 @@ class $$SettingsTableAnnotationComposer
     builder: (column) => column,
   );
 
+  GeneratedColumnWithTypeConverter<DashboardAccountsStyle, String>
+  get dashboardAccountsStyle => $composableBuilder(
+    column: $table.dashboardAccountsStyle,
+    builder: (column) => column,
+  );
+
   $$AccountsTableAnnotationComposer get quickAddAccountId {
     final $$AccountsTableAnnotationComposer composer = $composerBuilder(
       composer: this,
@@ -36016,6 +36114,8 @@ class $$SettingsTableTableManager
                 Value<int> extraBottomInset = const Value.absent(),
                 Value<String> frequentIconKeys = const Value.absent(),
                 Value<String> dashboardLayout = const Value.absent(),
+                Value<DashboardAccountsStyle> dashboardAccountsStyle =
+                    const Value.absent(),
               }) => SettingsCompanion(
                 id: id,
                 currencyCode: currencyCode,
@@ -36089,6 +36189,7 @@ class $$SettingsTableTableManager
                 extraBottomInset: extraBottomInset,
                 frequentIconKeys: frequentIconKeys,
                 dashboardLayout: dashboardLayout,
+                dashboardAccountsStyle: dashboardAccountsStyle,
               ),
           createCompanionCallback:
               ({
@@ -36167,6 +36268,8 @@ class $$SettingsTableTableManager
                 Value<int> extraBottomInset = const Value.absent(),
                 Value<String> frequentIconKeys = const Value.absent(),
                 Value<String> dashboardLayout = const Value.absent(),
+                Value<DashboardAccountsStyle> dashboardAccountsStyle =
+                    const Value.absent(),
               }) => SettingsCompanion.insert(
                 id: id,
                 currencyCode: currencyCode,
@@ -36240,6 +36343,7 @@ class $$SettingsTableTableManager
                 extraBottomInset: extraBottomInset,
                 frequentIconKeys: frequentIconKeys,
                 dashboardLayout: dashboardLayout,
+                dashboardAccountsStyle: dashboardAccountsStyle,
               ),
           withReferenceMapper: (p0) => p0
               .map(

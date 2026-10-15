@@ -3,22 +3,59 @@ import 'package:flutter/material.dart';
 /// Semantic colour is reserved for money direction only — it must always
 /// *mean* something, and it must mean the same thing in every theme. Green is
 /// income whether the app is monochrome or violet; a theme may never repaint it.
+///
+/// The person may (GitHub #156): Settings → Colours picks the hue for each
+/// direction. That keeps the rule — one direction, one colour, everywhere —
+/// only the hue is theirs. So these are read at build time, never baked into
+/// a `const`; `XpencApp` calls [configure] and rebuilds every widget when
+/// they change.
 class AppColors {
   const AppColors._();
 
+  static const defaultIncome = Color(0xFF16A34A);
+  static const defaultExpense = Color(0xFFDC2626);
+  static const defaultTransfer = Color(0xFF2563EB);
+  static const defaultPerson = Color(0xFFA855F7);
+
   /// Money in.
-  static const income = Color(0xFF16A34A);
+  static Color income = defaultIncome;
 
   /// Money out.
-  static const expense = Color(0xFFDC2626);
+  static Color expense = defaultExpense;
 
   /// Neither in nor out — moves between your own accounts.
-  static const transfer = Color(0xFF2563EB);
+  static Color transfer = defaultTransfer;
 
   /// Money moved to or from a person. It leaves (or enters) your account, but
   /// lending is not spending and being repaid is not earning — so it wears
   /// neither green nor red.
-  static const person = Color(0xFFA855F7);
+  static Color person = defaultPerson;
+
+  /// Points the direction colours at the person's picks — null keeps the
+  /// default. Returns whether anything changed, so the caller only forces a
+  /// full rebuild when it has to.
+  static bool configure({
+    Color? income,
+    Color? expense,
+    Color? transfer,
+    Color? person,
+  }) {
+    final nextIncome = income ?? defaultIncome;
+    final nextExpense = expense ?? defaultExpense;
+    final nextTransfer = transfer ?? defaultTransfer;
+    final nextPerson = person ?? defaultPerson;
+    if (nextIncome == AppColors.income &&
+        nextExpense == AppColors.expense &&
+        nextTransfer == AppColors.transfer &&
+        nextPerson == AppColors.person) {
+      return false;
+    }
+    AppColors.income = nextIncome;
+    AppColors.expense = nextExpense;
+    AppColors.transfer = nextTransfer;
+    AppColors.person = nextPerson;
+    return true;
+  }
 
   /// A balance correction — the ledger catching up with reality. Neither
   /// earned nor spent, and deliberately a "look at this" amber.
@@ -28,6 +65,19 @@ class AppColors {
   /// read the accent off the theme (`colorScheme.secondary`) so it follows the
   /// palette the user picked.
   static const accent = Color(0xFF2563EB);
+}
+
+/// Marks every element in the app to rebuild — what a change to
+/// [AppColors] (GitHub #156) needs, since a `const` widget never rebuilds on
+/// its own and these colours are read at build time. State is kept: nothing
+/// is remounted, only built again. Call it after a frame, never during one.
+void rebuildAllWidgets() {
+  void mark(Element element) {
+    element.markNeedsBuild();
+    element.visitChildren(mark);
+  }
+
+  WidgetsBinding.instance.rootElement?.visitChildren(mark);
 }
 
 /// Every colour a theme varies. Semantic money colours are deliberately absent.

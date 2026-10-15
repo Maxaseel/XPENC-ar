@@ -1045,7 +1045,7 @@ class GroupShareCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const _Disc(
+                    _Disc(
                       color: AppColors.person,
                       size: 46,
                       icon: Icons.groups_2_rounded,

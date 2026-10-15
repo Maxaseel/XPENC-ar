@@ -1237,6 +1237,29 @@ final moreScreenViewModeProvider = Provider<MoreScreenViewMode>((ref) {
       MoreScreenViewMode.list;
 });
 
+/// Settings → Colours (GitHub #156): each money direction's colour (null =
+/// built-in) and how transaction icons are coloured.
+typedef MoneyColorChoice = ({
+  int? income,
+  int? expense,
+  int? transfer,
+  int? person,
+  TxIconBackground iconMode,
+  int? iconColor,
+});
+
+final moneyColorChoiceProvider = Provider<MoneyColorChoice>((ref) {
+  final s = ref.watch(settingsProvider).valueOrNull;
+  return (
+    income: s?.incomeColor,
+    expense: s?.expenseColor,
+    transfer: s?.transferColor,
+    person: s?.personColor,
+    iconMode: s?.txIconBackground ?? TxIconBackground.category,
+    iconColor: s?.txIconColor,
+  );
+});
+
 /// How the Dashboard's Accounts widget lays out — see
 /// [DashboardAccountsStyle].
 final dashboardAccountsStyleProvider = Provider<DashboardAccountsStyle>((ref) {

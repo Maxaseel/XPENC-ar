@@ -613,7 +613,9 @@ class _MoneyMetricTabs extends StatelessWidget {
   final _MoneyMetric? selected;
   final ValueChanged<_MoneyMetric> onSelect;
 
-  static const _tabs = [
+  // A getter, not a `static const`: the colours are the person's picks
+  // (GitHub #156), read fresh each build.
+  static List<(_MoneyMetric, String, Color)> get _tabs => [
     (_MoneyMetric.income, 'Income', AppColors.income),
     (_MoneyMetric.expense, 'Expense', AppColors.expense),
     (_MoneyMetric.savings, 'Savings', AppColors.transfer),
@@ -954,7 +956,7 @@ class _ProportionBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final total = income.paise + expense.paise;
     if (total <= 0) {
-      return const AnimatedBar(fraction: 0, color: AppColors.income);
+      return AnimatedBar(fraction: 0, color: AppColors.income);
     }
 
     // Expense is the whole bar, income grows over it — so the split animates
@@ -1982,11 +1984,14 @@ class _TxRow extends StatelessWidget {
     // The icon depicts the *category*, so it wears the category's colour. The
     // amount reports the *direction*, so it wears the direction's. A transfer
     // or a person movement has no category, and falls back to its own glyph.
-    final iconColor = hasCategory
-        ? Color(category!.colorValue)
-        : isSplit
-        ? theme.colorScheme.secondary
-        : colorForTxType(tx.type);
+    final iconColor = txIconColor(
+      tx.type,
+      hasCategory
+          ? Color(category!.colorValue)
+          : isSplit
+          ? theme.colorScheme.secondary
+          : colorForTxType(tx.type),
+    );
     final icon = hasCategory
         ? AppIcons.resolve(category!.iconKey)
         : isSplit

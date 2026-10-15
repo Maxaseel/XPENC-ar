@@ -58,6 +58,7 @@ import '../../features/settings/bottom_nav_settings_screen.dart';
 import '../../features/settings/currency_settings_screen.dart';
 import '../../features/settings/dashboard_settings_screen.dart';
 import '../../features/settings/data_settings_screen.dart';
+import '../../features/settings/colors_settings_screen.dart';
 import '../../features/settings/font_settings_screen.dart';
 import '../../features/settings/general_settings_screen.dart';
 import '../../features/settings/mode_budgeting_settings_screen.dart';
@@ -268,6 +269,11 @@ final appRouter = GoRouter(
                       path: 'font',
                       parentNavigatorKey: _rootKey,
                       builder: (_, _) => const FontSettingsScreen(),
+                    ),
+                    GoRoute(
+                      path: 'colours',
+                      parentNavigatorKey: _rootKey,
+                      builder: (_, _) => const ColorsSettingsScreen(),
                     ),
                     GoRoute(
                       path: 'dashboard',

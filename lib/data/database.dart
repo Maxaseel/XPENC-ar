@@ -199,7 +199,7 @@ class AppDatabase extends _$AppDatabase {
       );
 
   @override
-  int get schemaVersion => 80;
+  int get schemaVersion => 81;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -737,6 +737,17 @@ class AppDatabase extends _$AppDatabase {
       if (from < 80) {
         // Dashboard Accounts widget: slider or one card (GitHub #164).
         await _addColumnIfMissing(m, settings, settings.dashboardAccountsStyle);
+      }
+      if (from < 81) {
+        // Settings → Colours: money-direction colours and the transaction
+        // icon's colour (GitHub #156). All nullable or defaulted, so every
+        // existing install keeps today's colours.
+        await _addColumnIfMissing(m, settings, settings.incomeColor);
+        await _addColumnIfMissing(m, settings, settings.expenseColor);
+        await _addColumnIfMissing(m, settings, settings.transferColor);
+        await _addColumnIfMissing(m, settings, settings.personColor);
+        await _addColumnIfMissing(m, settings, settings.txIconBackground);
+        await _addColumnIfMissing(m, settings, settings.txIconColor);
       }
     },
     beforeOpen: (details) async {
@@ -6003,6 +6014,30 @@ class AppDatabase extends _$AppDatabase {
       update(
         settings,
       ).write(SettingsCompanion(dashboardAccountsStyle: Value(style)));
+
+  /// Settings → Colours (GitHub #156). A null colour goes back to the
+  /// built-in one.
+  Future<void> setMoneyColors({
+    required int? income,
+    required int? expense,
+    required int? transfer,
+    required int? person,
+  }) => update(settings).write(
+    SettingsCompanion(
+      incomeColor: Value(income),
+      expenseColor: Value(expense),
+      transferColor: Value(transfer),
+      personColor: Value(person),
+    ),
+  );
+
+  Future<void> setTxIconStyle(TxIconBackground mode, {int? color}) =>
+      update(settings).write(
+        SettingsCompanion(
+          txIconBackground: Value(mode),
+          txIconColor: Value(color),
+        ),
+      );
 
   Future<void> setShowBottomNavLabels(bool value) => update(
     settings,

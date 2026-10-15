@@ -9,8 +9,9 @@ import 'more_screen_layout_sheet.dart';
 import 'settings_common.dart';
 import 'theme_picker_sheet.dart';
 
-/// General — currency, theme, font and layout. The settings that shape how
-/// XPENC looks and reads, independent of app mode or any one feature.
+/// General — currency, theme, font, colours and layout. The settings that
+/// shape how XPENC looks and reads, independent of app mode or any one
+/// feature.
 class GeneralSettingsScreen extends ConsumerWidget {
   const GeneralSettingsScreen({super.key});
 
@@ -112,6 +113,23 @@ class GeneralSettingsScreen extends ConsumerWidget {
                     color: cs.onSurfaceVariant,
                   ),
                   onTap: () => context.push('/more/settings/font'),
+                ),
+                Divider(height: 1, indent: 60, color: cs.outline),
+                AppListTile(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                  leading: const AppIcon(Icons.palette_outlined),
+                  title: const Text('Colours'),
+                  subtitle: Text(
+                    'Money in, money out, people, and transaction icons',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: cs.onSurfaceVariant,
+                    ),
+                  ),
+                  trailing: AppIcon(
+                    Icons.chevron_right_rounded,
+                    color: cs.onSurfaceVariant,
+                  ),
+                  onTap: () => context.push('/more/settings/colours'),
                 ),
                 Divider(height: 1, indent: 60, color: cs.outline),
                 AppListTile(

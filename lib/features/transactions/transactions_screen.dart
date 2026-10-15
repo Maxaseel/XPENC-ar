@@ -1040,11 +1040,14 @@ class _TxCard extends StatelessWidget {
 
     // The icon's colour is the *category's*, because that is what the icon
     // depicts. The amount's colour is the direction's. They are different jobs.
-    final iconColor = hasCategory
-        ? Color(category!.colorValue)
-        : isSplit
-        ? theme.colorScheme.secondary
-        : colorForTxType(tx.type);
+    final iconColor = txIconColor(
+      tx.type,
+      hasCategory
+          ? Color(category!.colorValue)
+          : isSplit
+          ? theme.colorScheme.secondary
+          : colorForTxType(tx.type),
+    );
     final icon = hasCategory
         ? AppIcons.resolve(category!.iconKey)
         : isSplit

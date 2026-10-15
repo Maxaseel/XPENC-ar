@@ -169,6 +169,12 @@ enum MoreScreenViewMode { list, cards }
 /// glance with nothing to swipe.
 enum DashboardAccountsStyle { slider, oneCard }
 
+/// What colours a transaction row's icon and the circle behind it (GitHub
+/// #156). `category` is the original: the category's own colour (the type's
+/// for a transfer or person movement). `direction` uses the money-in /
+/// money-out colour instead; `single` one colour the person picks, for all.
+enum TxIconBackground { category, direction, single }
+
 /// Legacy — superseded by `Settings.rtaEnabled` (GitHub #100 v2). Budget
 /// (the per-category ceiling system) is now always on for everyone, and
 /// Ready to Assign is a single on/off layer on top of it rather than a
@@ -1269,6 +1275,22 @@ class Settings extends Table {
   /// nobody's dashboard changes until they pick the other one.
   TextColumn get dashboardAccountsStyle => textEnum<DashboardAccountsStyle>()
       .withDefault(const Constant('slider'))();
+
+  /// Settings → Colours (GitHub #156): the person's pick for each money
+  /// direction, as ARGB. Null keeps the built-in colour (`AppColors`'
+  /// defaults), so nothing changes until someone picks one.
+  IntColumn get incomeColor => integer().nullable()();
+  IntColumn get expenseColor => integer().nullable()();
+  IntColumn get transferColor => integer().nullable()();
+  IntColumn get personColor => integer().nullable()();
+
+  /// What colours a transaction row's icon — see [TxIconBackground].
+  TextColumn get txIconBackground =>
+      textEnum<TxIconBackground>().withDefault(const Constant('category'))();
+
+  /// The one colour for [txIconBackground] `single`, as ARGB. Null until
+  /// picked — the accent blue stands in.
+  IntColumn get txIconColor => integer().nullable()();
 
   @override
   Set<Column> get primaryKey => {id};

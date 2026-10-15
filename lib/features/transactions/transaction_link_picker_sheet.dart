@@ -172,11 +172,14 @@ class _TxTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isTransfer = tx.type == TxType.transfer;
-    final accent = isTransfer
-        ? theme.colorScheme.onSurfaceVariant
-        : (category != null
-              ? Color(category!.colorValue)
-              : theme.colorScheme.onSurfaceVariant);
+    final accent = txIconColor(
+      tx.type,
+      isTransfer
+          ? theme.colorScheme.onSurfaceVariant
+          : (category != null
+                ? Color(category!.colorValue)
+                : theme.colorScheme.onSurfaceVariant),
+    );
     final icon = isTransfer
         ? Icons.swap_horiz_rounded
         : AppIcons.resolve(category?.iconKey ?? 'other');

@@ -24,6 +24,12 @@ Release process: see [docs/RELEASING.md](docs/RELEASING.md).
   Accounts widget: **Slider** (the row of cards you swipe through, as
   before) or **One card** — every account and its balance in a single card,
   so all of them read at a glance.
+- **Pick your own colours** (#156). Settings → General → **Colours**: choose
+  the colour for money in, money out, transfers and people — from the
+  swatches or any hex colour — and it's used everywhere that kind of money
+  shows. **Transaction icon** picks what colours each transaction's icon:
+  its category (as before), the money in / out colour, or one colour for
+  all. **Reset all colours** puts the built-in ones back.
 
 ## [1.6.4] — 2026-10-10
 

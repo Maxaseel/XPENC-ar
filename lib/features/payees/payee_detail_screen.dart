@@ -295,6 +295,7 @@ class _TxRow extends StatelessWidget {
         ? note
         : labelForTxType(tx.type);
     final color = colorForTxType(tx.type);
+    final iconColor = txIconColor(tx.type, color);
     final displayAmount = tx.type == TxType.expense ? -tx.amount : tx.amount;
 
     return NctVeil(
@@ -302,13 +303,13 @@ class _TxRow extends StatelessWidget {
       child: AppListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
         leading: CircleAvatar(
-          backgroundColor: color.withValues(alpha: 0.14),
-          foregroundColor: color,
+          backgroundColor: iconColor.withValues(alpha: 0.14),
+          foregroundColor: iconColor,
           child: transactionRowIcon(
             customIcon: tx.customIcon,
             fallback: iconForTxType(tx.type),
             size: 20,
-            color: color,
+            color: iconColor,
           ),
         ),
         title: Text(

@@ -195,13 +195,16 @@ class HistoryRow extends StatelessWidget {
     final category = tx.categoryId == null ? null : categoryMap[tx.categoryId];
 
     final isCorrection = tx.type.isCorrection;
-    final Color accent = isTransfer
-        ? AppColors.transfer
-        : isCorrection
-        ? AppColors.correction
-        : (category != null
-              ? Color(category.colorValue)
-              : theme.colorScheme.onSurfaceVariant);
+    final Color accent = txIconColor(
+      tx.type,
+      isTransfer
+          ? AppColors.transfer
+          : isCorrection
+          ? AppColors.correction
+          : (category != null
+                ? Color(category.colorValue)
+                : theme.colorScheme.onSurfaceVariant),
+    );
     final IconData icon = isTransfer
         ? Icons.swap_horiz_rounded
         : isCorrection

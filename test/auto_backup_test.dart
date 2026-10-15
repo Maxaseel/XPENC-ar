@@ -103,6 +103,7 @@ void main() {
       frequentIconKeys: '',
       dashboardLayout: '',
       dashboardAccountsStyle: DashboardAccountsStyle.slider,
+      txIconBackground: TxIconBackground.category,
       budgetingMode: BudgetingMode.budgets,
       rtaEnabled: false,
     );

@@ -91,6 +91,39 @@ class AmountVisibilityToggle extends ConsumerWidget {
   }
 }
 
+/// What colours a transaction row's icon (GitHub #156) — set from Settings →
+/// Colours by `XpencApp`, alongside [AppColors.configure].
+class TxIconStyle {
+  const TxIconStyle._();
+
+  /// Stands in for [single] until the person picks one.
+  static const defaultSingle = Color(0xFF2563EB);
+
+  static TxIconBackground mode = TxIconBackground.category;
+  static Color single = defaultSingle;
+
+  /// Returns whether anything changed.
+  static bool configure(TxIconBackground mode, Color? single) {
+    final nextSingle = single ?? defaultSingle;
+    if (mode == TxIconStyle.mode && nextSingle == TxIconStyle.single) {
+      return false;
+    }
+    TxIconStyle.mode = mode;
+    TxIconStyle.single = nextSingle;
+    return true;
+  }
+}
+
+/// A transaction row's icon colour — also the faded circle behind it.
+/// [natural] is what the row would use on its own (its category's colour,
+/// usually); [TxIconStyle] may swap that for the direction's colour or for
+/// the one colour the person picked.
+Color txIconColor(TxType type, Color natural) => switch (TxIconStyle.mode) {
+  TxIconBackground.category => natural,
+  TxIconBackground.direction => colorForTxType(type),
+  TxIconBackground.single => TxIconStyle.single,
+};
+
 /// Colour only ever *means* something: money in is green, money out is red,
 /// a transfer is neither — and a person movement is neither either.
 Color colorForTxType(TxType type) => switch (type) {

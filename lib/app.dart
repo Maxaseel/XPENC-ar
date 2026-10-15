@@ -9,6 +9,7 @@ import 'core/money.dart';
 import 'core/routing/app_router.dart';
 import 'core/security/screen_security.dart';
 import 'core/security/unlock_method.dart';
+import 'core/theme/app_colors.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_preset.dart';
 import 'core/widgets/error_view.dart';
@@ -294,6 +295,24 @@ class _XpencAppState extends ConsumerState<XpencApp>
     MoneyFormat.configure(currency: currency, showSymbol: showSymbol);
     final hideAmounts = ref.watch(hideAmountsProvider);
     final extraBottomInset = ref.watch(extraBottomInsetProvider);
+
+    // Settings → Colours (GitHub #156). The money colours are plain statics
+    // read at build time, so a change must reach widgets that otherwise
+    // wouldn't rebuild (const ones, screens kept alive on another tab) —
+    // after this frame, every element is marked to rebuild once.
+    final colors = ref.watch(moneyColorChoiceProvider);
+    Color? colorOf(int? argb) => argb == null ? null : Color(argb);
+    final colorsChanged =
+        AppColors.configure(
+          income: colorOf(colors.income),
+          expense: colorOf(colors.expense),
+          transfer: colorOf(colors.transfer),
+          person: colorOf(colors.person),
+        ) |
+        TxIconStyle.configure(colors.iconMode, colorOf(colors.iconColor));
+    if (colorsChanged) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => rebuildAllWidgets());
+    }
 
     // Fire-and-forget: a platform-channel call, not something the frame
     // waits on. ScreenSecurity itself no-ops if nothing actually changed.

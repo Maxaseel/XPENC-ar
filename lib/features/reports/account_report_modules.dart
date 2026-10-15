@@ -1138,7 +1138,7 @@ class _HealthBody extends ConsumerWidget {
         return _ModuleList(
           children: [
             if (flags.isEmpty)
-              const _EmptyModule(
+              _EmptyModule(
                 icon: Icons.verified_outlined,
                 text:
                     'Every account looks right: nothing below zero, nothing '

@@ -10207,6 +10207,71 @@ class $SettingsTable extends Settings
       ).withConverter<DashboardAccountsStyle>(
         $SettingsTable.$converterdashboardAccountsStyle,
       );
+  static const VerificationMeta _incomeColorMeta = const VerificationMeta(
+    'incomeColor',
+  );
+  @override
+  late final GeneratedColumn<int> incomeColor = GeneratedColumn<int>(
+    'income_color',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _expenseColorMeta = const VerificationMeta(
+    'expenseColor',
+  );
+  @override
+  late final GeneratedColumn<int> expenseColor = GeneratedColumn<int>(
+    'expense_color',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _transferColorMeta = const VerificationMeta(
+    'transferColor',
+  );
+  @override
+  late final GeneratedColumn<int> transferColor = GeneratedColumn<int>(
+    'transfer_color',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _personColorMeta = const VerificationMeta(
+    'personColor',
+  );
+  @override
+  late final GeneratedColumn<int> personColor = GeneratedColumn<int>(
+    'person_color',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<TxIconBackground, String>
+  txIconBackground = GeneratedColumn<String>(
+    'tx_icon_background',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('category'),
+  ).withConverter<TxIconBackground>($SettingsTable.$convertertxIconBackground);
+  static const VerificationMeta _txIconColorMeta = const VerificationMeta(
+    'txIconColor',
+  );
+  @override
+  late final GeneratedColumn<int> txIconColor = GeneratedColumn<int>(
+    'tx_icon_color',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -10282,6 +10347,12 @@ class $SettingsTable extends Settings
     frequentIconKeys,
     dashboardLayout,
     dashboardAccountsStyle,
+    incomeColor,
+    expenseColor,
+    transferColor,
+    personColor,
+    txIconBackground,
+    txIconColor,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -10838,6 +10909,51 @@ class $SettingsTable extends Settings
         ),
       );
     }
+    if (data.containsKey('income_color')) {
+      context.handle(
+        _incomeColorMeta,
+        incomeColor.isAcceptableOrUnknown(
+          data['income_color']!,
+          _incomeColorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('expense_color')) {
+      context.handle(
+        _expenseColorMeta,
+        expenseColor.isAcceptableOrUnknown(
+          data['expense_color']!,
+          _expenseColorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('transfer_color')) {
+      context.handle(
+        _transferColorMeta,
+        transferColor.isAcceptableOrUnknown(
+          data['transfer_color']!,
+          _transferColorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('person_color')) {
+      context.handle(
+        _personColorMeta,
+        personColor.isAcceptableOrUnknown(
+          data['person_color']!,
+          _personColorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('tx_icon_color')) {
+      context.handle(
+        _txIconColorMeta,
+        txIconColor.isAcceptableOrUnknown(
+          data['tx_icon_color']!,
+          _txIconColorMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -11156,6 +11272,32 @@ class $SettingsTable extends Settings
               data['${effectivePrefix}dashboard_accounts_style'],
             )!,
           ),
+      incomeColor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}income_color'],
+      ),
+      expenseColor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}expense_color'],
+      ),
+      transferColor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}transfer_color'],
+      ),
+      personColor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}person_color'],
+      ),
+      txIconBackground: $SettingsTable.$convertertxIconBackground.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}tx_icon_background'],
+        )!,
+      ),
+      txIconColor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}tx_icon_color'],
+      ),
     );
   }
 
@@ -11195,6 +11337,10 @@ class $SettingsTable extends Settings
       const EnumNameConverter<DashboardAccountsStyle>(
         DashboardAccountsStyle.values,
       );
+  static JsonTypeConverter2<TxIconBackground, String, String>
+  $convertertxIconBackground = const EnumNameConverter<TxIconBackground>(
+    TxIconBackground.values,
+  );
 }
 
 class SettingRow extends DataClass implements Insertable<SettingRow> {
@@ -11555,6 +11701,21 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
   /// [DashboardAccountsStyle]. Defaults to `slider`, the original layout, so
   /// nobody's dashboard changes until they pick the other one.
   final DashboardAccountsStyle dashboardAccountsStyle;
+
+  /// Settings → Colours (GitHub #156): the person's pick for each money
+  /// direction, as ARGB. Null keeps the built-in colour (`AppColors`'
+  /// defaults), so nothing changes until someone picks one.
+  final int? incomeColor;
+  final int? expenseColor;
+  final int? transferColor;
+  final int? personColor;
+
+  /// What colours a transaction row's icon — see [TxIconBackground].
+  final TxIconBackground txIconBackground;
+
+  /// The one colour for [txIconBackground] `single`, as ARGB. Null until
+  /// picked — the accent blue stands in.
+  final int? txIconColor;
   const SettingRow({
     required this.id,
     required this.currencyCode,
@@ -11629,6 +11790,12 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     required this.frequentIconKeys,
     required this.dashboardLayout,
     required this.dashboardAccountsStyle,
+    this.incomeColor,
+    this.expenseColor,
+    this.transferColor,
+    this.personColor,
+    required this.txIconBackground,
+    this.txIconColor,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -11784,6 +11951,26 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
         ),
       );
     }
+    if (!nullToAbsent || incomeColor != null) {
+      map['income_color'] = Variable<int>(incomeColor);
+    }
+    if (!nullToAbsent || expenseColor != null) {
+      map['expense_color'] = Variable<int>(expenseColor);
+    }
+    if (!nullToAbsent || transferColor != null) {
+      map['transfer_color'] = Variable<int>(transferColor);
+    }
+    if (!nullToAbsent || personColor != null) {
+      map['person_color'] = Variable<int>(personColor);
+    }
+    {
+      map['tx_icon_background'] = Variable<String>(
+        $SettingsTable.$convertertxIconBackground.toSql(txIconBackground),
+      );
+    }
+    if (!nullToAbsent || txIconColor != null) {
+      map['tx_icon_color'] = Variable<int>(txIconColor);
+    }
     return map;
   }
 
@@ -11894,6 +12081,22 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
       frequentIconKeys: Value(frequentIconKeys),
       dashboardLayout: Value(dashboardLayout),
       dashboardAccountsStyle: Value(dashboardAccountsStyle),
+      incomeColor: incomeColor == null && nullToAbsent
+          ? const Value.absent()
+          : Value(incomeColor),
+      expenseColor: expenseColor == null && nullToAbsent
+          ? const Value.absent()
+          : Value(expenseColor),
+      transferColor: transferColor == null && nullToAbsent
+          ? const Value.absent()
+          : Value(transferColor),
+      personColor: personColor == null && nullToAbsent
+          ? const Value.absent()
+          : Value(personColor),
+      txIconBackground: Value(txIconBackground),
+      txIconColor: txIconColor == null && nullToAbsent
+          ? const Value.absent()
+          : Value(txIconColor),
     );
   }
 
@@ -12033,6 +12236,14 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
           .fromJson(
             serializer.fromJson<String>(json['dashboardAccountsStyle']),
           ),
+      incomeColor: serializer.fromJson<int?>(json['incomeColor']),
+      expenseColor: serializer.fromJson<int?>(json['expenseColor']),
+      transferColor: serializer.fromJson<int?>(json['transferColor']),
+      personColor: serializer.fromJson<int?>(json['personColor']),
+      txIconBackground: $SettingsTable.$convertertxIconBackground.fromJson(
+        serializer.fromJson<String>(json['txIconBackground']),
+      ),
+      txIconColor: serializer.fromJson<int?>(json['txIconColor']),
     );
   }
   @override
@@ -12148,6 +12359,14 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
           dashboardAccountsStyle,
         ),
       ),
+      'incomeColor': serializer.toJson<int?>(incomeColor),
+      'expenseColor': serializer.toJson<int?>(expenseColor),
+      'transferColor': serializer.toJson<int?>(transferColor),
+      'personColor': serializer.toJson<int?>(personColor),
+      'txIconBackground': serializer.toJson<String>(
+        $SettingsTable.$convertertxIconBackground.toJson(txIconBackground),
+      ),
+      'txIconColor': serializer.toJson<int?>(txIconColor),
     };
   }
 
@@ -12225,6 +12444,12 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     String? frequentIconKeys,
     String? dashboardLayout,
     DashboardAccountsStyle? dashboardAccountsStyle,
+    Value<int?> incomeColor = const Value.absent(),
+    Value<int?> expenseColor = const Value.absent(),
+    Value<int?> transferColor = const Value.absent(),
+    Value<int?> personColor = const Value.absent(),
+    TxIconBackground? txIconBackground,
+    Value<int?> txIconColor = const Value.absent(),
   }) => SettingRow(
     id: id ?? this.id,
     currencyCode: currencyCode ?? this.currencyCode,
@@ -12321,6 +12546,14 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     dashboardLayout: dashboardLayout ?? this.dashboardLayout,
     dashboardAccountsStyle:
         dashboardAccountsStyle ?? this.dashboardAccountsStyle,
+    incomeColor: incomeColor.present ? incomeColor.value : this.incomeColor,
+    expenseColor: expenseColor.present ? expenseColor.value : this.expenseColor,
+    transferColor: transferColor.present
+        ? transferColor.value
+        : this.transferColor,
+    personColor: personColor.present ? personColor.value : this.personColor,
+    txIconBackground: txIconBackground ?? this.txIconBackground,
+    txIconColor: txIconColor.present ? txIconColor.value : this.txIconColor,
   );
   SettingRow copyWithCompanion(SettingsCompanion data) {
     return SettingRow(
@@ -12523,6 +12756,24 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
       dashboardAccountsStyle: data.dashboardAccountsStyle.present
           ? data.dashboardAccountsStyle.value
           : this.dashboardAccountsStyle,
+      incomeColor: data.incomeColor.present
+          ? data.incomeColor.value
+          : this.incomeColor,
+      expenseColor: data.expenseColor.present
+          ? data.expenseColor.value
+          : this.expenseColor,
+      transferColor: data.transferColor.present
+          ? data.transferColor.value
+          : this.transferColor,
+      personColor: data.personColor.present
+          ? data.personColor.value
+          : this.personColor,
+      txIconBackground: data.txIconBackground.present
+          ? data.txIconBackground.value
+          : this.txIconBackground,
+      txIconColor: data.txIconColor.present
+          ? data.txIconColor.value
+          : this.txIconColor,
     );
   }
 
@@ -12605,7 +12856,13 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
           ..write('extraBottomInset: $extraBottomInset, ')
           ..write('frequentIconKeys: $frequentIconKeys, ')
           ..write('dashboardLayout: $dashboardLayout, ')
-          ..write('dashboardAccountsStyle: $dashboardAccountsStyle')
+          ..write('dashboardAccountsStyle: $dashboardAccountsStyle, ')
+          ..write('incomeColor: $incomeColor, ')
+          ..write('expenseColor: $expenseColor, ')
+          ..write('transferColor: $transferColor, ')
+          ..write('personColor: $personColor, ')
+          ..write('txIconBackground: $txIconBackground, ')
+          ..write('txIconColor: $txIconColor')
           ..write(')'))
         .toString();
   }
@@ -12685,6 +12942,12 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     frequentIconKeys,
     dashboardLayout,
     dashboardAccountsStyle,
+    incomeColor,
+    expenseColor,
+    transferColor,
+    personColor,
+    txIconBackground,
+    txIconColor,
   ]);
   @override
   bool operator ==(Object other) =>
@@ -12765,7 +13028,13 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
           other.extraBottomInset == this.extraBottomInset &&
           other.frequentIconKeys == this.frequentIconKeys &&
           other.dashboardLayout == this.dashboardLayout &&
-          other.dashboardAccountsStyle == this.dashboardAccountsStyle);
+          other.dashboardAccountsStyle == this.dashboardAccountsStyle &&
+          other.incomeColor == this.incomeColor &&
+          other.expenseColor == this.expenseColor &&
+          other.transferColor == this.transferColor &&
+          other.personColor == this.personColor &&
+          other.txIconBackground == this.txIconBackground &&
+          other.txIconColor == this.txIconColor);
 }
 
 class SettingsCompanion extends UpdateCompanion<SettingRow> {
@@ -12842,6 +13111,12 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
   final Value<String> frequentIconKeys;
   final Value<String> dashboardLayout;
   final Value<DashboardAccountsStyle> dashboardAccountsStyle;
+  final Value<int?> incomeColor;
+  final Value<int?> expenseColor;
+  final Value<int?> transferColor;
+  final Value<int?> personColor;
+  final Value<TxIconBackground> txIconBackground;
+  final Value<int?> txIconColor;
   const SettingsCompanion({
     this.id = const Value.absent(),
     this.currencyCode = const Value.absent(),
@@ -12916,6 +13191,12 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     this.frequentIconKeys = const Value.absent(),
     this.dashboardLayout = const Value.absent(),
     this.dashboardAccountsStyle = const Value.absent(),
+    this.incomeColor = const Value.absent(),
+    this.expenseColor = const Value.absent(),
+    this.transferColor = const Value.absent(),
+    this.personColor = const Value.absent(),
+    this.txIconBackground = const Value.absent(),
+    this.txIconColor = const Value.absent(),
   });
   SettingsCompanion.insert({
     this.id = const Value.absent(),
@@ -12991,6 +13272,12 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     this.frequentIconKeys = const Value.absent(),
     this.dashboardLayout = const Value.absent(),
     this.dashboardAccountsStyle = const Value.absent(),
+    this.incomeColor = const Value.absent(),
+    this.expenseColor = const Value.absent(),
+    this.transferColor = const Value.absent(),
+    this.personColor = const Value.absent(),
+    this.txIconBackground = const Value.absent(),
+    this.txIconColor = const Value.absent(),
   });
   static Insertable<SettingRow> custom({
     Expression<int>? id,
@@ -13066,6 +13353,12 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     Expression<String>? frequentIconKeys,
     Expression<String>? dashboardLayout,
     Expression<String>? dashboardAccountsStyle,
+    Expression<int>? incomeColor,
+    Expression<int>? expenseColor,
+    Expression<int>? transferColor,
+    Expression<int>? personColor,
+    Expression<String>? txIconBackground,
+    Expression<int>? txIconColor,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -13165,6 +13458,12 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
       if (dashboardLayout != null) 'dashboard_layout': dashboardLayout,
       if (dashboardAccountsStyle != null)
         'dashboard_accounts_style': dashboardAccountsStyle,
+      if (incomeColor != null) 'income_color': incomeColor,
+      if (expenseColor != null) 'expense_color': expenseColor,
+      if (transferColor != null) 'transfer_color': transferColor,
+      if (personColor != null) 'person_color': personColor,
+      if (txIconBackground != null) 'tx_icon_background': txIconBackground,
+      if (txIconColor != null) 'tx_icon_color': txIconColor,
     });
   }
 
@@ -13242,6 +13541,12 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     Value<String>? frequentIconKeys,
     Value<String>? dashboardLayout,
     Value<DashboardAccountsStyle>? dashboardAccountsStyle,
+    Value<int?>? incomeColor,
+    Value<int?>? expenseColor,
+    Value<int?>? transferColor,
+    Value<int?>? personColor,
+    Value<TxIconBackground>? txIconBackground,
+    Value<int?>? txIconColor,
   }) {
     return SettingsCompanion(
       id: id ?? this.id,
@@ -13331,6 +13636,12 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
       dashboardLayout: dashboardLayout ?? this.dashboardLayout,
       dashboardAccountsStyle:
           dashboardAccountsStyle ?? this.dashboardAccountsStyle,
+      incomeColor: incomeColor ?? this.incomeColor,
+      expenseColor: expenseColor ?? this.expenseColor,
+      transferColor: transferColor ?? this.transferColor,
+      personColor: personColor ?? this.personColor,
+      txIconBackground: txIconBackground ?? this.txIconBackground,
+      txIconColor: txIconColor ?? this.txIconColor,
     );
   }
 
@@ -13608,6 +13919,26 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
         ),
       );
     }
+    if (incomeColor.present) {
+      map['income_color'] = Variable<int>(incomeColor.value);
+    }
+    if (expenseColor.present) {
+      map['expense_color'] = Variable<int>(expenseColor.value);
+    }
+    if (transferColor.present) {
+      map['transfer_color'] = Variable<int>(transferColor.value);
+    }
+    if (personColor.present) {
+      map['person_color'] = Variable<int>(personColor.value);
+    }
+    if (txIconBackground.present) {
+      map['tx_icon_background'] = Variable<String>(
+        $SettingsTable.$convertertxIconBackground.toSql(txIconBackground.value),
+      );
+    }
+    if (txIconColor.present) {
+      map['tx_icon_color'] = Variable<int>(txIconColor.value);
+    }
     return map;
   }
 
@@ -13690,7 +14021,13 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
           ..write('extraBottomInset: $extraBottomInset, ')
           ..write('frequentIconKeys: $frequentIconKeys, ')
           ..write('dashboardLayout: $dashboardLayout, ')
-          ..write('dashboardAccountsStyle: $dashboardAccountsStyle')
+          ..write('dashboardAccountsStyle: $dashboardAccountsStyle, ')
+          ..write('incomeColor: $incomeColor, ')
+          ..write('expenseColor: $expenseColor, ')
+          ..write('transferColor: $transferColor, ')
+          ..write('personColor: $personColor, ')
+          ..write('txIconBackground: $txIconBackground, ')
+          ..write('txIconColor: $txIconColor')
           ..write(')'))
         .toString();
   }
@@ -34723,6 +35060,12 @@ typedef $$SettingsTableCreateCompanionBuilder =
       Value<String> frequentIconKeys,
       Value<String> dashboardLayout,
       Value<DashboardAccountsStyle> dashboardAccountsStyle,
+      Value<int?> incomeColor,
+      Value<int?> expenseColor,
+      Value<int?> transferColor,
+      Value<int?> personColor,
+      Value<TxIconBackground> txIconBackground,
+      Value<int?> txIconColor,
     });
 typedef $$SettingsTableUpdateCompanionBuilder =
     SettingsCompanion Function({
@@ -34799,6 +35142,12 @@ typedef $$SettingsTableUpdateCompanionBuilder =
       Value<String> frequentIconKeys,
       Value<String> dashboardLayout,
       Value<DashboardAccountsStyle> dashboardAccountsStyle,
+      Value<int?> incomeColor,
+      Value<int?> expenseColor,
+      Value<int?> transferColor,
+      Value<int?> personColor,
+      Value<TxIconBackground> txIconBackground,
+      Value<int?> txIconColor,
     });
 
 final class $$SettingsTableReferences
@@ -35214,6 +35563,37 @@ class $$SettingsTableFilterComposer
     builder: (column) => ColumnWithTypeConverterFilters(column),
   );
 
+  ColumnFilters<int> get incomeColor => $composableBuilder(
+    column: $table.incomeColor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get expenseColor => $composableBuilder(
+    column: $table.expenseColor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get transferColor => $composableBuilder(
+    column: $table.transferColor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get personColor => $composableBuilder(
+    column: $table.personColor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<TxIconBackground, TxIconBackground, String>
+  get txIconBackground => $composableBuilder(
+    column: $table.txIconBackground,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
+  ColumnFilters<int> get txIconColor => $composableBuilder(
+    column: $table.txIconColor,
+    builder: (column) => ColumnFilters(column),
+  );
+
   $$AccountsTableFilterComposer get quickAddAccountId {
     final $$AccountsTableFilterComposer composer = $composerBuilder(
       composer: this,
@@ -35607,6 +35987,36 @@ class $$SettingsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get incomeColor => $composableBuilder(
+    column: $table.incomeColor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get expenseColor => $composableBuilder(
+    column: $table.expenseColor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get transferColor => $composableBuilder(
+    column: $table.transferColor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get personColor => $composableBuilder(
+    column: $table.personColor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get txIconBackground => $composableBuilder(
+    column: $table.txIconBackground,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get txIconColor => $composableBuilder(
+    column: $table.txIconColor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$AccountsTableOrderingComposer get quickAddAccountId {
     final $$AccountsTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -35987,6 +36397,37 @@ class $$SettingsTableAnnotationComposer
     builder: (column) => column,
   );
 
+  GeneratedColumn<int> get incomeColor => $composableBuilder(
+    column: $table.incomeColor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get expenseColor => $composableBuilder(
+    column: $table.expenseColor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get transferColor => $composableBuilder(
+    column: $table.transferColor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get personColor => $composableBuilder(
+    column: $table.personColor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumnWithTypeConverter<TxIconBackground, String>
+  get txIconBackground => $composableBuilder(
+    column: $table.txIconBackground,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get txIconColor => $composableBuilder(
+    column: $table.txIconColor,
+    builder: (column) => column,
+  );
+
   $$AccountsTableAnnotationComposer get quickAddAccountId {
     final $$AccountsTableAnnotationComposer composer = $composerBuilder(
       composer: this,
@@ -36116,6 +36557,12 @@ class $$SettingsTableTableManager
                 Value<String> dashboardLayout = const Value.absent(),
                 Value<DashboardAccountsStyle> dashboardAccountsStyle =
                     const Value.absent(),
+                Value<int?> incomeColor = const Value.absent(),
+                Value<int?> expenseColor = const Value.absent(),
+                Value<int?> transferColor = const Value.absent(),
+                Value<int?> personColor = const Value.absent(),
+                Value<TxIconBackground> txIconBackground = const Value.absent(),
+                Value<int?> txIconColor = const Value.absent(),
               }) => SettingsCompanion(
                 id: id,
                 currencyCode: currencyCode,
@@ -36190,6 +36637,12 @@ class $$SettingsTableTableManager
                 frequentIconKeys: frequentIconKeys,
                 dashboardLayout: dashboardLayout,
                 dashboardAccountsStyle: dashboardAccountsStyle,
+                incomeColor: incomeColor,
+                expenseColor: expenseColor,
+                transferColor: transferColor,
+                personColor: personColor,
+                txIconBackground: txIconBackground,
+                txIconColor: txIconColor,
               ),
           createCompanionCallback:
               ({
@@ -36270,6 +36723,12 @@ class $$SettingsTableTableManager
                 Value<String> dashboardLayout = const Value.absent(),
                 Value<DashboardAccountsStyle> dashboardAccountsStyle =
                     const Value.absent(),
+                Value<int?> incomeColor = const Value.absent(),
+                Value<int?> expenseColor = const Value.absent(),
+                Value<int?> transferColor = const Value.absent(),
+                Value<int?> personColor = const Value.absent(),
+                Value<TxIconBackground> txIconBackground = const Value.absent(),
+                Value<int?> txIconColor = const Value.absent(),
               }) => SettingsCompanion.insert(
                 id: id,
                 currencyCode: currencyCode,
@@ -36344,6 +36803,12 @@ class $$SettingsTableTableManager
                 frequentIconKeys: frequentIconKeys,
                 dashboardLayout: dashboardLayout,
                 dashboardAccountsStyle: dashboardAccountsStyle,
+                incomeColor: incomeColor,
+                expenseColor: expenseColor,
+                transferColor: transferColor,
+                personColor: personColor,
+                txIconBackground: txIconBackground,
+                txIconColor: txIconColor,
               ),
           withReferenceMapper: (p0) => p0
               .map(

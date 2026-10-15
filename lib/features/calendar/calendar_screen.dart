@@ -808,11 +808,14 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         ? null
         : accountMap[tx.toAccountId];
 
-    final accent = isTransfer
-        ? AppColors.transfer
-        : (category != null
-              ? Color(category.colorValue)
-              : theme.colorScheme.onSurfaceVariant);
+    final accent = txIconColor(
+      tx.type,
+      isTransfer
+          ? AppColors.transfer
+          : (category != null
+                ? Color(category.colorValue)
+                : theme.colorScheme.onSurfaceVariant),
+    );
     final icon = isTransfer
         ? Icons.swap_horiz_rounded
         : AppIcons.resolve(category?.iconKey ?? 'other');

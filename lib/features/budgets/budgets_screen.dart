@@ -567,7 +567,7 @@ class _BudgetTile extends ConsumerWidget {
       color: AppColors.expense.withValues(alpha: 0.15),
       borderRadius: BorderRadius.circular(8),
     ),
-    child: const Text(
+    child: Text(
       'OVER',
       style: TextStyle(
         color: AppColors.expense,

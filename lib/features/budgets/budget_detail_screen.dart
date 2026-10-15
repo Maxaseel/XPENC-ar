@@ -295,6 +295,7 @@ class _TxRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final tx = entry.tx;
+    final iconColor = txIconColor(tx.type, AppColors.expense);
     final note = tx.note?.trim();
     final title = (note != null && note.isNotEmpty)
         ? note
@@ -311,8 +312,8 @@ class _TxRow extends StatelessWidget {
       child: AppListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
         leading: CircleAvatar(
-          backgroundColor: AppColors.expense.withValues(alpha: 0.14),
-          foregroundColor: AppColors.expense,
+          backgroundColor: iconColor.withValues(alpha: 0.14),
+          foregroundColor: iconColor,
           child: const AppIcon(Icons.north_east_rounded, size: 20),
         ),
         title: Text(

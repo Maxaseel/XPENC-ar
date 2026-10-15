@@ -657,14 +657,14 @@ class IncomeExpenseBarChart extends StatelessWidget {
                   children: [
                     TextSpan(
                       text: 'In  ${MoneyFormat.compact(m.income)}\n',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.income,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     TextSpan(
                       text: 'Out ${MoneyFormat.compact(m.expense)}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.expense,
                         fontWeight: FontWeight.w600,
                       ),

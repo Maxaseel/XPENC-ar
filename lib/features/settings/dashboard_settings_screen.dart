@@ -147,7 +147,7 @@ class _DashboardSettingsScreenState
                         ),
                         action: IconButton(
                           tooltip: 'Remove ${w.title}',
-                          icon: const AppIcon(
+                          icon: AppIcon(
                             Icons.remove_circle_rounded,
                             color: AppColors.expense,
                           ),
@@ -196,7 +196,7 @@ class _DashboardSettingsScreenState
                               note: noteFor(hidden[i]),
                               action: IconButton(
                                 tooltip: 'Add ${hidden[i].title}',
-                                icon: const AppIcon(
+                                icon: AppIcon(
                                   Icons.add_circle_rounded,
                                   color: AppColors.income,
                                 ),

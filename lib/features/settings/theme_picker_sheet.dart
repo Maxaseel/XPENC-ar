@@ -288,7 +288,7 @@ class _Swatch extends StatelessWidget {
                   Container(
                     width: 8,
                     height: 8,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: AppColors.income,
                       shape: BoxShape.circle,
                     ),

@@ -139,7 +139,7 @@ class _LoanInsightsSectionState extends State<LoanInsightsSection> {
                 const TextSpan(text: 'Interest adds '),
                 TextSpan(
                   text: '$extraPct%',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.expense,
                     fontWeight: FontWeight.w700,
                   ),
@@ -162,7 +162,7 @@ class _LoanInsightsSectionState extends State<LoanInsightsSection> {
                   ),
                   Expanded(
                     flex: ((1 - principalShare) * 1000).round().clamp(1, 1000),
-                    child: const ColoredBox(color: AppColors.expense),
+                    child: ColoredBox(color: AppColors.expense),
                   ),
                 ],
               ),
@@ -632,7 +632,7 @@ class _YearlySplitChart extends StatelessWidget {
                     ),
                     TextSpan(
                       text: 'Interest ${MoneyFormat.compact(y.interest)}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.expense,
                         fontWeight: FontWeight.w600,
                       ),

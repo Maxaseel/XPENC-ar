@@ -155,7 +155,8 @@ void main() {
   });
 
   testWidgets(
-    'Accounts: long-press → Rename changes the account name (GitHub #88)',
+    'Accounts: long-press → Edit changes the name and colour (GitHub #88, '
+    '#158)',
     (tester) async {
       await pump(tester, const AccountsScreen());
       expect(tester.takeException(), isNull);
@@ -165,23 +166,43 @@ void main() {
       await tester.pump(const Duration(milliseconds: 300));
       expect(tester.takeException(), isNull);
 
-      await tester.tap(find.text('Rename'));
+      await tester.tap(find.text('Edit'));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 300));
       expect(tester.takeException(), isNull);
+      expect(find.text('Edit account'), findsOneWidget);
 
       await tester.enterText(find.byType(TextField), 'Wallet');
       await tester.pump();
+      // The last preset — pink — is never the seeded Cash account's colour.
+      final pink = find.byWidgetPredicate(
+        (w) =>
+            w is Container &&
+            w.decoration is BoxDecoration &&
+            (w.decoration! as BoxDecoration).color == const Color(0xFFEC4899),
+      );
+      await tester.ensureVisible(pink);
+      await tester.tap(pink);
+      await tester.pump();
+      await tester.ensureVisible(find.text('Save'));
       await tester.tap(find.text('Save'));
       await tester.pump();
       await tester.runAsync(
         () => Future<void>.delayed(const Duration(milliseconds: 200)),
       );
       await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
       expect(tester.takeException(), isNull);
-      expect(find.text('Account renamed'), findsOneWidget);
+      expect(find.text('Account updated'), findsOneWidget);
       expect(find.text('Wallet'), findsWidgets);
       expect(find.text('Cash'), findsNothing);
+
+      final wallet = await tester.runAsync(
+        () async => (await db.watchAccounts().first).firstWhere(
+          (a) => a.name == 'Wallet',
+        ),
+      );
+      expect(wallet!.colorValue, 0xFFEC4899);
       await unmount(tester);
     },
   );

@@ -15,6 +15,7 @@ import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../data/tables.dart';
 import 'add_account_sheet.dart';
+import 'edit_account_sheet.dart';
 import '../../core/widgets/nav_bar_inset.dart';
 
 /// Total money + per-account balances, grouped Cash · Bank · Cards.
@@ -405,8 +406,8 @@ class _AccountTile extends ConsumerWidget {
     );
   }
 
-  /// Hold-to-act: Rename (just the name), Archive (reversible, hides it) or
-  /// Remove (permanent, only works when nothing points at it).
+  /// Hold-to-act: Edit (name, colour, icon), Archive (reversible, hides it)
+  /// or Remove (permanent, only works when nothing points at it).
   Future<void> _showActions(BuildContext context, WidgetRef ref) async {
     final theme = Theme.of(context);
     final action = await showAppSheet<_AccountAction>(
@@ -433,9 +434,9 @@ class _AccountTile extends ConsumerWidget {
             ),
             AppListTile(
               leading: const AppIcon(Icons.edit_outlined),
-              title: const Text('Rename'),
-              onTap: () =>
-                  Navigator.of(sheetContext).pop(_AccountAction.rename),
+              title: const Text('Edit'),
+              subtitle: const Text('Name, colour and icon'),
+              onTap: () => Navigator.of(sheetContext).pop(_AccountAction.edit),
             ),
             // A debit card/UPI instrument holds no balance of its own (see
             // Accounts.linkedAccountId) — there's nothing to warn about.
@@ -479,8 +480,8 @@ class _AccountTile extends ConsumerWidget {
     );
     if (action == null || !context.mounted) return;
     switch (action) {
-      case _AccountAction.rename:
-        await _confirmRename(context, ref);
+      case _AccountAction.edit:
+        await showEditAccountSheet(context, account);
       case _AccountAction.minimumBalance:
         await _confirmMinimumBalance(context, ref);
       case _AccountAction.archive:
@@ -488,25 +489,6 @@ class _AccountTile extends ConsumerWidget {
       case _AccountAction.remove:
         await _confirmRemove(context, ref);
     }
-  }
-
-  /// GitHub #88 — the account name is the only field ever offered for
-  /// editing after creation; a dedicated single-field dialog rather than
-  /// reopening the full Add Account sheet, which sets up type/colour/icon
-  /// fields that don't apply once an account already exists.
-  Future<void> _confirmRename(BuildContext context, WidgetRef ref) async {
-    final newName = await showAppDialog<String>(
-      context: context,
-      builder: (ctx) => _RenameAccountDialog(currentName: account.name),
-    );
-    if (newName == null || newName.trim().isEmpty) return;
-    if (newName.trim() == account.name) return;
-
-    await ref.read(dbProvider).renameAccount(account.id, newName);
-    if (!context.mounted) return;
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Account renamed')));
   }
 
   /// Purely informational floor (see the doc on [Accounts.minimumBalance]) —
@@ -630,57 +612,7 @@ class _AccountTile extends ConsumerWidget {
   }
 }
 
-/// A `StatefulWidget`, not a bare controller disposed right after
-/// `showDialog` resolves — that races the dialog's own closing animation:
-/// the route pops (resolving the `Future`) before the still-visible
-/// `TextField` finishes its exit transition, so a controller disposed
-/// immediately can be torn down while that `TextField` is still attached
-/// to it. Owning the controller in `State.dispose()` ties its lifetime to
-/// the framework's own unmount timing instead, which is always correct.
-class _RenameAccountDialog extends StatefulWidget {
-  const _RenameAccountDialog({required this.currentName});
-
-  final String currentName;
-
-  @override
-  State<_RenameAccountDialog> createState() => _RenameAccountDialogState();
-}
-
-class _RenameAccountDialogState extends State<_RenameAccountDialog> {
-  late final _controller = TextEditingController(text: widget.currentName);
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Rename account'),
-      content: TextField(
-        controller: _controller,
-        autofocus: true,
-        textCapitalization: TextCapitalization.words,
-        decoration: const InputDecoration(labelText: 'Name'),
-        onSubmitted: (v) => Navigator.of(context).pop(v),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
-        ),
-        FilledButton(
-          onPressed: () => Navigator.of(context).pop(_controller.text),
-          child: const Text('Save'),
-        ),
-      ],
-    );
-  }
-}
-
-enum _AccountAction { rename, minimumBalance, archive, remove }
+enum _AccountAction { edit, minimumBalance, archive, remove }
 
 /// Wraps the picked value so "Clear" (value: null) is distinguishable from
 /// "Cancel" (the dialog's Future itself resolves null).
@@ -690,8 +622,13 @@ class _MinimumBalanceResult {
   final Money? value;
 }
 
-/// Same controller-lifetime reasoning as [_RenameAccountDialog] — owned by
-/// this `State` rather than disposed right after `showDialog` resolves.
+/// A `StatefulWidget`, not a bare controller disposed right after
+/// `showDialog` resolves — that races the dialog's own closing animation:
+/// the route pops (resolving the `Future`) before the still-visible
+/// `TextField` finishes its exit transition, so a controller disposed
+/// immediately can be torn down while that `TextField` is still attached
+/// to it. Owning the controller in `State.dispose()` ties its lifetime to
+/// the framework's own unmount timing instead, which is always correct.
 class _MinimumBalanceDialog extends StatefulWidget {
   const _MinimumBalanceDialog({required this.currentValue});
 

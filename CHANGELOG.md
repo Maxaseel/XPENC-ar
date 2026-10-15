@@ -8,6 +8,11 @@ Release process: see [docs/RELEASING.md](docs/RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+- **Edit an account's icon and colour** (#158). Hold an account → **Edit**,
+  or the ✏️ on its page, to change its name, colour and icon together. Two
+  accounts that looked alike no longer have to be deleted and re-created.
+
 ## [1.6.4] — 2026-10-10
 
 ### Added

@@ -2,29 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../core/app_icons.dart';
 import '../../core/currency.dart';
 import '../../core/money.dart';
 import '../../core/widgets/amount_keypad_field.dart';
 import '../../core/widgets/app_surfaces.dart';
-import '../../core/widgets/icon_picker_sheet.dart';
 import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../data/tables.dart';
 import '../settings/currency_picker_sheet.dart';
-
-/// Preset colours for an account. Plain ints — colour here is decorative,
-/// not a money-direction signal.
-const _presetColors = <int>[
-  0xFF16A34A,
-  0xFF2563EB,
-  0xFFDC2626,
-  0xFFA855F7,
-  0xFFF97316,
-  0xFF0EA5E9,
-  0xFF78716C,
-  0xFFEC4899,
-];
+import 'account_look_fields.dart';
 
 /// Opens the "add account" bottom sheet.
 Future<void> showAddAccountSheet(BuildContext context) {
@@ -61,7 +47,7 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
   AccountType _type = AccountType.cash;
   CardKind _cardKind = CardKind.credit;
   int? _linkedAccountId;
-  int _colorValue = _presetColors.first;
+  int _colorValue = accountPresetColors.first;
   String _iconKey = 'cash';
   bool _submitting = false;
 
@@ -266,16 +252,19 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
 
             _fieldLabel(theme, 'Colour'),
             const SizedBox(height: 12),
-            Wrap(
-              spacing: 14,
-              runSpacing: 14,
-              children: [for (final c in _presetColors) _colorDot(theme, c)],
+            AccountColorPicker(
+              selected: _colorValue,
+              onChanged: (c) => setState(() => _colorValue = c),
             ),
             const SizedBox(height: 24),
 
             _fieldLabel(theme, 'Icon'),
             const SizedBox(height: 12),
-            _iconField(theme),
+            AccountIconField(
+              iconKey: _iconKey,
+              colorValue: _colorValue,
+              onChanged: (k) => setState(() => _iconKey = k),
+            ),
             const SizedBox(height: 28),
 
             FilledButton(
@@ -541,78 +530,6 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _colorDot(ThemeData theme, int value) {
-    final selected = _colorValue == value;
-    return GestureDetector(
-      onTap: () => setState(() => _colorValue = value),
-      child: Container(
-        width: 40,
-        height: 40,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: Color(value),
-          shape: BoxShape.circle,
-          border: selected
-              ? Border.all(color: theme.colorScheme.onSurface, width: 2.5)
-              : null,
-        ),
-        child: selected
-            ? const AppIcon(Icons.check_rounded, color: Colors.white, size: 20)
-            : null,
-      ),
-    );
-  }
-
-  /// A single tile showing the chosen icon; tapping it opens the searchable
-  /// icon sheet instead of a fixed row limited to the account types above.
-  Widget _iconField(ThemeData theme) {
-    final color = Color(_colorValue);
-    return GestureDetector(
-      onTap: () async {
-        final picked = await showIconPickerSheet(
-          context,
-          selected: _iconKey,
-          accentColor: color,
-        );
-        if (picked != null) setState(() => _iconKey = picked);
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-        decoration: BoxDecoration(
-          border: Border.all(color: theme.colorScheme.outline),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 44,
-              height: 44,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.15),
-                shape: BoxShape.circle,
-              ),
-              child: AppIcon(AppIcons.resolve(_iconKey), color: color),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Text(
-                'Tap to change',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ),
-            AppIcon(
-              Icons.chevron_right_rounded,
-              color: theme.colorScheme.onSurfaceVariant,
-            ),
-          ],
-        ),
       ),
     );
   }

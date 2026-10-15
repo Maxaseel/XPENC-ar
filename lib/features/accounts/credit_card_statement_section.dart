@@ -205,8 +205,9 @@ class _StatementSummary extends ConsumerWidget {
 typedef _CycleResult = ({int statementDay, int dueDay, int notifyDaysBefore});
 
 /// A `StatefulWidget`, not bare controllers/state disposed right after
-/// `showDialog` resolves — see `_RenameAccountDialog` in `accounts_screen.dart`
-/// for why that races the dialog's own closing animation.
+/// `showDialog` resolves — see `_MinimumBalanceDialog` in
+/// `accounts_screen.dart` for why that races the dialog's own closing
+/// animation.
 class _CreditCardCycleDialog extends StatefulWidget {
   const _CreditCardCycleDialog({required this.existing});
 

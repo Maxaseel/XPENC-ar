@@ -3468,17 +3468,28 @@ class AppDatabase extends _$AppDatabase {
     });
   }
 
-  /// GitHub #88 — the only account field ever offered for editing after
-  /// creation. Trims and rejects blank, same rule [addAccount] leaves to the
-  /// UI layer today; enforced here too since this is the only path that
+  /// GitHub #88 / #158 — the account fields offered for editing after
+  /// creation: name, icon and colour. Purely how it looks — type, currency
+  /// and balance stay fixed, since past transactions were recorded against
+  /// them. Trims and rejects a blank name, same rule [addAccount] leaves to
+  /// the UI layer today; enforced here too since this is the only path that
   /// bypasses the add sheet's own validation.
-  Future<void> renameAccount(int id, String name) {
+  Future<void> updateAccountDetails(
+    int id, {
+    required String name,
+    required String iconKey,
+    required int colorValue,
+  }) {
     final trimmed = name.trim();
     if (trimmed.isEmpty) {
       throw ArgumentError('Give the account a name.');
     }
     return (update(accounts)..where((a) => a.id.equals(id))).write(
-      AccountsCompanion(name: Value(trimmed)),
+      AccountsCompanion(
+        name: Value(trimmed),
+        iconKey: Value(iconKey),
+        colorValue: Value(colorValue),
+      ),
     );
   }
 

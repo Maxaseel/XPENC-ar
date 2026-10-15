@@ -879,8 +879,8 @@ void main() {
     });
   });
 
-  group('renameAccount — GitHub #88', () {
-    test('changes only the name, trimmed', () async {
+  group('updateAccountDetails — GitHub #88 / #158', () {
+    test('changes name (trimmed), icon and colour — nothing else', () async {
       final bank = await db.addAccount(
         name: 'Old Name',
         type: AccountType.bank,
@@ -889,18 +889,34 @@ void main() {
         openingBalance: Money.fromRupees(500),
       );
 
-      await db.renameAccount(bank, '  IPPB Savings  ');
+      await db.updateAccountDetails(
+        bank,
+        name: '  IPPB Savings  ',
+        iconKey: 'savings',
+        colorValue: 0xFFEC4899,
+      );
 
       final account = (await db.watchAccounts().first).firstWhere(
         (a) => a.id == bank,
       );
       expect(account.name, 'IPPB Savings');
+      expect(account.iconKey, 'savings');
+      expect(account.colorValue, 0xFFEC4899);
+      expect(account.type, AccountType.bank);
       expect(account.currentBalance, Money.fromRupees(500));
     });
 
     test('rejects a blank name', () async {
       final cash = await cashId();
-      expect(() => db.renameAccount(cash, '   '), throwsArgumentError);
+      expect(
+        () => db.updateAccountDetails(
+          cash,
+          name: '   ',
+          iconKey: 'cash',
+          colorValue: 0,
+        ),
+        throwsArgumentError,
+      );
     });
   });
 

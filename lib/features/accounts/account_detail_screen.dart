@@ -14,6 +14,7 @@ import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../data/tables.dart';
 import 'credit_card_statement_section.dart';
+import 'edit_account_sheet.dart';
 import 'envelope_section.dart';
 import '../../core/widgets/nav_bar_inset.dart';
 
@@ -103,6 +104,11 @@ class _AccountDetailView extends ConsumerWidget {
       appBar: AppTopBar(
         title: Text(account.name),
         actions: [
+          IconButton(
+            icon: const AppIcon(Icons.edit_outlined),
+            tooltip: 'Edit account',
+            onPressed: () => showEditAccountSheet(context, account),
+          ),
           IconButton(
             icon: const AppIcon(Icons.picture_as_pdf_outlined),
             tooltip: 'Download statement',

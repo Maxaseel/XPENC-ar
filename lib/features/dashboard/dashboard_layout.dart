@@ -35,7 +35,7 @@ extension DashboardWidgetX on DashboardWidget {
   String get title => switch (this) {
     DashboardWidget.detected => 'Detected transactions',
     DashboardWidget.totalMoney => 'Total money',
-    DashboardWidget.thisMonth => 'Income & expense',
+    DashboardWidget.thisMonth => 'Money in & out',
     DashboardWidget.accounts => 'Accounts',
     DashboardWidget.readyToAssign => 'Ready to Assign',
     DashboardWidget.people => 'People',
@@ -63,7 +63,7 @@ extension DashboardWidgetX on DashboardWidget {
     DashboardWidget.budgets => 'How full each budget is',
     DashboardWidget.spending => 'Where the month’s money went',
     DashboardWidget.recent => 'Your latest transactions',
-    DashboardWidget.cashFlow => 'Six months of income against expense',
+    DashboardWidget.cashFlow => 'Six months of money in against money out',
     DashboardWidget.goals => 'How close each goal is',
     DashboardWidget.loans => 'What’s left to repay on each loan',
     DashboardWidget.shortcuts => 'Your Quick Actions, one tap away',

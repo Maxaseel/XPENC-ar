@@ -237,7 +237,7 @@ void main() {
     await settle();
     // The added widgets, with nothing of their kind yet, invite a start.
     final shortcuts = find.text('Shortcuts');
-    final income = find.text('Income');
+    final income = find.text('Money in');
     expect(shortcuts, findsOneWidget);
     expect(income, findsWidgets);
     expect(

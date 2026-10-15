@@ -805,7 +805,7 @@ class _AutoGoalsLoansStep extends StatelessWidget {
           color: AppColors.transfer,
           text:
               'Loans are real liabilities — funded and repaid through '
-              'transfers, never counted as income or expense.',
+              'transfers, never counted as money in or out.',
         ),
       ],
     );

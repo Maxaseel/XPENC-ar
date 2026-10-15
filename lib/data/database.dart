@@ -1314,13 +1314,13 @@ class AppDatabase extends _$AppDatabase {
       throw ArgumentError('Only a person movement or payee names a person.');
     }
     if (!type.isIncomeOrExpense && payee != null) {
-      throw ArgumentError('Only an income or expense names a payee.');
+      throw ArgumentError('Only money in or money out can have a payee.');
     }
     if (!type.isIncomeOrExpense &&
         type != TxType.transfer &&
         recurringRuleId != null) {
       throw ArgumentError(
-        'Only income, expense or a transfer can come from a rule.',
+        'Only money in, money out or a transfer can come from a rule.',
       );
     }
     switch (type) {
@@ -2792,10 +2792,10 @@ class AppDatabase extends _$AppDatabase {
     }
     if (categoryId != null) {
       if (direction != PersonDirection.iOwe) {
-        throw ArgumentError('Only a repayment can be counted as income.');
+        throw ArgumentError('Only a repayment can be counted as money in.');
       }
       if (accountId == null) {
-        throw ArgumentError('A repayment counted as income must move money.');
+        throw ArgumentError('A repayment counted as money in must move money.');
       }
     }
     return transaction(() async {
@@ -2884,10 +2884,10 @@ class AppDatabase extends _$AppDatabase {
     }
     if (categoryId != null) {
       if (direction != PersonDirection.iOwe) {
-        throw ArgumentError('Only a repayment can be counted as income.');
+        throw ArgumentError('Only a repayment can be counted as money in.');
       }
       if (accountId == null) {
-        throw ArgumentError('A repayment counted as income must move money.');
+        throw ArgumentError('A repayment counted as money in must move money.');
       }
     }
     return transaction(() async {
@@ -4573,7 +4573,7 @@ class AppDatabase extends _$AppDatabase {
     _validateForeignCurrency(foreignCurrencyCode, foreignAmount);
     if (category != null && category.kind != kind) {
       throw ArgumentError(
-        'That category is ${category.kind == CategoryKind.income ? 'an income' : 'an expense'} '
+        'That is a ${category.kind == CategoryKind.income ? 'money-in' : 'money-out'} '
         'category — pick one that matches.',
       );
     }
@@ -6407,7 +6407,7 @@ class AppDatabase extends _$AppDatabase {
     }
     if (parent.kind != kind) {
       throw ArgumentError(
-        'A subcategory must match its parent — both income or both expense.',
+        'A subcategory must match its parent — both money in or both money out.',
       );
     }
     if (parent.parentId != null) {
@@ -7020,7 +7020,7 @@ class AppDatabase extends _$AppDatabase {
           date: t.date,
           description: (note != null && note.isNotEmpty)
               ? note
-              : (payee != null && payee.isNotEmpty ? payee : 'Expense'),
+              : (payee != null && payee.isNotEmpty ? payee : 'Money out'),
           amount: t.amount,
           isSplit: false,
         ));
@@ -7033,7 +7033,7 @@ class AppDatabase extends _$AppDatabase {
           date: t.date,
           description: (note != null && note.isNotEmpty)
               ? note
-              : (payee != null && payee.isNotEmpty ? payee : 'Expense'),
+              : (payee != null && payee.isNotEmpty ? payee : 'Money out'),
           amount: s.amount,
           isSplit: true,
         ));
@@ -7078,8 +7078,8 @@ class AppDatabase extends _$AppDatabase {
             .get();
 
     String typeLabel(TxType type) => switch (type) {
-      TxType.income => 'Income',
-      TxType.expense => 'Expense',
+      TxType.income => 'Money in',
+      TxType.expense => 'Money out',
       TxType.transfer => 'Transfer',
       TxType.personOut => 'Lending out',
       TxType.personIn => 'Lending in',

@@ -155,8 +155,8 @@ String labelForTxType(TxType type, {String? personName}) => switch (type) {
       TxType.transfer => 'Transfer',
       TxType.personOut => 'Gave to ${personName ?? 'person'}',
       TxType.personIn => 'Received from ${personName ?? 'person'}',
-      TxType.income => 'Income',
-      TxType.expense => 'Expense',
+      TxType.income => 'Money in',
+      TxType.expense => 'Money out',
       TxType.correctionIn || TxType.correctionOut => 'Correction',
     };
 

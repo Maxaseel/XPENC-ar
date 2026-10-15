@@ -88,8 +88,8 @@ class StatsScreen extends ConsumerWidget {
         ],
         const SizedBox(height: 12),
         Text(
-          'Transfers between your own accounts are never counted as income '
-          'or expense.',
+          'Transfers between your own accounts are never counted as money in '
+          'or money out.',
           textAlign: TextAlign.center,
           style: theme.textTheme.bodySmall?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
@@ -161,7 +161,7 @@ Future<void> _downloadReport(
     );
     await service.share(
       file,
-      subject: 'Income and expense report - $periodLabel',
+      subject: 'Money in and out report - $periodLabel',
     );
     if (!context.mounted) return;
     messenger

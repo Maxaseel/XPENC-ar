@@ -146,7 +146,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   WhatsNewEntry(
     icon: Icons.storefront_outlined,
     title: 'People as payees',
-    location: 'Add expense/income → Payee',
+    location: 'Add transaction → Payee',
     description:
         'Pick one of your people as the payee — like money given to a '
         'parent that is not coming back. It shows on their page in a small '
@@ -162,7 +162,7 @@ const whatsNewEntries = <WhatsNewEntry>[
     description:
         'Hold the ➕ and a ring of 8 shortcuts opens mid-screen — slide '
         'toward one to open it, or back to ✕ in the centre to cancel. Any '
-        'slot can be a screen, a calculator, Add expense/income or a saved '
+        'slot can be a screen, a calculator, Add money in/out or a saved '
         'transaction template. Your old 3 shortcuts carry over.',
   ),
   WhatsNewEntry(
@@ -201,8 +201,8 @@ const whatsNewEntries = <WhatsNewEntry>[
     description:
         'App says ₹100 in cash but your wallet has ₹75? Enter what you '
         'really have and the difference is saved as one "Correction" — no '
-        'fake expense, and your history stays as it was. Corrections never '
-        'count as income or spending, but they lower the XPENC Score\'s '
+        'made-up payment, and your history stays as it was. Corrections never '
+        'count as money in or out, but they lower the XPENC Score\'s '
         'Tracking habit, so logging as you go still pays off.',
   ),
   WhatsNewEntry(

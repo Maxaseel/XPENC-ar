@@ -104,7 +104,7 @@ class ThisMonthSection extends ConsumerWidget {
               children: [
                 Expanded(
                   child: StatTile(
-                    label: 'Income',
+                    label: 'Money in',
                     value: MoneyFormat.symbol(totals.income),
                     color: AppColors.income,
                   ),
@@ -112,7 +112,7 @@ class ThisMonthSection extends ConsumerWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: StatTile(
-                    label: 'Expense',
+                    label: 'Money out',
                     value: MoneyFormat.symbol(totals.expense),
                     color: AppColors.expense,
                   ),
@@ -126,7 +126,7 @@ class ThisMonthSection extends ConsumerWidget {
                   ? MoneyFormat.symbol(net)
                   : MoneyFormat.signed(net),
               color: netColor,
-              sub: 'Income − expense',
+              sub: 'Money in − money out',
             ),
           ],
         );
@@ -463,7 +463,7 @@ class HighlightsSection extends ConsumerWidget {
             NctVeil(
               active: biggest?.isNct ?? false,
               child: HighlightRow(
-                label: 'Biggest expense',
+                label: 'Largest money out',
                 value: biggestValue,
               ),
             ),

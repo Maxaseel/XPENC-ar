@@ -176,7 +176,7 @@ Future<Uint8List> buildBudgetStatementPdf({
         _kv('Overall', _remainingLabel(totalBudgeted - totalSpent)),
         pw.SizedBox(height: 12),
         pw.Text(
-          'Budgets only count expenses. Transfers between your own accounts '
+          'Budgets only count money out. Transfers between your own accounts '
           'are never counted.',
           style: const pw.TextStyle(fontSize: 9, color: PdfColors.grey700),
         ),
@@ -315,7 +315,7 @@ Future<Uint8List> buildCombinedStatementPdf({
         pw.SizedBox(height: 12),
         pw.Text(
           'Transfers move money between your own accounts and are never '
-          'counted as income or expense.',
+          'counted as money in or out.',
           style: const pw.TextStyle(fontSize: 9, color: PdfColors.grey700),
         ),
       ],

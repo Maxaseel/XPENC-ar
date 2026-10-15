@@ -200,7 +200,9 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
       final category = ref.read(categoryMapProvider)[t.categoryId];
       _nameController.text =
           category?.name ??
-          (t.type == TxType.income ? 'Recurring income' : 'Recurring expense');
+          (t.type == TxType.income
+              ? 'Recurring money in'
+              : 'Recurring money out');
     }
     final note = t.note?.trim();
     if (note != null && note.isNotEmpty) _noteController.text = note;
@@ -462,8 +464,11 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
             const SizedBox(height: 20),
             SegmentedButton<_RuleKind>(
               segments: const [
-                ButtonSegment(value: _RuleKind.expense, label: Text('Expense')),
-                ButtonSegment(value: _RuleKind.income, label: Text('Income')),
+                ButtonSegment(
+                  value: _RuleKind.expense,
+                  label: Text('Money out'),
+                ),
+                ButtonSegment(value: _RuleKind.income, label: Text('Money in')),
                 ButtonSegment(value: _RuleKind.goalOrLoan, label: Text('G&L')),
               ],
               selected: {_ruleKind},

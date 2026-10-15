@@ -21,7 +21,7 @@ Future<Uint8List> buildIncomeExpenseReportPdf({
   required Map<int, Money> expenseByCategory,
   required Map<int, CategoryRow> categories,
 }) async {
-  final doc = pw.Document(title: 'Income and expense report - $periodLabel');
+  final doc = pw.Document(title: 'Money in and out report - $periodLabel');
   final net = income - expense;
 
   final rows =
@@ -34,14 +34,14 @@ Future<Uint8List> buildIncomeExpenseReportPdf({
   doc.addPage(
     pw.MultiPage(
       pageFormat: PdfPageFormat.a4,
-      header: (context) => _pageHeader('Income and Expense Report'),
+      header: (context) => _pageHeader('Money In and Out Report'),
       footer: _pageFooter,
       build: (context) => [
         _kv('Period', periodLabel),
         _kv('Currency', MoneyFormat.currency.code),
         pw.SizedBox(height: 12),
-        _kv('Total income', MoneyFormat.bare(income)),
-        _kv('Total expense', MoneyFormat.bare(expense)),
+        _kv('Total money in', MoneyFormat.bare(income)),
+        _kv('Total money out', MoneyFormat.bare(expense)),
         _kv(
           'Net',
           net.isNegative
@@ -60,12 +60,12 @@ Future<Uint8List> buildIncomeExpenseReportPdf({
         pw.SizedBox(height: 6),
         if (rows.isEmpty)
           pw.Text(
-            'No expenses in this period.',
+            'No money out in this period.',
             style: const pw.TextStyle(fontSize: 10, color: PdfColors.grey700),
           )
         else
           pw.TableHelper.fromTextArray(
-            headers: const ['Category', 'Amount', '% of expense'],
+            headers: const ['Category', 'Amount', '% of money out'],
             data: [
               for (final r in rows)
                 [
@@ -91,8 +91,8 @@ Future<Uint8List> buildIncomeExpenseReportPdf({
           ),
         pw.SizedBox(height: 12),
         pw.Text(
-          'Transfers between your own accounts are never counted as income '
-          'or expense.',
+          'Transfers between your own accounts are never counted as money in '
+          'or money out.',
           style: const pw.TextStyle(fontSize: 9, color: PdfColors.grey700),
         ),
       ],

@@ -104,11 +104,11 @@ class AutoScreen extends ConsumerWidget {
               return SliverList.list(
                 children: [
                   if (expenses.isNotEmpty) ...[
-                    _sectionHeader(theme, 'Auto Expenses'),
+                    _sectionHeader(theme, 'Money out'),
                     _section(context, theme, expenses),
                   ],
                   if (income.isNotEmpty) ...[
-                    _sectionHeader(theme, 'Auto Income'),
+                    _sectionHeader(theme, 'Money in'),
                     _section(context, theme, income),
                   ],
                   if (goalOrLoan.isNotEmpty) ...[
@@ -202,8 +202,8 @@ class _EmptyAuto extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'Nothing set up yet — tap + to automate a fixed expense like '
-            'rent or a subscription, income like salary, or a fixed '
+            'Nothing set up yet — tap + to automate a fixed payment like '
+            'rent or a subscription, money in like salary, or a fixed '
             'contribution toward a goal or loan payment.',
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyMedium?.copyWith(

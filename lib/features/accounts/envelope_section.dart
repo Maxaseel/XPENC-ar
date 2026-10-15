@@ -39,7 +39,7 @@ class EnvelopeSection extends ConsumerWidget {
             title: const Text('On-budget'),
             subtitle: Text(
               account.envelopeMode
-                  ? 'In the shared Ready to Assign pool. An expense needs a '
+                  ? 'In the shared Ready to Assign pool. Money out needs a '
                         'category.'
                   : 'Off-budget — balance-only, like a vending-machine key '
                         'fob. Outside the shared pool.',
@@ -86,8 +86,8 @@ class EnvelopeSection extends ConsumerWidget {
           title: const Text('Mark this account on-budget?'),
           content: const Text(
             'Money you assign to a category becomes reserved for it. '
-            'Unassigned money sits in Ready to Assign. From now on, an '
-            'expense on this account needs a category.',
+            'Unassigned money sits in Ready to Assign. From now on, '
+            'money out of this account needs a category.',
           ),
           actions: [
             TextButton(

@@ -1099,7 +1099,7 @@ class _FooterCaption extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(28, 16, 28, 32),
       child: Text(
-        "Money you lend isn't an expense — it's still yours, just held by "
+        "Money you lend isn't spending — it's still yours, just held by "
         'someone else.',
         textAlign: TextAlign.center,
         style: theme.textTheme.bodySmall?.copyWith(

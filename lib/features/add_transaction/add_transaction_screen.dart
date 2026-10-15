@@ -1036,7 +1036,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         title: const Text('Split into categories'),
         subtitle: _isSplit
             ? null
-            : const Text('One expense, more than one category'),
+            : const Text('One payment, more than one category'),
       ),
     );
   }
@@ -1109,8 +1109,8 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
             const SizedBox(height: 4),
             Text(
               switch (mode) {
-                null => 'One expense — tap either side to split it up',
-                _SplitMode.categories => 'One expense, more than one category',
+                null => 'One payment — tap either side to split it up',
+                _SplitMode.categories => 'One payment, more than one category',
                 _SplitMode.accounts =>
                   'One purchase, paid from more than one account',
               },
@@ -2108,11 +2108,11 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                             segments: const [
                               ButtonSegment(
                                 value: TxType.expense,
-                                label: Text('Expense'),
+                                label: Text('Money out'),
                               ),
                               ButtonSegment(
                                 value: TxType.income,
-                                label: Text('Income'),
+                                label: Text('Money in'),
                               ),
                               ButtonSegment(
                                 value: TxType.transfer,
@@ -2882,7 +2882,7 @@ class _CategoryPickerSheetState extends ConsumerState<_CategoryPickerSheet> {
       header = Padding(
         padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
         child: Text(
-          widget.kind == CategoryKind.income ? 'Income category' : 'Category',
+          widget.kind == CategoryKind.income ? 'Money-in category' : 'Category',
           style: theme.textTheme.titleLarge,
         ),
       );

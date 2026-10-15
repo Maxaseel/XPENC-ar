@@ -646,8 +646,8 @@ class _LoanPaymentSheetState extends ConsumerState<_LoanPaymentSheet> {
 
   String _paymentHint() {
     if (!_hasInterest) {
-      return 'Split out the interest part of an EMI — it posts as an '
-          'expense instead of reducing the loan balance.';
+      return 'Split out the interest part of an EMI — it posts as '
+          'money out instead of reducing the loan balance.';
     }
     final scheduled = _scheduledPrincipal;
     final principalText = scheduled != null && _extraPrincipal.isPositive
@@ -659,7 +659,7 @@ class _LoanPaymentSheetState extends ConsumerState<_LoanPaymentSheet> {
     return estimated
         ? "Estimated from the loan's rate — edit to match your statement. "
               'Only $principalText reduces the loan.'
-        : 'Interest posts as a real expense; only the rest ($principalText) '
+        : 'Interest posts as real money out; only the rest ($principalText) '
               'reduces the loan.';
   }
 
@@ -844,7 +844,7 @@ class _LoanPaymentSheetState extends ConsumerState<_LoanPaymentSheet> {
                     ? 'Interest category'
                     : 'Category (optional)',
                 helperText: _hasInterest
-                    ? 'Required — tags the interest expense.'
+                    ? 'Required — tags the interest payment.'
                     : null,
               ),
               items: [

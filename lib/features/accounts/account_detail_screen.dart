@@ -446,7 +446,7 @@ class _HeaderCard extends ConsumerWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Corrections are never counted as income or spending, but '
+                  'Corrections are never counted as money in or out, but '
                   'they lower your XPENC Score\'s Tracking habit — logging as '
                   'you go keeps the balance right on its own.',
                   style: theme.textTheme.bodySmall?.copyWith(

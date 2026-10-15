@@ -46,11 +46,11 @@ class PersonsSettingsScreen extends ConsumerWidget {
             child: AppSwitchListTile(
               contentPadding: const EdgeInsets.symmetric(horizontal: 16),
               secondary: const AppIcon(Icons.handshake_outlined),
-              title: const Text('Count repayments as income'),
+              title: const Text('Count repayments as money in'),
               subtitle: Text(
                 'Offers "Mark as repaid" on a person\'s page — a repayment '
-                'posts as income under a category you choose, instead of '
-                'staying off income/expense like lending normally does.',
+                'posts as money in under a category you choose, instead of '
+                'staying off money in/out like lending normally does.',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: cs.onSurfaceVariant,
                 ),

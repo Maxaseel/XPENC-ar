@@ -34,6 +34,14 @@ Release process: see [docs/RELEASING.md](docs/RELEASING.md).
   photo circle (or **Add photo**) to pick one from your gallery — no
   contact needed. It's shrunk to avatar size and kept on the phone.
 
+### Changed
+- **"Income" and "Expense" are now "Money in" and "Money out"** (#159). A
+  refund or a meal voucher isn't income, and not every payment is an
+  expense — so XPENC now says what it actually tracks. Everywhere: Add,
+  Transactions, Categories, reports, PDFs, notifications and the home
+  screen widgets. Your data doesn't change — backups, CSV exports and the
+  `/add?type=` links keep their format. Group bills are still "expenses".
+
 ## [1.6.4] — 2026-10-10
 
 ### Added

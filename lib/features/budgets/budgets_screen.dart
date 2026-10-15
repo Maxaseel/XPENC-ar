@@ -187,7 +187,7 @@ class BudgetsScreen extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 24),
           child: Text(
-            'No expense categories yet.',
+            'No money-out categories yet.',
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: cs.onSurfaceVariant,
@@ -213,7 +213,7 @@ class BudgetsScreen extends ConsumerWidget {
         ),
       const SizedBox(height: 8),
       Text(
-        'Budgets only count expenses. Transfers between your own '
+        'Budgets only count money out. Transfers between your own '
         'accounts are never counted.',
         style: theme.textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
       ),

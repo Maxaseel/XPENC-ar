@@ -36,7 +36,7 @@ class WidgetsScreen extends ConsumerWidget {
             icon: Icons.account_balance_wallet_outlined,
             title: 'Balance',
             description:
-                'Your total balance, plus "+ Expense" / "+ Income" '
+                'Your total balance, plus "+ Money out" / "+ Money in" '
                 'shortcuts.',
             canPin: canPin,
           ),
@@ -56,7 +56,7 @@ class WidgetsScreen extends ConsumerWidget {
             icon: Icons.flash_on_outlined,
             title: 'Quick Add',
             description:
-                'Just the "+ Expense" / "+ Income" shortcuts, enlarged — '
+                'Just the "+ Money out" / "+ Money in" shortcuts, enlarged — '
                 'for a dedicated one-tap-to-log tile.',
             canPin: canPin,
           ),
@@ -65,8 +65,7 @@ class WidgetsScreen extends ConsumerWidget {
             widget: HomeScreenWidget.monthSummary,
             icon: Icons.calendar_month_outlined,
             title: 'This Month',
-            description:
-                "This month's income and expense totals, side by side.",
+            description: "This month's money in and out totals, side by side.",
             canPin: canPin,
           ),
         ],

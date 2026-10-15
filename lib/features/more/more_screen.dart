@@ -42,7 +42,7 @@ class MoreScreen extends ConsumerWidget {
     final rules = ref.watch(recurringRulesProvider).valueOrNull ?? const [];
     final activeRuleCount = rules.where((r) => r.isActive).length;
     final autoSubtitle = activeRuleCount == 0
-        ? 'Automate a fixed expense or income'
+        ? 'Automate a fixed payment or money in'
         : '$activeRuleCount active';
 
     final groups = <_Group>[
@@ -157,7 +157,7 @@ class MoreScreen extends ConsumerWidget {
           Icons.category_outlined,
           'Categories',
           route: '/more/categories',
-          subtitle: 'Income & expense categories',
+          subtitle: 'Money in & out categories',
         ),
         _Item(
           Icons.sell_outlined,

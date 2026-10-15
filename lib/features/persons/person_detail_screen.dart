@@ -891,14 +891,14 @@ class _EntrySheetState extends ConsumerState<_EntrySheet> {
     final note = _noteController.text.trim();
     if (widget.isRepayment && _repaymentCategoryId == null) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('Choose a category for this income')),
+        const SnackBar(content: Text('Choose a category for this repayment')),
       );
       return;
     }
     if (widget.isRepayment && _accountId == null) {
       messenger.showSnackBar(
         const SnackBar(
-          content: Text('A repayment counted as income must move money'),
+          content: Text('A repayment counted as money in must move money'),
         ),
       );
       return;
@@ -979,7 +979,7 @@ class _EntrySheetState extends ConsumerState<_EntrySheet> {
               _isEdit
                   ? 'Entry updated'
                   : widget.isRepayment
-                  ? 'Saved as income'
+                  ? 'Saved as money in'
                   : _theyOwe
                   ? 'Saved — they owe you'
                   : 'Saved — you owe them',
@@ -1071,7 +1071,7 @@ class _EntrySheetState extends ConsumerState<_EntrySheet> {
               const SizedBox(height: 4),
               Text(
                 widget.isRepayment
-                    ? 'Counts toward your income, under the category you '
+                    ? 'Counts as money in, under the category you '
                           'choose below.'
                     : _theyOwe
                     ? 'You gave money out. Their balance goes up.'
@@ -1178,10 +1178,10 @@ class _EntrySheetState extends ConsumerState<_EntrySheet> {
                     ? 'No money will move. This only records who owes whom.'
                     : widget.isRepayment
                     ? 'This amount enters that account and posts as '
-                          'income under the category below.'
+                          'money in under the category below.'
                     : 'This amount will leave or enter that account and '
-                          "appear in Transactions. Lending still isn't an "
-                          'expense — it\'s your money, just held by '
+                          "appear in Transactions. Lending still isn't "
+                          'spending — it\'s your money, just held by '
                           'someone else.',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,

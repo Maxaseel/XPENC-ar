@@ -41,14 +41,14 @@ class NotificationService {
 
   static const _autoChannel = AndroidNotificationChannel(
     'auto',
-    'Auto expenses & income',
+    'Auto money in & out',
     description: 'Warns ahead of an auto-post, and confirms once one lands.',
     importance: Importance.high,
   );
 
   static const _expenseNudgeChannel = AndroidNotificationChannel(
     'expense_nudge',
-    'Daily expense reminder',
+    'Daily logging reminder',
     description:
         "A daily nudge to log today's spending — not tied to any "
         'specific bill.',
@@ -59,8 +59,8 @@ class NotificationService {
     'quick_add',
     'Quick add shortcut',
     description:
-        'A standing, silent notification with "Add expense" / "Add '
-        'income" buttons.',
+        'A standing, silent notification with "Add money out" / "Add '
+        'money in" buttons.',
     importance: Importance.low,
   );
 
@@ -580,7 +580,7 @@ class NotificationService {
       await _plugin.show(
         id: _quickAddId,
         title: 'Quick add',
-        body: 'Reply with an amount to log an expense or income.',
+        body: 'Reply with an amount to log money out or in.',
         notificationDetails: NotificationDetails(
           android: AndroidNotificationDetails(
             _quickAddChannel.id,
@@ -597,13 +597,13 @@ class NotificationService {
             actions: const [
               AndroidNotificationAction(
                 _quickAddExpenseAction,
-                'Add expense',
+                'Add money out',
                 cancelNotification: false,
                 inputs: [AndroidNotificationActionInput(label: 'Amount')],
               ),
               AndroidNotificationAction(
                 _quickAddIncomeAction,
-                'Add income',
+                'Add money in',
                 cancelNotification: false,
                 inputs: [AndroidNotificationActionInput(label: 'Amount')],
               ),
@@ -692,7 +692,7 @@ Future<void> _handleQuickAddReply(NotificationResponse response) async {
     );
     final account = await db.watchAccount(accountId).first;
     await result(
-      '${type == TxType.expense ? 'Expense' : 'Income'} of '
+      '${type == TxType.expense ? 'Money out' : 'Money in'} of '
       '${MoneyFormat.symbol(amount)} added to ${account?.name ?? 'your account'}.',
     );
   } catch (e) {

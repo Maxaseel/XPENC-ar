@@ -59,7 +59,8 @@ class ThemePickerSheet extends ConsumerWidget {
             ),
             const SizedBox(height: 4),
             Text(
-              'Money colours never change — green is always income.',
+              'Money colours stay the same in every theme — pick them in '
+              'Settings → General → Colours.',
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),

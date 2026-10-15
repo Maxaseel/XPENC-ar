@@ -192,8 +192,8 @@ class XpencScoreCard extends ConsumerWidget {
                           ? (next == null
                                 ? 'Every rule at full marks.'
                                 : 'Next: improve ${next.title.toLowerCase()}')
-                          : 'Add at least $kScoreMinTransactions income or '
-                                'expense entries to see your score.',
+                          : 'Add at least $kScoreMinTransactions money in or '
+                                'money out entries to see your score.',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: theme.textTheme.bodySmall?.copyWith(
@@ -267,7 +267,7 @@ class XpencScoreScreen extends ConsumerWidget {
                 const SizedBox(height: 6),
                 Text(
                   grade?.blurb ??
-                      'Add at least $kScoreMinTransactions income or expense '
+                      'Add at least $kScoreMinTransactions money in or out '
                           'entries (you have ${result.entriesInWindow} in the '
                           'last $kScoreWindowDays days) and your score appears '
                           'here.',
@@ -281,7 +281,7 @@ class XpencScoreScreen extends ConsumerWidget {
                   children: [
                     Expanded(
                       child: StatTile(
-                        label: 'Income · 90 days',
+                        label: 'Money in · 90 days',
                         value: MoneyFormat.compact(result.windowIncome),
                         color: AppColors.income,
                       ),
@@ -289,7 +289,7 @@ class XpencScoreScreen extends ConsumerWidget {
                     const SizedBox(width: 12),
                     Expanded(
                       child: StatTile(
-                        label: 'Expense · 90 days',
+                        label: 'Money out · 90 days',
                         value: MoneyFormat.compact(result.windowExpense),
                         color: AppColors.expense,
                       ),
@@ -365,8 +365,8 @@ class XpencScoreScreen extends ConsumerWidget {
                           'are left out and the rest scaled to 100, so you '
                           'are never marked down for a feature you don\'t '
                           'use. Transfers between your own accounts and money '
-                          'lent to or repaid by people never count as income '
-                          'or expense.',
+                          'lent to or repaid by people never count as money in '
+                          'or money out.',
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: cs.onSurfaceVariant,
                           ),

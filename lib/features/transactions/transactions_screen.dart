@@ -1733,8 +1733,8 @@ class _FilterChips extends StatelessWidget {
 
   static const List<(String, IconData, _QuickFilter)> _options = [
     ('All', Icons.all_inclusive_rounded, _QuickFilter.all),
-    ('Income', Icons.south_west_rounded, _QuickFilter.income),
-    ('Expense', Icons.north_east_rounded, _QuickFilter.expense),
+    ('Money in', Icons.south_west_rounded, _QuickFilter.income),
+    ('Money out', Icons.north_east_rounded, _QuickFilter.expense),
     ('Transfer', Icons.swap_horiz_rounded, _QuickFilter.transfer),
     ('Linked', Icons.link_rounded, _QuickFilter.linked),
   ];

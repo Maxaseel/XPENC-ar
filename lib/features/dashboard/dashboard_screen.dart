@@ -345,8 +345,8 @@ class _NetWorthCardState extends ConsumerState<_NetWorthCard> {
       null when past =>
         'Total money on ${DateFormat('d MMM').format(period.end)}',
       null => 'Total money',
-      _MoneyMetric.income => 'Income',
-      _MoneyMetric.expense => 'Expense',
+      _MoneyMetric.income => 'Money in',
+      _MoneyMetric.expense => 'Money out',
       _MoneyMetric.savings => 'Savings',
       _MoneyMetric.loan => 'Loan',
     };
@@ -616,8 +616,8 @@ class _MoneyMetricTabs extends StatelessWidget {
   // A getter, not a `static const`: the colours are the person's picks
   // (GitHub #156), read fresh each build.
   static List<(_MoneyMetric, String, Color)> get _tabs => [
-    (_MoneyMetric.income, 'Income', AppColors.income),
-    (_MoneyMetric.expense, 'Expense', AppColors.expense),
+    (_MoneyMetric.income, 'Money in', AppColors.income),
+    (_MoneyMetric.expense, 'Money out', AppColors.expense),
     (_MoneyMetric.savings, 'Savings', AppColors.transfer),
     (_MoneyMetric.loan, 'Loan', AppColors.person),
   ];
@@ -846,7 +846,7 @@ class _ThisMonthCard extends ConsumerWidget {
                         children: [
                           Expanded(
                             child: _MetricTile(
-                              label: 'Income',
+                              label: 'Money in',
                               amount: t.income,
                               color: AppColors.income,
                               icon: Icons.south_west_rounded,
@@ -855,7 +855,7 @@ class _ThisMonthCard extends ConsumerWidget {
                           const SizedBox(width: 12),
                           Expanded(
                             child: _MetricTile(
-                              label: 'Expense',
+                              label: 'Money out',
                               amount: t.expense,
                               color: AppColors.expense,
                               icon: Icons.north_east_rounded,

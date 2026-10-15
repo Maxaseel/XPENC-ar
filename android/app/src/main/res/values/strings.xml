@@ -6,9 +6,9 @@
 
     <!-- Balance home-screen widget. -->
     <string name="widget_total_balance">Total balance</string>
-    <string name="widget_add_expense">+ Expense</string>
-    <string name="widget_add_income">+ Income</string>
-    <string name="widget_description">Your total balance, with one-tap shortcuts to log an expense or income.</string>
+    <string name="widget_add_expense">+ Money out</string>
+    <string name="widget_add_income">+ Money in</string>
+    <string name="widget_description">Your total balance, with one-tap shortcuts to log money in or out.</string>
 
     <!-- Budgets home-screen widget. -->
     <string name="widget_budgets_title">Budgets</string>
@@ -16,11 +16,11 @@
     <string name="widget_budgets_description">Your top budgets, closest to their limit first.</string>
 
     <!-- Quick Add home-screen widget. -->
-    <string name="widget_quick_add_description">One-tap shortcuts to log an expense or income — nothing else.</string>
+    <string name="widget_quick_add_description">One-tap shortcuts to log money in or out — nothing else.</string>
 
     <!-- This Month home-screen widget. -->
     <string name="widget_month_title">This month</string>
-    <string name="widget_month_income_label">Income</string>
-    <string name="widget_month_expense_label">Expense</string>
-    <string name="widget_month_description">This month\'s income and expense totals, at a glance.</string>
+    <string name="widget_month_income_label">Money in</string>
+    <string name="widget_month_expense_label">Money out</string>
+    <string name="widget_month_description">This month\'s money in and out totals, at a glance.</string>
 </resources>

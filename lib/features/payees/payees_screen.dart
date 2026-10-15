@@ -234,7 +234,7 @@ class _EmptyPayees extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'No payees yet — name one on an expense or income to see it here.',
+            'No payees yet — name one when you add money in or out to see it here.',
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,

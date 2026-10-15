@@ -90,11 +90,11 @@ const guideSections = <GuideSection>[
       whatItDoes:
           'When an account shows the wrong amount — say ₹100 in cash but '
           'your wallet has ₹75 — enter what you really have and the '
-          'difference is saved as one "Correction" transaction. No fake '
-          'expense, and your history stays as it was.',
+          'difference is saved as one "Correction" transaction. No made-up '
+          'payment, and your history stays as it was.',
       howToUse:
           'Open the account and tap the pencil next to its balance. '
-          'Corrections never count as income or spending, but each one in '
+          'Corrections never count as money in or out, but each one in '
           'the last 30 days lowers the XPENC Score\'s Tracking habit — '
           'logging as you go keeps balances right on their own. Delete a '
           'correction to undo it.',
@@ -104,7 +104,7 @@ const guideSections = <GuideSection>[
       icon: Icons.receipt_long_outlined,
       title: 'Transactions',
       whatItDoes:
-          'Every income, expense, transfer and lending movement you\'ve '
+          'Every money-in, money-out, transfer and lending movement you\'ve '
           'logged, searchable and filterable by date, ISO week, account, '
           'or "linked" status.',
       howToUse:
@@ -119,8 +119,8 @@ const guideSections = <GuideSection>[
       title: 'Persons',
       whatItDoes:
           'Tracks who owes you and who you owe, kept separate from your '
-          'own accounts — lending someone money isn\'t an expense, and '
-          'being repaid isn\'t income.',
+          'own accounts — lending someone money isn\'t spending, and '
+          'being repaid isn\'t money in.',
       howToUse:
           'Open a person to log a lend/borrow entry or a repayment, and '
           'share their whole ledger as a PDF. Hold a person for Edit, Link '
@@ -189,7 +189,7 @@ const guideSections = <GuideSection>[
       title: 'Auto (recurring rules)',
       whatItDoes:
           'Rules that post themselves on schedule instead of you logging '
-          'them by hand: a fixed expense or income, a transfer into a '
+          'them by hand: a fixed payment or money in, a transfer into a '
           'savings goal, or an EMI into a loan.',
       howToUse:
           'Add one with a frequency (daily/weekly/biweekly/monthly/'
@@ -205,7 +205,7 @@ const guideSections = <GuideSection>[
           'Every name typed into a transaction\'s payee field, grouped '
           'automatically — there\'s no separate payee list to maintain.',
       howToUse:
-          'Type a payee while logging an expense/income and it shows up '
+          'Type a payee while logging money in or out and it shows up '
           'here on its own, with its net flow (paid vs. received) and a '
           'link back to its full transaction history.',
       location: 'More → Payees',
@@ -250,7 +250,7 @@ const guideSections = <GuideSection>[
       howToUse:
           'Keep holding and slide toward a shortcut, then let go. Choose '
           'what sits in each slot — any screen, a calculator, Add '
-          'expense/income or a saved transaction template — in Settings → '
+          'money in/out or a saved transaction template — in Settings → '
           'Quick Actions.',
       location: 'Hold ➕ · Settings → Quick Actions',
     ),
@@ -333,7 +333,7 @@ const guideSections = <GuideSection>[
       icon: Icons.category_outlined,
       title: 'Categories',
       whatItDoes:
-          'Income and expense categories, each with its own icon and '
+          'Money in and out categories, each with its own icon and '
           'colour, picked from a searchable icon sheet.',
       howToUse:
           'Save your whole category structure as a named template and '
@@ -346,7 +346,7 @@ const guideSections = <GuideSection>[
       title: 'Tags',
       whatItDoes:
           'Labels that cut across categories — a tag isn\'t tied to '
-          'income or expense, so it can mark anything that shares a '
+          'money in or out, so it can mark anything that shares a '
           'context (e.g. "Trip to Goa").',
       howToUse:
           'Tag groups bundle tags that always go together (e.g. "Work '

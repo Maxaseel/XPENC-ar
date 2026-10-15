@@ -74,8 +74,8 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen>
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
-            Tab(text: 'Expense'),
-            Tab(text: 'Income'),
+            Tab(text: 'Money out'),
+            Tab(text: 'Money in'),
           ],
         ),
       ),
@@ -294,7 +294,7 @@ class _EmptyCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final label = kind == CategoryKind.expense ? 'expense' : 'income';
+    final label = kind == CategoryKind.expense ? 'money-out' : 'money-in';
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 48, 24, 24),

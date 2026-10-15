@@ -50,7 +50,7 @@ const kScorePillars = <ScorePillarSpec>[
     title: 'Savings rate',
     weight: 25,
     rule:
-        'Share of income left after expenses over the last 90 days. '
+        'Share of money in left after money out over the last 90 days. '
         '30% or more earns full points; 0% or less earns none.',
   ),
   (
@@ -58,15 +58,15 @@ const kScorePillars = <ScorePillarSpec>[
     title: 'Living within means',
     weight: 10,
     rule:
-        'Of the last 3 full months, how many ended with expenses at or '
-        'below income.',
+        'Of the last 3 full months, how many ended with money out at or '
+        'below money in.',
   ),
   (
     id: ScorePillarId.debtLoad,
     title: 'Debt load',
     weight: 20,
     rule:
-        'Monthly debt obligations as a share of monthly income — loan EMIs, '
+        'Monthly debt obligations as a share of monthly money in — loan EMIs, '
         'credit card and pay-later dues, plus a third of what you owe people. '
         '20% or less earns full points; 60% or more earns none.',
   ),
@@ -84,7 +84,7 @@ const kScorePillars = <ScorePillarSpec>[
     weight: 15,
     rule:
         'Cash, bank, prepaid and savings-goal balances measured in months of '
-        'average expenses. 6 months or more earns full points.',
+        'average spending. 6 months or more earns full points.',
   ),
   (
     id: ScorePillarId.budgets,
@@ -223,7 +223,7 @@ extension ScoreGradeX on ScoreGrade {
     ScoreGrade.needsWork =>
       'Some habits are costing you. The tips below show where to start.',
     ScoreGrade.atRisk =>
-      'Spending or debt is outpacing income. Start with the first tip below.',
+      'Spending or debt is outpacing money in. Start with the first tip below.',
   };
 }
 
@@ -330,16 +330,16 @@ XpencScore computeXpencScore(XpencScoreInput input) {
 ScorePillar _savingsRate(Money income, Money expense) {
   const id = ScorePillarId.savingsRate;
   if (income.isZero && expense.isZero) {
-    return const ScorePillar.skipped(id, 'No income or expenses yet');
+    return const ScorePillar.skipped(id, 'No money in or out yet');
   }
   if (!income.isPositive) {
     return ScorePillar(
       id: id,
       applicable: true,
       fraction: 0,
-      detail: 'Expenses with no recorded income',
+      detail: 'Money out with no recorded money in',
       tip:
-          'Record your income too — salary, freelance, interest — so the '
+          'Record your money in too — salary, freelance, interest — so the '
           'score can see what you earn.',
     );
   }
@@ -350,13 +350,13 @@ ScorePillar _savingsRate(Money income, Money expense) {
     applicable: true,
     fraction: fraction,
     detail: rate >= 0
-        ? 'Saved ${_pct(rate)} of income'
+        ? 'Saved ${_pct(rate)} of money in'
         : 'Spent ${_pct(-rate)} more than you earned',
     tip: fraction >= 1
         ? null
         : rate < 0
-        ? 'Expenses are above income. Cut your top spending category first.'
-        : 'Aim to keep at least 30% of income. Your top expense categories '
+        ? 'Money out is above money in. Cut your top spending category first.'
+        : 'Aim to keep at least 30% of money in. Your top money-out categories '
               'are the fastest place to find it.',
   );
 }
@@ -395,11 +395,11 @@ ScorePillar _livingWithinMeans(XpencScoreInput input) {
     fraction: fraction,
     detail:
         '$within of $active full month${active == 1 ? '' : 's'} '
-        'within income',
+        'within money in',
     tip: fraction >= 1
         ? null
         : 'Some months ended in the red. A monthly budget on your biggest '
-              'categories keeps spending under income.',
+              'categories keeps spending under money in.',
   );
 }
 
@@ -419,9 +419,9 @@ ScorePillar _debtLoad(XpencScoreInput input, double avgIncome) {
       id: id,
       applicable: true,
       fraction: 0,
-      detail: 'Debt with no recorded income',
+      detail: 'Debt with no recorded money in',
       tip:
-          'Record your income so debt can be weighed against it — and '
+          'Record your money in so debt can be weighed against it — and '
           'prioritise clearing the most expensive debt first.',
     );
   }
@@ -431,10 +431,10 @@ ScorePillar _debtLoad(XpencScoreInput input, double avgIncome) {
     id: id,
     applicable: true,
     fraction: fraction,
-    detail: 'Debt takes ${_pct(ratio)} of monthly income',
+    detail: 'Debt takes ${_pct(ratio)} of monthly money in',
     tip: fraction >= 1
         ? null
-        : 'Keep monthly debt payments under 20% of income. Clear credit card '
+        : 'Keep monthly debt payments under 20% of money in. Clear credit card '
               'and pay-later dues in full first — they cost the most.',
   );
 }
@@ -537,7 +537,10 @@ ScorePillar _repayment(XpencScoreInput input) {
 ScorePillar _emergencyFund(XpencScoreInput input, double avgExpense) {
   const id = ScorePillarId.emergencyFund;
   if (avgExpense <= 0) {
-    return const ScorePillar.skipped(id, 'Needs a few expenses to measure');
+    return const ScorePillar.skipped(
+      id,
+      'Needs a few money-out entries to measure',
+    );
   }
   final months = math.max(0, input.liquid.paise) / avgExpense;
   final fraction = _ramp(months, zero: 0, full: 6);
@@ -545,10 +548,10 @@ ScorePillar _emergencyFund(XpencScoreInput input, double avgExpense) {
     id: id,
     applicable: true,
     fraction: fraction,
-    detail: 'Covers ${months.toStringAsFixed(1)} months of expenses',
+    detail: 'Covers ${months.toStringAsFixed(1)} months of spending',
     tip: fraction >= 1
         ? null
-        : 'Build a cushion of 6 months of expenses. A savings goal with a '
+        : 'Build a cushion of 6 months of spending. A savings goal with a '
               'small monthly transfer is the easiest way to start.',
   );
 }

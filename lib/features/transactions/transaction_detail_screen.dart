@@ -379,8 +379,8 @@ class _Hero extends StatelessWidget {
         : currencyForCode(t.currencyCode!);
 
     final (String label, IconData icon) = switch (t.type) {
-      TxType.income => ('Income', Icons.arrow_downward_rounded),
-      TxType.expense => ('Expense', Icons.arrow_upward_rounded),
+      TxType.income => ('Money in', Icons.arrow_downward_rounded),
+      TxType.expense => ('Money out', Icons.arrow_upward_rounded),
       TxType.transfer => ('Transfer', Icons.swap_horiz_rounded),
       TxType.personOut => ('Gave to person', Icons.call_made_rounded),
       TxType.personIn => ('Received from person', Icons.call_received_rounded),
@@ -831,8 +831,8 @@ class _TagsRow extends ConsumerWidget {
 }
 
 String _typeLabel(TxType type) => switch (type) {
-  TxType.income => 'Income',
-  TxType.expense => 'Expense',
+  TxType.income => 'Money in',
+  TxType.expense => 'Money out',
   TxType.transfer => 'Transfer',
   TxType.personOut => 'Gave to person',
   TxType.personIn => 'Received from person',
@@ -946,7 +946,7 @@ Widget _categoryValue(
         const SizedBox(height: 2),
         Text(
           t.type.isCorrection
-              ? 'Not income or expense — never counted in stats'
+              ? 'Not money in or out — never counted in stats'
               : 'Transfers have no category',
           textAlign: TextAlign.right,
           style: theme.textTheme.bodySmall?.copyWith(

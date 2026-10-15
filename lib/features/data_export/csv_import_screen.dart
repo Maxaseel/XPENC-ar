@@ -509,7 +509,7 @@ class _MappingForm extends StatelessWidget {
               ),
             ] else
               _ColumnDropdown(
-                label: 'Amount (negative = expense, positive = income)',
+                label: 'Amount (negative = money out, positive = money in)',
                 headers: headers,
                 value: amountColumn,
                 allowNone: false,

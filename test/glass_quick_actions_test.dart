@@ -86,7 +86,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 16));
     }
     await tester.pump(const Duration(milliseconds: 200));
-    expect(find.text('Add expense'), findsOneWidget);
+    expect(find.text('Add money out'), findsOneWidget);
 
     await gesture.up();
     // The fan plays out, then the page grows out of the ➕: a disc of the

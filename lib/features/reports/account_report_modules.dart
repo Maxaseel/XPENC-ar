@@ -519,7 +519,7 @@ class _ActivityBody extends ConsumerWidget {
               StatTile(
                 label: 'Money in',
                 value: MoneyFormat.symbol(summary.moneyIn),
-                sub: 'Income + from people',
+                sub: 'Money in + from people',
                 color: AppColors.income,
               ),
               StatTile(
@@ -910,7 +910,7 @@ class _PaymentMethodsBody extends ConsumerWidget {
             ],
             const SizedBox(height: 12),
             _Footnote(
-              'Counts expenses only. A debit card shows on its own here, even '
+              'Counts money out only. A debit card shows on its own here, even '
               'though the money comes from its bank.',
             ),
           ],
@@ -1222,7 +1222,7 @@ class _HealthRow extends StatelessWidget {
         'Below zero',
         '${accountTypeLabel(account)} can\'t really go negative — '
             '${_inAccountCurrency(flag.amount!, account)} usually means a '
-            'missing income or a mistyped amount.',
+            'missing money in or a mistyped amount.',
       ),
       AccountHealthIssue.belowMinimum => (
         Icons.trending_down_rounded,

@@ -73,14 +73,14 @@ class QuickActionSpec {
 final List<QuickActionSpec> quickActionCatalog = [
   QuickActionSpec(
     id: 'add-expense',
-    label: 'Add expense',
+    label: 'Add money out',
     icon: iconForTxType(TxType.expense),
     route: '/add?type=expense',
     group: 'Add',
   ),
   QuickActionSpec(
     id: 'add-income',
-    label: 'Add income',
+    label: 'Add money in',
     icon: iconForTxType(TxType.income),
     route: '/add?type=income',
     group: 'Add',

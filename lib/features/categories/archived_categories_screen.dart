@@ -102,7 +102,8 @@ class ArchivedCategoriesScreen extends ConsumerWidget {
       Padding(
         padding: const EdgeInsets.fromLTRB(20, 16, 20, 4),
         child: Text(
-          (kind == CategoryKind.expense ? 'Expense' : 'Income').toUpperCase(),
+          (kind == CategoryKind.expense ? 'Money out' : 'Money in')
+              .toUpperCase(),
           style: theme.textTheme.labelSmall?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
             fontWeight: FontWeight.w700,

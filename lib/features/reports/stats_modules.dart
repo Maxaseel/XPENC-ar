@@ -36,7 +36,7 @@ extension StatsModuleX on StatsModule {
   String get title => switch (this) {
     StatsModule.cashFlow => 'Cash flow',
     StatsModule.spending => 'Spending',
-    StatsModule.income => 'Income',
+    StatsModule.income => 'Money in',
     StatsModule.netWorth => 'Net worth',
     StatsModule.debt => 'Loans & debt',
     StatsModule.people => 'People',
@@ -373,7 +373,7 @@ class _CashFlowBody extends ConsumerWidget {
               StatTile(
                 label: 'Savings rate',
                 value: rate == null ? '—' : _pct(rate),
-                sub: 'Of income kept',
+                sub: 'Of money in kept',
                 color: rate == null
                     ? null
                     : rate < 0
@@ -395,7 +395,7 @@ class _CashFlowBody extends ConsumerWidget {
                       subtitle: m.income.isPositive
                           ? 'Kept ${_pct((m.income - m.expense).paise / m.income.paise)} '
                                 'of ${MoneyFormat.compact(m.income)}'
-                          : 'No income recorded',
+                          : 'No money in recorded',
                       value: MoneyFormat.signed(m.income - m.expense),
                       valueColor: (m.income - m.expense).isNegative
                           ? AppColors.expense
@@ -565,21 +565,21 @@ class _IncomeBody extends ConsumerWidget {
               StatTile(
                 label: 'Consistency',
                 value: '$monthsWithIncome / 6',
-                sub: 'Months with income',
+                sub: 'Months with money in',
               ),
               StatTile(
                 label: 'Top source share',
                 value: topShare == null ? '—' : _pct(topShare),
                 sub: topShare != null && topShare > 0.8
                     ? 'Highly concentrated'
-                    : 'Of 6-month income',
+                    : 'Of 6-month money in',
               ),
             ),
             _gap,
             const SectionCaption('Sources · last 6 months'),
             CategoryPieChart(slices: slices),
             _gap,
-            const SectionCaption('Largest income entries'),
+            const SectionCaption('Largest money-in entries'),
             _ListCard(
               children: [
                 for (final (i, t) in biggest.take(kStandingsLimit).indexed)
@@ -777,7 +777,7 @@ class _DebtBody extends ConsumerWidget {
             _tileGap,
             _TilePair(
               StatTile(
-                label: 'Debt to income',
+                label: 'Debt vs money in',
                 value: dti == null ? '—' : _pct(dti),
                 sub: 'Healthy: under 20%',
                 color: dti == null
@@ -1268,9 +1268,9 @@ class _RecurringBody extends ConsumerWidget {
         ),
         _tileGap,
         StatTile(
-          label: 'Income already committed',
+          label: 'Money in already committed',
           value: committed == null ? '—' : _pct(committed),
-          sub: 'Recurring outflow vs. average monthly income',
+          sub: 'Recurring outflow vs. average monthly money in',
           color: committed != null && committed > 0.5
               ? AppColors.expense
               : null,

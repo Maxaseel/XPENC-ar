@@ -61,7 +61,7 @@ class NotificationsSettingsScreen extends ConsumerWidget {
                 AppSwitchListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   secondary: const AppIcon(Icons.edit_note_rounded),
-                  title: const Text('Daily expense reminder'),
+                  title: const Text('Daily logging reminder'),
                   subtitle: Text(
                     expenseReminder.enabled
                         ? "A daily nudge at ${_timeLabel(expenseReminder.hour, expenseReminder.minute)} to log today's spending"

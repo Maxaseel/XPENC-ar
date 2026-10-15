@@ -299,7 +299,7 @@ class _TxRow extends StatelessWidget {
     final note = tx.note?.trim();
     final title = (note != null && note.isNotEmpty)
         ? note
-        : (tx.payee ?? 'Expense');
+        : (tx.payee ?? 'Money out');
     final dateStr = DateFormat('d MMM').format(tx.date);
     final subtitle = [
       dateStr,

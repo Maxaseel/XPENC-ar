@@ -31,7 +31,7 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>Unlock XPENC with Face ID.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Attach a receipt photo from your library.</string>
+	<string>Attach a receipt photo, or choose a person's profile photo, from your library.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

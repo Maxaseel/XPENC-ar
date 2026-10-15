@@ -30,6 +30,9 @@ Release process: see [docs/RELEASING.md](docs/RELEASING.md).
   shows. **Transaction icon** picks what colours each transaction's icon:
   its category (as before), the money in / out colour, or one colour for
   all. **Reset all colours** puts the built-in ones back.
+- **A person's photo from your gallery.** Add or edit a person and tap the
+  photo circle (or **Add photo**) to pick one from your gallery — no
+  contact needed. It's shrunk to avatar size and kept on the phone.
 
 ## [1.6.4] — 2026-10-10
 

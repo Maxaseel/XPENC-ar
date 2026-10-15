@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../core/widgets/app_surfaces.dart';
 import '../../data/database.dart';
 import '../../data/providers.dart';
 import 'contact_import.dart';
 import 'person_avatar.dart';
+import 'person_photo_storage.dart';
 
 /// Opens the "edit person" bottom sheet.
 Future<void> showEditPersonSheet(
@@ -67,10 +71,10 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
     text: widget.person?.phone ?? '',
   );
 
-  /// Set once a contact photo is picked (or cleared with the "x" on the
-  /// preview) — starts at whatever this person already has saved, in edit
-  /// mode. `null` on save means "no photo", same convention as every other
-  /// field on this sheet.
+  /// Set once a photo is picked — from a contact or the gallery — or cleared
+  /// with the "x" on the preview. Starts at whatever this person already has
+  /// saved, in edit mode. `null` on save means "no photo", same convention as
+  /// every other field on this sheet.
   late String? _photoPath = widget.person?.photoPath;
 
   bool _saving = false;
@@ -120,6 +124,27 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
     } on PlatformException {
       if (!mounted) return;
       _showError("Couldn't open contacts.");
+    }
+  }
+
+  /// A profile photo from the gallery. Downscaled on pick — an avatar never
+  /// draws bigger than a few dozen pixels, so a full-size camera photo would
+  /// only cost storage. The system photo picker needs no permission.
+  Future<void> _pickFromGallery() async {
+    try {
+      final picked = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        maxWidth: 512,
+        maxHeight: 512,
+        imageQuality: 85,
+      );
+      if (picked == null) return;
+      final path = await PersonPhotoStorage.storeFile(File(picked.path));
+      if (!mounted) return;
+      setState(() => _photoPath = path);
+    } on PlatformException {
+      if (!mounted) return;
+      _showError("Couldn't open your photos.");
     }
   }
 
@@ -288,16 +313,34 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
             ),
             const SizedBox(height: 20),
 
-            if (_photoPath != null) ...[
-              Center(
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    PersonAvatar(
-                      name: _nameController.text,
-                      photoPath: _photoPath,
-                      radius: 36,
+            Center(
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Tooltip(
+                    message: _photoPath == null ? 'Add photo' : 'Change photo',
+                    child: InkWell(
+                      onTap: _pickFromGallery,
+                      customBorder: const CircleBorder(),
+                      child: _photoPath == null
+                          ? CircleAvatar(
+                              radius: 36,
+                              backgroundColor:
+                                  theme.colorScheme.surfaceContainerHighest,
+                              child: AppIcon(
+                                Icons.add_a_photo_outlined,
+                                size: 26,
+                                color: theme.colorScheme.onSurfaceVariant,
+                              ),
+                            )
+                          : PersonAvatar(
+                              name: _nameController.text,
+                              photoPath: _photoPath,
+                              radius: 36,
+                            ),
                     ),
+                  ),
+                  if (_photoPath != null)
                     Positioned(
                       right: -4,
                       top: -4,
@@ -324,11 +367,16 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
                         ),
                       ),
                     ),
-                  ],
-                ),
+                ],
               ),
-              const SizedBox(height: 16),
-            ],
+            ),
+            Center(
+              child: TextButton(
+                onPressed: _pickFromGallery,
+                child: Text(_photoPath == null ? 'Add photo' : 'Change photo'),
+              ),
+            ),
+            const SizedBox(height: 8),
 
             TextField(
               controller: _nameController,

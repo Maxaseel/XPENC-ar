@@ -40,7 +40,9 @@ shared with anyone or transmitted anywhere. The one thing that comes from
 outside the app: if you use "Pick from contacts" when adding a person and
 grant the `READ_CONTACTS` permission, that one contact's name, phone number
 and photo are copied into the app's own local storage — the same
-never-transmitted, on-device storage as everything else in this policy.
+never-transmitted, on-device storage as everything else in this policy. A
+profile photo you choose for a person from your gallery is copied there the
+same way.
 
 ## Permissions
 

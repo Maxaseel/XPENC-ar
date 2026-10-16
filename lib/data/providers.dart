@@ -1836,6 +1836,24 @@ final transactionTagsByTxProvider = Provider<Map<int, List<TagRow>>>((ref) {
   return out;
 });
 
+final _personEntryTagLinksProvider = StreamProvider<List<PersonEntryTagRow>>(
+  (ref) => ref.watch(dbProvider).watchAllPersonEntryTags(),
+);
+
+/// Every person entry's tags, keyed by entry id (GitHub #168) — the same
+/// shape as [transactionTagsByTxProvider].
+final personEntryTagsByEntryProvider = Provider<Map<int, List<TagRow>>>((ref) {
+  final links = ref.watch(_personEntryTagLinksProvider).valueOrNull ?? const [];
+  final tagMap = ref.watch(tagMapProvider);
+  final out = <int, List<TagRow>>{};
+  for (final link in links) {
+    final tag = tagMap[link.tagId];
+    if (tag == null) continue;
+    (out[link.entryId] ??= []).add(tag);
+  }
+  return out;
+});
+
 // ── Tag groups ──────────────────────────────────────────────────────────────
 
 final tagGroupsProvider = StreamProvider<List<TagGroupRow>>(

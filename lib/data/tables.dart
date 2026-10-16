@@ -1444,6 +1444,21 @@ class Tags extends Table {
   ];
 }
 
+/// Which tags sit on which person entry (GitHub #168). The entry's own
+/// list — an entry that only records who owes whom has no transaction to
+/// carry them. When the entry did move money, the same tags are mirrored
+/// onto its linked transaction's [TransactionTags], so it shows (and
+/// filters) by tag in Transactions too; [AppDatabase.setTransactionTags]
+/// keeps the two in step from the other side.
+@DataClassName('PersonEntryTagRow')
+class PersonEntryTags extends Table {
+  IntColumn get entryId => integer().references(PersonEntries, #id)();
+  IntColumn get tagId => integer().references(Tags, #id)();
+
+  @override
+  Set<Column> get primaryKey => {entryId, tagId};
+}
+
 /// Many-to-many join: which tags sit on which transaction.
 @DataClassName('TransactionTagRow')
 class TransactionTags extends Table {

@@ -157,6 +157,7 @@ typedef CombinedStatementLine = ({
     Tags,
     TransactionTags,
     RecurringRuleTags,
+    PersonEntryTags,
     TagGroups,
     TagGroupTags,
     TransactionSplits,
@@ -199,7 +200,7 @@ class AppDatabase extends _$AppDatabase {
       );
 
   @override
-  int get schemaVersion => 83;
+  int get schemaVersion => 84;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -762,6 +763,10 @@ class AppDatabase extends _$AppDatabase {
         // Week starts on Sunday or Monday (GitHub #166).
         await _addColumnIfMissing(m, settings, settings.weekStart);
       }
+      if (from < 84) {
+        // Tags on person entries (GitHub #168).
+        await m.createTable(personEntryTags);
+      }
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');
@@ -1194,6 +1199,7 @@ class AppDatabase extends _$AppDatabase {
     await delete(pendingTxns).go();
     await delete(merchantRules).go();
     await delete(reminders).go();
+    await delete(personEntryTags).go();
     await delete(personEntries).go();
     await delete(budgets).go();
     await delete(transactionSplits).go();
@@ -1952,11 +1958,16 @@ class AppDatabase extends _$AppDatabase {
   /// just untags whatever carried it, nothing about those transactions
   /// changes. So, unlike categories/accounts/persons, this is a hard delete
   /// with no archive step.
+  /// Removes [id] from everything it's on first — every link table points
+  /// at it, and the foreign key refuses the delete while any row does.
   Future<void> deleteTag(int id) => transaction(() async {
     await (delete(transactionTags)..where((t) => t.tagId.equals(id))).go();
     await (delete(
       transactionTemplateTags,
     )..where((t) => t.tagId.equals(id))).go();
+    await (delete(recurringRuleTags)..where((t) => t.tagId.equals(id))).go();
+    await (delete(tagGroupTags)..where((t) => t.tagId.equals(id))).go();
+    await (delete(personEntryTags)..where((t) => t.tagId.equals(id))).go();
     await (delete(tags)..where((t) => t.id.equals(id))).go();
   });
 
@@ -1976,20 +1987,67 @@ class AppDatabase extends _$AppDatabase {
   /// Replaces every tag on [transactionId] with exactly [tagIds] — the whole
   /// set is rewritten each save rather than diffed, since the picker always
   /// hands over the complete selection.
+  ///
+  /// A person entry's ledger row carries a mirror of the entry's own tags
+  /// (see [PersonEntryTags]); tagging it from Transactions updates the
+  /// entry too, so the two never disagree.
   Future<void> setTransactionTags(int transactionId, Set<int> tagIds) {
     return transaction(() async {
-      await (delete(
-        transactionTags,
-      )..where((t) => t.transactionId.equals(transactionId))).go();
-      for (final tagId in tagIds) {
-        await into(transactionTags).insert(
-          TransactionTagsCompanion.insert(
-            transactionId: transactionId,
-            tagId: tagId,
-          ),
-        );
-      }
+      await _writeTransactionTags(transactionId, tagIds);
+      final entry = await (select(
+        personEntries,
+      )..where((e) => e.transactionId.equals(transactionId))).getSingleOrNull();
+      if (entry != null) await _writePersonEntryTags(entry.id, tagIds);
     });
+  }
+
+  Future<void> _writeTransactionTags(int transactionId, Set<int> tagIds) async {
+    await (delete(
+      transactionTags,
+    )..where((t) => t.transactionId.equals(transactionId))).go();
+    for (final tagId in tagIds) {
+      await into(transactionTags).insert(
+        TransactionTagsCompanion.insert(
+          transactionId: transactionId,
+          tagId: tagId,
+        ),
+      );
+    }
+  }
+
+  Future<void> _writePersonEntryTags(int entryId, Set<int> tagIds) async {
+    await (delete(
+      personEntryTags,
+    )..where((t) => t.entryId.equals(entryId))).go();
+    for (final tagId in tagIds) {
+      await into(
+        personEntryTags,
+      ).insert(PersonEntryTagsCompanion.insert(entryId: entryId, tagId: tagId));
+    }
+  }
+
+  /// Tags on [entryId], and on its linked ledger row when it moved money.
+  Future<void> _tagPersonEntry(
+    int entryId,
+    int? transactionId,
+    Set<int> tagIds,
+  ) async {
+    await _writePersonEntryTags(entryId, tagIds);
+    if (transactionId != null) {
+      await _writeTransactionTags(transactionId, tagIds);
+    }
+  }
+
+  /// Every person-entry tag link — composed into an `entryId -> tags` map
+  /// by the provider layer, like [watchAllTransactionTags].
+  Stream<List<PersonEntryTagRow>> watchAllPersonEntryTags() =>
+      select(personEntryTags).watch();
+
+  Future<Set<int>> tagIdsForPersonEntry(int entryId) async {
+    final rows = await (select(
+      personEntryTags,
+    )..where((t) => t.entryId.equals(entryId))).get();
+    return {for (final r in rows) r.tagId};
   }
 
   // ── Tag groups ───────────────────────────────────────────────────────────
@@ -2799,6 +2857,7 @@ class AppDatabase extends _$AppDatabase {
     int? accountId,
     String? note,
     int? categoryId,
+    Set<int> tagIds = const {},
   }) {
     if (!amount.isPositive) {
       throw ArgumentError('Amount must be positive.');
@@ -2853,6 +2912,7 @@ class AppDatabase extends _$AppDatabase {
           categoryId: Value(categoryId),
         ),
       );
+      await _tagPersonEntry(entryId, txId, tagIds);
       await _syncSettledPerson(personId);
       return entryId;
     });
@@ -2864,7 +2924,9 @@ class AppDatabase extends _$AppDatabase {
         personEntries,
       )..where((e) => e.id.equals(id))).getSingle();
       // Drop the entry first: it references the transaction we are about to
-      // delete, and the foreign key would reject the delete.
+      // delete, and the foreign key would reject the delete. Its tag links
+      // point at it in turn, so they go before it.
+      await (delete(personEntryTags)..where((t) => t.entryId.equals(id))).go();
       await (delete(personEntries)..where((e) => e.id.equals(id))).go();
       // Deleting the ledger row reverses the money.
       if (row.transactionId != null) {
@@ -2891,6 +2953,7 @@ class AppDatabase extends _$AppDatabase {
     int? accountId,
     String? note,
     int? categoryId,
+    Set<int>? tagIds,
   }) {
     if (!amount.isPositive) {
       throw ArgumentError('Amount must be positive.');
@@ -2907,6 +2970,9 @@ class AppDatabase extends _$AppDatabase {
       final existing = await (select(
         personEntries,
       )..where((e) => e.id.equals(id))).getSingle();
+      // Null keeps what the entry already has. Read before the old ledger
+      // row (and its tag mirror) is deleted below.
+      final tags = tagIds ?? await tagIdsForPersonEntry(id);
 
       // Detach before deleting: deleteTransaction refuses to delete a
       // transaction a person entry still points to (see deleteTransaction).
@@ -2956,6 +3022,8 @@ class AppDatabase extends _$AppDatabase {
           categoryId: Value(categoryId),
         ),
       );
+      // The rebuilt ledger row starts bare — carry the tags onto it.
+      await _tagPersonEntry(id, txId, tags);
       await _syncSettledPerson(existing.personId);
     });
   }
@@ -7193,6 +7261,7 @@ class AppDatabase extends _$AppDatabase {
       'budgets': (await select(budgets).get()).map(m).toList(),
       'persons': (await select(persons).get()).map(m).toList(),
       'personEntries': (await select(personEntries).get()).map(m).toList(),
+      'personEntryTags': (await select(personEntryTags).get()).map(m).toList(),
       'reminders': (await select(reminders).get()).map(m).toList(),
       'merchantRules': (await select(merchantRules).get()).map(m).toList(),
       'senderRules': (await select(senderRules).get()).map(m).toList(),
@@ -7291,6 +7360,7 @@ class AppDatabase extends _$AppDatabase {
       await delete(pendingTxns).go();
       await delete(merchantRules).go();
       await delete(reminders).go();
+      await delete(personEntryTags).go();
       await delete(personEntries).go();
       await delete(budgets).go();
       // Both reference transactions/categories, so they go before either.
@@ -7398,6 +7468,9 @@ class AppDatabase extends _$AppDatabase {
       // older backup simply has no rows for it, so `rows()` yields nothing.
       await load(allocations, 'allocations');
       await load(personEntries, 'personEntries');
+      // References personEntries and tags, both loaded above. An older
+      // backup simply has no rows for it, so `rows()` yields nothing.
+      await load(personEntryTags, 'personEntryTags');
       await load(reminders, 'reminders');
       await load(merchantRules, 'merchantRules');
       await load(senderRules, 'senderRules');

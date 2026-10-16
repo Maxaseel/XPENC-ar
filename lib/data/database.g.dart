@@ -17109,6 +17109,228 @@ class RecurringRuleTagsCompanion extends UpdateCompanion<RecurringRuleTagRow> {
   }
 }
 
+class $PersonEntryTagsTable extends PersonEntryTags
+    with TableInfo<$PersonEntryTagsTable, PersonEntryTagRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PersonEntryTagsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _entryIdMeta = const VerificationMeta(
+    'entryId',
+  );
+  @override
+  late final GeneratedColumn<int> entryId = GeneratedColumn<int>(
+    'entry_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES person_entries (id)',
+    ),
+  );
+  static const VerificationMeta _tagIdMeta = const VerificationMeta('tagId');
+  @override
+  late final GeneratedColumn<int> tagId = GeneratedColumn<int>(
+    'tag_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES tags (id)',
+    ),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [entryId, tagId];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'person_entry_tags';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PersonEntryTagRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('entry_id')) {
+      context.handle(
+        _entryIdMeta,
+        entryId.isAcceptableOrUnknown(data['entry_id']!, _entryIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_entryIdMeta);
+    }
+    if (data.containsKey('tag_id')) {
+      context.handle(
+        _tagIdMeta,
+        tagId.isAcceptableOrUnknown(data['tag_id']!, _tagIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_tagIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {entryId, tagId};
+  @override
+  PersonEntryTagRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PersonEntryTagRow(
+      entryId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}entry_id'],
+      )!,
+      tagId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}tag_id'],
+      )!,
+    );
+  }
+
+  @override
+  $PersonEntryTagsTable createAlias(String alias) {
+    return $PersonEntryTagsTable(attachedDatabase, alias);
+  }
+}
+
+class PersonEntryTagRow extends DataClass
+    implements Insertable<PersonEntryTagRow> {
+  final int entryId;
+  final int tagId;
+  const PersonEntryTagRow({required this.entryId, required this.tagId});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['entry_id'] = Variable<int>(entryId);
+    map['tag_id'] = Variable<int>(tagId);
+    return map;
+  }
+
+  PersonEntryTagsCompanion toCompanion(bool nullToAbsent) {
+    return PersonEntryTagsCompanion(
+      entryId: Value(entryId),
+      tagId: Value(tagId),
+    );
+  }
+
+  factory PersonEntryTagRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PersonEntryTagRow(
+      entryId: serializer.fromJson<int>(json['entryId']),
+      tagId: serializer.fromJson<int>(json['tagId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'entryId': serializer.toJson<int>(entryId),
+      'tagId': serializer.toJson<int>(tagId),
+    };
+  }
+
+  PersonEntryTagRow copyWith({int? entryId, int? tagId}) => PersonEntryTagRow(
+    entryId: entryId ?? this.entryId,
+    tagId: tagId ?? this.tagId,
+  );
+  PersonEntryTagRow copyWithCompanion(PersonEntryTagsCompanion data) {
+    return PersonEntryTagRow(
+      entryId: data.entryId.present ? data.entryId.value : this.entryId,
+      tagId: data.tagId.present ? data.tagId.value : this.tagId,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PersonEntryTagRow(')
+          ..write('entryId: $entryId, ')
+          ..write('tagId: $tagId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(entryId, tagId);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PersonEntryTagRow &&
+          other.entryId == this.entryId &&
+          other.tagId == this.tagId);
+}
+
+class PersonEntryTagsCompanion extends UpdateCompanion<PersonEntryTagRow> {
+  final Value<int> entryId;
+  final Value<int> tagId;
+  final Value<int> rowid;
+  const PersonEntryTagsCompanion({
+    this.entryId = const Value.absent(),
+    this.tagId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PersonEntryTagsCompanion.insert({
+    required int entryId,
+    required int tagId,
+    this.rowid = const Value.absent(),
+  }) : entryId = Value(entryId),
+       tagId = Value(tagId);
+  static Insertable<PersonEntryTagRow> custom({
+    Expression<int>? entryId,
+    Expression<int>? tagId,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (entryId != null) 'entry_id': entryId,
+      if (tagId != null) 'tag_id': tagId,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PersonEntryTagsCompanion copyWith({
+    Value<int>? entryId,
+    Value<int>? tagId,
+    Value<int>? rowid,
+  }) {
+    return PersonEntryTagsCompanion(
+      entryId: entryId ?? this.entryId,
+      tagId: tagId ?? this.tagId,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (entryId.present) {
+      map['entry_id'] = Variable<int>(entryId.value);
+    }
+    if (tagId.present) {
+      map['tag_id'] = Variable<int>(tagId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PersonEntryTagsCompanion(')
+          ..write('entryId: $entryId, ')
+          ..write('tagId: $tagId, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $TagGroupsTable extends TagGroups
     with TableInfo<$TagGroupsTable, TagGroupRow> {
   @override
@@ -23888,6 +24110,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   );
   late final $RecurringRuleTagsTable recurringRuleTags =
       $RecurringRuleTagsTable(this);
+  late final $PersonEntryTagsTable personEntryTags = $PersonEntryTagsTable(
+    this,
+  );
   late final $TagGroupsTable tagGroups = $TagGroupsTable(this);
   late final $TagGroupTagsTable tagGroupTags = $TagGroupTagsTable(this);
   late final $TransactionSplitsTable transactionSplits =
@@ -23938,6 +24163,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     tags,
     transactionTags,
     recurringRuleTags,
+    personEntryTags,
     tagGroups,
     tagGroupTags,
     transactionSplits,
@@ -31403,6 +31629,29 @@ final class $$PersonEntriesTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$PersonEntryTagsTable, List<PersonEntryTagRow>>
+  _personEntryTagsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.personEntryTags,
+    aliasName: $_aliasNameGenerator(
+      db.personEntries.id,
+      db.personEntryTags.entryId,
+    ),
+  );
+
+  $$PersonEntryTagsTableProcessedTableManager get personEntryTagsRefs {
+    final manager = $$PersonEntryTagsTableTableManager(
+      $_db,
+      $_db.personEntryTags,
+    ).filter((f) => f.entryId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _personEntryTagsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$PersonEntriesTableFilterComposer
@@ -31559,6 +31808,31 @@ class $$PersonEntriesTableFilterComposer
           }) => $$GroupExpenseSharesTableFilterComposer(
             $db: $db,
             $table: $db.groupExpenseShares,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> personEntryTagsRefs(
+    Expression<bool> Function($$PersonEntryTagsTableFilterComposer f) f,
+  ) {
+    final $$PersonEntryTagsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.personEntryTags,
+      getReferencedColumn: (t) => t.entryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PersonEntryTagsTableFilterComposer(
+            $db: $db,
+            $table: $db.personEntryTags,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -31853,6 +32127,31 @@ class $$PersonEntriesTableAnnotationComposer
         );
     return f(composer);
   }
+
+  Expression<T> personEntryTagsRefs<T extends Object>(
+    Expression<T> Function($$PersonEntryTagsTableAnnotationComposer a) f,
+  ) {
+    final $$PersonEntryTagsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.personEntryTags,
+      getReferencedColumn: (t) => t.entryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PersonEntryTagsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.personEntryTags,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$PersonEntriesTableTableManager
@@ -31874,6 +32173,7 @@ class $$PersonEntriesTableTableManager
             bool transactionId,
             bool categoryId,
             bool groupExpenseSharesRefs,
+            bool personEntryTagsRefs,
           })
         > {
   $$PersonEntriesTableTableManager(_$AppDatabase db, $PersonEntriesTable table)
@@ -31954,11 +32254,13 @@ class $$PersonEntriesTableTableManager
                 transactionId = false,
                 categoryId = false,
                 groupExpenseSharesRefs = false,
+                personEntryTagsRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
                   explicitlyWatchedTables: [
                     if (groupExpenseSharesRefs) db.groupExpenseShares,
+                    if (personEntryTagsRefs) db.personEntryTags,
                   ],
                   addJoins:
                       <
@@ -32062,6 +32364,27 @@ class $$PersonEntriesTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (personEntryTagsRefs)
+                        await $_getPrefetchedData<
+                          PersonEntryRow,
+                          $PersonEntriesTable,
+                          PersonEntryTagRow
+                        >(
+                          currentTable: table,
+                          referencedTable: $$PersonEntriesTableReferences
+                              ._personEntryTagsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$PersonEntriesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).personEntryTagsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.entryId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -32088,6 +32411,7 @@ typedef $$PersonEntriesTableProcessedTableManager =
         bool transactionId,
         bool categoryId,
         bool groupExpenseSharesRefs,
+        bool personEntryTagsRefs,
       })
     >;
 typedef $$GroupsTableCreateCompanionBuilder =
@@ -38724,6 +39048,26 @@ final class $$TagsTableReferences
     );
   }
 
+  static MultiTypedResultKey<$PersonEntryTagsTable, List<PersonEntryTagRow>>
+  _personEntryTagsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.personEntryTags,
+    aliasName: $_aliasNameGenerator(db.tags.id, db.personEntryTags.tagId),
+  );
+
+  $$PersonEntryTagsTableProcessedTableManager get personEntryTagsRefs {
+    final manager = $$PersonEntryTagsTableTableManager(
+      $_db,
+      $_db.personEntryTags,
+    ).filter((f) => f.tagId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _personEntryTagsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
   static MultiTypedResultKey<$TagGroupTagsTable, List<TagGroupTagRow>>
   _tagGroupTagsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
     db.tagGroupTags,
@@ -38835,6 +39179,31 @@ class $$TagsTableFilterComposer extends Composer<_$AppDatabase, $TagsTable> {
           }) => $$RecurringRuleTagsTableFilterComposer(
             $db: $db,
             $table: $db.recurringRuleTags,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> personEntryTagsRefs(
+    Expression<bool> Function($$PersonEntryTagsTableFilterComposer f) f,
+  ) {
+    final $$PersonEntryTagsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.personEntryTags,
+      getReferencedColumn: (t) => t.tagId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PersonEntryTagsTableFilterComposer(
+            $db: $db,
+            $table: $db.personEntryTags,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -38991,6 +39360,31 @@ class $$TagsTableAnnotationComposer
     return f(composer);
   }
 
+  Expression<T> personEntryTagsRefs<T extends Object>(
+    Expression<T> Function($$PersonEntryTagsTableAnnotationComposer a) f,
+  ) {
+    final $$PersonEntryTagsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.personEntryTags,
+      getReferencedColumn: (t) => t.tagId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PersonEntryTagsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.personEntryTags,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
   Expression<T> tagGroupTagsRefs<T extends Object>(
     Expression<T> Function($$TagGroupTagsTableAnnotationComposer a) f,
   ) {
@@ -39060,6 +39454,7 @@ class $$TagsTableTableManager
           PrefetchHooks Function({
             bool transactionTagsRefs,
             bool recurringRuleTagsRefs,
+            bool personEntryTagsRefs,
             bool tagGroupTagsRefs,
             bool transactionTemplateTagsRefs,
           })
@@ -39101,6 +39496,7 @@ class $$TagsTableTableManager
               ({
                 transactionTagsRefs = false,
                 recurringRuleTagsRefs = false,
+                personEntryTagsRefs = false,
                 tagGroupTagsRefs = false,
                 transactionTemplateTagsRefs = false,
               }) {
@@ -39109,6 +39505,7 @@ class $$TagsTableTableManager
                   explicitlyWatchedTables: [
                     if (transactionTagsRefs) db.transactionTags,
                     if (recurringRuleTagsRefs) db.recurringRuleTags,
+                    if (personEntryTagsRefs) db.personEntryTags,
                     if (tagGroupTagsRefs) db.tagGroupTags,
                     if (transactionTemplateTagsRefs) db.transactionTemplateTags,
                   ],
@@ -39149,6 +39546,26 @@ class $$TagsTableTableManager
                             table,
                             p0,
                           ).recurringRuleTagsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.tagId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (personEntryTagsRefs)
+                        await $_getPrefetchedData<
+                          TagRow,
+                          $TagsTable,
+                          PersonEntryTagRow
+                        >(
+                          currentTable: table,
+                          referencedTable: $$TagsTableReferences
+                              ._personEntryTagsRefsTable(db),
+                          managerFromTypedResult: (p0) => $$TagsTableReferences(
+                            db,
+                            table,
+                            p0,
+                          ).personEntryTagsRefs,
                           referencedItemsForCurrentItem:
                               (item, referencedItems) => referencedItems.where(
                                 (e) => e.tagId == item.id,
@@ -39218,6 +39635,7 @@ typedef $$TagsTableProcessedTableManager =
       PrefetchHooks Function({
         bool transactionTagsRefs,
         bool recurringRuleTagsRefs,
+        bool personEntryTagsRefs,
         bool tagGroupTagsRefs,
         bool transactionTemplateTagsRefs,
       })
@@ -39955,6 +40373,370 @@ typedef $$RecurringRuleTagsTableProcessedTableManager =
       (RecurringRuleTagRow, $$RecurringRuleTagsTableReferences),
       RecurringRuleTagRow,
       PrefetchHooks Function({bool ruleId, bool tagId})
+    >;
+typedef $$PersonEntryTagsTableCreateCompanionBuilder =
+    PersonEntryTagsCompanion Function({
+      required int entryId,
+      required int tagId,
+      Value<int> rowid,
+    });
+typedef $$PersonEntryTagsTableUpdateCompanionBuilder =
+    PersonEntryTagsCompanion Function({
+      Value<int> entryId,
+      Value<int> tagId,
+      Value<int> rowid,
+    });
+
+final class $$PersonEntryTagsTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $PersonEntryTagsTable,
+          PersonEntryTagRow
+        > {
+  $$PersonEntryTagsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $PersonEntriesTable _entryIdTable(_$AppDatabase db) =>
+      db.personEntries.createAlias(
+        $_aliasNameGenerator(db.personEntryTags.entryId, db.personEntries.id),
+      );
+
+  $$PersonEntriesTableProcessedTableManager get entryId {
+    final $_column = $_itemColumn<int>('entry_id')!;
+
+    final manager = $$PersonEntriesTableTableManager(
+      $_db,
+      $_db.personEntries,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_entryIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $TagsTable _tagIdTable(_$AppDatabase db) => db.tags.createAlias(
+    $_aliasNameGenerator(db.personEntryTags.tagId, db.tags.id),
+  );
+
+  $$TagsTableProcessedTableManager get tagId {
+    final $_column = $_itemColumn<int>('tag_id')!;
+
+    final manager = $$TagsTableTableManager(
+      $_db,
+      $_db.tags,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_tagIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$PersonEntryTagsTableFilterComposer
+    extends Composer<_$AppDatabase, $PersonEntryTagsTable> {
+  $$PersonEntryTagsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  $$PersonEntriesTableFilterComposer get entryId {
+    final $$PersonEntriesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.entryId,
+      referencedTable: $db.personEntries,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PersonEntriesTableFilterComposer(
+            $db: $db,
+            $table: $db.personEntries,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TagsTableFilterComposer get tagId {
+    final $$TagsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.tagId,
+      referencedTable: $db.tags,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TagsTableFilterComposer(
+            $db: $db,
+            $table: $db.tags,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PersonEntryTagsTableOrderingComposer
+    extends Composer<_$AppDatabase, $PersonEntryTagsTable> {
+  $$PersonEntryTagsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  $$PersonEntriesTableOrderingComposer get entryId {
+    final $$PersonEntriesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.entryId,
+      referencedTable: $db.personEntries,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PersonEntriesTableOrderingComposer(
+            $db: $db,
+            $table: $db.personEntries,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TagsTableOrderingComposer get tagId {
+    final $$TagsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.tagId,
+      referencedTable: $db.tags,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TagsTableOrderingComposer(
+            $db: $db,
+            $table: $db.tags,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PersonEntryTagsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PersonEntryTagsTable> {
+  $$PersonEntryTagsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  $$PersonEntriesTableAnnotationComposer get entryId {
+    final $$PersonEntriesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.entryId,
+      referencedTable: $db.personEntries,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PersonEntriesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.personEntries,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TagsTableAnnotationComposer get tagId {
+    final $$TagsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.tagId,
+      referencedTable: $db.tags,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TagsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.tags,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PersonEntryTagsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $PersonEntryTagsTable,
+          PersonEntryTagRow,
+          $$PersonEntryTagsTableFilterComposer,
+          $$PersonEntryTagsTableOrderingComposer,
+          $$PersonEntryTagsTableAnnotationComposer,
+          $$PersonEntryTagsTableCreateCompanionBuilder,
+          $$PersonEntryTagsTableUpdateCompanionBuilder,
+          (PersonEntryTagRow, $$PersonEntryTagsTableReferences),
+          PersonEntryTagRow,
+          PrefetchHooks Function({bool entryId, bool tagId})
+        > {
+  $$PersonEntryTagsTableTableManager(
+    _$AppDatabase db,
+    $PersonEntryTagsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PersonEntryTagsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PersonEntryTagsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PersonEntryTagsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> entryId = const Value.absent(),
+                Value<int> tagId = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PersonEntryTagsCompanion(
+                entryId: entryId,
+                tagId: tagId,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required int entryId,
+                required int tagId,
+                Value<int> rowid = const Value.absent(),
+              }) => PersonEntryTagsCompanion.insert(
+                entryId: entryId,
+                tagId: tagId,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$PersonEntryTagsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({entryId = false, tagId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (entryId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.entryId,
+                                referencedTable:
+                                    $$PersonEntryTagsTableReferences
+                                        ._entryIdTable(db),
+                                referencedColumn:
+                                    $$PersonEntryTagsTableReferences
+                                        ._entryIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+                    if (tagId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.tagId,
+                                referencedTable:
+                                    $$PersonEntryTagsTableReferences
+                                        ._tagIdTable(db),
+                                referencedColumn:
+                                    $$PersonEntryTagsTableReferences
+                                        ._tagIdTable(db)
+                                        .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$PersonEntryTagsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $PersonEntryTagsTable,
+      PersonEntryTagRow,
+      $$PersonEntryTagsTableFilterComposer,
+      $$PersonEntryTagsTableOrderingComposer,
+      $$PersonEntryTagsTableAnnotationComposer,
+      $$PersonEntryTagsTableCreateCompanionBuilder,
+      $$PersonEntryTagsTableUpdateCompanionBuilder,
+      (PersonEntryTagRow, $$PersonEntryTagsTableReferences),
+      PersonEntryTagRow,
+      PrefetchHooks Function({bool entryId, bool tagId})
     >;
 typedef $$TagGroupsTableCreateCompanionBuilder =
     TagGroupsCompanion Function({
@@ -46240,6 +47022,8 @@ class $AppDatabaseManager {
       $$TransactionTagsTableTableManager(_db, _db.transactionTags);
   $$RecurringRuleTagsTableTableManager get recurringRuleTags =>
       $$RecurringRuleTagsTableTableManager(_db, _db.recurringRuleTags);
+  $$PersonEntryTagsTableTableManager get personEntryTags =>
+      $$PersonEntryTagsTableTableManager(_db, _db.personEntryTags);
   $$TagGroupsTableTableManager get tagGroups =>
       $$TagGroupsTableTableManager(_db, _db.tagGroups);
   $$TagGroupTagsTableTableManager get tagGroupTags =>

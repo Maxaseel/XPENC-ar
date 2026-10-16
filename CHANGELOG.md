@@ -13,6 +13,11 @@ Release process: see [docs/RELEASING.md](docs/RELEASING.md).
   Calendar → **Week starts on**. The Calendar tab and every date picker
   follow it. Monday is the default — the Calendar tab always started
   there; date pickers used to start on Sunday.
+- **Tags on money lent and borrowed** (#168). "They owe you" / "You owe
+  them" now has a **Tags** field, and each entry on a person's page shows
+  its tags. When the money moved through an account, its transaction
+  carries the same tags, so it shows up when you filter Transactions by
+  tag.
 
 ### Changed
 - **Contacts access off means no contacts at all** (#167). Once you've said
@@ -20,6 +25,12 @@ Release process: see [docs/RELEASING.md](docs/RELEASING.md).
   XPENC hides every "from contacts" button (Add/Edit person, Link contact,
   group members, payees) and never opens your address book. Turn it back
   on in Settings → Permissions and they return.
+
+### Fixed
+- **Deleting a tag used by an Auto rule or a tag group failed.** It's now
+  taken off those first, like it already was from transactions.
+- **Editing a lend/borrow entry dropped the tags on its transaction.** They
+  now stay.
 
 ## [1.6.5] — beta
 

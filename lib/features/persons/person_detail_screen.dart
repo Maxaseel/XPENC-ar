@@ -26,6 +26,7 @@ import 'edit_person_sheet.dart';
 import 'payment_action_row.dart';
 import 'person_avatar.dart';
 import '../share/share_flows.dart';
+import '../tags/tag_picker_sheet.dart';
 import '../../core/widgets/nav_bar_inset.dart';
 
 /// One person's ledger. Net balance = Σ(theyOwe) − Σ(iOwe).
@@ -678,6 +679,8 @@ class _EntryRow extends ConsumerWidget {
     final group = groupId == null
         ? null
         : ref.watch(allGroupsMapProvider)[groupId];
+    final tags =
+        ref.watch(personEntryTagsByEntryProvider)[entry.id] ?? const [];
 
     final dateStr = DateFormat('d MMM yyyy').format(entry.date);
     final subtitle = [
@@ -737,6 +740,10 @@ class _EntryRow extends ConsumerWidget {
               const SizedBox(height: 4),
               GroupTag(group: group),
             ],
+            if (tags.isNotEmpty) ...[
+              const SizedBox(height: 4),
+              _TagChips(tags),
+            ],
           ],
         ),
         trailing: MoneyText(
@@ -756,6 +763,39 @@ class _EntryRow extends ConsumerWidget {
     messenger
       ..hideCurrentSnackBar()
       ..showSnackBar(const SnackBar(content: Text('Entry deleted')));
+  }
+}
+
+/// A person entry's tags as small coloured pills (GitHub #168).
+class _TagChips extends StatelessWidget {
+  const _TagChips(this.tags);
+
+  final List<TagRow> tags;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Wrap(
+      spacing: 6,
+      runSpacing: 4,
+      children: [
+        for (final tag in tags)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+            decoration: BoxDecoration(
+              color: Color(tag.colorValue).withValues(alpha: 0.14),
+              borderRadius: BorderRadius.circular(999),
+            ),
+            child: Text(
+              tag.name,
+              style: theme.textTheme.labelSmall?.copyWith(
+                color: Color(tag.colorValue),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+      ],
+    );
   }
 }
 
@@ -816,6 +856,10 @@ class _EntrySheetState extends ConsumerState<_EntrySheet> {
 
   /// Required only when [_EntrySheet.isRepayment] is true.
   late int? _repaymentCategoryId = widget.existing?.categoryId;
+
+  /// The entry's tags (GitHub #168). Null while an existing entry's are
+  /// still loading — saving then keeps whatever it already has.
+  Set<int>? _tagIds;
   bool _accountInitialised = false;
   String? _amountError;
   bool _saving = false;
@@ -826,9 +870,25 @@ class _EntrySheetState extends ConsumerState<_EntrySheet> {
   @override
   void initState() {
     super.initState();
-    if (widget.existing != null) {
-      _amountController.setAmount(widget.existing!.amount);
+    final existing = widget.existing;
+    if (existing != null) {
+      _amountController.setAmount(existing.amount);
+      ref.read(dbProvider).tagIdsForPersonEntry(existing.id).then((tags) {
+        if (mounted && _tagIds == null) setState(() => _tagIds = tags);
+      });
+    } else {
+      _tagIds = {};
     }
+  }
+
+  Future<void> _pickTags() async {
+    final picked = await showAppSheet<Set<int>>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (_) => TagPickerSheet(initiallySelected: _tagIds ?? const {}),
+    );
+    if (picked != null && mounted) setState(() => _tagIds = picked);
   }
 
   /// Preselect an account the first time we know what accounts exist:
@@ -945,6 +1005,7 @@ class _EntrySheetState extends ConsumerState<_EntrySheet> {
           accountId: _accountId,
           note: note.isEmpty ? null : note,
           categoryId: widget.isRepayment ? _repaymentCategoryId : null,
+          tagIds: _tagIds,
         );
       } else {
         await db.addPersonEntry(
@@ -956,6 +1017,7 @@ class _EntrySheetState extends ConsumerState<_EntrySheet> {
           accountId: _accountId,
           note: note.isEmpty ? null : note,
           categoryId: widget.isRepayment ? _repaymentCategoryId : null,
+          tagIds: _tagIds ?? const {},
         );
       }
       // Written only after the entry itself is safely saved — a failed save
@@ -992,6 +1054,26 @@ class _EntrySheetState extends ConsumerState<_EntrySheet> {
         ..hideCurrentSnackBar()
         ..showSnackBar(SnackBar(content: Text('Could not save: $error')));
     }
+  }
+
+  /// "Tags", styled like the note field above it; tapping opens the same
+  /// picker as Add transaction (GitHub #168).
+  Widget _tagsField() {
+    final tagMap = ref.watch(tagMapProvider);
+    final tags = [for (final id in _tagIds ?? const <int>{}) ?tagMap[id]];
+    return InkWell(
+      onTap: _pickTags,
+      borderRadius: BorderRadius.circular(4),
+      child: InputDecorator(
+        decoration: const InputDecoration(
+          labelText: 'Tags (optional)',
+          border: OutlineInputBorder(),
+          suffixIcon: AppIcon(Icons.sell_outlined),
+        ),
+        isEmpty: tags.isEmpty,
+        child: tags.isEmpty ? null : _TagChips(tags),
+      ),
+    );
   }
 
   @override
@@ -1144,6 +1226,8 @@ class _EntrySheetState extends ConsumerState<_EntrySheet> {
                   border: OutlineInputBorder(),
                 ),
               ),
+              const SizedBox(height: 14),
+              _tagsField(),
               const SizedBox(height: 14),
               DropdownButtonFormField<int?>(
                 // Defaults to a real account, never "None". Money changing

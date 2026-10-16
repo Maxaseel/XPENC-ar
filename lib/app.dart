@@ -297,6 +297,17 @@ class _XpencAppState extends ConsumerState<XpencApp>
     final hideAmounts = ref.watch(hideAmountsProvider);
     final extraBottomInset = ref.watch(extraBottomInsetProvider);
 
+    // A custom currency's symbol or name changed: every amount and picker
+    // drawn with it must redraw, even ones that wouldn't rebuild on their
+    // own — same as a colour change below.
+    ref.listen(customCurrenciesProvider, (prev, next) {
+      if (prev?.hasValue ?? false) {
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => rebuildAllWidgets(),
+        );
+      }
+    });
+
     // Settings → Colours (GitHub #156). The money colours are plain statics
     // read at build time, so a change must reach widgets that otherwise
     // wouldn't rebuild (const ones, screens kept alive on another tab) —

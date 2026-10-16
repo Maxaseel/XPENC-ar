@@ -953,10 +953,25 @@ final fontFamilyProvider = Provider<AppFontFamily>((ref) {
   return AppFontFamily.fromName(name);
 });
 
+/// Currencies the person made themselves — see `customCurrencyList`, which
+/// this keeps in step too.
+final customCurrenciesProvider = StreamProvider<List<Currency>>(
+  (ref) => ref.watch(dbProvider).watchCustomCurrencies().map((rows) {
+    final list = [
+      for (final r in rows)
+        Currency(r.code, r.symbol, r.name, decimalDigits: r.decimalDigits),
+    ];
+    setCustomCurrencyList(list);
+    return list;
+  }),
+);
+
 /// The currency the user picked. An unknown code degrades to the default, so a
 /// bad setting never blanks out every amount in the app.
 final currencyProvider = Provider<Currency>((ref) {
   final code = ref.watch(settingsProvider).valueOrNull?.currencyCode;
+  // A custom parent currency resolves once its row is loaded (or edited).
+  ref.watch(customCurrenciesProvider);
   return currencyForCode(code);
 });
 

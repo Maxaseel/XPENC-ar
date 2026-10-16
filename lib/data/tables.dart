@@ -330,6 +330,21 @@ class Categories extends Table {
   IntColumn get parentId => integer().nullable()();
 }
 
+/// A currency the person made themselves, for one the app doesn't list.
+/// [code] is three capital letters, never one of the built-in codes — it
+/// fills the same `currencyCode` columns a built-in one does. Mirrored into
+/// `customCurrencyList` (see `core/currency.dart`) for lookups.
+@DataClassName('CustomCurrencyRow')
+class CustomCurrencies extends Table {
+  TextColumn get code => text().withLength(min: 3, max: 3)();
+  TextColumn get symbol => text().withLength(min: 1, max: 8)();
+  TextColumn get name => text().withLength(min: 1, max: 40)();
+  IntColumn get decimalDigits => integer().withDefault(const Constant(2))();
+
+  @override
+  Set<Column> get primaryKey => {code};
+}
+
 /// A saved snapshot of a category/sub-category structure (GitHub #101) — its
 /// rows live in [CategoryTemplateItems]. Independent of [Categories]: saving
 /// or applying a template never touches a transaction, only which

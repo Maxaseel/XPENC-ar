@@ -8,6 +8,7 @@ import '../../data/currency_conversion.dart';
 import '../../data/database.dart';
 import '../../data/providers.dart';
 import 'currency_picker_sheet.dart';
+import 'custom_currency_sheet.dart';
 
 final _dateFormat = DateFormat('d MMM yyyy');
 
@@ -25,6 +26,7 @@ class CurrencySettingsScreen extends ConsumerWidget {
     final cs = theme.colorScheme;
     final parentCurrency = ref.watch(currencyProvider);
     final ratesAsync = ref.watch(currencyRatesProvider);
+    final custom = ref.watch(customCurrenciesProvider).valueOrNull ?? const [];
 
     return Scaffold(
       appBar: AppTopBar(title: const Text('Currency')),
@@ -102,6 +104,54 @@ class CurrencySettingsScreen extends ConsumerWidget {
                   color: cs.onSurfaceVariant,
                 ),
               ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          _sectionLabel(theme, 'Custom currencies'),
+          AppCard(
+            child: Column(
+              children: [
+                for (final c in custom) ...[
+                  AppListTile(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                    leading: SizedBox(
+                      width: 24,
+                      child: Center(
+                        child: Text(
+                          c.symbol,
+                          maxLines: 1,
+                          overflow: TextOverflow.clip,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                    title: Text(c.name),
+                    subtitle: Text(
+                      c.code,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: cs.onSurfaceVariant,
+                      ),
+                    ),
+                    trailing: const AppIcon(Icons.chevron_right_rounded),
+                    onTap: () => showCustomCurrencySheet(context, existing: c),
+                  ),
+                  Divider(height: 1, indent: 60, color: cs.outline),
+                ],
+                AppListTile(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                  leading: const AppIcon(Icons.add_circle_outline_rounded),
+                  title: const Text('Create a custom currency'),
+                  subtitle: Text(
+                    'For a currency XPENC doesn’t list',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: cs.onSurfaceVariant,
+                    ),
+                  ),
+                  onTap: () => showCustomCurrencySheet(context),
+                ),
+              ],
             ),
           ),
         ],

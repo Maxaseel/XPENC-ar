@@ -17331,6 +17331,331 @@ class PersonEntryTagsCompanion extends UpdateCompanion<PersonEntryTagRow> {
   }
 }
 
+class $CustomCurrenciesTable extends CustomCurrencies
+    with TableInfo<$CustomCurrenciesTable, CustomCurrencyRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CustomCurrenciesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _codeMeta = const VerificationMeta('code');
+  @override
+  late final GeneratedColumn<String> code = GeneratedColumn<String>(
+    'code',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 3,
+      maxTextLength: 3,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _symbolMeta = const VerificationMeta('symbol');
+  @override
+  late final GeneratedColumn<String> symbol = GeneratedColumn<String>(
+    'symbol',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 8,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 40,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _decimalDigitsMeta = const VerificationMeta(
+    'decimalDigits',
+  );
+  @override
+  late final GeneratedColumn<int> decimalDigits = GeneratedColumn<int>(
+    'decimal_digits',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(2),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [code, symbol, name, decimalDigits];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'custom_currencies';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<CustomCurrencyRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('code')) {
+      context.handle(
+        _codeMeta,
+        code.isAcceptableOrUnknown(data['code']!, _codeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_codeMeta);
+    }
+    if (data.containsKey('symbol')) {
+      context.handle(
+        _symbolMeta,
+        symbol.isAcceptableOrUnknown(data['symbol']!, _symbolMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_symbolMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('decimal_digits')) {
+      context.handle(
+        _decimalDigitsMeta,
+        decimalDigits.isAcceptableOrUnknown(
+          data['decimal_digits']!,
+          _decimalDigitsMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {code};
+  @override
+  CustomCurrencyRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CustomCurrencyRow(
+      code: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}code'],
+      )!,
+      symbol: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}symbol'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      decimalDigits: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}decimal_digits'],
+      )!,
+    );
+  }
+
+  @override
+  $CustomCurrenciesTable createAlias(String alias) {
+    return $CustomCurrenciesTable(attachedDatabase, alias);
+  }
+}
+
+class CustomCurrencyRow extends DataClass
+    implements Insertable<CustomCurrencyRow> {
+  final String code;
+  final String symbol;
+  final String name;
+  final int decimalDigits;
+  const CustomCurrencyRow({
+    required this.code,
+    required this.symbol,
+    required this.name,
+    required this.decimalDigits,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['code'] = Variable<String>(code);
+    map['symbol'] = Variable<String>(symbol);
+    map['name'] = Variable<String>(name);
+    map['decimal_digits'] = Variable<int>(decimalDigits);
+    return map;
+  }
+
+  CustomCurrenciesCompanion toCompanion(bool nullToAbsent) {
+    return CustomCurrenciesCompanion(
+      code: Value(code),
+      symbol: Value(symbol),
+      name: Value(name),
+      decimalDigits: Value(decimalDigits),
+    );
+  }
+
+  factory CustomCurrencyRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CustomCurrencyRow(
+      code: serializer.fromJson<String>(json['code']),
+      symbol: serializer.fromJson<String>(json['symbol']),
+      name: serializer.fromJson<String>(json['name']),
+      decimalDigits: serializer.fromJson<int>(json['decimalDigits']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'code': serializer.toJson<String>(code),
+      'symbol': serializer.toJson<String>(symbol),
+      'name': serializer.toJson<String>(name),
+      'decimalDigits': serializer.toJson<int>(decimalDigits),
+    };
+  }
+
+  CustomCurrencyRow copyWith({
+    String? code,
+    String? symbol,
+    String? name,
+    int? decimalDigits,
+  }) => CustomCurrencyRow(
+    code: code ?? this.code,
+    symbol: symbol ?? this.symbol,
+    name: name ?? this.name,
+    decimalDigits: decimalDigits ?? this.decimalDigits,
+  );
+  CustomCurrencyRow copyWithCompanion(CustomCurrenciesCompanion data) {
+    return CustomCurrencyRow(
+      code: data.code.present ? data.code.value : this.code,
+      symbol: data.symbol.present ? data.symbol.value : this.symbol,
+      name: data.name.present ? data.name.value : this.name,
+      decimalDigits: data.decimalDigits.present
+          ? data.decimalDigits.value
+          : this.decimalDigits,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CustomCurrencyRow(')
+          ..write('code: $code, ')
+          ..write('symbol: $symbol, ')
+          ..write('name: $name, ')
+          ..write('decimalDigits: $decimalDigits')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(code, symbol, name, decimalDigits);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CustomCurrencyRow &&
+          other.code == this.code &&
+          other.symbol == this.symbol &&
+          other.name == this.name &&
+          other.decimalDigits == this.decimalDigits);
+}
+
+class CustomCurrenciesCompanion extends UpdateCompanion<CustomCurrencyRow> {
+  final Value<String> code;
+  final Value<String> symbol;
+  final Value<String> name;
+  final Value<int> decimalDigits;
+  final Value<int> rowid;
+  const CustomCurrenciesCompanion({
+    this.code = const Value.absent(),
+    this.symbol = const Value.absent(),
+    this.name = const Value.absent(),
+    this.decimalDigits = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  CustomCurrenciesCompanion.insert({
+    required String code,
+    required String symbol,
+    required String name,
+    this.decimalDigits = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : code = Value(code),
+       symbol = Value(symbol),
+       name = Value(name);
+  static Insertable<CustomCurrencyRow> custom({
+    Expression<String>? code,
+    Expression<String>? symbol,
+    Expression<String>? name,
+    Expression<int>? decimalDigits,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (code != null) 'code': code,
+      if (symbol != null) 'symbol': symbol,
+      if (name != null) 'name': name,
+      if (decimalDigits != null) 'decimal_digits': decimalDigits,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  CustomCurrenciesCompanion copyWith({
+    Value<String>? code,
+    Value<String>? symbol,
+    Value<String>? name,
+    Value<int>? decimalDigits,
+    Value<int>? rowid,
+  }) {
+    return CustomCurrenciesCompanion(
+      code: code ?? this.code,
+      symbol: symbol ?? this.symbol,
+      name: name ?? this.name,
+      decimalDigits: decimalDigits ?? this.decimalDigits,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (code.present) {
+      map['code'] = Variable<String>(code.value);
+    }
+    if (symbol.present) {
+      map['symbol'] = Variable<String>(symbol.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (decimalDigits.present) {
+      map['decimal_digits'] = Variable<int>(decimalDigits.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CustomCurrenciesCompanion(')
+          ..write('code: $code, ')
+          ..write('symbol: $symbol, ')
+          ..write('name: $name, ')
+          ..write('decimalDigits: $decimalDigits, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $TagGroupsTable extends TagGroups
     with TableInfo<$TagGroupsTable, TagGroupRow> {
   @override
@@ -24113,6 +24438,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $PersonEntryTagsTable personEntryTags = $PersonEntryTagsTable(
     this,
   );
+  late final $CustomCurrenciesTable customCurrencies = $CustomCurrenciesTable(
+    this,
+  );
   late final $TagGroupsTable tagGroups = $TagGroupsTable(this);
   late final $TagGroupTagsTable tagGroupTags = $TagGroupTagsTable(this);
   late final $TransactionSplitsTable transactionSplits =
@@ -24164,6 +24492,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     transactionTags,
     recurringRuleTags,
     personEntryTags,
+    customCurrencies,
     tagGroups,
     tagGroupTags,
     transactionSplits,
@@ -40738,6 +41067,199 @@ typedef $$PersonEntryTagsTableProcessedTableManager =
       PersonEntryTagRow,
       PrefetchHooks Function({bool entryId, bool tagId})
     >;
+typedef $$CustomCurrenciesTableCreateCompanionBuilder =
+    CustomCurrenciesCompanion Function({
+      required String code,
+      required String symbol,
+      required String name,
+      Value<int> decimalDigits,
+      Value<int> rowid,
+    });
+typedef $$CustomCurrenciesTableUpdateCompanionBuilder =
+    CustomCurrenciesCompanion Function({
+      Value<String> code,
+      Value<String> symbol,
+      Value<String> name,
+      Value<int> decimalDigits,
+      Value<int> rowid,
+    });
+
+class $$CustomCurrenciesTableFilterComposer
+    extends Composer<_$AppDatabase, $CustomCurrenciesTable> {
+  $$CustomCurrenciesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get code => $composableBuilder(
+    column: $table.code,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get symbol => $composableBuilder(
+    column: $table.symbol,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get decimalDigits => $composableBuilder(
+    column: $table.decimalDigits,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$CustomCurrenciesTableOrderingComposer
+    extends Composer<_$AppDatabase, $CustomCurrenciesTable> {
+  $$CustomCurrenciesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get code => $composableBuilder(
+    column: $table.code,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get symbol => $composableBuilder(
+    column: $table.symbol,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get decimalDigits => $composableBuilder(
+    column: $table.decimalDigits,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$CustomCurrenciesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CustomCurrenciesTable> {
+  $$CustomCurrenciesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get code =>
+      $composableBuilder(column: $table.code, builder: (column) => column);
+
+  GeneratedColumn<String> get symbol =>
+      $composableBuilder(column: $table.symbol, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<int> get decimalDigits => $composableBuilder(
+    column: $table.decimalDigits,
+    builder: (column) => column,
+  );
+}
+
+class $$CustomCurrenciesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $CustomCurrenciesTable,
+          CustomCurrencyRow,
+          $$CustomCurrenciesTableFilterComposer,
+          $$CustomCurrenciesTableOrderingComposer,
+          $$CustomCurrenciesTableAnnotationComposer,
+          $$CustomCurrenciesTableCreateCompanionBuilder,
+          $$CustomCurrenciesTableUpdateCompanionBuilder,
+          (
+            CustomCurrencyRow,
+            BaseReferences<
+              _$AppDatabase,
+              $CustomCurrenciesTable,
+              CustomCurrencyRow
+            >,
+          ),
+          CustomCurrencyRow,
+          PrefetchHooks Function()
+        > {
+  $$CustomCurrenciesTableTableManager(
+    _$AppDatabase db,
+    $CustomCurrenciesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CustomCurrenciesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CustomCurrenciesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CustomCurrenciesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> code = const Value.absent(),
+                Value<String> symbol = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<int> decimalDigits = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => CustomCurrenciesCompanion(
+                code: code,
+                symbol: symbol,
+                name: name,
+                decimalDigits: decimalDigits,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String code,
+                required String symbol,
+                required String name,
+                Value<int> decimalDigits = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => CustomCurrenciesCompanion.insert(
+                code: code,
+                symbol: symbol,
+                name: name,
+                decimalDigits: decimalDigits,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$CustomCurrenciesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $CustomCurrenciesTable,
+      CustomCurrencyRow,
+      $$CustomCurrenciesTableFilterComposer,
+      $$CustomCurrenciesTableOrderingComposer,
+      $$CustomCurrenciesTableAnnotationComposer,
+      $$CustomCurrenciesTableCreateCompanionBuilder,
+      $$CustomCurrenciesTableUpdateCompanionBuilder,
+      (
+        CustomCurrencyRow,
+        BaseReferences<
+          _$AppDatabase,
+          $CustomCurrenciesTable,
+          CustomCurrencyRow
+        >,
+      ),
+      CustomCurrencyRow,
+      PrefetchHooks Function()
+    >;
 typedef $$TagGroupsTableCreateCompanionBuilder =
     TagGroupsCompanion Function({
       Value<int> id,
@@ -47024,6 +47546,8 @@ class $AppDatabaseManager {
       $$RecurringRuleTagsTableTableManager(_db, _db.recurringRuleTags);
   $$PersonEntryTagsTableTableManager get personEntryTags =>
       $$PersonEntryTagsTableTableManager(_db, _db.personEntryTags);
+  $$CustomCurrenciesTableTableManager get customCurrencies =>
+      $$CustomCurrenciesTableTableManager(_db, _db.customCurrencies);
   $$TagGroupsTableTableManager get tagGroups =>
       $$TagGroupsTableTableManager(_db, _db.tagGroups);
   $$TagGroupTagsTableTableManager get tagGroupTags =>

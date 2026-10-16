@@ -27,20 +27,56 @@ class Currency {
 /// `currencyCode` defaults to `INR`) see no change.
 const Currency kDefaultCurrency = Currency('INR', '₹', 'Indian Rupee');
 
-/// Look a currency up by code, falling back to [kDefaultCurrency] for an
-/// unknown code (an old backup, a corrupt setting) rather than crashing.
+/// Look a currency up by code — built-in or one the person made
+/// ([customCurrencyList]) — falling back to [kDefaultCurrency] for an unknown
+/// code (an old backup, a corrupt setting) rather than crashing.
 Currency currencyForCode(String? code) {
   if (code == null) return kDefaultCurrency;
   for (final c in kCurrencies) {
     if (c.code == code) return c;
   }
+  for (final c in _customCurrencies) {
+    if (c.code == code) return c;
+  }
   return kDefaultCurrency;
 }
 
+/// Whether [code] is one of the app's own [kCurrencies] — a custom currency
+/// can't take one of those codes.
+bool isBuiltInCurrency(String code) => kCurrencies.any((c) => c.code == code);
+
+List<Currency> _customCurrencies = const [];
+
+/// Currencies the person made themselves, for one the app doesn't list.
+/// A cache of the `CustomCurrencies` table — `AppDatabase` keeps it in step
+/// on open and after every change, so [currencyForCode] resolves them
+/// everywhere without a query.
+List<Currency> get customCurrencyList => _customCurrencies;
+
+/// Replaces [customCurrencyList]. Returns whether anything changed.
+bool setCustomCurrencyList(List<Currency> currencies) {
+  final same =
+      currencies.length == _customCurrencies.length &&
+      [
+        for (var i = 0; i < currencies.length; i++)
+          currencies[i].code == _customCurrencies[i].code &&
+              currencies[i].symbol == _customCurrencies[i].symbol &&
+              currencies[i].name == _customCurrencies[i].name &&
+              currencies[i].decimalDigits == _customCurrencies[i].decimalDigits,
+      ].every((same) => same);
+  if (same) return false;
+  _customCurrencies = List.unmodifiable(currencies);
+  return true;
+}
+
+/// Every currency a picker offers: the person's own first, then the rest.
+List<Currency> get allCurrencies => [..._customCurrencies, ...kCurrencies];
+
 /// A curated, alphabetical-by-name set of world currencies. Not exhaustive, but
 /// broad — and easy to extend: add a row and it shows up in the picker. When a
-/// user's currency is missing they can still pick the closest and hide the
-/// symbol (see the "Show currency symbol" setting).
+/// user's currency is missing they can make their own (see
+/// [customCurrencyList]) or pick the closest and hide the symbol (see the "Show
+/// currency symbol" setting).
 const List<Currency> kCurrencies = [
   Currency('AFN', '؋', 'Afghan Afghani'),
   Currency('ALL', 'L', 'Albanian Lek'),

@@ -158,6 +158,7 @@ typedef CombinedStatementLine = ({
     TransactionTags,
     RecurringRuleTags,
     PersonEntryTags,
+    CustomCurrencies,
     TagGroups,
     TagGroupTags,
     TransactionSplits,
@@ -200,7 +201,7 @@ class AppDatabase extends _$AppDatabase {
       );
 
   @override
-  int get schemaVersion => 84;
+  int get schemaVersion => 85;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -767,6 +768,10 @@ class AppDatabase extends _$AppDatabase {
         // Tags on person entries (GitHub #168).
         await m.createTable(personEntryTags);
       }
+      if (from < 85) {
+        // Currencies the person makes themselves.
+        await m.createTable(customCurrencies);
+      }
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');
@@ -778,6 +783,8 @@ class AppDatabase extends _$AppDatabase {
       if (hasSettings.isEmpty) {
         await into(settings).insert(const SettingsCompanion());
       }
+      // Before anything formats or validates a currency code.
+      await _refreshCustomCurrencies();
       // Safety net. `recalculateBalances` now reads only `transactions`, so
       // an entry left without its ledger row (a migration that died halfway,
       // an old backup restored) would quietly stop affecting the balance.
@@ -6029,6 +6036,143 @@ class AppDatabase extends _$AppDatabase {
   Future<void> setAppMode(AppMode mode) =>
       update(settings).write(SettingsCompanion(appMode: Value(mode)));
 
+  // ── Custom currencies ────────────────────────────────────────────────────
+
+  Stream<List<CustomCurrencyRow>> watchCustomCurrencies() => (select(
+    customCurrencies,
+  )..orderBy([(c) => OrderingTerm(expression: c.name)])).watch();
+
+  /// Points [currencyForCode] at the table's current rows.
+  Future<void> _refreshCustomCurrencies() async {
+    final rows = await (select(
+      customCurrencies,
+    )..orderBy([(c) => OrderingTerm(expression: c.name)])).get();
+    setCustomCurrencyList([
+      for (final r in rows)
+        Currency(r.code, r.symbol, r.name, decimalDigits: r.decimalDigits),
+    ]);
+  }
+
+  /// Checks a custom currency's fields, throwing a user-facing
+  /// [ArgumentError]. Returns them trimmed.
+  ({String symbol, String name}) _checkCustomCurrency({
+    required String symbol,
+    required String name,
+    required int decimalDigits,
+  }) {
+    final s = symbol.trim();
+    final n = name.trim();
+    if (s.isEmpty) throw ArgumentError('Give it a symbol, like ¤ or Tk.');
+    if (s.length > 8) throw ArgumentError('Keep the symbol to 8 characters.');
+    if (n.isEmpty) throw ArgumentError('Give it a name.');
+    if (n.length > 40) throw ArgumentError('Keep the name to 40 characters.');
+    if (decimalDigits < 0 || decimalDigits > 3) {
+      throw ArgumentError('Decimal places must be 0 to 3.');
+    }
+    return (symbol: s, name: n);
+  }
+
+  /// Adds a currency the app doesn't list. [code] is three letters (made
+  /// capital), and can't be a built-in code or one already made.
+  Future<void> addCustomCurrency({
+    required String code,
+    required String symbol,
+    required String name,
+    int decimalDigits = 2,
+  }) async {
+    final c = code.trim().toUpperCase();
+    if (!RegExp(r'^[A-Z]{3}$').hasMatch(c)) {
+      throw ArgumentError('The code is three letters, like XYZ.');
+    }
+    if (isBuiltInCurrency(c)) {
+      throw ArgumentError('$c is already in the list — pick it from there.');
+    }
+    final fields = _checkCustomCurrency(
+      symbol: symbol,
+      name: name,
+      decimalDigits: decimalDigits,
+    );
+    final existing = await (select(
+      customCurrencies,
+    )..where((r) => r.code.equals(c))).getSingleOrNull();
+    if (existing != null) {
+      throw ArgumentError('You already made $c.');
+    }
+    await into(customCurrencies).insert(
+      CustomCurrenciesCompanion.insert(
+        code: c,
+        symbol: fields.symbol,
+        name: fields.name,
+        decimalDigits: Value(decimalDigits),
+      ),
+    );
+    await _refreshCustomCurrencies();
+  }
+
+  /// Changes a custom currency's symbol, name or decimal places. Its code
+  /// stays — accounts and transactions store it.
+  Future<void> updateCustomCurrency({
+    required String code,
+    required String symbol,
+    required String name,
+    required int decimalDigits,
+  }) async {
+    final fields = _checkCustomCurrency(
+      symbol: symbol,
+      name: name,
+      decimalDigits: decimalDigits,
+    );
+    await (update(customCurrencies)..where((r) => r.code.equals(code))).write(
+      CustomCurrenciesCompanion(
+        symbol: Value(fields.symbol),
+        name: Value(fields.name),
+        decimalDigits: Value(decimalDigits),
+      ),
+    );
+    await _refreshCustomCurrencies();
+  }
+
+  /// Removes a custom currency nothing uses — refusing, with the reason,
+  /// while the parent currency, an account, a transaction or an Auto rule
+  /// still does. Its exchange rates go with it.
+  Future<void> deleteCustomCurrency(String code) => transaction(() async {
+    if ((await getSettings()).currencyCode == code) {
+      throw ArgumentError("It's your parent currency. Pick another one first.");
+    }
+    final account =
+        await (select(accounts)
+              ..where((a) => a.currencyCode.equals(code))
+              ..limit(1))
+            .getSingleOrNull();
+    if (account != null) {
+      throw ArgumentError('"${account.name}" is in $code.');
+    }
+    final tx =
+        await (select(transactions)
+              ..where(
+                (t) =>
+                    t.currencyCode.equals(code) |
+                    t.foreignCurrencyCode.equals(code) |
+                    t.toCurrencyCode.equals(code),
+              )
+              ..limit(1))
+            .getSingleOrNull();
+    if (tx != null) throw ArgumentError('Transactions use $code.');
+    final rule =
+        await (select(recurringRules)
+              ..where((r) => r.foreignCurrencyCode.equals(code))
+              ..limit(1))
+            .getSingleOrNull();
+    if (rule != null) {
+      throw ArgumentError('"${rule.name}" uses $code.');
+    }
+    await (delete(
+      currencyRates,
+    )..where((r) => r.currencyCode.equals(code))).go();
+    await (delete(customCurrencies)..where((r) => r.code.equals(code))).go();
+    await _refreshCustomCurrencies();
+  });
+
   Future<void> setShowCalendarDayTotals(bool value) => update(
     settings,
   ).write(SettingsCompanion(showCalendarDayTotals: Value(value)));
@@ -7262,6 +7406,9 @@ class AppDatabase extends _$AppDatabase {
       'persons': (await select(persons).get()).map(m).toList(),
       'personEntries': (await select(personEntries).get()).map(m).toList(),
       'personEntryTags': (await select(personEntryTags).get()).map(m).toList(),
+      'customCurrencies': (await select(
+        customCurrencies,
+      ).get()).map(m).toList(),
       'reminders': (await select(reminders).get()).map(m).toList(),
       'merchantRules': (await select(merchantRules).get()).map(m).toList(),
       'senderRules': (await select(senderRules).get()).map(m).toList(),
@@ -7392,6 +7539,7 @@ class AppDatabase extends _$AppDatabase {
       await delete(shoppingLists).go();
       await delete(settings).go();
       await delete(currencyRates).go();
+      await delete(customCurrencies).go();
 
       Future<void> load<T extends Table, D>(
         TableInfo<T, D> table,
@@ -7414,6 +7562,10 @@ class AppDatabase extends _$AppDatabase {
       // Parents first, or the inserts violate the foreign keys.
       // `persons` before `transactions` (transactions.person_id), and
       // `transactions` before `person_entries` (person_entries.transaction_id).
+      // No foreign key points at it — first, so every currency code below
+      // already resolves. An older backup simply has no rows for it.
+      await load(customCurrencies, 'customCurrencies');
+      await _refreshCustomCurrencies();
       await load(accounts, 'accounts');
       // No foreign key references currencyRates, so it can load anywhere —
       // grouped with accounts since that's the other half of "an account's

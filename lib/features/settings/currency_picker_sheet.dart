@@ -5,9 +5,11 @@ import '../../core/currency.dart';
 import '../../core/widgets/app_surfaces.dart';
 import '../../data/providers.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import 'custom_currency_sheet.dart';
 
-/// A searchable list of every currency the app knows. Picking one writes it to
-/// settings; the whole app reformats immediately (see [CurrencyScope]).
+/// A searchable list of every currency the app knows — the person's own
+/// custom ones first — plus a way to make one it doesn't. Picking one writes
+/// it to settings; the whole app reformats immediately (see [CurrencyScope]).
 ///
 /// [initialCode]/[onSelected] let this same sheet be reused to pick an
 /// arbitrary currency that has nothing to do with the app-wide setting — see
@@ -67,8 +69,8 @@ class _CurrencyPickerSheetState extends ConsumerState<CurrencyPickerSheet> {
 
   List<Currency> get _filtered {
     final q = _query.trim().toLowerCase();
-    if (q.isEmpty) return kCurrencies;
-    return kCurrencies
+    if (q.isEmpty) return allCurrencies;
+    return allCurrencies
         .where(
           (c) =>
               c.name.toLowerCase().contains(q) ||
@@ -78,11 +80,39 @@ class _CurrencyPickerSheetState extends ConsumerState<CurrencyPickerSheet> {
         .toList();
   }
 
+  Future<void> _choose(Currency c) async {
+    if (widget.onSelected != null) {
+      widget.onSelected!(c);
+      return;
+    }
+    await ref.read(dbProvider).setCurrencyCode(c.code);
+    if (mounted) Navigator.of(context).pop();
+  }
+
+  /// Makes a currency and picks it straight away. Everything it needs is
+  /// read before the sheet opens — this one may not survive it.
+  Future<void> _createCustom() async {
+    final navigator = Navigator.of(context);
+    final db = ref.read(dbProvider);
+    final onSelected = widget.onSelected;
+    final made = await showCustomCurrencySheet(context);
+    if (made == null) return;
+    if (onSelected != null) {
+      onSelected(made);
+      return;
+    }
+    await db.setCurrencyCode(made.code);
+    navigator.pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final selected = widget.initialCode ?? ref.watch(currencyProvider).code;
+    // Rebuilds once a just-made currency joins the list.
+    ref.watch(customCurrenciesProvider);
     final results = _filtered;
+    final customCodes = {for (final c in customCurrencyList) c.code};
 
     return ConstrainedBox(
       constraints: BoxConstraints(
@@ -116,7 +146,16 @@ class _CurrencyPickerSheetState extends ConsumerState<CurrencyPickerSheet> {
                 onChanged: (v) => setState(() => _query = v),
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 4),
+            AppListTile(
+              leading: const SizedBox(
+                width: 40,
+                child: Center(child: AppIcon(Icons.add_circle_outline_rounded)),
+              ),
+              title: const Text('Create a custom currency'),
+              subtitle: const Text('For one that isn’t listed'),
+              onTap: _createCustom,
+            ),
             Flexible(
               child: results.isEmpty
                   ? Padding(
@@ -148,7 +187,11 @@ class _CurrencyPickerSheetState extends ConsumerState<CurrencyPickerSheet> {
                             ),
                           ),
                           title: Text(c.name),
-                          subtitle: Text(c.code),
+                          subtitle: Text(
+                            customCodes.contains(c.code)
+                                ? '${c.code} · Custom'
+                                : c.code,
+                          ),
                           trailing: isSelected
                               ? AppIcon(
                                   Icons.check_rounded,
@@ -156,14 +199,7 @@ class _CurrencyPickerSheetState extends ConsumerState<CurrencyPickerSheet> {
                                 )
                               : null,
                           selected: isSelected,
-                          onTap: () async {
-                            if (widget.onSelected != null) {
-                              widget.onSelected!(c);
-                              return;
-                            }
-                            await ref.read(dbProvider).setCurrencyCode(c.code);
-                            if (context.mounted) Navigator.of(context).pop();
-                          },
+                          onTap: () => _choose(c),
                         );
                       },
                     ),

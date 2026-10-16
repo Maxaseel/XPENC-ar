@@ -8,36 +8,6 @@ Release process: see [docs/RELEASING.md](docs/RELEASING.md).
 
 ## [Unreleased]
 
-### Added
-- **Week starts on Sunday or Monday** (#166). Settings → General →
-  Calendar → **Week starts on**. The Calendar tab and every date picker
-  follow it. Monday is the default — the Calendar tab always started
-  there; date pickers used to start on Sunday.
-- **Tags on money lent and borrowed** (#168). "They owe you" / "You owe
-  them" now has a **Tags** field, and each entry on a person's page shows
-  its tags. When the money moved through an account, its transaction
-  carries the same tags, so it shows up when you filter Transactions by
-  tag.
-- **Custom currencies.** Settings → Currency → **Create a custom currency**
-  (or the same option at the top of any currency list) for one XPENC
-  doesn't list: a three-letter code, a symbol, a name and 0, 2 or 3
-  decimal places. It works like any other currency — as your parent
-  currency, an account's own, or with an exchange rate — and comes along
-  in backups. It can be edited later, and deleted while nothing uses it.
-
-### Changed
-- **Contacts access off means no contacts at all** (#167). Once you've said
-  no to contacts access — or turned it off in Settings → Permissions —
-  XPENC hides every "from contacts" button (Add/Edit person, Link contact,
-  group members, payees) and never opens your address book. Turn it back
-  on in Settings → Permissions and they return.
-
-### Fixed
-- **Deleting a tag used by an Auto rule or a tag group failed.** It's now
-  taken off those first, like it already was from transactions.
-- **Editing a lend/borrow entry dropped the tags on its transaction.** They
-  now stay.
-
 ## [1.6.5] — beta
 
 ### Added
@@ -65,6 +35,21 @@ Release process: see [docs/RELEASING.md](docs/RELEASING.md).
 - **A person's photo from your gallery.** Add or edit a person and tap the
   photo circle (or **Add photo**) to pick one from your gallery — no
   contact needed. It's shrunk to avatar size and kept on the phone.
+- **Week starts on Sunday or Monday** (#166). Settings → General →
+  Calendar → **Week starts on**. The Calendar tab and every date picker
+  follow it. Monday is the default — the Calendar tab always started
+  there; date pickers used to start on Sunday.
+- **Tags on money lent and borrowed** (#168). "They owe you" / "You owe
+  them" now has a **Tags** field, and each entry on a person's page shows
+  its tags. When the money moved through an account, its transaction
+  carries the same tags, so it shows up when you filter Transactions by
+  tag.
+- **Custom currencies.** Settings → Currency → **Create a custom currency**
+  (or the same option at the top of any currency list) for one XPENC
+  doesn't list: a three-letter code, a symbol, a name and 0, 2 or 3
+  decimal places. It works like any other currency — as your parent
+  currency, an account's own, or with an exchange rate — and comes along
+  in backups. It can be edited later, and deleted while nothing uses it.
 
 ### Changed
 - **"Income" and "Expense" are now "Money in" and "Money out"** (#159). A
@@ -73,6 +58,17 @@ Release process: see [docs/RELEASING.md](docs/RELEASING.md).
   Transactions, Categories, reports, PDFs, notifications and the home
   screen widgets. Your data doesn't change — backups, CSV exports and the
   `/add?type=` links keep their format. Group bills are still "expenses".
+- **Contacts access off means no contacts at all** (#167). Once you've said
+  no to contacts access — or turned it off in Settings → Permissions —
+  XPENC hides every "from contacts" button (Add/Edit person, Link contact,
+  group members, payees) and never opens your address book. Turn it back
+  on in Settings → Permissions and they return.
+
+### Fixed
+- **Deleting a tag used by an Auto rule or a tag group failed.** It's now
+  taken off those first, like it already was from transactions.
+- **Editing a lend/borrow entry dropped the tags on its transaction.** They
+  now stay.
 
 ## [1.6.4] — 2026-10-10
 

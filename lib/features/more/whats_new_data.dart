@@ -23,6 +23,41 @@ class WhatsNewEntry {
 
 const whatsNewEntries = <WhatsNewEntry>[
   WhatsNewEntry(
+    icon: Icons.sell_outlined,
+    title: 'Tags on money lent and borrowed',
+    location: 'Persons → a person → They owe you / You owe them → Tags',
+    description:
+        'Tag an entry like any transaction — each one shows its tags on the '
+        'person’s page, and when the money moved through an account, its '
+        'transaction carries them too, so it turns up when you filter by tag.',
+  ),
+  WhatsNewEntry(
+    icon: Icons.currency_exchange_rounded,
+    title: 'Make your own currency',
+    location: 'Settings → Currency → Create a custom currency',
+    description:
+        'For a currency XPENC doesn’t list: a three-letter code, a symbol, a '
+        'name and its decimal places. It works like any other — as your '
+        'parent currency, an account’s own, or with an exchange rate.',
+  ),
+  WhatsNewEntry(
+    icon: Icons.view_week_outlined,
+    title: 'Start the week on Sunday or Monday',
+    location: 'Settings → General → Calendar → Week starts on',
+    description:
+        'The Calendar tab and every date picker follow it. Monday is the '
+        'default.',
+  ),
+  WhatsNewEntry(
+    icon: Icons.contacts_outlined,
+    title: 'Contacts stay closed when access is off',
+    location: 'Settings → Permissions → Contacts',
+    description:
+        'Say no to contacts access, or turn it off, and every “from '
+        'contacts” button goes away — XPENC never opens your address book '
+        'without it. Turn it back on here and they return.',
+  ),
+  WhatsNewEntry(
     icon: Icons.swap_vert_rounded,
     title: 'Money in and Money out',
     location: 'Everywhere',

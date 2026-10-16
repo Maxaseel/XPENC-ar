@@ -199,7 +199,7 @@ class AppDatabase extends _$AppDatabase {
       );
 
   @override
-  int get schemaVersion => 81;
+  int get schemaVersion => 82;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -748,6 +748,15 @@ class AppDatabase extends _$AppDatabase {
         await _addColumnIfMissing(m, settings, settings.personColor);
         await _addColumnIfMissing(m, settings, settings.txIconBackground);
         await _addColumnIfMissing(m, settings, settings.txIconColor);
+      }
+      if (from < 82) {
+        // Contacts access asked before — hides contact buttons once it's
+        // off (GitHub #167).
+        await _addColumnIfMissing(
+          m,
+          settings,
+          settings.contactsPermissionAsked,
+        );
       }
     },
     beforeOpen: (details) async {
@@ -5935,6 +5944,12 @@ class AppDatabase extends _$AppDatabase {
 
   Future<void> setHideAmounts(bool value) =>
       update(settings).write(SettingsCompanion(hideAmounts: Value(value)));
+
+  /// Records that contacts access has been asked for — see
+  /// [Settings.contactsPermissionAsked].
+  Future<void> markContactsPermissionAsked() => update(
+    settings,
+  ).write(const SettingsCompanion(contactsPermissionAsked: Value(true)));
 
   /// Switches the active tier — see [AppMode]. Purely a UI/nav gate; never
   /// touches budgets, allocations, or any other data, so there is nothing

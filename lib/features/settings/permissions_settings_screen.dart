@@ -1,22 +1,28 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/permissions/app_permissions.dart';
 import '../../core/widgets/app_surfaces.dart';
+import '../../data/providers.dart';
+import '../persons/contact_import.dart';
 import 'settings_common.dart';
 
 /// Every permission XPENC holds or could ask for, and every one it never
 /// asks for. Turning a permission on shows Android's own dialog; turning one
 /// off has to happen in system settings — Android gives apps no way to
 /// revoke their own grants — so the switch sends the user there.
-class PermissionsSettingsScreen extends StatefulWidget {
+class PermissionsSettingsScreen extends ConsumerStatefulWidget {
   const PermissionsSettingsScreen({super.key});
 
   @override
-  State<PermissionsSettingsScreen> createState() =>
+  ConsumerState<PermissionsSettingsScreen> createState() =>
       _PermissionsSettingsScreenState();
 }
 
-class _PermissionsSettingsScreenState extends State<PermissionsSettingsScreen> {
+class _PermissionsSettingsScreenState
+    extends ConsumerState<PermissionsSettingsScreen> {
   Map<AppPermission, PermissionState>? _states;
   late final AppLifecycleListener _lifecycle;
 
@@ -42,6 +48,13 @@ class _PermissionsSettingsScreenState extends State<PermissionsSettingsScreen> {
   Future<void> _toggle(AppPermission p, bool on) async {
     if (on) {
       final after = await AppPermissions.request(p);
+      if (p == AppPermission.contacts) {
+        // Asked now — see Settings.contactsPermissionAsked (GitHub #167).
+        // Nothing here waits on it: the settings stream re-runs
+        // contactsAccessProvider once the flag lands.
+        unawaited(ref.read(dbProvider).markContactsPermissionAsked());
+        ref.invalidate(contactsAccessProvider);
+      }
       if (after == PermissionState.blocked) {
         if (!mounted) return;
         final go = await _confirm(

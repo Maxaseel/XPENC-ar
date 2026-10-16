@@ -94,13 +94,16 @@ class _PayeePickerSheetState extends ConsumerState<PayeePickerSheet> {
 
   Future<PickedContact?> _pickContact() async {
     try {
-      final contact = await pickContact();
+      final contact = await pickContact(ref.read(dbProvider));
       if (contact == null || !mounted) return null;
       if (contact.name == null) {
         setState(() => _notice = 'That contact has no name to use.');
         return null;
       }
       return contact;
+    } on ContactsAccessOff {
+      if (mounted) setState(() => _notice = contactsAccessOffMessage);
+      return null;
     } on PlatformException {
       if (mounted) setState(() => _notice = "Couldn't open contacts.");
       return null;
@@ -322,29 +325,33 @@ class _PayeePickerSheetState extends ConsumerState<PayeePickerSheet> {
                       onTap: _busy ? null : () => _addTypedAsPerson(typed),
                     ),
                   ],
-                  section('FROM CONTACTS'),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: _ContactButton(
-                            icon: Icons.person_add_alt_1_outlined,
-                            label: 'New person',
-                            onTap: _busy ? null : _personFromContacts,
+                  // GitHub #167: hidden while contacts access is off.
+                  if (ref.watch(contactsAccessProvider).valueOrNull ??
+                      false) ...[
+                    section('FROM CONTACTS'),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: _ContactButton(
+                              icon: Icons.person_add_alt_1_outlined,
+                              label: 'New person',
+                              onTap: _busy ? null : _personFromContacts,
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: _ContactButton(
-                            icon: Icons.contacts_outlined,
-                            label: 'New payee',
-                            onTap: _busy ? null : _payeeFromContacts,
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: _ContactButton(
+                              icon: Icons.contacts_outlined,
+                              label: 'New payee',
+                              onTap: _busy ? null : _payeeFromContacts,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
+                  ],
                   if (matchedPeople.isNotEmpty) ...[
                     section('PEOPLE'),
                     for (final p in matchedPeople)

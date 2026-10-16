@@ -1,7 +1,11 @@
+import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:xpenc/core/permissions/app_permissions.dart';
+import 'package:xpenc/data/database.dart';
+import 'package:xpenc/data/providers.dart';
 import 'package:xpenc/features/settings/permissions_settings_screen.dart';
 
 const _channel = MethodChannel('xpenc/permissions');
@@ -9,8 +13,11 @@ const _channel = MethodChannel('xpenc/permissions');
 void main() {
   late Map<String, String> granted;
   late List<MethodCall> calls;
+  late AppDatabase db;
 
   setUp(() {
+    // Turning contacts on records that it was asked (GitHub #167).
+    db = AppDatabase(NativeDatabase.memory());
     granted = {
       AppPermission.notifications.androidName: 'granted',
       AppPermission.camera.androidName: 'denied',
@@ -37,14 +44,18 @@ void main() {
         });
   });
 
-  tearDown(() {
+  tearDown(() async {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(_channel, null);
+    await db.close();
   });
 
   Future<void> pump(WidgetTester tester) async {
     await tester.pumpWidget(
-      const MaterialApp(home: PermissionsSettingsScreen()),
+      ProviderScope(
+        overrides: [dbProvider.overrideWithValue(db)],
+        child: const MaterialApp(home: PermissionsSettingsScreen()),
+      ),
     );
     await tester.pumpAndSettle();
   }

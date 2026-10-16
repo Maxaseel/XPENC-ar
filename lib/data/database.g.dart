@@ -10272,6 +10272,21 @@ class $SettingsTable extends Settings
     type: DriftSqlType.int,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _contactsPermissionAskedMeta =
+      const VerificationMeta('contactsPermissionAsked');
+  @override
+  late final GeneratedColumn<bool> contactsPermissionAsked =
+      GeneratedColumn<bool>(
+        'contacts_permission_asked',
+        aliasedName,
+        false,
+        type: DriftSqlType.bool,
+        requiredDuringInsert: false,
+        defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("contacts_permission_asked" IN (0, 1))',
+        ),
+        defaultValue: const Constant(false),
+      );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -10353,6 +10368,7 @@ class $SettingsTable extends Settings
     personColor,
     txIconBackground,
     txIconColor,
+    contactsPermissionAsked,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -10954,6 +10970,15 @@ class $SettingsTable extends Settings
         ),
       );
     }
+    if (data.containsKey('contacts_permission_asked')) {
+      context.handle(
+        _contactsPermissionAskedMeta,
+        contactsPermissionAsked.isAcceptableOrUnknown(
+          data['contacts_permission_asked']!,
+          _contactsPermissionAskedMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -11298,6 +11323,10 @@ class $SettingsTable extends Settings
         DriftSqlType.int,
         data['${effectivePrefix}tx_icon_color'],
       ),
+      contactsPermissionAsked: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}contacts_permission_asked'],
+      )!,
     );
   }
 
@@ -11716,6 +11745,12 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
   /// The one colour for [txIconBackground] `single`, as ARGB. Null until
   /// picked — the accent blue stands in.
   final int? txIconColor;
+
+  /// Whether XPENC has ever asked for contacts access (GitHub #167). Android
+  /// reports "never asked" and "turned off" the same way, so this is what
+  /// tells them apart: once asked, contacts access that isn't granted means
+  /// it's off, and every "from contacts" button hides.
+  final bool contactsPermissionAsked;
   const SettingRow({
     required this.id,
     required this.currencyCode,
@@ -11796,6 +11831,7 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     this.personColor,
     required this.txIconBackground,
     this.txIconColor,
+    required this.contactsPermissionAsked,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -11971,6 +12007,7 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     if (!nullToAbsent || txIconColor != null) {
       map['tx_icon_color'] = Variable<int>(txIconColor);
     }
+    map['contacts_permission_asked'] = Variable<bool>(contactsPermissionAsked);
     return map;
   }
 
@@ -12097,6 +12134,7 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
       txIconColor: txIconColor == null && nullToAbsent
           ? const Value.absent()
           : Value(txIconColor),
+      contactsPermissionAsked: Value(contactsPermissionAsked),
     );
   }
 
@@ -12244,6 +12282,9 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
         serializer.fromJson<String>(json['txIconBackground']),
       ),
       txIconColor: serializer.fromJson<int?>(json['txIconColor']),
+      contactsPermissionAsked: serializer.fromJson<bool>(
+        json['contactsPermissionAsked'],
+      ),
     );
   }
   @override
@@ -12367,6 +12408,9 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
         $SettingsTable.$convertertxIconBackground.toJson(txIconBackground),
       ),
       'txIconColor': serializer.toJson<int?>(txIconColor),
+      'contactsPermissionAsked': serializer.toJson<bool>(
+        contactsPermissionAsked,
+      ),
     };
   }
 
@@ -12450,6 +12494,7 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     Value<int?> personColor = const Value.absent(),
     TxIconBackground? txIconBackground,
     Value<int?> txIconColor = const Value.absent(),
+    bool? contactsPermissionAsked,
   }) => SettingRow(
     id: id ?? this.id,
     currencyCode: currencyCode ?? this.currencyCode,
@@ -12554,6 +12599,8 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     personColor: personColor.present ? personColor.value : this.personColor,
     txIconBackground: txIconBackground ?? this.txIconBackground,
     txIconColor: txIconColor.present ? txIconColor.value : this.txIconColor,
+    contactsPermissionAsked:
+        contactsPermissionAsked ?? this.contactsPermissionAsked,
   );
   SettingRow copyWithCompanion(SettingsCompanion data) {
     return SettingRow(
@@ -12774,6 +12821,9 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
       txIconColor: data.txIconColor.present
           ? data.txIconColor.value
           : this.txIconColor,
+      contactsPermissionAsked: data.contactsPermissionAsked.present
+          ? data.contactsPermissionAsked.value
+          : this.contactsPermissionAsked,
     );
   }
 
@@ -12862,7 +12912,8 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
           ..write('transferColor: $transferColor, ')
           ..write('personColor: $personColor, ')
           ..write('txIconBackground: $txIconBackground, ')
-          ..write('txIconColor: $txIconColor')
+          ..write('txIconColor: $txIconColor, ')
+          ..write('contactsPermissionAsked: $contactsPermissionAsked')
           ..write(')'))
         .toString();
   }
@@ -12948,6 +12999,7 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     personColor,
     txIconBackground,
     txIconColor,
+    contactsPermissionAsked,
   ]);
   @override
   bool operator ==(Object other) =>
@@ -13034,7 +13086,8 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
           other.transferColor == this.transferColor &&
           other.personColor == this.personColor &&
           other.txIconBackground == this.txIconBackground &&
-          other.txIconColor == this.txIconColor);
+          other.txIconColor == this.txIconColor &&
+          other.contactsPermissionAsked == this.contactsPermissionAsked);
 }
 
 class SettingsCompanion extends UpdateCompanion<SettingRow> {
@@ -13117,6 +13170,7 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
   final Value<int?> personColor;
   final Value<TxIconBackground> txIconBackground;
   final Value<int?> txIconColor;
+  final Value<bool> contactsPermissionAsked;
   const SettingsCompanion({
     this.id = const Value.absent(),
     this.currencyCode = const Value.absent(),
@@ -13197,6 +13251,7 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     this.personColor = const Value.absent(),
     this.txIconBackground = const Value.absent(),
     this.txIconColor = const Value.absent(),
+    this.contactsPermissionAsked = const Value.absent(),
   });
   SettingsCompanion.insert({
     this.id = const Value.absent(),
@@ -13278,6 +13333,7 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     this.personColor = const Value.absent(),
     this.txIconBackground = const Value.absent(),
     this.txIconColor = const Value.absent(),
+    this.contactsPermissionAsked = const Value.absent(),
   });
   static Insertable<SettingRow> custom({
     Expression<int>? id,
@@ -13359,6 +13415,7 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     Expression<int>? personColor,
     Expression<String>? txIconBackground,
     Expression<int>? txIconColor,
+    Expression<bool>? contactsPermissionAsked,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -13464,6 +13521,8 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
       if (personColor != null) 'person_color': personColor,
       if (txIconBackground != null) 'tx_icon_background': txIconBackground,
       if (txIconColor != null) 'tx_icon_color': txIconColor,
+      if (contactsPermissionAsked != null)
+        'contacts_permission_asked': contactsPermissionAsked,
     });
   }
 
@@ -13547,6 +13606,7 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     Value<int?>? personColor,
     Value<TxIconBackground>? txIconBackground,
     Value<int?>? txIconColor,
+    Value<bool>? contactsPermissionAsked,
   }) {
     return SettingsCompanion(
       id: id ?? this.id,
@@ -13642,6 +13702,8 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
       personColor: personColor ?? this.personColor,
       txIconBackground: txIconBackground ?? this.txIconBackground,
       txIconColor: txIconColor ?? this.txIconColor,
+      contactsPermissionAsked:
+          contactsPermissionAsked ?? this.contactsPermissionAsked,
     );
   }
 
@@ -13939,6 +14001,11 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     if (txIconColor.present) {
       map['tx_icon_color'] = Variable<int>(txIconColor.value);
     }
+    if (contactsPermissionAsked.present) {
+      map['contacts_permission_asked'] = Variable<bool>(
+        contactsPermissionAsked.value,
+      );
+    }
     return map;
   }
 
@@ -14027,7 +14094,8 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
           ..write('transferColor: $transferColor, ')
           ..write('personColor: $personColor, ')
           ..write('txIconBackground: $txIconBackground, ')
-          ..write('txIconColor: $txIconColor')
+          ..write('txIconColor: $txIconColor, ')
+          ..write('contactsPermissionAsked: $contactsPermissionAsked')
           ..write(')'))
         .toString();
   }
@@ -35066,6 +35134,7 @@ typedef $$SettingsTableCreateCompanionBuilder =
       Value<int?> personColor,
       Value<TxIconBackground> txIconBackground,
       Value<int?> txIconColor,
+      Value<bool> contactsPermissionAsked,
     });
 typedef $$SettingsTableUpdateCompanionBuilder =
     SettingsCompanion Function({
@@ -35148,6 +35217,7 @@ typedef $$SettingsTableUpdateCompanionBuilder =
       Value<int?> personColor,
       Value<TxIconBackground> txIconBackground,
       Value<int?> txIconColor,
+      Value<bool> contactsPermissionAsked,
     });
 
 final class $$SettingsTableReferences
@@ -35594,6 +35664,11 @@ class $$SettingsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<bool> get contactsPermissionAsked => $composableBuilder(
+    column: $table.contactsPermissionAsked,
+    builder: (column) => ColumnFilters(column),
+  );
+
   $$AccountsTableFilterComposer get quickAddAccountId {
     final $$AccountsTableFilterComposer composer = $composerBuilder(
       composer: this,
@@ -36017,6 +36092,11 @@ class $$SettingsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<bool> get contactsPermissionAsked => $composableBuilder(
+    column: $table.contactsPermissionAsked,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$AccountsTableOrderingComposer get quickAddAccountId {
     final $$AccountsTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -36428,6 +36508,11 @@ class $$SettingsTableAnnotationComposer
     builder: (column) => column,
   );
 
+  GeneratedColumn<bool> get contactsPermissionAsked => $composableBuilder(
+    column: $table.contactsPermissionAsked,
+    builder: (column) => column,
+  );
+
   $$AccountsTableAnnotationComposer get quickAddAccountId {
     final $$AccountsTableAnnotationComposer composer = $composerBuilder(
       composer: this,
@@ -36563,6 +36648,7 @@ class $$SettingsTableTableManager
                 Value<int?> personColor = const Value.absent(),
                 Value<TxIconBackground> txIconBackground = const Value.absent(),
                 Value<int?> txIconColor = const Value.absent(),
+                Value<bool> contactsPermissionAsked = const Value.absent(),
               }) => SettingsCompanion(
                 id: id,
                 currencyCode: currencyCode,
@@ -36643,6 +36729,7 @@ class $$SettingsTableTableManager
                 personColor: personColor,
                 txIconBackground: txIconBackground,
                 txIconColor: txIconColor,
+                contactsPermissionAsked: contactsPermissionAsked,
               ),
           createCompanionCallback:
               ({
@@ -36729,6 +36816,7 @@ class $$SettingsTableTableManager
                 Value<int?> personColor = const Value.absent(),
                 Value<TxIconBackground> txIconBackground = const Value.absent(),
                 Value<int?> txIconColor = const Value.absent(),
+                Value<bool> contactsPermissionAsked = const Value.absent(),
               }) => SettingsCompanion.insert(
                 id: id,
                 currencyCode: currencyCode,
@@ -36809,6 +36897,7 @@ class $$SettingsTableTableManager
                 personColor: personColor,
                 txIconBackground: txIconBackground,
                 txIconColor: txIconColor,
+                contactsPermissionAsked: contactsPermissionAsked,
               ),
           withReferenceMapper: (p0) => p0
               .map(

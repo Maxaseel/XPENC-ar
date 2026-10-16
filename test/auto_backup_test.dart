@@ -104,6 +104,7 @@ void main() {
       dashboardLayout: '',
       dashboardAccountsStyle: DashboardAccountsStyle.slider,
       txIconBackground: TxIconBackground.category,
+      contactsPermissionAsked: false,
       budgetingMode: BudgetingMode.budgets,
       rtaEnabled: false,
     );

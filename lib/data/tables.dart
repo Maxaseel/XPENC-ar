@@ -1292,6 +1292,13 @@ class Settings extends Table {
   /// picked — the accent blue stands in.
   IntColumn get txIconColor => integer().nullable()();
 
+  /// Whether XPENC has ever asked for contacts access (GitHub #167). Android
+  /// reports "never asked" and "turned off" the same way, so this is what
+  /// tells them apart: once asked, contacts access that isn't granted means
+  /// it's off, and every "from contacts" button hides.
+  BoolColumn get contactsPermissionAsked =>
+      boolean().withDefault(const Constant(false))();
+
   @override
   Set<Column> get primaryKey => {id};
 }

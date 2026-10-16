@@ -52,7 +52,10 @@ class _GroupMemberPickerSheetState
   Future<void> _addFromContacts(List<PersonRow> everyone) async {
     final PickedContact? contact;
     try {
-      contact = await pickContact();
+      contact = await pickContact(ref.read(dbProvider));
+    } on ContactsAccessOff {
+      if (mounted) setState(() => _notice = contactsAccessOffMessage);
+      return;
     } on PlatformException {
       setState(() => _notice = "Couldn't open contacts.");
       return;
@@ -92,9 +95,7 @@ class _GroupMemberPickerSheetState
     );
     setState(() {
       if (!alreadyPending) _newFromContacts.add(picked);
-      _notice = picked.detailsAllowed
-          ? null
-          : 'Allow contacts access to also import their photo and phone.';
+      _notice = null;
     });
   }
 
@@ -159,11 +160,14 @@ class _GroupMemberPickerSheetState
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          OutlinedButton.icon(
-                            onPressed: () => _addFromContacts(everyone),
-                            icon: const AppIcon(Icons.contacts_outlined),
-                            label: const Text('Add from contacts'),
-                          ),
+                          // GitHub #167: hidden while contacts access is off.
+                          if (ref.watch(contactsAccessProvider).valueOrNull ??
+                              false)
+                            OutlinedButton.icon(
+                              onPressed: () => _addFromContacts(everyone),
+                              icon: const AppIcon(Icons.contacts_outlined),
+                              label: const Text('Add from contacts'),
+                            ),
                           if (_notice != null) ...[
                             const SizedBox(height: 8),
                             Text(

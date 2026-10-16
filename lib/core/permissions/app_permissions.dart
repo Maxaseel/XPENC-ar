@@ -18,8 +18,8 @@ enum AppPermission {
     androidName: 'android.permission.READ_CONTACTS',
     title: 'Contacts',
     reason:
-        'Import a phone number and photo when you pick a person from '
-        'contacts. Without it, picking still works — name only',
+        'Pick a person from your contacts, with their phone number and '
+        'photo. Without it, XPENC never opens your contacts',
   );
 
   const AppPermission({

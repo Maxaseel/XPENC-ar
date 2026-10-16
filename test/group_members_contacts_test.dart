@@ -65,7 +65,7 @@ void main() {
 
   group('matchExistingPerson', () {
     PickedContact contact({String? name, String? phone}) =>
-        (name: name, phone: phone, photoPath: null, detailsAllowed: true);
+        (name: name, phone: phone, photoPath: null);
 
     test('matches the same number written differently', () async {
       final id = await db.addPerson('Ravi', phone: '098765 43210');
@@ -116,7 +116,10 @@ void main() {
     Set<int>? result;
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [dbProvider.overrideWithValue(db)],
+        overrides: [
+          dbProvider.overrideWithValue(db),
+          contactsAccessProvider.overrideWith((ref) async => true),
+        ],
         child: MaterialApp(
           theme: AppTheme.light,
           home: Builder(
@@ -142,6 +145,8 @@ void main() {
     );
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
+    // Contacts access resolves after the sheet's first frame.
+    await tester.pump();
 
     expect(find.text('Add from contacts'), findsOneWidget);
     expect(find.text('ARCHIVED'), findsOneWidget);

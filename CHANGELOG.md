@@ -8,6 +8,13 @@ Release process: see [docs/RELEASING.md](docs/RELEASING.md).
 
 ## [Unreleased]
 
+### Changed
+- **Contacts access off means no contacts at all** (#167). Once you've said
+  no to contacts access — or turned it off in Settings → Permissions —
+  XPENC hides every "from contacts" button (Add/Edit person, Link contact,
+  group members, payees) and never opens your address book. Turn it back
+  on in Settings → Permissions and they return.
+
 ## [1.6.5] — beta
 
 ### Added

@@ -104,23 +104,20 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
   /// name already chosen and only brings in phone and photo.
   Future<void> _pickFromContacts() async {
     try {
-      final contact = await pickContact();
+      final contact = await pickContact(ref.read(dbProvider));
       if (contact == null || !mounted) return;
       if (widget.person == null && await _reuseExisting(contact)) return;
       final name = contact.name;
       if (widget.person == null && name != null) {
         _nameController.text = name;
       }
-      if (!contact.detailsAllowed) {
-        _showError(
-          'Allow contacts access to also import their phone and photo.',
-        );
-        return;
-      }
       if (contact.phone != null) _phoneController.text = contact.phone!;
       if (contact.photoPath != null) {
         setState(() => _photoPath = contact.photoPath);
       }
+    } on ContactsAccessOff {
+      if (!mounted) return;
+      _showError(contactsAccessOffMessage);
     } on PlatformException {
       if (!mounted) return;
       _showError("Couldn't open contacts.");
@@ -207,7 +204,6 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
         name: name,
         phone: _phoneController.text.trim().nullIfEmpty,
         photoPath: null,
-        detailsAllowed: true,
       ), everyone);
       if (existing != null) {
         final addAnyway = await showAppDialog<bool>(
@@ -284,6 +280,8 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
     final venmoEnabled = ref.watch(venmoEnabledProvider);
     final cashappEnabled = ref.watch(cashappEnabledProvider);
     final revolutEnabled = ref.watch(revolutEnabledProvider);
+    // GitHub #167: with contacts access off, there's no way into them.
+    final contactsOn = ref.watch(contactsAccessProvider).valueOrNull ?? false;
     final anyPaymentMethodEnabled =
         upiEnabled ||
         paypalEnabled ||
@@ -386,13 +384,15 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
               decoration: InputDecoration(
                 labelText: 'Name',
                 hintText: 'e.g. Yash',
-                suffixIcon: IconButton(
-                  tooltip: widget.person == null
-                      ? 'Pick from contacts'
-                      : 'Link contact (phone & photo)',
-                  icon: const AppIcon(Icons.contacts_outlined),
-                  onPressed: _pickFromContacts,
-                ),
+                suffixIcon: contactsOn
+                    ? IconButton(
+                        tooltip: widget.person == null
+                            ? 'Pick from contacts'
+                            : 'Link contact (phone & photo)',
+                        icon: const AppIcon(Icons.contacts_outlined),
+                        onPressed: _pickFromContacts,
+                      )
+                    : null,
               ),
             ),
             const SizedBox(height: 16),

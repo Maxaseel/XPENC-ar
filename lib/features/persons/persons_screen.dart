@@ -493,10 +493,12 @@ class _PersonTile extends ConsumerWidget {
   /// (permanent, takes their whole history with them).
   Future<void> _showActions(BuildContext context, WidgetRef ref) async {
     final theme = Theme.of(context);
+    final contactsOn = ref.read(contactsAccessProvider).valueOrNull ?? false;
     final action = await showActionSheet<_PersonAction>(
       context: context,
       title: person.name,
-      optionCount: person.isSettled || balance.isZero ? 5 : 4,
+      optionCount:
+          (person.isSettled || balance.isZero ? 5 : 4) - (contactsOn ? 0 : 1),
       options: (sheetContext) => [
         AppListTile(
           leading: const AppIcon(Icons.edit_outlined),
@@ -504,13 +506,15 @@ class _PersonTile extends ConsumerWidget {
           subtitle: const Text('Name, UPI ID, phone and more.'),
           onTap: () => Navigator.of(sheetContext).pop(_PersonAction.edit),
         ),
-        AppListTile(
-          leading: const AppIcon(Icons.contacts_outlined),
-          title: const Text('Link contact'),
-          subtitle: const Text('Import their photo and phone number.'),
-          onTap: () =>
-              Navigator.of(sheetContext).pop(_PersonAction.linkContact),
-        ),
+        // GitHub #167: hidden while contacts access is off.
+        if (contactsOn)
+          AppListTile(
+            leading: const AppIcon(Icons.contacts_outlined),
+            title: const Text('Link contact'),
+            subtitle: const Text('Import their photo and phone number.'),
+            onTap: () =>
+                Navigator.of(sheetContext).pop(_PersonAction.linkContact),
+          ),
         if (person.isSettled)
           AppListTile(
             leading: const AppIcon(Icons.undo_rounded),
@@ -585,16 +589,15 @@ class _PersonTile extends ConsumerWidget {
 
     final PickedContact? contact;
     try {
-      contact = await pickContact();
+      contact = await pickContact(ref.read(dbProvider));
+    } on ContactsAccessOff {
+      say(contactsAccessOffMessage);
+      return;
     } on PlatformException {
       say("Couldn't open contacts.");
       return;
     }
     if (contact == null) return;
-    if (!contact.detailsAllowed) {
-      say('Allow contacts access to import their photo and phone.');
-      return;
-    }
     if (contact.phone == null && contact.photoPath == null) {
       say('That contact has no photo or phone number to import.');
       return;

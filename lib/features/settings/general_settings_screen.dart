@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/platform/platform_features.dart';
 import '../../core/widgets/app_surfaces.dart';
 import '../../data/providers.dart';
+import '../../data/tables.dart';
 import 'more_screen_layout_sheet.dart';
 import 'settings_common.dart';
 import 'theme_picker_sheet.dart';
@@ -26,6 +27,7 @@ class GeneralSettingsScreen extends ConsumerWidget {
     final showSymbol = ref.watch(showCurrencySymbolProvider);
     final moreScreenViewMode = ref.watch(moreScreenViewModeProvider);
     final showCalendarDayTotals = ref.watch(showCalendarDayTotalsProvider);
+    final weekStart = ref.watch(weekStartProvider);
 
     return Scaffold(
       appBar: AppTopBar(title: const Text('General')),
@@ -176,20 +178,66 @@ class GeneralSettingsScreen extends ConsumerWidget {
 
           settingsSectionLabel(context, 'Calendar'),
           AppCard(
-            child: AppSwitchListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-              secondary: const AppIcon(Icons.calendar_month_outlined),
-              title: const Text('Show day totals'),
-              subtitle: Text(
-                'Selecting a day on the calendar shows its money in/out '
-                'totals.',
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: cs.onSurfaceVariant,
+            child: Column(
+              children: [
+                // GitHub #166: the Calendar tab and every date picker.
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const AppIcon(Icons.view_week_outlined),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Text(
+                              'Week starts on',
+                              style: theme.textTheme.bodyLarge,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        width: double.infinity,
+                        child: SegmentedButton<WeekStart>(
+                          showSelectedIcon: false,
+                          segments: const [
+                            ButtonSegment(
+                              value: WeekStart.sunday,
+                              label: Text('Sunday'),
+                            ),
+                            ButtonSegment(
+                              value: WeekStart.monday,
+                              label: Text('Monday'),
+                            ),
+                          ],
+                          selected: {weekStart},
+                          onSelectionChanged: (s) =>
+                              ref.read(dbProvider).setWeekStart(s.first),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              value: showCalendarDayTotals,
-              onChanged: (v) =>
-                  ref.read(dbProvider).setShowCalendarDayTotals(v),
+                Divider(height: 1, indent: 60, color: cs.outline),
+                AppSwitchListTile(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                  secondary: const AppIcon(Icons.calendar_month_outlined),
+                  title: const Text('Show day totals'),
+                  subtitle: Text(
+                    'Selecting a day on the calendar shows its money in/out '
+                    'totals.',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: cs.onSurfaceVariant,
+                    ),
+                  ),
+                  value: showCalendarDayTotals,
+                  onChanged: (v) =>
+                      ref.read(dbProvider).setShowCalendarDayTotals(v),
+                ),
+              ],
             ),
           ),
 

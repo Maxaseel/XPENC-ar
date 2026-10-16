@@ -17,6 +17,7 @@ import '../../data/providers.dart';
 import '../../data/tables.dart';
 import '../auto/recurring_rule_sheet.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/week_start.dart';
 
 /// A month calendar built by hand (no calendar package). Each day cell shows the
 /// money in / out for that day and a dot when an open reminder falls on it.
@@ -331,7 +332,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   }
 
   Widget _weekdayHeader(ThemeData theme) {
-    const labels = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+    final labels = ref.watch(weekStartProvider).initials;
     return Row(
       children: [
         for (final label in labels)
@@ -364,8 +365,11 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       _shownMonth.month + 1,
       0,
     ).day;
-    // Monday-based offset: weekday is 1 (Mon) … 7 (Sun).
-    final leadingBlanks = _shownMonth.weekday - 1;
+    // Blank cells before the 1st — the week starts where the person chose
+    // (GitHub #166).
+    final leadingBlanks = ref
+        .watch(weekStartProvider)
+        .leadingBlanks(_shownMonth);
     final cellCount = leadingBlanks + daysInMonth;
     final today = _dateOnly(DateTime.now());
 

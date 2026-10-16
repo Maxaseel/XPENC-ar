@@ -1171,6 +1171,11 @@ final showCalendarDayTotalsProvider = Provider<bool>((ref) {
   return ref.watch(settingsProvider).valueOrNull?.showCalendarDayTotals ?? true;
 });
 
+/// Which day the week starts on — see [WeekStart].
+final weekStartProvider = Provider<WeekStart>((ref) {
+  return ref.watch(settingsProvider).valueOrNull?.weekStart ?? WeekStart.monday;
+});
+
 /// Whether the bottom nav bar shows each item's small text label under its
 /// icon. On by default; off collapses the bar to icon-only.
 final showBottomNavLabelsProvider = Provider<bool>((ref) {

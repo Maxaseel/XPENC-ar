@@ -10288,6 +10288,16 @@ class $SettingsTable extends Settings
         defaultValue: const Constant(false),
       );
   @override
+  late final GeneratedColumnWithTypeConverter<WeekStart, String> weekStart =
+      GeneratedColumn<String>(
+        'week_start',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+        defaultValue: const Constant('monday'),
+      ).withConverter<WeekStart>($SettingsTable.$converterweekStart);
+  @override
   List<GeneratedColumn> get $columns => [
     id,
     currencyCode,
@@ -10369,6 +10379,7 @@ class $SettingsTable extends Settings
     txIconBackground,
     txIconColor,
     contactsPermissionAsked,
+    weekStart,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -11327,6 +11338,12 @@ class $SettingsTable extends Settings
         DriftSqlType.bool,
         data['${effectivePrefix}contacts_permission_asked'],
       )!,
+      weekStart: $SettingsTable.$converterweekStart.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}week_start'],
+        )!,
+      ),
     );
   }
 
@@ -11370,6 +11387,8 @@ class $SettingsTable extends Settings
   $convertertxIconBackground = const EnumNameConverter<TxIconBackground>(
     TxIconBackground.values,
   );
+  static JsonTypeConverter2<WeekStart, String, String> $converterweekStart =
+      const EnumNameConverter<WeekStart>(WeekStart.values);
 }
 
 class SettingRow extends DataClass implements Insertable<SettingRow> {
@@ -11751,6 +11770,9 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
   /// tells them apart: once asked, contacts access that isn't granted means
   /// it's off, and every "from contacts" button hides.
   final bool contactsPermissionAsked;
+
+  /// Which day the week starts on — see [WeekStart].
+  final WeekStart weekStart;
   const SettingRow({
     required this.id,
     required this.currencyCode,
@@ -11832,6 +11854,7 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     required this.txIconBackground,
     this.txIconColor,
     required this.contactsPermissionAsked,
+    required this.weekStart,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -12008,6 +12031,11 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
       map['tx_icon_color'] = Variable<int>(txIconColor);
     }
     map['contacts_permission_asked'] = Variable<bool>(contactsPermissionAsked);
+    {
+      map['week_start'] = Variable<String>(
+        $SettingsTable.$converterweekStart.toSql(weekStart),
+      );
+    }
     return map;
   }
 
@@ -12135,6 +12163,7 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
           ? const Value.absent()
           : Value(txIconColor),
       contactsPermissionAsked: Value(contactsPermissionAsked),
+      weekStart: Value(weekStart),
     );
   }
 
@@ -12285,6 +12314,9 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
       contactsPermissionAsked: serializer.fromJson<bool>(
         json['contactsPermissionAsked'],
       ),
+      weekStart: $SettingsTable.$converterweekStart.fromJson(
+        serializer.fromJson<String>(json['weekStart']),
+      ),
     );
   }
   @override
@@ -12411,6 +12443,9 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
       'contactsPermissionAsked': serializer.toJson<bool>(
         contactsPermissionAsked,
       ),
+      'weekStart': serializer.toJson<String>(
+        $SettingsTable.$converterweekStart.toJson(weekStart),
+      ),
     };
   }
 
@@ -12495,6 +12530,7 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     TxIconBackground? txIconBackground,
     Value<int?> txIconColor = const Value.absent(),
     bool? contactsPermissionAsked,
+    WeekStart? weekStart,
   }) => SettingRow(
     id: id ?? this.id,
     currencyCode: currencyCode ?? this.currencyCode,
@@ -12601,6 +12637,7 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     txIconColor: txIconColor.present ? txIconColor.value : this.txIconColor,
     contactsPermissionAsked:
         contactsPermissionAsked ?? this.contactsPermissionAsked,
+    weekStart: weekStart ?? this.weekStart,
   );
   SettingRow copyWithCompanion(SettingsCompanion data) {
     return SettingRow(
@@ -12824,6 +12861,7 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
       contactsPermissionAsked: data.contactsPermissionAsked.present
           ? data.contactsPermissionAsked.value
           : this.contactsPermissionAsked,
+      weekStart: data.weekStart.present ? data.weekStart.value : this.weekStart,
     );
   }
 
@@ -12913,7 +12951,8 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
           ..write('personColor: $personColor, ')
           ..write('txIconBackground: $txIconBackground, ')
           ..write('txIconColor: $txIconColor, ')
-          ..write('contactsPermissionAsked: $contactsPermissionAsked')
+          ..write('contactsPermissionAsked: $contactsPermissionAsked, ')
+          ..write('weekStart: $weekStart')
           ..write(')'))
         .toString();
   }
@@ -13000,6 +13039,7 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
     txIconBackground,
     txIconColor,
     contactsPermissionAsked,
+    weekStart,
   ]);
   @override
   bool operator ==(Object other) =>
@@ -13087,7 +13127,8 @@ class SettingRow extends DataClass implements Insertable<SettingRow> {
           other.personColor == this.personColor &&
           other.txIconBackground == this.txIconBackground &&
           other.txIconColor == this.txIconColor &&
-          other.contactsPermissionAsked == this.contactsPermissionAsked);
+          other.contactsPermissionAsked == this.contactsPermissionAsked &&
+          other.weekStart == this.weekStart);
 }
 
 class SettingsCompanion extends UpdateCompanion<SettingRow> {
@@ -13171,6 +13212,7 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
   final Value<TxIconBackground> txIconBackground;
   final Value<int?> txIconColor;
   final Value<bool> contactsPermissionAsked;
+  final Value<WeekStart> weekStart;
   const SettingsCompanion({
     this.id = const Value.absent(),
     this.currencyCode = const Value.absent(),
@@ -13252,6 +13294,7 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     this.txIconBackground = const Value.absent(),
     this.txIconColor = const Value.absent(),
     this.contactsPermissionAsked = const Value.absent(),
+    this.weekStart = const Value.absent(),
   });
   SettingsCompanion.insert({
     this.id = const Value.absent(),
@@ -13334,6 +13377,7 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     this.txIconBackground = const Value.absent(),
     this.txIconColor = const Value.absent(),
     this.contactsPermissionAsked = const Value.absent(),
+    this.weekStart = const Value.absent(),
   });
   static Insertable<SettingRow> custom({
     Expression<int>? id,
@@ -13416,6 +13460,7 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     Expression<String>? txIconBackground,
     Expression<int>? txIconColor,
     Expression<bool>? contactsPermissionAsked,
+    Expression<String>? weekStart,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -13523,6 +13568,7 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
       if (txIconColor != null) 'tx_icon_color': txIconColor,
       if (contactsPermissionAsked != null)
         'contacts_permission_asked': contactsPermissionAsked,
+      if (weekStart != null) 'week_start': weekStart,
     });
   }
 
@@ -13607,6 +13653,7 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
     Value<TxIconBackground>? txIconBackground,
     Value<int?>? txIconColor,
     Value<bool>? contactsPermissionAsked,
+    Value<WeekStart>? weekStart,
   }) {
     return SettingsCompanion(
       id: id ?? this.id,
@@ -13704,6 +13751,7 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
       txIconColor: txIconColor ?? this.txIconColor,
       contactsPermissionAsked:
           contactsPermissionAsked ?? this.contactsPermissionAsked,
+      weekStart: weekStart ?? this.weekStart,
     );
   }
 
@@ -14006,6 +14054,11 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
         contactsPermissionAsked.value,
       );
     }
+    if (weekStart.present) {
+      map['week_start'] = Variable<String>(
+        $SettingsTable.$converterweekStart.toSql(weekStart.value),
+      );
+    }
     return map;
   }
 
@@ -14095,7 +14148,8 @@ class SettingsCompanion extends UpdateCompanion<SettingRow> {
           ..write('personColor: $personColor, ')
           ..write('txIconBackground: $txIconBackground, ')
           ..write('txIconColor: $txIconColor, ')
-          ..write('contactsPermissionAsked: $contactsPermissionAsked')
+          ..write('contactsPermissionAsked: $contactsPermissionAsked, ')
+          ..write('weekStart: $weekStart')
           ..write(')'))
         .toString();
   }
@@ -35135,6 +35189,7 @@ typedef $$SettingsTableCreateCompanionBuilder =
       Value<TxIconBackground> txIconBackground,
       Value<int?> txIconColor,
       Value<bool> contactsPermissionAsked,
+      Value<WeekStart> weekStart,
     });
 typedef $$SettingsTableUpdateCompanionBuilder =
     SettingsCompanion Function({
@@ -35218,6 +35273,7 @@ typedef $$SettingsTableUpdateCompanionBuilder =
       Value<TxIconBackground> txIconBackground,
       Value<int?> txIconColor,
       Value<bool> contactsPermissionAsked,
+      Value<WeekStart> weekStart,
     });
 
 final class $$SettingsTableReferences
@@ -35669,6 +35725,12 @@ class $$SettingsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnWithTypeConverterFilters<WeekStart, WeekStart, String> get weekStart =>
+      $composableBuilder(
+        column: $table.weekStart,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
   $$AccountsTableFilterComposer get quickAddAccountId {
     final $$AccountsTableFilterComposer composer = $composerBuilder(
       composer: this,
@@ -36097,6 +36159,11 @@ class $$SettingsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get weekStart => $composableBuilder(
+    column: $table.weekStart,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$AccountsTableOrderingComposer get quickAddAccountId {
     final $$AccountsTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -36513,6 +36580,9 @@ class $$SettingsTableAnnotationComposer
     builder: (column) => column,
   );
 
+  GeneratedColumnWithTypeConverter<WeekStart, String> get weekStart =>
+      $composableBuilder(column: $table.weekStart, builder: (column) => column);
+
   $$AccountsTableAnnotationComposer get quickAddAccountId {
     final $$AccountsTableAnnotationComposer composer = $composerBuilder(
       composer: this,
@@ -36649,6 +36719,7 @@ class $$SettingsTableTableManager
                 Value<TxIconBackground> txIconBackground = const Value.absent(),
                 Value<int?> txIconColor = const Value.absent(),
                 Value<bool> contactsPermissionAsked = const Value.absent(),
+                Value<WeekStart> weekStart = const Value.absent(),
               }) => SettingsCompanion(
                 id: id,
                 currencyCode: currencyCode,
@@ -36730,6 +36801,7 @@ class $$SettingsTableTableManager
                 txIconBackground: txIconBackground,
                 txIconColor: txIconColor,
                 contactsPermissionAsked: contactsPermissionAsked,
+                weekStart: weekStart,
               ),
           createCompanionCallback:
               ({
@@ -36817,6 +36889,7 @@ class $$SettingsTableTableManager
                 Value<TxIconBackground> txIconBackground = const Value.absent(),
                 Value<int?> txIconColor = const Value.absent(),
                 Value<bool> contactsPermissionAsked = const Value.absent(),
+                Value<WeekStart> weekStart = const Value.absent(),
               }) => SettingsCompanion.insert(
                 id: id,
                 currencyCode: currencyCode,
@@ -36898,6 +36971,7 @@ class $$SettingsTableTableManager
                 txIconBackground: txIconBackground,
                 txIconColor: txIconColor,
                 contactsPermissionAsked: contactsPermissionAsked,
+                weekStart: weekStart,
               ),
           withReferenceMapper: (p0) => p0
               .map(

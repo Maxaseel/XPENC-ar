@@ -199,7 +199,7 @@ class AppDatabase extends _$AppDatabase {
       );
 
   @override
-  int get schemaVersion => 82;
+  int get schemaVersion => 83;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -757,6 +757,10 @@ class AppDatabase extends _$AppDatabase {
           settings,
           settings.contactsPermissionAsked,
         );
+      }
+      if (from < 83) {
+        // Week starts on Sunday or Monday (GitHub #166).
+        await _addColumnIfMissing(m, settings, settings.weekStart);
       }
     },
     beforeOpen: (details) async {
@@ -5960,6 +5964,9 @@ class AppDatabase extends _$AppDatabase {
   Future<void> setShowCalendarDayTotals(bool value) => update(
     settings,
   ).write(SettingsCompanion(showCalendarDayTotals: Value(value)));
+
+  Future<void> setWeekStart(WeekStart value) =>
+      update(settings).write(SettingsCompanion(weekStart: Value(value)));
 
   // ── Font ──────────────────────────────────────────────────────────────────
 

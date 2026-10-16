@@ -12,6 +12,7 @@ import 'core/security/unlock_method.dart';
 import 'core/theme/app_colors.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_preset.dart';
+import 'core/week_start.dart';
 import 'core/widgets/error_view.dart';
 import 'core/widgets/money_text.dart';
 import 'data/providers.dart';
@@ -321,6 +322,10 @@ class _XpencAppState extends ConsumerState<XpencApp>
     return MaterialApp.router(
       title: AppInfo.name,
       debugShowCheckedModeBanner: false,
+      // Every date picker's first column (GitHub #166).
+      localizationsDelegates: [
+        WeekStartLocalizationsDelegate(ref.watch(weekStartProvider)),
+      ],
       // A style that only exists in one brightness (Glass) stores the same
       // palette in both slots, so `themeMode` alone decides.
       // Glass's palette comes from its background, in both slots;

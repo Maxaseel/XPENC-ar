@@ -8,6 +8,12 @@ Release process: see [docs/RELEASING.md](docs/RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+- **Week starts on Sunday or Monday** (#166). Settings → General →
+  Calendar → **Week starts on**. The Calendar tab and every date picker
+  follow it. Monday is the default — the Calendar tab always started
+  there; date pickers used to start on Sunday.
+
 ### Changed
 - **Contacts access off means no contacts at all** (#167). Once you've said
   no to contacts access — or turned it off in Settings → Permissions —

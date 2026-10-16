@@ -175,6 +175,11 @@ enum DashboardAccountsStyle { slider, oneCard }
 /// money-out colour instead; `single` one colour the person picks, for all.
 enum TxIconBackground { category, direction, single }
 
+/// Which day leads the week in the Calendar tab and every date picker
+/// (GitHub #166). `monday` is the default — the Calendar tab always started
+/// there.
+enum WeekStart { sunday, monday }
+
 /// Legacy — superseded by `Settings.rtaEnabled` (GitHub #100 v2). Budget
 /// (the per-category ceiling system) is now always on for everyone, and
 /// Ready to Assign is a single on/off layer on top of it rather than a
@@ -1298,6 +1303,10 @@ class Settings extends Table {
   /// it's off, and every "from contacts" button hides.
   BoolColumn get contactsPermissionAsked =>
       boolean().withDefault(const Constant(false))();
+
+  /// Which day the week starts on — see [WeekStart].
+  TextColumn get weekStart =>
+      textEnum<WeekStart>().withDefault(const Constant('monday'))();
 
   @override
   Set<Column> get primaryKey => {id};

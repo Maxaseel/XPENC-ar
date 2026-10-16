@@ -105,6 +105,7 @@ void main() {
       dashboardAccountsStyle: DashboardAccountsStyle.slider,
       txIconBackground: TxIconBackground.category,
       contactsPermissionAsked: false,
+      weekStart: WeekStart.monday,
       budgetingMode: BudgetingMode.budgets,
       rtaEnabled: false,
     );

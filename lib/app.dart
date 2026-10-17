@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/branding/app_info.dart';
@@ -281,6 +282,7 @@ class _XpencAppState extends ConsumerState<XpencApp>
     // `setState`, since `ref.watch` below already schedules the rebuild that
     // picks this up; see the doc on `_passcodeKnown`.
     final settingsRow = ref.watch(settingsProvider).valueOrNull;
+    final locale = ref.watch(localeProvider);
     if (settingsRow != null && !_passcodeKnown) {
       _passcodeKnown = true;
       _locked = hasUnlockCredential(settingsRow);
@@ -301,6 +303,9 @@ class _XpencAppState extends ConsumerState<XpencApp>
 
     return MaterialApp.router(
       title: AppInfo.name,
+      locale: locale,
+      supportedLocales: const [Locale('en'), Locale('ar')],
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       debugShowCheckedModeBanner: false,
       // A style that only exists in one brightness (Glass) stores the same
       // palette in both slots, so `themeMode` alone decides.

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/budget_cycle.dart';
@@ -36,6 +37,8 @@ final databaseReadyProvider = FutureProvider<bool>((ref) async {
   return true;
 });
 
+/// Selected interface language for the current app session.
+final localeProvider = StateProvider<Locale>((ref) => const Locale('en'));
 // ── Accounts ────────────────────────────────────────────────────────────────
 
 final accountsProvider = StreamProvider<List<AccountRow>>(

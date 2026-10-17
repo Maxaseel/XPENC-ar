@@ -17,6 +17,7 @@ class GeneralSettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final isArabic = ref.watch(localeProvider).languageCode == 'ar';
     final cs = theme.colorScheme;
     final trailingStyle = settingsTrailingStyle(context);
 
@@ -27,7 +28,7 @@ class GeneralSettingsScreen extends ConsumerWidget {
     final showCalendarDayTotals = ref.watch(showCalendarDayTotalsProvider);
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('General')),
+      appBar: AppTopBar(title: Text(isArabic ? 'عام' : 'General')),
       body: ListView(
         // Explicit padding drops ListView's nav-bar inset; re-add it (#137).
         padding: EdgeInsets.fromLTRB(
@@ -42,8 +43,37 @@ class GeneralSettingsScreen extends ConsumerWidget {
               children: [
                 AppListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                  leading: const AppIcon(Icons.language_rounded),
+                  title: Text(isArabic ? 'لغة التطبيق' : 'App language'),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(isArabic ? 'العربية' : 'English', style: trailingStyle),
+                      const SizedBox(width: 4),
+                      AppIcon(Icons.chevron_right_rounded, color: cs.onSurfaceVariant),
+                    ],
+                  ),
+                  onTap: () => showModalBottomSheet<void>(
+                    context: context,
+                    builder: (sheetContext) => SafeArea(
+                      child: Column(mainAxisSize: MainAxisSize.min, children: [
+                        ListTile(title: const Text('English'), onTap: () {
+                          ref.read(localeProvider.notifier).state = const Locale('en');
+                          Navigator.pop(sheetContext);
+                        }),
+                        ListTile(title: const Text('العربية'), onTap: () {
+                          ref.read(localeProvider.notifier).state = const Locale('ar');
+                          Navigator.pop(sheetContext);
+                        }),
+                      ]),
+                    ),
+                  ),
+                ),
+                Divider(height: 1, indent: 60, color: cs.outline),
+                AppListTile(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   leading: const AppIcon(Icons.payments_outlined),
-                  title: const Text('Currency'),
+                  title: Text(isArabic ? 'العملة' : 'Currency'),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -64,7 +94,7 @@ class GeneralSettingsScreen extends ConsumerWidget {
                 AppSwitchListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   secondary: const AppIcon(Icons.attach_money_rounded),
-                  title: const Text('Show currency symbol'),
+                  title: Text(isArabic ? 'إظهار رمز العملة' : 'Show currency symbol'),
                   subtitle: Text(
                     showSymbol
                         ? 'Amounts show ${currency.symbol}'
@@ -82,7 +112,7 @@ class GeneralSettingsScreen extends ConsumerWidget {
                 AppListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   leading: AppIcon(themeChoice.style.icon),
-                  title: const Text('Theme'),
+                  title: Text(isArabic ? 'المظهر' : 'Theme'),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -100,7 +130,7 @@ class GeneralSettingsScreen extends ConsumerWidget {
                 AppListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   leading: const AppIcon(Icons.text_fields_rounded),
-                  title: const Text('Font'),
+                  title: Text(isArabic ? 'الخط' : 'Font'),
                   subtitle: Text(
                     'Text size, boldness and font family',
                     style: theme.textTheme.bodySmall?.copyWith(
@@ -117,7 +147,7 @@ class GeneralSettingsScreen extends ConsumerWidget {
                 AppListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   leading: const AppIcon(Icons.dashboard_outlined),
-                  title: const Text('More screen layout'),
+                  title: Text(isArabic ? 'تخطيط شاشة المزيد' : 'More screen layout'),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -138,12 +168,12 @@ class GeneralSettingsScreen extends ConsumerWidget {
             ),
           ),
 
-          settingsSectionLabel(context, 'Dashboard'),
+          settingsSectionLabel(context, isArabic ? 'الرئيسية' : 'Dashboard'),
           AppCard(
             child: AppListTile(
               contentPadding: const EdgeInsets.symmetric(horizontal: 16),
               leading: const AppIcon(Icons.dashboard_customize_outlined),
-              title: const Text('Customize dashboard'),
+              title: Text(isArabic ? 'تخصيص الرئيسية' : 'Customize dashboard'),
               subtitle: Text(
                 'Add, remove and reorder widgets, and pick what counts toward '
                 'Net Worth.',
@@ -156,12 +186,12 @@ class GeneralSettingsScreen extends ConsumerWidget {
             ),
           ),
 
-          settingsSectionLabel(context, 'Calendar'),
+          settingsSectionLabel(context, isArabic ? 'التقويم' : 'Calendar'),
           AppCard(
             child: AppSwitchListTile(
               contentPadding: const EdgeInsets.symmetric(horizontal: 16),
               secondary: const AppIcon(Icons.calendar_month_outlined),
-              title: const Text('Show day totals'),
+              title: Text(isArabic ? 'إظهار إجمالي اليوم' : 'Show day totals'),
               subtitle: Text(
                 'Selecting a day on the calendar shows its money in/out '
                 'totals.',
@@ -175,12 +205,12 @@ class GeneralSettingsScreen extends ConsumerWidget {
             ),
           ),
 
-          settingsSectionLabel(context, 'Layout'),
+          settingsSectionLabel(context, isArabic ? 'التخطيط' : 'Layout'),
           AppCard(
             child: AppListTile(
               contentPadding: const EdgeInsets.symmetric(horizontal: 16),
               leading: const AppIcon(Icons.dashboard_customize_outlined),
-              title: const Text('Customize bottom nav'),
+              title: Text(isArabic ? 'تخصيص شريط التنقل' : 'Customize bottom nav'),
               subtitle: Text(
                 'Choose what goes next to the ➕ button',
                 style: theme.textTheme.bodySmall?.copyWith(
@@ -192,14 +222,14 @@ class GeneralSettingsScreen extends ConsumerWidget {
             ),
           ),
 
-          settingsSectionLabel(context, 'Message Capture'),
+          settingsSectionLabel(context, isArabic ? 'التقاط الرسائل' : 'Message Capture'),
           AppCard(
             child: Column(
               children: [
                 AppListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   leading: const AppIcon(Icons.sms_outlined),
-                  title: const Text('Bank-SMS auto-capture'),
+                  title: Text(isArabic ? 'التقاط رسائل البنك' : 'Bank-SMS auto-capture'),
                   subtitle: Text(
                     'Coming soon — removed for now so the app installs '
                     'without a Play Protect block.',

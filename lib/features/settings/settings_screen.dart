@@ -5,18 +5,19 @@ import '../../core/branding/app_info.dart';
 import '../../core/branding/brand_mark.dart';
 import '../../core/platform/platform_features.dart';
 import '../../core/widgets/app_surfaces.dart';
+import '../../data/providers.dart';
 
 /// Settings' front door — a menu of modules, each its own page. Splitting it
 /// this way (instead of one long scrolling list of every toggle) keeps each
 /// page short enough to scan and keeps this menu itself from growing every
 /// time a new setting is added.
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Settings')),
+      appBar: AppTopBar(title: Text(ref.watch(localeProvider).languageCode == 'ar' ? 'الإعدادات' : 'Settings')),
       body: ListView(
         // Explicit padding drops ListView's nav-bar inset; re-add it (#137).
         padding: EdgeInsets.fromLTRB(
@@ -28,25 +29,25 @@ class SettingsScreen extends StatelessWidget {
         children: [
           _ModuleTile(
             icon: Icons.tune_rounded,
-            title: 'General',
-            subtitle: 'Currency, theme, font, dashboard layout',
+            title: ref.watch(localeProvider).languageCode == 'ar' ? 'عام' : 'General',
+            subtitle: ref.watch(localeProvider).languageCode == 'ar' ? 'العملة والمظهر والخط وتخطيط الرئيسية' : 'Currency, theme, font, dashboard layout',
             onTap: () => context.push('/more/settings/general'),
           ),
           _ModuleTile(
             icon: Icons.savings_outlined,
-            title: 'Mode & Budgeting',
+            title: ref.watch(localeProvider).languageCode == 'ar' ? 'النمط والميزانية' : 'Mode & Budgeting',
             subtitle: 'App mode, budget cycle, Ready to Assign',
             onTap: () => context.push('/more/settings/mode-budgeting'),
           ),
           _ModuleTile(
             icon: Icons.people_outline,
-            title: 'Persons',
+            title: ref.watch(localeProvider).languageCode == 'ar' ? 'الأشخاص' : 'Persons',
             subtitle: 'Repayments and your payment methods',
             onTap: () => context.push('/more/settings/persons'),
           ),
           _ModuleTile(
             icon: Icons.security_outlined,
-            title: 'Security & Privacy',
+            title: ref.watch(localeProvider).languageCode == 'ar' ? 'الأمان والخصوصية' : 'Security & Privacy',
             subtitle: PlatformFeatures.screenshotBlocking
                 ? 'PIN, recovery phrase, authenticator, screenshots'
                 : 'PIN, recovery phrase, authenticator',
@@ -55,13 +56,13 @@ class SettingsScreen extends StatelessWidget {
           if (PlatformFeatures.permissionsScreen)
             _ModuleTile(
               icon: Icons.verified_user_outlined,
-              title: 'Permissions',
+              title: ref.watch(localeProvider).languageCode == 'ar' ? 'الأذونات' : 'Permissions',
               subtitle: 'What XPENC can access — turn each on or off',
               onTap: () => context.push('/more/settings/permissions'),
             ),
           _ModuleTile(
             icon: Icons.notifications_outlined,
-            title: 'Notifications',
+            title: ref.watch(localeProvider).languageCode == 'ar' ? 'الإشعارات' : 'Notifications',
             subtitle: PlatformFeatures.quickAddNotification
                 ? 'Reminders and quick add from a notification'
                 : 'Reminders',
@@ -69,7 +70,7 @@ class SettingsScreen extends StatelessWidget {
           ),
           _ModuleTile(
             icon: Icons.flash_on_outlined,
-            title: 'Quick Actions',
+            title: ref.watch(localeProvider).languageCode == 'ar' ? 'إجراءات سريعة' : 'Quick Actions',
             subtitle: PlatformFeatures.homeWidgets
                 ? 'Hold ➕ shortcuts, home screen widgets'
                 : 'Hold ➕ shortcuts',
@@ -77,7 +78,7 @@ class SettingsScreen extends StatelessWidget {
           ),
           _ModuleTile(
             icon: Icons.storage_outlined,
-            title: 'Data',
+            title: ref.watch(localeProvider).languageCode == 'ar' ? 'البيانات' : 'Data',
             subtitle: 'Recalculate balances, clear all data',
             onTap: () => context.push('/more/settings/data'),
           ),

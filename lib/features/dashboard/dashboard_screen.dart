@@ -117,6 +117,20 @@ class _SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isArabic = Localizations.localeOf(context).languageCode == 'ar';
+    const labels = <String, String>{
+      'Accounts': 'الحسابات', 'Ready to Assign': 'متاح للتخصيص',
+      'People': 'الأشخاص', 'Upcoming': 'القادمة', 'Budgets': 'الميزانيات',
+      'Spending': 'الإنفاق', 'Recent': 'الأحدث', 'Cash flow': 'التدفق النقدي',
+      'Goals': 'الأهداف', 'Loans': 'القروض', 'Shortcuts': 'اختصارات',
+      'Groups': 'المجموعات', 'Shopping': 'التسوق', 'This month': 'هذا الشهر',
+      'Net Worth': 'صافي الثروة', 'Spend by Category': 'الإنفاق حسب الفئة',
+      'Your accounts': 'حساباتك', 'Customize dashboard': 'تخصيص الرئيسية',
+    };
+    final displayTitle = isArabic
+        ? (labels[title] ?? title.replaceFirst('Accounts on ', 'الحسابات في ')
+            .replaceFirst('People on ', 'الأشخاص في '))
+        : title;
     return Padding(
       padding: EdgeInsets.fromLTRB(20, 0, trailing == null ? 20 : 8, 8),
       child: Row(
@@ -124,7 +138,7 @@ class _SectionHeader extends StatelessWidget {
           // "People on 30 Sep" beside "See all" must give way, not overflow.
           Expanded(
             child: Text(
-              title,
+              displayTitle,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: theme.textTheme.titleMedium?.copyWith(
@@ -236,7 +250,7 @@ class _ReviewCardsSection extends ConsumerWidget {
               const Spacer(),
               TextButton(
                 onPressed: () => context.push('/inbox'),
-                child: const Text('See all'),
+                child: Text(Localizations.localeOf(context).languageCode == 'ar' ? 'عرض الكل' : 'See all'),
               ),
             ],
           ),
@@ -1035,7 +1049,7 @@ class _AccountsStrip extends ConsumerWidget {
                 asOf == null ? 'Accounts' : 'Accounts on $asOf',
                 trailing: TextButton(
                   onPressed: () => context.push('/more/accounts'),
-                  child: const Text('See all'),
+                  child: Text(Localizations.localeOf(context).languageCode == 'ar' ? 'عرض الكل' : 'See all'),
                 ),
               ),
               SizedBox(
@@ -1232,7 +1246,7 @@ class _PersonsSection extends ConsumerWidget {
             past ? 'People on ${_periodEndLabel(ref)}' : 'People',
             trailing: TextButton(
               onPressed: () => context.push('/persons'),
-              child: const Text('See all'),
+              child: Text(Localizations.localeOf(context).languageCode == 'ar' ? 'عرض الكل' : 'See all'),
             ),
           ),
           Padding(
@@ -1469,7 +1483,7 @@ class _UpcomingSection extends ConsumerWidget {
             'Upcoming',
             trailing: TextButton(
               onPressed: () => context.push('/more/calendar'),
-              child: const Text('See all'),
+              child: Text(Localizations.localeOf(context).languageCode == 'ar' ? 'عرض الكل' : 'See all'),
             ),
           ),
           Padding(
@@ -1843,7 +1857,7 @@ class _RecentSection extends ConsumerWidget {
                 past ? 'Last in ${DateFormat('MMMM').format(month)}' : 'Recent',
                 trailing: TextButton(
                   onPressed: () => context.push('/transactions'),
-                  child: const Text('See all'),
+                  child: Text(Localizations.localeOf(context).languageCode == 'ar' ? 'عرض الكل' : 'See all'),
                 ),
               ),
               Padding(
@@ -2339,7 +2353,7 @@ class _GoalsSection extends ConsumerWidget {
           : 'Savings goals',
       trailing: TextButton(
         onPressed: () => context.push('/more/goals'),
-        child: const Text('See all'),
+        child: Text(Localizations.localeOf(context).languageCode == 'ar' ? 'عرض الكل' : 'See all'),
       ),
       children: [
         for (final g in goals.take(4))
@@ -2394,7 +2408,7 @@ class _LoansSection extends ConsumerWidget {
       title: past ? 'Loans on ${_periodEndLabel(ref)}' : 'Loans',
       trailing: TextButton(
         onPressed: () => context.push('/more/goals'),
-        child: const Text('See all'),
+        child: Text(Localizations.localeOf(context).languageCode == 'ar' ? 'عرض الكل' : 'See all'),
       ),
       children: [
         for (final l in loans.take(4))
@@ -2562,7 +2576,7 @@ class _GroupsSection extends ConsumerWidget {
       title: 'Groups',
       trailing: TextButton(
         onPressed: () => context.push('/persons'),
-        child: const Text('See all'),
+        child: Text(Localizations.localeOf(context).languageCode == 'ar' ? 'عرض الكل' : 'See all'),
       ),
       children: [
         if (open.isEmpty) const _QuietLine('All settled up'),
@@ -2640,7 +2654,7 @@ class _ShoppingSection extends ConsumerWidget {
       title: 'Shopping lists',
       trailing: TextButton(
         onPressed: () => context.push('/more/shopping'),
-        child: const Text('See all'),
+        child: Text(Localizations.localeOf(context).languageCode == 'ar' ? 'عرض الكل' : 'See all'),
       ),
       children: [
         if (open.isEmpty) const _QuietLine('Nothing left to buy'),
@@ -2693,7 +2707,7 @@ class _CustomizeLink extends StatelessWidget {
       child: TextButton.icon(
         onPressed: () => pushFromBar<void>(context, '/more/settings/dashboard'),
         icon: const AppIcon(Icons.tune_rounded, size: 18),
-        label: const Text('Customize dashboard'),
+        label: Text(Localizations.localeOf(context).languageCode == 'ar' ? 'تخصيص الرئيسية' : 'Customize dashboard'),
       ),
     );
   }

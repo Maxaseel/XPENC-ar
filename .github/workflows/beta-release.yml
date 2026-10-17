@@ -1,199 +1,45 @@
-# Publishes a beta build on every push to BETA.
-#
-# Unlike release.yml (which fires on a version tag and publishes a permanent,
-# versioned release), this fires on the BETA branch itself and republishes a
-# single rolling pre-release, tagged `beta`, so there is always exactly one
-# "current beta" download link — each push replaces the previous build's
-# assets rather than piling up a new release every time.
-#
-# Android publishes first; the beta-ios job then adds the unsigned iPhone
-# build to the same pre-release, so an iOS failure never holds up the
-# Android beta.
-#
-# Signing follows the same fallback as release.yml: if android/key.properties
-# isn't present (no release keystore configured), the build falls back to
-# debug signing. That's fine for a sideloaded beta APK.
-
-name: Beta Release APK
+name: Test XPENC APK Build
 
 on:
-  push:
-    branches: [BETA]
-    paths-ignore:
-      - "website/**"
-      - "**.md"
-      - "docs/**"
   workflow_dispatch:
 
-concurrency:
-  group: beta-release
-  cancel-in-progress: true
-
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  beta-release:
-    name: Build, verify & publish beta
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 45
+
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout source
+        uses: actions/checkout@v4
 
-      - name: Install sqlite3
-        run: sudo apt-get update && sudo apt-get install -y libsqlite3-dev
-
-      - uses: actions/setup-java@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: "17"
+          java-version: '17'
 
-      - uses: subosito/flutter-action@v2
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.38.9"
+          flutter-version: '3.38.9'
           cache: true
 
-      # Same permanent key as release.yml — a beta build must be updatable
-      # by the next beta build, and by the eventual stable release once a
-      # user moves off beta, without an uninstall. See docs/RELEASING.md.
-      - name: Configure release signing
-        run: |
-          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > "$GITHUB_WORKSPACE/android/xpenc-release.jks"
-          cat > android/key.properties <<EOF
-          storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
-          keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
-          storeFile=$GITHUB_WORKSPACE/android/xpenc-release.jks
-          EOF
+      - name: Install SQLite dependency
+        run: sudo apt-get update && sudo apt-get install -y libsqlite3-dev
 
-      # Same enforcement as the stable release workflow — a BETA tag is
-      # exactly the kind of "before tagging a release" moment GitHub #57
-      # asked to catch a drifted lock file at.
-      - name: Pub get
-        run: flutter pub get --enforce-lockfile
+      - name: Resolve dependencies
+        run: flutter pub get
 
-      - name: Analyze
-        run: flutter analyze
+      - name: Build APK
+        run: flutter build apk --release --split-per-abi
 
-      - name: Test
-        run: flutter test
-
-      # pubspec.yaml's build number stays fixed between stable releases, so
-      # every beta build would otherwise ship the identical versionCode.
-      # Android then has no signal a newer beta is available — on some
-      # devices a sideloaded install over a same-versionCode app is a silent
-      # no-op instead of an update. github.run_number increases on every run
-      # and will never collide with (or fall below) a real release's build
-      # number, so it's a safe, always-increasing override.
-      - name: Build release APKs
-        run: flutter build apk --release --split-per-abi --build-number=${{ github.run_number }}
-
-      - name: Rename to beta asset names
-        run: |
-          mkdir -p release
-          cp build/app/outputs/flutter-apk/app-arm64-v8a-release.apk   release/xpenc-beta-arm64-v8a.apk
-          cp build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk release/xpenc-beta-armeabi-v7a.apk
-          cp build/app/outputs/flutter-apk/app-x86_64-release.apk      release/xpenc-beta-x86_64.apk
-
-      - name: Verify APKs (libsqlite3.so gate)
-        run: |
-          for apk in release/*.apk; do
-            bash tool/verify_apk.sh "$apk"
-          done
-
-      - name: Checksums
-        working-directory: release
-        run: sha256sum *.apk > SHA256SUMS.txt && cat SHA256SUMS.txt
-
-      - name: Short SHA and version
-        id: sha
-        run: |
-          echo "short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
-          echo "version=$(grep -m1 '^version:' pubspec.yaml | cut -d' ' -f2 | cut -d+ -f1)" >> "$GITHUB_OUTPUT"
-
-      # softprops/action-gh-release only edits an existing release: it
-      # never moves the `beta` tag, so the tag (and its source archives)
-      # stayed on whichever commit first created it. Delete the release
-      # and its tag so every beta is a fresh release on this exact commit.
-      - name: Remove the previous beta release
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
-        run: gh release delete beta --cleanup-tag --yes || true
-
-      - name: Publish beta pre-release
-        uses: softprops/action-gh-release@v2
+      - name: Upload APKs
+        uses: actions/upload-artifact@v4
         with:
-          tag_name: beta
-          name: "XPENC ${{ steps.sha.outputs.version }} BETA (${{ steps.sha.outputs.short }})"
-          prerelease: true
-          target_commitish: ${{ github.sha }}
-          files: |
-            release/xpenc-beta-arm64-v8a.apk
-            release/xpenc-beta-armeabi-v7a.apk
-            release/xpenc-beta-x86_64.apk
-            release/SHA256SUMS.txt
-          generate_release_notes: false
-          body: |
-            **XPENC ${{ steps.sha.outputs.version }} BETA — built automatically from the `BETA` branch, commit ${{ steps.sha.outputs.short }}.**
-
-            What's in it: see [CHANGELOG.md](https://github.com/PATILYASHH/XPENC/blob/BETA/CHANGELOG.md).
-
-            This is a work-in-progress build, not a stable release. Things can be broken.
-            This link always points at the latest beta — every push to `BETA` replaces it.
-
-            | Platform | Your device | Download |
-            |---|---|---|
-            | **(Android)** | Most phones (2017+) · ⭐ **Recommended** | [`xpenc-beta-arm64-v8a.apk`](https://github.com/PATILYASHH/XPENC/releases/download/beta/xpenc-beta-arm64-v8a.apk) |
-            | **(Android)** | Older 32-bit phones | [`xpenc-beta-armeabi-v7a.apk`](https://github.com/PATILYASHH/XPENC/releases/download/beta/xpenc-beta-armeabi-v7a.apk) |
-            | **(Android)** | Emulators | [`xpenc-beta-x86_64.apk`](https://github.com/PATILYASHH/XPENC/releases/download/beta/xpenc-beta-x86_64.apk) |
-            | **(iOS)** | iPhone, iOS 15 or later · ⭐ **Recommended** | [`xpenc-beta-ios.ipa`](https://github.com/PATILYASHH/XPENC/releases/download/beta/xpenc-beta-ios.ipa) |
-
-            **iOS:** the `.ipa` is unsigned — open it with [SideStore](https://sidestore.io) or
-            [AltStore](https://altstore.io), which sign it with your own Apple ID. It's attached
-            a few minutes after the Android files. On iPhone, home screen widgets, sharing into
-            XPENC, reading payment screenshots and blocking screenshots aren't there yet.
-
-            Verify your download against `SHA256SUMS.txt`.
-            For the stable release, see the [latest release](https://github.com/PATILYASHH/XPENC/releases/latest) instead.
-
-  beta-ios:
-    name: Build & attach iOS beta
-    needs: beta-release
-    runs-on: macos-latest
-    timeout-minutes: 45
-    env:
-      GH_TOKEN: ${{ github.token }}
-      GH_REPO: ${{ github.repository }}
-    steps:
-      - uses: actions/checkout@v5
-
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: "3.38.9"
-          cache: true
-
-      - name: Pub get
-        run: flutter pub get --enforce-lockfile
-
-      # Same always-increasing build number as the Android beta above.
-      - name: Build
-        run: flutter build ios --release --no-codesign --build-number=${{ github.run_number }}
-
-      # An .ipa is just Payload/Runner.app, zipped.
-      - name: Package IPA
-        run: |
-          mkdir -p release/Payload
-          cp -R build/ios/iphoneos/Runner.app release/Payload/
-          (cd release && zip -qry xpenc-beta-ios.ipa Payload)
-          ls -lh release/xpenc-beta-ios.ipa
-
-      - name: Attach to the beta pre-release
-        working-directory: release
-        run: |
-          gh release download beta --pattern SHA256SUMS.txt --clobber
-          grep -v ' xpenc-beta-ios.ipa$' SHA256SUMS.txt > sums.tmp || true
-          shasum -a 256 xpenc-beta-ios.ipa >> sums.tmp
-          mv sums.tmp SHA256SUMS.txt
-          cat SHA256SUMS.txt
-          gh release upload beta xpenc-beta-ios.ipa SHA256SUMS.txt --clobber
+          name: XPENC-test-APK
+          path: build/app/outputs/flutter-apk/*.apk
+          if-no-files-found: error
+          retention-days: 7

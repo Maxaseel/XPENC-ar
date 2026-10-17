@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/platform/platform_features.dart';
+import '../../core/localization/app_language_store.dart';
 import '../../core/widgets/app_surfaces.dart';
 import '../../data/providers.dart';
 import 'more_screen_layout_sheet.dart';
@@ -57,14 +60,24 @@ class GeneralSettingsScreen extends ConsumerWidget {
                     context: context,
                     builder: (sheetContext) => SafeArea(
                       child: Column(mainAxisSize: MainAxisSize.min, children: [
-                        ListTile(title: const Text('English'), onTap: () {
-                          ref.read(localeProvider.notifier).state = const Locale('en');
-                          Navigator.pop(sheetContext);
-                        }),
-                        ListTile(title: const Text('العربية'), onTap: () {
-                          ref.read(localeProvider.notifier).state = const Locale('ar');
-                          Navigator.pop(sheetContext);
-                        }),
+                        ListTile(
+                          title: const Text('English'),
+                          onTap: () {
+                            const locale = Locale('en');
+                            ref.read(localeProvider.notifier).state = locale;
+                            unawaited(AppLanguageStore().saveLocale(locale));
+                            Navigator.pop(sheetContext);
+                          },
+                        ),
+                        ListTile(
+                          title: const Text('العربية'),
+                          onTap: () {
+                            const locale = Locale('ar');
+                            ref.read(localeProvider.notifier).state = locale;
+                            unawaited(AppLanguageStore().saveLocale(locale));
+                            Navigator.pop(sheetContext);
+                          },
+                        ),
                       ]),
                     ),
                   ),

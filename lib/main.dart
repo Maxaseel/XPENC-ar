@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app.dart';
+import 'core/localization/app_language_store.dart';
 import 'core/theme/glass.dart';
+import 'data/providers.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,5 +25,11 @@ Future<void> main() async {
     const Duration(milliseconds: 600),
     onTimeout: () {},
   );
-  runApp(const ProviderScope(child: XpencApp()));
+  final savedLocale = await AppLanguageStore().loadLocale();
+  runApp(
+    ProviderScope(
+      overrides: [localeProvider.overrideWith((ref) => savedLocale)],
+      child: const XpencApp(),
+    ),
+  );
 }

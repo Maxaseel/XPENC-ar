@@ -2,6 +2,7 @@ import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:xpenc/core/localization/app_text.dart' as app_text;
 import 'package:xpenc/core/money.dart';
 import 'package:xpenc/core/theme/app_theme.dart';
 import 'package:xpenc/data/database.dart';
@@ -67,7 +68,7 @@ void main() {
       await pump(tester, initialType: TxType.expense);
       await pickAccount(tester, 'Travel');
 
-      final amountText = tester.widget<Text>(
+      final amountText = tester.widget<app_text.Text>(
         find.byKey(const Key('amountDisplay')),
       );
       expect(amountText.data, contains(r'$'));

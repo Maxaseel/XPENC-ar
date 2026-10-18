@@ -2,9 +2,9 @@ import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:xpenc/core/localization/app_text.dart' as app_text;
 import 'package:xpenc/core/money.dart';
 import 'package:xpenc/core/theme/app_theme.dart';
+import 'package:xpenc/core/widgets/amount_keypad_field.dart';
 import 'package:xpenc/data/database.dart';
 import 'package:xpenc/data/providers.dart';
 import 'package:xpenc/data/tables.dart';
@@ -54,7 +54,7 @@ void main() {
   }
 
   testWidgets(
-    'the hero amount renders in the selected account\'s own currency',
+    'the inline amount field uses the selected account\'s currency',
     (tester) async {
       await db.addAccount(
         name: 'Travel',
@@ -68,15 +68,57 @@ void main() {
       await pump(tester, initialType: TxType.expense);
       await pickAccount(tester, 'Travel');
 
-      final amountText = tester.widget<app_text.Text>(
-        find.byKey(const Key('amountDisplay')),
+      final amountField = tester.widget<TextField>(
+        find.byKey(const Key('amountInput')),
       );
-      expect(amountText.data, contains(r'$'));
-      expect(amountText.data, isNot(contains('₹')));
+      expect(amountField.decoration!.prefixText, contains(r'$'));
+      expect(amountField.decoration!.prefixText, isNot(contains('₹')));
+      expect(find.byType(AmountKeypadGrid), findsNothing);
 
       await unmount(tester);
     },
   );
+
+  testWidgets(
+    'expense and income accept direct amount entry without the calculator',
+    (tester) async {
+      await pump(tester, initialType: TxType.expense);
+      final amountFinder = find.byKey(const Key('amountInput'));
+      expect(amountFinder, findsOneWidget);
+      expect(find.byType(AmountKeypadGrid), findsNothing);
+
+      await tester.ensureVisible(amountFinder);
+      await tester.enterText(amountFinder, '123.45');
+      await tester.pump();
+      expect(
+        tester.widget<TextField>(amountFinder).controller!.text,
+        '123.45',
+      );
+
+      await tester.tap(find.text('Income'));
+      await tester.pump();
+      expect(amountFinder, findsOneWidget);
+      expect(
+        tester.widget<TextField>(amountFinder).controller!.text,
+        '123.45',
+      );
+      expect(find.byType(AmountKeypadGrid), findsNothing);
+
+      await unmount(tester);
+    },
+  );
+
+  testWidgets('transfers retain the existing amount keypad', (tester) async {
+    await pump(tester, initialType: TxType.expense);
+    await tester.tap(find.text('Transfer'));
+    await tester.pump();
+
+    expect(find.byKey(const Key('amountInput')), findsNothing);
+    expect(find.byKey(const Key('amountDisplay')), findsOneWidget);
+    expect(find.byType(AmountKeypadGrid), findsOneWidget);
+
+    await unmount(tester);
+  });
 
   testWidgets(
     "the #85 'Foreign currency' toggle is hidden once the account has its "

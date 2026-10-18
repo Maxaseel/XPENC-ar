@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart' hide Text;
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -123,11 +124,12 @@ class AddTransactionScreen extends ConsumerStatefulWidget {
 class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   late TxType _type;
 
-  /// The main amount's buffer — same [AmountKeypadController] used for every
-  /// other money field on this screen, so a prefilled edit value ("15.44")
-  /// is replaced wholesale by the first keypad tap instead of appended to
-  /// (see GitHub #45; the `freshEntry` contract now lives on the controller).
+  /// The main amount's buffer remains the source of truth for saving and for
+  /// the transfer keypad. Expense/income use [_mainAmountTextController] so
+  /// their amount can be entered inline with the system numeric keyboard.
   final _mainAmountCtrl = AmountKeypadController();
+  final _mainAmountTextController = TextEditingController();
+  final _mainAmountFocus = FocusNode();
 
   /// Which money field the single shared keypad (see [_buildKeypad]) is
   /// currently editing — the main amount, a split row, a hybrid leg, or the
@@ -241,14 +243,11 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
 
   Money get _foreignAmount => _foreignAmountCtrl.amount;
 
-  /// The custom keypad and the system keyboard must never both be up — they'd
-  /// fight over the same strip of screen and hide whatever the user just
-  /// typed. Every money field on this screen (main amount, split rows,
-  /// hybrid legs, foreign, change) now shares the same in-app keypad instead
-  /// of the OS keyboard (see GitHub #135), so the only real `TextField`s left
-  /// here is Note (Payee is picked in its own sheet) — the keypad only hides
-  /// while it has focus.
-  bool get _textFieldFocused => _noteFocus.hasFocus;
+  /// Keep the in-app keypad away while a real text field owns the system
+  /// keyboard. Expense/income amounts and notes use text fields; transfers and
+  /// auxiliary amount rows continue to use the shared keypad.
+  bool get _textFieldFocused =>
+      _noteFocus.hasFocus || _mainAmountFocus.hasFocus;
 
   @override
   void initState() {
@@ -262,6 +261,8 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         ? initial!
         : TxType.expense;
     _noteFocus.addListener(_onFieldFocusChanged);
+    _mainAmountFocus.addListener(_onMainAmountFocusChanged);
+    _mainAmountCtrl.addListener(_syncMainAmountText);
     if (_isEditing) {
       _loading = true;
       WidgetsBinding.instance.addPostFrameCallback((_) => _loadForEdit());
@@ -297,6 +298,11 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
 
   void _onFieldFocusChanged() => setState(() {});
 
+  void _onMainAmountFocusChanged() {
+    if (_mainAmountFocus.hasFocus) _activeAmountCtrl = _mainAmountCtrl;
+    _onFieldFocusChanged();
+  }
+
   static void _deleteQuietly(String path) {
     File(path).delete().ignore();
   }
@@ -305,6 +311,9 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   void dispose() {
     _noteController.dispose();
     _noteFocus.dispose();
+    _mainAmountCtrl.removeListener(_syncMainAmountText);
+    _mainAmountTextController.dispose();
+    _mainAmountFocus.dispose();
     _payeeController.dispose();
     for (final row in _splitRows) {
       row.dispose();
@@ -491,6 +500,20 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   /// mid-type.
   Money get _amount => _mainAmountCtrl.amount;
 
+  void _syncMainAmountText() {
+    final text = _mainAmountCtrl.text;
+    if (_mainAmountTextController.text == text) return;
+    _mainAmountTextController.value = TextEditingValue(
+      text: text,
+      selection: TextSelection.collapsed(offset: text.length),
+    );
+  }
+
+  void _onMainAmountChanged(String text) {
+    _mainAmountCtrl.text = text;
+    setState(() {});
+  }
+
   // ── Keypad ────────────────────────────────────────────────────────────────
 
   /// Makes [ctrl] the shared keypad's target and brings the keypad back if
@@ -501,9 +524,19 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     setState(() => _activeAmountCtrl = ctrl);
   }
 
-  void _onKey(String k) => setState(() => _activeAmountCtrl.applyKey(k));
+  void _onKey(String k) => setState(() {
+    _activeAmountCtrl.applyKey(k);
+    if (identical(_activeAmountCtrl, _mainAmountCtrl)) {
+      _syncMainAmountText();
+    }
+  });
 
-  void _onBackspace() => setState(() => _activeAmountCtrl.applyBackspace());
+  void _onBackspace() => setState(() {
+    _activeAmountCtrl.applyBackspace();
+    if (identical(_activeAmountCtrl, _mainAmountCtrl)) {
+      _syncMainAmountText();
+    }
+  });
 
   // ── Pickers ───────────────────────────────────────────────────────────────
 
@@ -2091,9 +2124,9 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
             ? const Center(child: CircularProgressIndicator())
             : SafeArea(
                 child: GestureDetector(
-                  // Tapping anywhere that isn't Note/Payee drops their focus, so
-                  // the system keyboard closes and the amount keypad returns —
-                  // the two must never be on screen at once (see _textFieldFocused).
+                  // Tapping outside a text field dismisses the system keyboard.
+                  // The shared keypad is hidden while a text field has focus,
+                  // so the two input methods never overlap.
                   behavior: HitTestBehavior.opaque,
                   onTap: () => FocusScope.of(context).unfocus(),
                   child: Column(
@@ -2119,40 +2152,49 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                             ],
                             selected: {_type},
                             showSelectedIcon: false,
-                            onSelectionChanged: (s) => setState(() {
-                              _type = s.first;
-                              // category is meaningless on type change
-                              _categoryId = null;
-                              if (_type != TxType.transfer) _toAccountId = null;
-                              // Split is expense-only.
-                              if (_type != TxType.expense) {
-                                _isSplit = false;
-                              }
-                            }),
+                            onSelectionChanged: (s) {
+                              FocusScope.of(context).unfocus();
+                              setState(() {
+                                _type = s.first;
+                                _syncMainAmountText();
+                                // category is meaningless on type change
+                                _categoryId = null;
+                                if (_type != TxType.transfer) {
+                                  _toAccountId = null;
+                                }
+                                // Split is expense-only.
+                                if (_type != TxType.expense) {
+                                  _isSplit = false;
+                                }
+                              });
+                            },
                           ),
                         ),
                       ),
-                      const SizedBox(height: 24),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: GestureDetector(
-                          onTap: () => _activateAmountCtrl(_mainAmountCtrl),
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              key: const Key('amountDisplay'),
-                              txCurrency == null
-                                  ? MoneyFormat.symbol(amount)
-                                  : MoneyFormat.symbolIn(amount, txCurrency),
-                              style: theme.textTheme.displayMedium?.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: colorForTxType(_type),
-                                fontFeatures: kTabularFigures,
+                      if (_type == TxType.transfer) ...[
+                        const SizedBox(height: 24),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: GestureDetector(
+                            onTap: () => _activateAmountCtrl(_mainAmountCtrl),
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                key: const Key('amountDisplay'),
+                                txCurrency == null
+                                    ? MoneyFormat.symbol(amount)
+                                    : MoneyFormat.symbolIn(amount, txCurrency),
+                                style: theme.textTheme.displayMedium?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  color: colorForTxType(_type),
+                                  fontFeatures: kTabularFigures,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
+                      ] else
+                        const SizedBox(height: 8),
                       _selectedTagsChips(),
                       const SizedBox(height: 20),
                       Expanded(
@@ -2165,11 +2207,17 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                           ).plusNavBar(context),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: _buildPickers(accountMap, categoryMap),
+                            children: _buildPickers(
+                              accountMap,
+                              categoryMap,
+                              txCurrency,
+                            ),
                           ),
                         ),
                       ),
-                      if (!_textFieldFocused)
+                      if (!_textFieldFocused &&
+                          (_type == TxType.transfer ||
+                              !identical(_activeAmountCtrl, _mainAmountCtrl)))
                         Padding(
                           padding: const EdgeInsets.fromLTRB(12, 4, 12, 8),
                           child: AmountKeypadGrid(
@@ -2188,6 +2236,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   List<Widget> _buildPickers(
     Map<int, AccountRow> accountMap,
     Map<int, CategoryRow> categoryMap,
+    Currency? txCurrency,
   ) {
     final tiles = <Widget>[];
 
@@ -2222,6 +2271,15 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         tiles.add(warning);
       }
     } else {
+      // Keep the primary entry fields together near the top of the form,
+      // with date and amount side by side like the reference layout.
+      tiles.add(_payeeCard());
+      tiles.add(const SizedBox(height: 12));
+      tiles.add(_noteCard());
+      tiles.add(const SizedBox(height: 12));
+      tiles.add(_dateAmountRow(txCurrency));
+      tiles.add(const SizedBox(height: 12));
+
       // A hybrid payment has no single "paid via" account of its own — its
       // editor below picks each leg's account instead.
       if (!_isHybrid) {
@@ -2311,14 +2369,12 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
       }
     }
 
-    tiles.add(const SizedBox(height: 12));
-    tiles.add(_dateTile());
-    if (_type == TxType.expense || _type == TxType.income) {
+    if (_type == TxType.transfer) {
       tiles.add(const SizedBox(height: 12));
-      tiles.add(_payeeCard());
+      tiles.add(_dateTile());
+      tiles.add(const SizedBox(height: 12));
+      tiles.add(_noteCard());
     }
-    tiles.add(const SizedBox(height: 12));
-    tiles.add(_noteCard());
     tiles.add(const SizedBox(height: 12));
     tiles.add(_nctToggleTile());
     return tiles;
@@ -2341,6 +2397,113 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           _isNct
               ? 'NCT · hidden in lists until held, captures blocked when open'
               : 'NCT · keep it out of screenshots and recordings',
+        ),
+      ),
+    );
+  }
+
+  Widget _dateAmountRow(Currency? txCurrency) {
+    return Row(
+      children: [
+        Expanded(child: _compactDateCard()),
+        const SizedBox(width: 12),
+        Expanded(child: _amountInputCard(txCurrency)),
+      ],
+    );
+  }
+
+  Widget _compactDateCard() {
+    final theme = Theme.of(context);
+    return AppCard(
+      margin: EdgeInsets.zero,
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: _pickDate,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(14, 8, 8, 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Text.localized(
+                      'Date',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    tooltip: appTextValue("Change time"),
+                    icon: AppIcon(
+                      Icons.access_time_rounded,
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                    visualDensity: VisualDensity.compact,
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints.tightFor(
+                      width: 32,
+                      height: 32,
+                    ),
+                    onPressed: _pickTime,
+                  ),
+                ],
+              ),
+              Text(
+                DateFormat('d MMM yyyy').format(_date),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: theme.colorScheme.onSurface,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _amountInputCard(Currency? txCurrency) {
+    final theme = Theme.of(context);
+    final prefix = !MoneyFormat.showSymbol
+        ? ''
+        : txCurrency == null
+        ? MoneyFormat.inputPrefix
+        : '${txCurrency.symbol} ';
+    return AppCard(
+      margin: EdgeInsets.zero,
+      clipBehavior: Clip.antiAlias,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: TextField(
+          key: const Key('amountInput'),
+          controller: _mainAmountTextController,
+          focusNode: _mainAmountFocus,
+          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+          textInputAction: TextInputAction.next,
+          inputFormatters: [
+            TextInputFormatter.withFunction((oldValue, newValue) {
+              final text = newValue.text;
+              if (text.isEmpty ||
+                  RegExp(r'^[0-9]{0,12}(?:\.[0-9]{0,2})?$').hasMatch(text)) {
+                return newValue;
+              }
+              return oldValue;
+            }),
+          ],
+          onChanged: _onMainAmountChanged,
+          style: theme.textTheme.titleMedium?.copyWith(
+            color: colorForTxType(_type),
+            fontFeatures: kTabularFigures,
+          ),
+          decoration: InputDecoration(
+            labelText: appTextValue("Amount"),
+            prefixText: prefix,
+            border: InputBorder.none,
+          ),
         ),
       ),
     );
@@ -2567,9 +2730,9 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     );
   }
 
-  /// Picked tags shown as chips right under the amount — visible at a glance
-  /// without opening the picker sheet again, and without eating space in the
-  /// scrollable field list below.
+  /// Picked tags stay near the top of the form — below the amount hero for
+  /// transfers, or below the type selector for expense/income — visible at a
+  /// glance without reopening the picker sheet or using the field list space.
   Widget _selectedTagsChips() {
     final tagMap = ref.watch(tagMapProvider);
     final selected = [

@@ -8,6 +8,15 @@ Release process: see [docs/RELEASING.md](docs/RELEASING.md).
 
 ## [Unreleased]
 
+## [1.6.7] — 2026-10-18
+
+### Added
+- Arabic interface translations across screens, labels and tooltips.
+
+### Fixed
+- Android release builds no longer fail analysis on deprecated text scaling
+  and unused localization imports; legacy text scaling maps to `TextScaler`.
+
 ## [1.6.4] — 2026-10-10
 
 ### Added
@@ -1235,7 +1244,8 @@ First public release. 🎉
 - `tool/verify_apk.sh` gates every shipped APK against the missing
   `libsqlite3.so` class of crash.
 
-[Unreleased]: https://github.com/PATILYASHH/XPENC/compare/v1.6.4...HEAD
+[Unreleased]: https://github.com/PATILYASHH/XPENC/compare/v1.6.7...HEAD
+[1.6.7]: https://github.com/PATILYASHH/XPENC/compare/v1.6.6...v1.6.7
 [1.6.4]: https://github.com/PATILYASHH/XPENC/compare/v1.6.3...v1.6.4
 [1.6.3]: https://github.com/PATILYASHH/XPENC/compare/v1.6.2...v1.6.3
 [1.6.2]: https://github.com/PATILYASHH/XPENC/compare/v1.6.1...v1.6.2

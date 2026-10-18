@@ -109,7 +109,7 @@ class _AddChoiceSheet extends ConsumerWidget {
                   subtitle: Text(_subtitle(t, categoryMap)),
                   trailing: IconButton(
                     icon: const AppIcon(Icons.delete_outline_rounded),
-                    tooltip: 'Delete template',
+                    tooltip: appTextValue("Delete template"),
                     onPressed: () => _confirmDelete(context, ref, t),
                   ),
                   onTap: () => Navigator.of(

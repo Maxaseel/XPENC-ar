@@ -38,13 +38,13 @@ class SettingsScreen extends ConsumerWidget {
           _ModuleTile(
             icon: Icons.savings_outlined,
             title: ref.watch(localeProvider).languageCode == 'ar' ? 'النمط والميزانية' : 'Mode & Budgeting',
-            subtitle: 'App mode, budget cycle, Ready to Assign',
+            subtitle: appTextValue("App mode, budget cycle, Ready to Assign"),
             onTap: () => context.push('/more/settings/mode-budgeting'),
           ),
           _ModuleTile(
             icon: Icons.people_outline,
             title: ref.watch(localeProvider).languageCode == 'ar' ? 'الأشخاص' : 'Persons',
-            subtitle: 'Repayments and your payment methods',
+            subtitle: appTextValue("Repayments and your payment methods"),
             onTap: () => context.push('/more/settings/persons'),
           ),
           _ModuleTile(
@@ -59,7 +59,7 @@ class SettingsScreen extends ConsumerWidget {
             _ModuleTile(
               icon: Icons.verified_user_outlined,
               title: ref.watch(localeProvider).languageCode == 'ar' ? 'الأذونات' : 'Permissions',
-              subtitle: 'What XPENC can access — turn each on or off',
+              subtitle: appTextValue("What XPENC can access — turn each on or off"),
               onTap: () => context.push('/more/settings/permissions'),
             ),
           _ModuleTile(
@@ -81,7 +81,7 @@ class SettingsScreen extends ConsumerWidget {
           _ModuleTile(
             icon: Icons.storage_outlined,
             title: ref.watch(localeProvider).languageCode == 'ar' ? 'البيانات' : 'Data',
-            subtitle: 'Recalculate balances, clear all data',
+            subtitle: appTextValue("Recalculate balances, clear all data"),
             onTap: () => context.push('/more/settings/data'),
           ),
           AppCard(

@@ -184,8 +184,8 @@ class _UssdPayScreenState extends State<UssdPayScreen> {
               const SizedBox(height: 16),
               AmountKeypadField(
                 controller: _amountController,
-                label: 'Amount',
-                hintText: 'Optional — fills it in when you log this later',
+                label: appTextValue("Amount"),
+                hintText: appTextValue("Optional — fills it in when you log this later"),
                 yieldTo: [_idFocus],
                 displayKey: const Key('amountDisplay'),
               ),

@@ -106,7 +106,7 @@ class _CurrencyPickerSheetState extends ConsumerState<CurrencyPickerSheet> {
                 autofocus: true,
                 decoration: InputDecoration(
                   prefixIcon: const AppIcon(Icons.search),
-                  hintText: 'Search name, code or symbol',
+                  hintText: appTextValue("Search name, code or symbol"),
                   filled: true,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),

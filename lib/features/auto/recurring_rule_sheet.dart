@@ -487,7 +487,7 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
               autofocus: !_isEditing,
               textCapitalization: TextCapitalization.words,
               decoration: InputDecoration(
-                labelText: 'Name',
+                labelText: appTextValue("Name"),
                 hintText: isGoalOrLoan
                     ? 'e.g. Emergency Fund, Car Loan EMI'
                     : (_kind == CategoryKind.expense
@@ -539,7 +539,7 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
                       controller: _promoAmountController,
                       group: _amountGroup,
                       yieldTo: [_nameFocus],
-                      label: 'Promo amount',
+                      label: appTextValue("Promo amount"),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -548,8 +548,8 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
                     child: TextField(
                       controller: _promoOccurrencesController,
                       keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        labelText: 'Occurrences',
+                      decoration:  InputDecoration(
+                        labelText: appTextValue("Occurrences"),
                         hintText: 'e.g. 3',
                       ),
                     ),
@@ -593,7 +593,7 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
                         controller: _foreignAmountController,
                         group: _amountGroup,
                         yieldTo: [_nameFocus],
-                        label: 'Foreign amount',
+                        label: appTextValue("Foreign amount"),
                         // The currency chip to the left already shows which
                         // currency this is — showing the home currency's
                         // symbol here too would be misleading.
@@ -624,7 +624,7 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
                     ? _toAccountId
                     : null,
                 isExpanded: true,
-                decoration: const InputDecoration(labelText: 'Goal or loan'),
+                decoration:  InputDecoration(labelText: appTextValue("Goal or loan")),
                 items: [
                   for (final a in toAccounts)
                     DropdownMenuItem(
@@ -671,9 +671,9 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
               textCapitalization: TextCapitalization.sentences,
               maxLines: 3,
               maxLength: 500,
-              decoration: const InputDecoration(
-                labelText: 'Notes (optional)',
-                hintText: 'Why this rule exists, or anything else worth noting',
+              decoration:  InputDecoration(
+                labelText: appTextValue("Notes (optional)"),
+                hintText: appTextValue("Why this rule exists, or anything else worth noting"),
                 alignLabelWithHint: true,
               ),
             ),
@@ -838,7 +838,7 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
           focusNode: focusNode,
           textCapitalization: TextCapitalization.words,
           decoration: InputDecoration(
-            labelText: 'Payee (optional)',
+            labelText: appTextValue("Payee (optional)"),
             hintText: forLoan
                 ? 'The lender, e.g. your bank'
                 : (_kind == CategoryKind.income

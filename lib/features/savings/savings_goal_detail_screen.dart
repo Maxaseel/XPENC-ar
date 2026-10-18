@@ -51,12 +51,12 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const AppIcon(Icons.edit_outlined),
-            tooltip: 'Edit',
+            tooltip: appTextValue("Edit"),
             onPressed: () => openGoalEditor(context, progress),
           ),
           IconButton(
             icon: const AppIcon(Icons.more_vert_rounded),
-            tooltip: 'More',
+            tooltip: appTextValue("More"),
             onPressed: () => _showActions(context, ref, progress),
           ),
         ],
@@ -228,7 +228,7 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
             categoryMap: categoryMap,
             ownIds: {goalId},
             currency: null,
-            emptyMessage: 'No funding activity yet.',
+            emptyMessage: appTextValue("No funding activity yet."),
           ),
         ],
       ),
@@ -354,7 +354,7 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
             AmountKeypadField(
               controller: controller,
               autofocus: true,
-              label: 'Saved so far',
+              label: appTextValue("Saved so far"),
               yieldTo: const [],
             ),
           ],
@@ -672,7 +672,7 @@ class _FundsSheetState extends ConsumerState<_FundsSheet> {
           AmountKeypadField(
             controller: _amountController,
             autofocus: true,
-            label: 'Amount',
+            label: appTextValue("Amount"),
             yieldTo: const [],
           ),
           if (widget.isAdd) ...[
@@ -680,8 +680,8 @@ class _FundsSheetState extends ConsumerState<_FundsSheet> {
             DropdownButtonFormField<int?>(
               initialValue: _categoryId,
               isExpanded: true,
-              decoration: const InputDecoration(
-                labelText: 'Category (optional)',
+              decoration:  InputDecoration(
+                labelText: appTextValue("Category (optional)"),
               ),
               items: [
                 const DropdownMenuItem(value: null, child: Text.localized('None')),

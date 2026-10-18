@@ -78,7 +78,7 @@ class ShoppingListsScreen extends ConsumerWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: 'New list',
+        tooltip: appTextValue("New list"),
         onPressed: () => _openListEditor(context),
         child: const AppIcon(Icons.add),
       ),
@@ -145,7 +145,7 @@ class _ShoppingListTile extends ConsumerWidget {
               ),
               IconButton(
                 icon: const AppIcon(Icons.edit_outlined),
-                tooltip: 'Edit list',
+                tooltip: appTextValue("Edit list"),
                 visualDensity: VisualDensity.compact,
                 onPressed: () => _openListEditor(context, existing: list),
               ),
@@ -154,7 +154,7 @@ class _ShoppingListTile extends ConsumerWidget {
                   Icons.delete_outline,
                   color: theme.colorScheme.error,
                 ),
-                tooltip: 'Delete list',
+                tooltip: appTextValue("Delete list"),
                 visualDensity: VisualDensity.compact,
                 onPressed: () => _confirmDeleteList(context, ref, list),
               ),
@@ -309,9 +309,9 @@ class _ListEditorSheetState extends ConsumerState<_ListEditorSheet> {
               autofocus: !_isEdit,
               textCapitalization: TextCapitalization.words,
               maxLength: 60,
-              decoration: const InputDecoration(
-                labelText: 'List name',
-                hintText: 'e.g. Weekly groceries, Diwali',
+              decoration:  InputDecoration(
+                labelText: appTextValue("List name"),
+                hintText: appTextValue("e.g. Weekly groceries, Diwali"),
                 counterText: '',
               ),
               onSubmitted: (_) => _save(),

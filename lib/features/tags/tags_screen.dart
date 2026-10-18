@@ -41,17 +41,17 @@ class TagsScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const AppIcon(Icons.workspaces_outline),
-            tooltip: 'Tag groups',
+            tooltip: appTextValue("Tag groups"),
             onPressed: () => context.push('/more/tags/groups'),
           ),
         ],
       ),
       body: tagsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, _) => const Center(
+        error: (_, _) =>  Center(
           child: Padding(
             padding: EdgeInsets.all(24),
-            child: InlineErrorView(message: "Couldn't load tags"),
+            child: InlineErrorView(message: appTextValue("Couldn't load tags")),
           ),
         ),
         data: (tags) {
@@ -102,7 +102,7 @@ class TagsScreen extends ConsumerWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: 'New tag',
+        tooltip: appTextValue("New tag"),
         onPressed: () => _openTagEditor(context),
         child: const AppIcon(Icons.add),
       ),
@@ -172,13 +172,13 @@ class _TagTile extends ConsumerWidget {
         children: [
           IconButton(
             icon: const AppIcon(Icons.edit_outlined),
-            tooltip: 'Edit',
+            tooltip: appTextValue("Edit"),
             visualDensity: VisualDensity.compact,
             onPressed: () => _openTagEditor(context, existing: tag),
           ),
           IconButton(
             icon: AppIcon(Icons.delete_outline, color: theme.colorScheme.error),
-            tooltip: 'Delete',
+            tooltip: appTextValue("Delete"),
             visualDensity: VisualDensity.compact,
             onPressed: () => _confirmDelete(context, ref, tag),
           ),
@@ -330,9 +330,9 @@ class _TagEditorSheetState extends ConsumerState<_TagEditorSheet> {
               autofocus: !_isEdit,
               textCapitalization: TextCapitalization.words,
               maxLength: 30,
-              decoration: const InputDecoration(
-                labelText: 'Name',
-                hintText: 'e.g. Work trip, Tax deductible',
+              decoration:  InputDecoration(
+                labelText: appTextValue("Name"),
+                hintText: appTextValue("e.g. Work trip, Tax deductible"),
                 counterText: '',
               ),
               onSubmitted: (_) => _save(),

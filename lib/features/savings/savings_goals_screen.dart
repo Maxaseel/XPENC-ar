@@ -777,16 +777,16 @@ class _GoalEditorSheetState extends ConsumerState<_GoalEditorSheet> {
               autofocus: !_isEdit,
               textCapitalization: TextCapitalization.words,
               maxLength: 60,
-              decoration: const InputDecoration(
-                labelText: 'Name',
-                hintText: 'e.g. Emergency fund, Goa trip',
+              decoration:  InputDecoration(
+                labelText: appTextValue("Name"),
+                hintText: appTextValue("e.g. Emergency fund, Goa trip"),
                 counterText: '',
               ),
             ),
             const SizedBox(height: 16),
             AmountKeypadField(
               controller: _amountController,
-              label: 'Target amount',
+              label: appTextValue("Target amount"),
               hintText: '0.00',
               yieldTo: [_nameFocus],
             ),
@@ -794,9 +794,9 @@ class _GoalEditorSheetState extends ConsumerState<_GoalEditorSheet> {
             DropdownButtonFormField<int?>(
               initialValue: _categoryId,
               isExpanded: true,
-              decoration: const InputDecoration(
-                labelText: 'Category (optional)',
-                helperText: 'Tag contributions to this category.',
+              decoration:  InputDecoration(
+                labelText: appTextValue("Category (optional)"),
+                helperText: appTextValue("Tag contributions to this category."),
               ),
               items: [
                 const DropdownMenuItem(value: null, child: Text.localized('None')),
@@ -828,10 +828,10 @@ class _GoalEditorSheetState extends ConsumerState<_GoalEditorSheet> {
               controller: _notesController,
               maxLines: 3,
               maxLength: 500,
-              decoration: const InputDecoration(
-                labelText: 'Notes (optional)',
+              decoration:  InputDecoration(
+                labelText: appTextValue("Notes (optional)"),
                 hintText:
-                    'What this goal is for, or anything else worth noting',
+                    appTextValue("What this goal is for, or anything else worth noting"),
                 alignLabelWithHint: true,
               ),
             ),
@@ -1287,9 +1287,9 @@ class _LoanEditorSheetState extends ConsumerState<_LoanEditorSheet> {
               autofocus: true,
               textCapitalization: TextCapitalization.words,
               maxLength: 60,
-              decoration: const InputDecoration(
-                labelText: 'Name',
-                hintText: 'e.g. Home loan, Car loan',
+              decoration:  InputDecoration(
+                labelText: appTextValue("Name"),
+                hintText: appTextValue("e.g. Home loan, Car loan"),
                 counterText: '',
               ),
             ),
@@ -1299,7 +1299,7 @@ class _LoanEditorSheetState extends ConsumerState<_LoanEditorSheet> {
                 controller: _principalController,
                 group: _amountGroup,
                 yieldTo: [_nameFocus, _rateFocus, _tenureFocus],
-                label: 'Amount borrowed',
+                label: appTextValue("Amount borrowed"),
                 hintText: '0.00',
               ),
               const SizedBox(height: 16),
@@ -1308,7 +1308,7 @@ class _LoanEditorSheetState extends ConsumerState<_LoanEditorSheet> {
               controller: _emiController,
               group: _amountGroup,
               yieldTo: [_nameFocus, _rateFocus, _tenureFocus],
-              label: 'Monthly EMI (optional)',
+              label: appTextValue("Monthly EMI (optional)"),
               hintText: '0.00',
             ),
             const SizedBox(height: 16),
@@ -1322,8 +1322,8 @@ class _LoanEditorSheetState extends ConsumerState<_LoanEditorSheet> {
                     keyboardType: const TextInputType.numberWithOptions(
                       decimal: true,
                     ),
-                    decoration: const InputDecoration(
-                      labelText: 'Interest rate % / yr (optional)',
+                    decoration:  InputDecoration(
+                      labelText: appTextValue("Interest rate % / yr (optional)"),
                       hintText: 'e.g. 8.5',
                     ),
                   ),
@@ -1334,8 +1334,8 @@ class _LoanEditorSheetState extends ConsumerState<_LoanEditorSheet> {
                     controller: _tenureController,
                     focusNode: _tenureFocus,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      labelText: 'Tenure, months (optional)',
+                    decoration:  InputDecoration(
+                      labelText: appTextValue("Tenure, months (optional)"),
                       hintText: 'e.g. 60',
                     ),
                   ),
@@ -1404,9 +1404,9 @@ class _LoanEditorSheetState extends ConsumerState<_LoanEditorSheet> {
             DropdownButtonFormField<int?>(
               initialValue: _categoryId,
               isExpanded: true,
-              decoration: const InputDecoration(
-                labelText: 'Category (optional)',
-                helperText: 'Tag repayments to this category.',
+              decoration:  InputDecoration(
+                labelText: appTextValue("Category (optional)"),
+                helperText: appTextValue("Tag repayments to this category."),
               ),
               items: [
                 const DropdownMenuItem(value: null, child: Text.localized('None')),
@@ -1473,7 +1473,7 @@ class _LoanEditorSheetState extends ConsumerState<_LoanEditorSheet> {
             _SourceAccountPicker(
               selected: _autoPayFromId,
               onChanged: (v) => setState(() => _autoPayFromId = v),
-              labelText: 'Pay from',
+              labelText: appTextValue("Pay from"),
               helperText: null,
             ),
             InkWell(

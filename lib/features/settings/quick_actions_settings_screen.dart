@@ -151,9 +151,9 @@ class _HoldMenuEditor extends ConsumerWidget {
               children: [
                 _positioned(
                   center,
-                  const _Ball(
+                   _Ball(
                     icon: Icons.close_rounded,
-                    label: 'Cancel',
+                    label: appTextValue("Cancel"),
                     fixed: true,
                   ),
                 ),

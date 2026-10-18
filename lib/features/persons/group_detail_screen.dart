@@ -69,17 +69,17 @@ class GroupDetailScreen extends ConsumerWidget {
         title: Text(group.name),
         actions: [
           IconButton(
-            tooltip: 'Who owes whom',
+            tooltip: appTextValue("Who owes whom"),
             icon: const AppIcon(Icons.open_in_full_rounded),
             onPressed: () => context.push('/group/${group.id}/balances'),
           ),
           IconButton(
-            tooltip: 'Share',
+            tooltip: appTextValue("Share"),
             icon: const AppIcon(Icons.ios_share_rounded),
             onPressed: () => shareGroup(context, group),
           ),
           IconButton(
-            tooltip: 'Edit group',
+            tooltip: appTextValue("Edit group"),
             icon: const AppIcon(Icons.edit_outlined),
             onPressed: () => _showEditGroupDialog(context, ref, group),
           ),
@@ -264,12 +264,12 @@ class GroupDetailScreen extends ConsumerWidget {
               controller: nameController,
               autofocus: true,
               textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(labelText: 'Name'),
+              decoration:  InputDecoration(labelText: appTextValue("Name")),
             ),
             const SizedBox(height: 12),
             TextField(
               controller: noteController,
-              decoration: const InputDecoration(labelText: 'Note (optional)'),
+              decoration:  InputDecoration(labelText: appTextValue("Note (optional)")),
             ),
           ],
         ),

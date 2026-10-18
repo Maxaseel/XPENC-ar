@@ -73,7 +73,7 @@ class _MonthPickerSheetState extends State<MonthPickerSheet> {
           Row(
             children: [
               IconButton(
-                tooltip: 'Previous year',
+                tooltip: appTextValue("Previous year"),
                 icon: const AppIcon(Icons.chevron_left_rounded),
                 onPressed: () => setState(() => _year--),
               ),
@@ -87,7 +87,7 @@ class _MonthPickerSheetState extends State<MonthPickerSheet> {
                 ),
               ),
               IconButton(
-                tooltip: 'Next year',
+                tooltip: appTextValue("Next year"),
                 icon: const AppIcon(Icons.chevron_right_rounded),
                 onPressed: canGoForward ? () => setState(() => _year++) : null,
               ),

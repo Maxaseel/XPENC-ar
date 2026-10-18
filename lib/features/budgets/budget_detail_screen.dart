@@ -56,7 +56,7 @@ class BudgetDetailScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const AppIcon(Icons.picture_as_pdf_outlined),
-            tooltip: 'Download statement',
+            tooltip: appTextValue("Download statement"),
             onPressed: () => _downloadStatement(context, ref, month),
           ),
           IconButton(

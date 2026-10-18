@@ -229,7 +229,7 @@ class _AddRateDialogState extends State<_AddRateDialog> {
             autofocus: true,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             decoration: InputDecoration(
-              labelText: 'Rate',
+              labelText: appTextValue("Rate"),
               hintText: 'e.g. 83.12',
               prefixText: '1 ${currency.code} = ',
               errorText: _error,

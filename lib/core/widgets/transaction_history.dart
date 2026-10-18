@@ -48,9 +48,9 @@ class TransactionHistorySection extends StatelessWidget {
         padding: EdgeInsets.all(40),
         child: Center(child: CircularProgressIndicator()),
       ),
-      error: (_, _) => const Padding(
+      error: (_, _) =>  Padding(
         padding: EdgeInsets.symmetric(vertical: 24),
-        child: InlineErrorView(message: "Couldn't load history"),
+        child: InlineErrorView(message: appTextValue("Couldn't load history")),
       ),
       data: (txns) {
         if (txns.isEmpty) {

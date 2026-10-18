@@ -52,7 +52,7 @@ class _DownloadDataScreenState extends ConsumerState<DownloadDataScreen> {
           SnackBar(
             content: Text('Exported $name'),
             action: SnackBarAction(
-              label: 'Share again',
+              label: appTextValue("Share again"),
               onPressed: () => service.share(f, subject: subject),
             ),
           ),
@@ -99,8 +99,8 @@ class _DownloadDataScreenState extends ConsumerState<DownloadDataScreen> {
           const SizedBox(height: 16),
           _ActionCard(
             icon: Icons.table_chart_outlined,
-            title: 'Transactions (CSV)',
-            subtitle: 'Opens in Excel or Google Sheets. Accountant friendly.',
+            title: appTextValue("Transactions (CSV)"),
+            subtitle: appTextValue("Opens in Excel or Google Sheets. Accountant friendly."),
             buttonLabel: 'Export CSV',
             busy: _busy && _running == 'csv',
             enabled: !_busy,
@@ -113,7 +113,7 @@ class _DownloadDataScreenState extends ConsumerState<DownloadDataScreen> {
           const SizedBox(height: 12),
           _ActionCard(
             icon: Icons.data_object_outlined,
-            title: 'Everything (JSON)',
+            title: appTextValue("Everything (JSON)"),
             subtitle:
                 'A complete copy of every account, transaction, budget and '
                 'person.',
@@ -137,7 +137,7 @@ class _DownloadDataScreenState extends ConsumerState<DownloadDataScreen> {
           ),
           _ActionCard(
             icon: Icons.file_open_outlined,
-            title: 'From a JSON file',
+            title: appTextValue("From a JSON file"),
             subtitle:
                 'Bring in an "Everything (JSON)" export — from this phone or '
                 'another one. Replaces all current data; a safety copy is '
@@ -150,7 +150,7 @@ class _DownloadDataScreenState extends ConsumerState<DownloadDataScreen> {
           const SizedBox(height: 12),
           _ActionCard(
             icon: Icons.table_chart_outlined,
-            title: 'From a bank CSV statement',
+            title: appTextValue("From a bank CSV statement"),
             subtitle:
                 "Adds transactions from a bank's exported .csv statement "
                 "into an account you choose — doesn't touch anything else.",

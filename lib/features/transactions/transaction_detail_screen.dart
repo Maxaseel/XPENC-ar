@@ -46,13 +46,13 @@ class TransactionDetailScreen extends ConsumerWidget {
           if (t != null)
             IconButton(
               icon: const AppIcon(Icons.ios_share_rounded),
-              tooltip: 'Share',
+              tooltip: appTextValue("Share"),
               onPressed: () => shareTransaction(context, t),
             ),
           if (canMakeRecurring)
             IconButton(
               icon: const AppIcon(Icons.autorenew_rounded),
-              tooltip: 'Make recurring',
+              tooltip: appTextValue("Make recurring"),
               onPressed: () => showRecurringRuleSheet(context, prefillFrom: t),
             ),
           // A correction is the difference between two balances on one
@@ -61,18 +61,18 @@ class TransactionDetailScreen extends ConsumerWidget {
           if (t == null || !t.type.isCorrection) ...[
             IconButton(
               icon: const AppIcon(Icons.content_copy_outlined),
-              tooltip: 'Duplicate',
+              tooltip: appTextValue("Duplicate"),
               onPressed: () => context.push('/add?duplicate=$transactionId'),
             ),
             IconButton(
               icon: const AppIcon(Icons.edit_outlined),
-              tooltip: 'Edit',
+              tooltip: appTextValue("Edit"),
               onPressed: () => context.push('/add?id=$transactionId'),
             ),
           ],
           IconButton(
             icon: const AppIcon(Icons.delete_outline),
-            tooltip: 'Delete',
+            tooltip: appTextValue("Delete"),
             onPressed: () => _confirmDelete(context, ref),
           ),
         ],
@@ -80,16 +80,16 @@ class TransactionDetailScreen extends ConsumerWidget {
       body: txAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => ErrorView(
-          title: 'Something went wrong',
-          message: "Couldn't load this transaction.",
+          title: appTextValue("Something went wrong"),
+          message: appTextValue("Couldn't load this transaction."),
           detail: '$e',
           onRetry: () => ref.invalidate(transactionByIdProvider(transactionId)),
         ),
         data: (t) {
           if (t == null) {
-            return const ErrorView(
-              title: 'Transaction not found',
-              message: 'It may have been deleted.',
+            return  ErrorView(
+              title: appTextValue("Transaction not found"),
+              message: appTextValue("It may have been deleted."),
             );
           }
           // Shown in full here, so an NCT transaction keeps captures
@@ -604,7 +604,7 @@ class _LinkedTransactionsCard extends ConsumerWidget {
                 ),
                 IconButton(
                   icon: const AppIcon(Icons.add_link_rounded),
-                  tooltip: 'Link to another transaction',
+                  tooltip: appTextValue("Link to another transaction"),
                   visualDensity: VisualDensity.compact,
                   onPressed: () => _pickAndLink(
                     context,
@@ -750,7 +750,7 @@ class _LinkedTxRow extends StatelessWidget {
         ),
         IconButton(
           icon: const AppIcon(Icons.link_off_rounded, size: 18),
-          tooltip: 'Remove link',
+          tooltip: appTextValue("Remove link"),
           visualDensity: VisualDensity.compact,
           onPressed: onUnlink,
         ),

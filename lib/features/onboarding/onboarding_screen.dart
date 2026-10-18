@@ -482,15 +482,15 @@ class _PathChoiceStep extends StatelessWidget {
           const SizedBox(height: 28),
           _ChoiceCard(
             icon: Icons.auto_awesome_outlined,
-            title: "I'm new here",
-            subtitle: 'Show me a quick tour of how XPENC works.',
+            title: appTextValue("I'm new here"),
+            subtitle: appTextValue("Show me a quick tour of how XPENC works."),
             onTap: () => onChoose(_UserPath.newUser),
           ),
           const SizedBox(height: 14),
           _ChoiceCard(
             icon: Icons.check_circle_outline_rounded,
-            title: 'I already know XPENC',
-            subtitle: 'Skip the tour, and restore a backup if I have one.',
+            title: appTextValue("I already know XPENC"),
+            subtitle: appTextValue("Skip the tour, and restore a backup if I have one."),
             onTap: () => onChoose(_UserPath.oldUser),
           ),
         ],
@@ -585,20 +585,20 @@ class _EnvelopeModeStep extends StatelessWidget {
   Widget build(BuildContext context) {
     return _StepScaffold(
       onSkip: onSkip,
-      title: 'How do you want to track money?',
-      subtitle: 'You can change this any time in Settings.',
+      title: appTextValue("How do you want to track money?"),
+      subtitle: appTextValue("You can change this any time in Settings."),
       rows: [
         _ModeCard(
           icon: Icons.receipt_long_outlined,
-          title: 'Basic',
-          subtitle: 'Just transactions, and people you owe or are owed by.',
+          title: appTextValue("Basic"),
+          subtitle: appTextValue("Just transactions, and people you owe or are owed by."),
           selected: selected == AppMode.basic,
           onTap: () => onChoose(AppMode.basic),
         ),
         const SizedBox(height: 12),
         _ModeCard(
           icon: Icons.account_balance_wallet_outlined,
-          title: 'Medium',
+          title: appTextValue("Medium"),
           subtitle:
               'Adds accounts, budgets and net worth — the full app, without '
               'envelope budgeting.',
@@ -608,7 +608,7 @@ class _EnvelopeModeStep extends StatelessWidget {
         const SizedBox(height: 12),
         _ModeCard(
           icon: Icons.mail_outline_rounded,
-          title: 'Pro',
+          title: appTextValue("Pro"),
           subtitle:
               'Adds Envelope mode — assign money to categories from a '
               'shared "Ready to Assign" pool before you spend it — plus '
@@ -712,8 +712,8 @@ class _AccountsStep extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
     return _StepScaffold(
       onSkip: onSkip,
-      title: 'Accounts hold your money',
-      subtitle: 'Cash, bank, cards, loans — each is its own account.',
+      title: appTextValue("Accounts hold your money"),
+      subtitle: appTextValue("Cash, bank, cards, loans — each is its own account."),
       rows: [
         _FeatureRow(
           icon: Icons.account_balance_outlined,
@@ -749,8 +749,8 @@ class _PersonsGroupsStep extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
     return _StepScaffold(
       onSkip: onSkip,
-      title: 'Split money with people',
-      subtitle: 'Track what you owe, and what\'s owed to you.',
+      title: appTextValue("Split money with people"),
+      subtitle: appTextValue("Track what you owe, and what's owed to you."),
       rows: [
         _FeatureRow(
           icon: Icons.person_outline_rounded,
@@ -783,8 +783,8 @@ class _AutoGoalsLoansStep extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
     return _StepScaffold(
       onSkip: onSkip,
-      title: 'Automate the boring parts',
-      subtitle: 'Recurring payments, savings targets, and loans.',
+      title: appTextValue("Automate the boring parts"),
+      subtitle: appTextValue("Recurring payments, savings targets, and loans."),
       rows: [
         _FeatureRow(
           icon: Icons.autorenew_rounded,
@@ -821,8 +821,8 @@ class _PayeesBudgetsSecurityStep extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
     return _StepScaffold(
       onSkip: onSkip,
-      title: 'Stay organized and safe',
-      subtitle: 'Who you pay, how much you plan to spend, and who can get in.',
+      title: appTextValue("Stay organized and safe"),
+      subtitle: appTextValue("Who you pay, how much you plan to spend, and who can get in."),
       rows: [
         _FeatureRow(
           icon: Icons.storefront_outlined,
@@ -900,7 +900,7 @@ class _RestoreStep extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
     return _StepScaffold(
       onSkip: restoring ? null : onSkip,
-      title: 'Restore your data?',
+      title: appTextValue("Restore your data?"),
       subtitle:
           'If you have an XPENC backup on this phone, restore it now — or '
           'skip and start fresh.',

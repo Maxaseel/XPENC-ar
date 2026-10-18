@@ -55,8 +55,8 @@ class AccountDetailScreen extends ConsumerWidget {
       error: (error, _) => Scaffold(
         appBar: AppTopBar(),
         body: ErrorView(
-          title: 'Account not found',
-          message: "We couldn't open this account.",
+          title: appTextValue("Account not found"),
+          message: appTextValue("We couldn't open this account."),
           detail: error.toString(),
           onRetry: () => ref.invalidate(accountByIdProvider(accountId)),
         ),
@@ -65,9 +65,9 @@ class AccountDetailScreen extends ConsumerWidget {
         if (account == null) {
           return Scaffold(
             appBar: AppTopBar(),
-            body: const ErrorView(
-              title: 'Account not found',
-              message: 'This account may have been archived or removed.',
+            body:  ErrorView(
+              title: appTextValue("Account not found"),
+              message: appTextValue("This account may have been archived or removed."),
             ),
           );
         }
@@ -106,7 +106,7 @@ class _AccountDetailView extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const AppIcon(Icons.picture_as_pdf_outlined),
-            tooltip: 'Download statement',
+            tooltip: appTextValue("Download statement"),
             onPressed: () => _downloadStatement(context, ref, account),
           ),
         ],
@@ -162,11 +162,11 @@ class _AccountDetailView extends ConsumerWidget {
           ),
         ),
       ],
-      error: (_, _) => const [
+      error: (_, _) =>  [
         SliverToBoxAdapter(
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 24),
-            child: InlineErrorView(message: "Couldn't load history"),
+            child: InlineErrorView(message: appTextValue("Couldn't load history")),
           ),
         ),
       ],
@@ -302,7 +302,7 @@ class _HeaderCard extends ConsumerWidget {
                   if (!_isDebitCard)
                     IconButton(
                       icon: const AppIcon(Icons.edit_outlined, size: 20),
-                      tooltip: 'Correct balance',
+                      tooltip: appTextValue("Correct balance"),
                       visualDensity: VisualDensity.compact,
                       onPressed: () => _correctBalance(context, ref),
                     ),
@@ -433,9 +433,9 @@ class _HeaderCard extends ConsumerWidget {
                 TextField(
                   controller: noteController,
                   textCapitalization: TextCapitalization.sentences,
-                  decoration: const InputDecoration(
-                    labelText: 'Note (optional)',
-                    hintText: 'e.g. forgot to log small cash spends',
+                  decoration:  InputDecoration(
+                    labelText: appTextValue("Note (optional)"),
+                    hintText: appTextValue("e.g. forgot to log small cash spends"),
                   ),
                 ),
                 const SizedBox(height: 8),

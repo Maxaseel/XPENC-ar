@@ -857,7 +857,7 @@ class _ThisMonthCard extends ConsumerWidget {
                         children: [
                           Expanded(
                             child: _MetricTile(
-                              label: 'Income',
+                              label: appTextValue("Income"),
                               amount: t.income,
                               color: AppColors.income,
                               icon: Icons.south_west_rounded,
@@ -866,7 +866,7 @@ class _ThisMonthCard extends ConsumerWidget {
                           const SizedBox(width: 12),
                           Expanded(
                             child: _MetricTile(
-                              label: 'Expense',
+                              label: appTextValue("Expense"),
                               amount: t.expense,
                               color: AppColors.expense,
                               icon: Icons.north_east_rounded,
@@ -1591,10 +1591,10 @@ class _BudgetsSection extends ConsumerWidget {
     final progress = ref.watch(budgetProgressProvider);
 
     if (progress.isEmpty) {
-      return const _NudgeCard(
+      return  _NudgeCard(
         icon: Icons.pie_chart_outline_rounded,
-        title: 'Set a budget',
-        subtitle: 'Cap a category and watch it fill',
+        title: appTextValue("Set a budget"),
+        subtitle: appTextValue("Cap a category and watch it fill"),
         route: '/more/budgets',
       );
     }
@@ -2331,10 +2331,10 @@ class _GoalsSection extends ConsumerWidget {
     }
     final goals = ref.watch(goalProgressListProvider);
     if (goals.isEmpty) {
-      return const _NudgeCard(
+      return  _NudgeCard(
         icon: Icons.savings_outlined,
-        title: 'Start a savings goal',
-        subtitle: 'Put money aside and watch it grow',
+        title: appTextValue("Start a savings goal"),
+        subtitle: appTextValue("Put money aside and watch it grow"),
         route: '/more/goals',
       );
     }
@@ -2388,10 +2388,10 @@ class _LoansSection extends ConsumerWidget {
     }
     final loans = ref.watch(loanProgressListProvider);
     if (loans.isEmpty) {
-      return const _NudgeCard(
+      return  _NudgeCard(
         icon: Icons.request_quote_outlined,
-        title: 'Track a loan',
-        subtitle: 'See what’s left to repay, month by month',
+        title: appTextValue("Track a loan"),
+        subtitle: appTextValue("See what’s left to repay, month by month"),
         route: '/more/goals',
       );
     }
@@ -2453,10 +2453,10 @@ class _ShortcutsSection extends ConsumerWidget {
         .whereType<QuickActionSpec>()
         .toList();
     if (actions.isEmpty) {
-      return const _NudgeCard(
+      return  _NudgeCard(
         icon: Icons.apps_rounded,
-        title: 'Pick your shortcuts',
-        subtitle: 'Choose them in Quick Actions',
+        title: appTextValue("Pick your shortcuts"),
+        subtitle: appTextValue("Choose them in Quick Actions"),
         route: _editRoute,
       );
     }
@@ -2554,10 +2554,10 @@ class _GroupsSection extends ConsumerWidget {
     final groups = ref.watch(groupsProvider).valueOrNull;
     if (groups == null) return const SizedBox.shrink();
     if (groups.isEmpty) {
-      return const _NudgeCard(
+      return  _NudgeCard(
         icon: Icons.groups_outlined,
-        title: 'Split with a group',
-        subtitle: 'Trips, flatmates, dinners — who owes what',
+        title: appTextValue("Split with a group"),
+        subtitle: appTextValue("Trips, flatmates, dinners — who owes what"),
         route: '/persons',
       );
     }
@@ -2570,7 +2570,7 @@ class _GroupsSection extends ConsumerWidget {
     final theme = Theme.of(context);
 
     return _CardSection(
-      title: 'Groups',
+      title: appTextValue("Groups"),
       trailing: TextButton(
         onPressed: () => context.push('/persons'),
         child: Text(Localizations.localeOf(context).languageCode == 'ar' ? 'عرض الكل' : 'See all'),
@@ -2631,10 +2631,10 @@ class _ShoppingSection extends ConsumerWidget {
     final lists = ref.watch(shoppingListsProvider).valueOrNull;
     if (lists == null) return const SizedBox.shrink();
     if (lists.isEmpty) {
-      return const _NudgeCard(
+      return  _NudgeCard(
         icon: Icons.shopping_cart_outlined,
-        title: 'Make a shopping list',
-        subtitle: 'Plan what to buy before you spend',
+        title: appTextValue("Make a shopping list"),
+        subtitle: appTextValue("Plan what to buy before you spend"),
         route: '/more/shopping',
       );
     }
@@ -2648,7 +2648,7 @@ class _ShoppingSection extends ConsumerWidget {
     final theme = Theme.of(context);
 
     return _CardSection(
-      title: 'Shopping lists',
+      title: appTextValue("Shopping lists"),
       trailing: TextButton(
         onPressed: () => context.push('/more/shopping'),
         child: Text(Localizations.localeOf(context).languageCode == 'ar' ? 'عرض الكل' : 'See all'),

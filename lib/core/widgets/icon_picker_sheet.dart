@@ -220,7 +220,7 @@ class _IconPickerSheetState extends ConsumerState<_IconPickerSheet> {
                 autofocus: false,
                 decoration: InputDecoration(
                   prefixIcon: const AppIcon(Icons.search),
-                  hintText: 'Search icons',
+                  hintText: appTextValue("Search icons"),
                   filled: true,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
@@ -334,7 +334,7 @@ class _IconPickerSheetState extends ConsumerState<_IconPickerSheet> {
 
   Widget _addEmojiTile(ThemeData theme) {
     return Tooltip(
-      message: 'Type an emoji',
+      message: appTextValue("Type an emoji"),
       child: GestureDetector(
         key: const Key('iconPickerAddEmoji'),
         onTap: _typeEmoji,

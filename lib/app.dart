@@ -228,7 +228,7 @@ class _XpencAppState extends ConsumerState<XpencApp>
           action: recognizedText == null
               ? null
               : SnackBarAction(
-                  label: 'View text',
+                  label: appTextValue("View text"),
                   onPressed: () => showRecognizedTextDialog(recognizedText),
                 ),
         );
@@ -284,6 +284,7 @@ class _XpencAppState extends ConsumerState<XpencApp>
     // picks this up; see the doc on `_passcodeKnown`.
     final settingsRow = ref.watch(settingsProvider).valueOrNull;
     final locale = ref.watch(localeProvider);
+    AppTextLocale.current = locale;
     if (settingsRow != null && !_passcodeKnown) {
       _passcodeKnown = true;
       _locked = hasUnlockCredential(settingsRow);
@@ -482,7 +483,7 @@ class _FatalError extends StatelessWidget {
       child: Scaffold(
         body: SafeArea(
           child: ErrorView(
-            title: "Couldn't open your data",
+            title: appTextValue("Couldn't open your data"),
             message:
                 'The app could not open its database, so nothing can be shown. '
                 'Your saved data is not lost.',

@@ -35,7 +35,7 @@ class WidgetsScreen extends ConsumerWidget {
           _WidgetCard(
             widget: HomeScreenWidget.balance,
             icon: Icons.account_balance_wallet_outlined,
-            title: 'Balance',
+            title: appTextValue("Balance"),
             description:
                 'Your total balance, plus "+ Expense" / "+ Income" '
                 'shortcuts.',
@@ -45,7 +45,7 @@ class WidgetsScreen extends ConsumerWidget {
           _WidgetCard(
             widget: HomeScreenWidget.budgets,
             icon: Icons.pie_chart_outline_rounded,
-            title: 'Budgets',
+            title: appTextValue("Budgets"),
             description:
                 'Your top budgets, closest to their limit first — up to '
                 '${HomeWidgetService.maxBudgetLines}.',
@@ -55,7 +55,7 @@ class WidgetsScreen extends ConsumerWidget {
           _WidgetCard(
             widget: HomeScreenWidget.quickAdd,
             icon: Icons.flash_on_outlined,
-            title: 'Quick Add',
+            title: appTextValue("Quick Add"),
             description:
                 'Just the "+ Expense" / "+ Income" shortcuts, enlarged — '
                 'for a dedicated one-tap-to-log tile.',
@@ -65,9 +65,9 @@ class WidgetsScreen extends ConsumerWidget {
           _WidgetCard(
             widget: HomeScreenWidget.monthSummary,
             icon: Icons.calendar_month_outlined,
-            title: 'This Month',
+            title: appTextValue("This Month"),
             description:
-                "This month's income and expense totals, side by side.",
+                appTextValue("This month's income and expense totals, side by side."),
             canPin: canPin,
           ),
         ],

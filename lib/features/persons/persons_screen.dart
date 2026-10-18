@@ -66,9 +66,9 @@ class _PersonsScreenState extends ConsumerState<PersonsScreen>
       controller: controller,
       autofocus: true,
       textCapitalization: TextCapitalization.words,
-      decoration: const InputDecoration(
-        labelText: 'Name',
-        hintText: 'e.g. Goa Trip, Flatmates',
+      decoration:  InputDecoration(
+        labelText: appTextValue("Name"),
+        hintText: appTextValue("e.g. Goa Trip, Flatmates"),
       ),
       onSubmitted: (value) => Navigator.of(dialogContext).pop(value.trim()),
     );
@@ -148,20 +148,20 @@ class _PersonsScreenState extends ConsumerState<PersonsScreen>
               actions: [
                 Builder(
                   builder: (button) => IconButton(
-                    tooltip: 'Archived',
+                    tooltip: appTextValue("Archived"),
                     icon: const AppIcon(Icons.inventory_2_outlined),
                     onPressed: () =>
                         pushFromTopBar<void>(button, '/persons/archived'),
                   ),
                 ),
                 IconButton(
-                  tooltip: 'Add person',
+                  tooltip: appTextValue("Add person"),
                   icon: const AppIcon(Icons.person_add_alt_1_outlined),
                   onPressed: () => showAddPersonDialog(context, ref),
                 ),
                 Builder(
                   builder: (button) => IconButton(
-                    tooltip: 'Settled',
+                    tooltip: appTextValue("Settled"),
                     icon: const AppIcon(Icons.task_alt_rounded),
                     onPressed: () =>
                         pushFromTopBar<void>(button, '/persons/settled'),
@@ -201,7 +201,7 @@ class _PersonsScreenState extends ConsumerState<PersonsScreen>
             ? MorphDialogSource(
                 child: Builder(
                   builder: (button) => FloatingActionButton(
-                    tooltip: 'New group',
+                    tooltip: appTextValue("New group"),
                     onPressed: () => _createGroup(context, ref, button: button),
                     // Glass: not a second ➕ stacked on the shell's own.
                     child: AppIcon(
@@ -214,7 +214,7 @@ class _PersonsScreenState extends ConsumerState<PersonsScreen>
               )
             : _tabController.index == 0 && ussdPayEnabled
             ? FloatingActionButton(
-                tooltip: 'Pay without internet',
+                tooltip: appTextValue("Pay without internet"),
                 onPressed: () => context.push('/persons/ussd-pay'),
                 child: const AppIcon(Icons.send_rounded),
               )

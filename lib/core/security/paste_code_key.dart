@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter/services.dart';
 
 import '../widgets/app_surfaces.dart';
+import '../localization/app_text.dart';
 
 /// Reads the system clipboard and hands [onCode] every digit it contains,
 /// with anything else (spaces, "Your code is:", dashes an authenticator app
@@ -35,7 +36,7 @@ class PasteCodeKey extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: const AppIcon(Icons.content_paste_rounded, size: 24),
-      tooltip: 'Paste code',
+      tooltip: appTextValue("Paste code"),
       onPressed: () => pasteDigitsFromClipboard(onCode),
     );
   }

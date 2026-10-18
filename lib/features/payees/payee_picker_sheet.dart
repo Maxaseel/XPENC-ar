@@ -280,7 +280,7 @@ class _PayeePickerSheetState extends ConsumerState<PayeePickerSheet> {
                   }
                 },
                 decoration: InputDecoration(
-                  hintText: 'Search or type a new payee',
+                  hintText: appTextValue("Search or type a new payee"),
                   prefixIcon: const AppIcon(Icons.search_rounded),
                   filled: true,
                   fillColor: theme.colorScheme.surfaceContainerHighest,
@@ -313,13 +313,13 @@ class _PayeePickerSheetState extends ConsumerState<PayeePickerSheet> {
                     _OptionTile(
                       icon: Icons.storefront_outlined,
                       title: 'Use “$typed” as payee',
-                      subtitle: 'A shop, company or anyone',
+                      subtitle: appTextValue("A shop, company or anyone"),
                       onTap: _busy ? null : () => _pop(typed, null),
                     ),
                     _OptionTile(
                       icon: Icons.person_add_alt_1_outlined,
                       title: 'Add “$typed” as a person',
-                      subtitle: 'Shows on their page, not in owe/due',
+                      subtitle: appTextValue("Shows on their page, not in owe/due"),
                       onTap: _busy ? null : () => _addTypedAsPerson(typed),
                     ),
                   ],
@@ -331,7 +331,7 @@ class _PayeePickerSheetState extends ConsumerState<PayeePickerSheet> {
                         Expanded(
                           child: _ContactButton(
                             icon: Icons.person_add_alt_1_outlined,
-                            label: 'New person',
+                            label: appTextValue("New person"),
                             onTap: _busy ? null : _personFromContacts,
                           ),
                         ),
@@ -339,7 +339,7 @@ class _PayeePickerSheetState extends ConsumerState<PayeePickerSheet> {
                         Expanded(
                           child: _ContactButton(
                             icon: Icons.contacts_outlined,
-                            label: 'New payee',
+                            label: appTextValue("New payee"),
                             onTap: _busy ? null : _payeeFromContacts,
                           ),
                         ),
@@ -355,7 +355,7 @@ class _PayeePickerSheetState extends ConsumerState<PayeePickerSheet> {
                           photoPath: p.photoPath,
                         ),
                         title: p.name,
-                        subtitle: 'Person',
+                        subtitle: appTextValue("Person"),
                         selected: widget.selectedPersonId == p.id,
                         onTap: _busy ? null : () => _pop(p.name, p.id),
                       ),

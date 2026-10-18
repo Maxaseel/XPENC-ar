@@ -156,8 +156,8 @@ class PersonsSettingsScreen extends ConsumerWidget {
                     onTap: () => _showMyIdDialog(
                       context,
                       ref,
-                      title: 'My PayPal.me ID',
-                      hintText: 'e.g. yourname',
+                      title: appTextValue("My PayPal.me ID"),
+                      hintText: appTextValue("e.g. yourname"),
                       currentId: myPaypal,
                       onSave: (id) => ref.read(dbProvider).setMyPaypal(id),
                     ),
@@ -196,8 +196,8 @@ class PersonsSettingsScreen extends ConsumerWidget {
                     onTap: () => _showMyIdDialog(
                       context,
                       ref,
-                      title: 'My Venmo username',
-                      hintText: 'e.g. rahul',
+                      title: appTextValue("My Venmo username"),
+                      hintText: appTextValue("e.g. rahul"),
                       currentId: myVenmo,
                       onSave: (id) => ref.read(dbProvider).setMyVenmo(id),
                     ),
@@ -236,7 +236,7 @@ class PersonsSettingsScreen extends ConsumerWidget {
                     onTap: () => _showMyIdDialog(
                       context,
                       ref,
-                      title: 'My Cash App cashtag',
+                      title: appTextValue("My Cash App cashtag"),
                       hintText: r'e.g. $rahul',
                       currentId: myCashapp,
                       onSave: (id) => ref.read(dbProvider).setMyCashapp(id),
@@ -276,8 +276,8 @@ class PersonsSettingsScreen extends ConsumerWidget {
                     onTap: () => _showMyIdDialog(
                       context,
                       ref,
-                      title: 'My Revolut.me username',
-                      hintText: 'e.g. rahul',
+                      title: appTextValue("My Revolut.me username"),
+                      hintText: appTextValue("e.g. rahul"),
                       currentId: myRevolut,
                       onSave: (id) => ref.read(dbProvider).setMyRevolut(id),
                     ),
@@ -439,18 +439,18 @@ class _MyUpiDialogState extends State<_MyUpiDialog> {
             controller: _idController,
             autofocus: true,
             autocorrect: false,
-            decoration: const InputDecoration(
-              labelText: 'UPI ID',
-              hintText: 'e.g. you@okhdfcbank',
+            decoration:  InputDecoration(
+              labelText: appTextValue("UPI ID"),
+              hintText: appTextValue("e.g. you@okhdfcbank"),
             ),
           ),
           const SizedBox(height: 12),
           TextField(
             controller: _nameController,
             textCapitalization: TextCapitalization.words,
-            decoration: const InputDecoration(
-              labelText: 'Your name',
-              hintText: 'Shown to whoever pays your request',
+            decoration:  InputDecoration(
+              labelText: appTextValue("Your name"),
+              hintText: appTextValue("Shown to whoever pays your request"),
             ),
           ),
         ],

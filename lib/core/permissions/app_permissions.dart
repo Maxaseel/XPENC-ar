@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import '../localization/app_text.dart';
 
 /// A runtime permission XPENC asks for, and why — what Settings > Permissions
 /// lists. Each one is optional: the feature that needs it degrades, nothing
@@ -6,17 +7,17 @@ import 'package:flutter/services.dart';
 enum AppPermission {
   notifications(
     androidName: 'android.permission.POST_NOTIFICATIONS',
-    title: 'Notifications',
+    title: appTextValue("Notifications"),
     reason: 'Bill and due-date reminders, quick add from the notification shade',
   ),
   camera(
     androidName: 'android.permission.CAMERA',
-    title: 'Camera',
+    title: appTextValue("Camera"),
     reason: 'Take a photo of a receipt from Add transaction',
   ),
   contacts(
     androidName: 'android.permission.READ_CONTACTS',
-    title: 'Contacts',
+    title: appTextValue("Contacts"),
     reason:
         'Import a phone number and photo when you pick a person from '
         'contacts. Without it, picking still works — name only',

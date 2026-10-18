@@ -206,9 +206,9 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
               focusNode: _nameFocus,
               textCapitalization: TextCapitalization.words,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
-                labelText: 'Name',
-                hintText: 'e.g. Wallet, IPPB Savings',
+              decoration:  InputDecoration(
+                labelText: appTextValue("Name"),
+                hintText: appTextValue("e.g. Wallet, IPPB Savings"),
               ),
             ),
             const SizedBox(height: 20),
@@ -298,7 +298,7 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
     switch (_type) {
       case AccountType.cash:
         return [
-          _amountField(label: 'Opening balance'),
+          _amountField(label: appTextValue("Opening balance")),
           const SizedBox(height: 20),
         ];
 
@@ -308,15 +308,15 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
             controller: _bankNameController,
             focusNode: _bankNameFocus,
             textCapitalization: TextCapitalization.words,
-            decoration: const InputDecoration(
-              labelText: 'Bank name',
-              hintText: 'e.g. India Post Payments Bank (IPPB)',
+            decoration:  InputDecoration(
+              labelText: appTextValue("Bank name"),
+              hintText: appTextValue("e.g. India Post Payments Bank (IPPB)"),
             ),
           ),
           const SizedBox(height: 16),
           _last4Field(),
           const SizedBox(height: 16),
-          _amountField(label: 'Opening balance'),
+          _amountField(label: appTextValue("Opening balance")),
           const SizedBox(height: 20),
         ];
 
@@ -349,7 +349,7 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
             'bank.',
           ),
           const SizedBox(height: 16),
-          _amountField(label: 'Outstanding (optional)'),
+          _amountField(label: appTextValue("Outstanding (optional)")),
           const SizedBox(height: 20),
         ];
 
@@ -362,7 +362,7 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
             'down, just like Cash.',
           ),
           const SizedBox(height: 16),
-          _amountField(label: 'Starting balance'),
+          _amountField(label: appTextValue("Starting balance")),
           const SizedBox(height: 20),
         ];
 
@@ -382,7 +382,7 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
         'you owe). Paying the bill is a Transfer from your bank.',
       ),
       const SizedBox(height: 16),
-      _amountField(label: 'Outstanding (optional)'),
+      _amountField(label: appTextValue("Outstanding (optional)")),
       const SizedBox(height: 16),
     ];
   }
@@ -410,7 +410,7 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
           child: DropdownButtonFormField<int>(
             initialValue: _linkedAccountId,
             isExpanded: true,
-            decoration: const InputDecoration(labelText: 'Linked bank account'),
+            decoration:  InputDecoration(labelText: appTextValue("Linked bank account")),
             items: [
               for (final b in banks)
                 DropdownMenuItem(value: b.id, child: Text(b.name)),
@@ -495,8 +495,8 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
       keyboardType: TextInputType.number,
       maxLength: 4,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-      decoration: const InputDecoration(
-        labelText: 'Last 4 digits (optional)',
+      decoration:  InputDecoration(
+        labelText: appTextValue("Last 4 digits (optional)"),
         counterText: '',
       ),
     );

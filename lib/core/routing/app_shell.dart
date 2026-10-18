@@ -1264,13 +1264,13 @@ class _TopBar extends ConsumerWidget implements PreferredSizeWidget {
                 // that trailing slot there instead.
                 if (currentIndex == 2)
                   _TonalIconButton(
-                    tooltip: 'Settled',
+                    tooltip: appTextValue("Settled"),
                     icon: const AppIcon(Icons.task_alt_rounded),
                     onPressed: () => context.push('/persons/settled'),
                   )
                 else
                   _TonalIconButton(
-                    tooltip: 'Review Inbox',
+                    tooltip: appTextValue("Review Inbox"),
                     icon: const AppIcon(Icons.inbox_outlined),
                     onPressed: () => context.push('/inbox'),
                   ),
@@ -1304,13 +1304,13 @@ class _TopBar extends ConsumerWidget implements PreferredSizeWidget {
       case 2: // Persons
         return [
           _TonalIconButton(
-            tooltip: 'Archived',
+            tooltip: appTextValue("Archived"),
             icon: const AppIcon(Icons.inventory_2_outlined),
             onPressed: () => _pushFromTop(context, '/persons/archived'),
           ),
           const SizedBox(width: 4),
           _TonalIconButton(
-            tooltip: 'Add person',
+            tooltip: appTextValue("Add person"),
             icon: const AppIcon(Icons.person_add_alt_1_outlined),
             onPressed: () => showAddPersonDialog(context, ref),
           ),
@@ -1319,14 +1319,14 @@ class _TopBar extends ConsumerWidget implements PreferredSizeWidget {
       case 4: // Calendar
         return [
           _TonalIconButton(
-            tooltip: 'Today',
+            tooltip: appTextValue("Today"),
             icon: const AppIcon(Icons.today_rounded),
             onPressed: () =>
                 ref.read(calendarGoToTodaySignalProvider.notifier).state++,
           ),
           const SizedBox(width: 4),
           _TonalIconButton(
-            tooltip: 'New reminder',
+            tooltip: appTextValue("New reminder"),
             icon: const AppIcon(Icons.add_rounded),
             onPressed: () =>
                 ref.read(calendarNewReminderSignalProvider.notifier).state++,
@@ -1455,7 +1455,7 @@ class _DashboardMonthButton extends ConsumerWidget {
             HapticFeedback.selectionClick();
             _glassMonthPicker.value = !_glassMonthPicker.value;
           },
-          child: Tooltip(message: 'Change month', child: label),
+          child: Tooltip(message: appTextValue("Change month"), child: label),
         ),
       );
     }
@@ -1463,7 +1463,7 @@ class _DashboardMonthButton extends ConsumerWidget {
       return SizedBox(
         height: 42,
         child: GlassButton(
-          tooltip: 'Change month',
+          tooltip: appTextValue("Change month"),
           backdrop: false,
           onPressed: pick,
           child: Center(widthFactor: 1, child: label),
@@ -1476,7 +1476,7 @@ class _DashboardMonthButton extends ConsumerWidget {
       child: InkWell(
         customBorder: const StadiumBorder(),
         onTap: pick,
-        child: Tooltip(message: 'Change month', child: label),
+        child: Tooltip(message: appTextValue("Change month"), child: label),
       ),
     );
   }
@@ -1499,7 +1499,7 @@ class _TransactionsBarActions extends ConsumerWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         _TonalIconButton(
-          tooltip: 'Filters',
+          tooltip: appTextValue("Filters"),
           icon: AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
             transitionBuilder: (child, animation) =>

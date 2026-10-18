@@ -35,12 +35,12 @@ class AutoScreen extends ConsumerWidget {
             title: const Text.localized('Auto'),
             actions: [GlassActionGroup(children: [
               IconButton(
-                tooltip: 'Archived auto rules',
+                tooltip: appTextValue("Archived auto rules"),
                 icon: const AppIcon(Icons.inventory_2_outlined),
                 onPressed: () => context.push('/more/auto/archived'),
               ),
               IconButton(
-                tooltip: 'New auto rule',
+                tooltip: appTextValue("New auto rule"),
                 icon: const AppIcon(Icons.add_rounded),
                 onPressed: () => showRecurringRuleSheet(context),
               ),

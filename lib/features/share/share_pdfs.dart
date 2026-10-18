@@ -11,6 +11,7 @@ import '../../data/database.dart';
 import '../../data/tables.dart';
 import 'pdf_kit.dart';
 import 'share_models.dart';
+import '../../core/localization/app_text.dart';
 
 /// PDFs meant to be *sent* — see [PdfKit] for the shared look.
 
@@ -314,7 +315,7 @@ Future<Uint8List> buildPersonStatementPdf(
             ],
           ),
         kit.callout(
-          label: 'Balance today',
+          label: appTextValue("Balance today"),
           note: owner.balanceLine(s.balance, p.name),
           value: m(s.balance.abs),
           color: _balanceColor(s.balance),

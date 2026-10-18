@@ -112,8 +112,8 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
           autofocus: true,
           maxLength: 60,
           textCapitalization: TextCapitalization.words,
-          decoration: const InputDecoration(
-            labelText: 'Template name',
+          decoration:  InputDecoration(
+            labelText: appTextValue("Template name"),
             counterText: '',
           ),
           onSubmitted: (v) => Navigator.of(dialogContext).pop(v.trim()),
@@ -264,12 +264,12 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
         hasScrollBody: false,
         child: Center(child: CircularProgressIndicator()),
       ),
-      error: (_, _) => const SliverFillRemaining(
+      error: (_, _) =>  SliverFillRemaining(
         hasScrollBody: false,
         child: _EmptyState(
           icon: Icons.error_outline_rounded,
-          title: 'Could not load transactions',
-          message: 'Something went wrong reading your ledger.',
+          title: appTextValue("Could not load transactions"),
+          message: appTextValue("Something went wrong reading your ledger."),
         ),
       ),
       data: (_) {
@@ -277,23 +277,23 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
           return SliverFillRemaining(
             hasScrollBody: false,
             child: linkedOnly
-                ? const _EmptyState(
+                ?  _EmptyState(
                     icon: Icons.link_off_rounded,
-                    title: 'No linked transactions',
+                    title: appTextValue("No linked transactions"),
                     message:
                         "Open a transaction and tap the link icon to connect "
                         'it to another — they\'ll show up here.',
                   )
                 : searchOrFilterActive
-                ? const _EmptyState(
+                ?  _EmptyState(
                     icon: Icons.search_off_rounded,
-                    title: 'Nothing matches',
-                    message: 'Try a different search or filter.',
+                    title: appTextValue("Nothing matches"),
+                    message: appTextValue("Try a different search or filter."),
                   )
-                : const _EmptyState(
+                :  _EmptyState(
                     icon: Icons.receipt_long_outlined,
-                    title: 'No transactions yet',
-                    message: 'Tap ➕ to record your first one.',
+                    title: appTextValue("No transactions yet"),
+                    message: appTextValue("Tap ➕ to record your first one."),
                   ),
           );
         }
@@ -393,7 +393,7 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
                 GlassActionGroup(
                   children: [
                     IconButton(
-                      tooltip: 'Filters',
+                      tooltip: appTextValue("Filters"),
                       icon: Badge(
                         isLabelVisible: advanced.count > 0,
                         label: Text('${advanced.count}'),
@@ -1606,7 +1606,7 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
                 textInputAction: TextInputAction.search,
                 decoration: InputDecoration(
                   isDense: true,
-                  hintText: 'Search note, payee, category or account',
+                  hintText: appTextValue("Search note, payee, category or account"),
                   prefixIcon: const AppIcon(Icons.search_rounded),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),

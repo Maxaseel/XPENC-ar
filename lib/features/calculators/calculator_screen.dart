@@ -86,17 +86,17 @@ class _DepositCalculatorScreenState extends State<DepositCalculatorScreen>
           label: isFd ? 'Deposit amount' : 'Monthly deposit',
           prefix: MoneyFormat.inputPrefix,
         ),
-        CalcField(controller: _rate, label: 'Interest rate', suffix: '% p.a.'),
+        CalcField(controller: _rate, label: appTextValue("Interest rate"), suffix: '% p.a.'),
         CalcFieldPair(
           CalcField(
             controller: _years,
-            label: 'Years',
+            label: appTextValue("Years"),
             suffix: 'yrs',
             decimal: false,
           ),
           CalcField(
             controller: _months,
-            label: 'Months',
+            label: appTextValue("Months"),
             suffix: 'mo',
             decimal: false,
           ),
@@ -120,7 +120,7 @@ class _DepositCalculatorScreenState extends State<DepositCalculatorScreen>
         else
           const SizedBox(height: 4),
         CalcResultCard(
-          label: 'Maturity value',
+          label: appTextValue("Maturity value"),
           value: result.maturity,
           format: MoneyFormat.symbol,
           sub: months <= 0 ? 'Enter a tenure' : 'After ${_tenure(months)}',
@@ -194,7 +194,7 @@ class _SipCalculatorScreenState extends State<SipCalculatorScreen>
           );
 
     return CalculatorScaffold(
-      title: 'SIP & Lumpsum',
+      title: appTextValue("SIP & Lumpsum"),
       footnote:
           'Market returns are not guaranteed. This assumes the same return '
           'every year, which real funds never deliver.',
@@ -210,24 +210,24 @@ class _SipCalculatorScreenState extends State<SipCalculatorScreen>
         if (isSip)
           CalcField(
             controller: _amount,
-            label: 'Monthly investment',
+            label: appTextValue("Monthly investment"),
             prefix: MoneyFormat.inputPrefix,
           )
         else
           CalcField(
             controller: _lumpsum,
-            label: 'One-time investment',
+            label: appTextValue("One-time investment"),
             prefix: MoneyFormat.inputPrefix,
           ),
         CalcFieldPair(
           CalcField(
             controller: _rate,
-            label: 'Expected return',
+            label: appTextValue("Expected return"),
             suffix: '% p.a.',
           ),
           CalcField(
             controller: _years,
-            label: 'Period',
+            label: appTextValue("Period"),
             suffix: 'yrs',
             decimal: false,
           ),
@@ -235,13 +235,13 @@ class _SipCalculatorScreenState extends State<SipCalculatorScreen>
         if (isSip)
           CalcField(
             controller: _stepUp,
-            label: 'Yearly step-up (optional)',
+            label: appTextValue("Yearly step-up (optional)"),
             suffix: '%',
             helper: 'Raise your SIP by this much every year',
           ),
         const SizedBox(height: 4),
         CalcResultCard(
-          label: 'Estimated value',
+          label: appTextValue("Estimated value"),
           value: result.maturity,
           format: MoneyFormat.symbol,
           parts: [
@@ -283,24 +283,24 @@ class _PpfCalculatorScreenState extends State<PpfCalculatorScreen>
     final overLimit = deposit > kPpfYearlyLimit;
 
     return CalculatorScaffold(
-      title: 'PPF',
+      title: appTextValue("PPF"),
       footnote:
           'Estimates only. The PPF rate is set by the government every '
           'quarter; this assumes today\'s rate for the whole period.',
       children: [
         CalcField(
           controller: _deposit,
-          label: 'Yearly deposit',
+          label: appTextValue("Yearly deposit"),
           prefix: '₹ ',
           helper: overLimit
               ? 'PPF allows at most ${formatInr(kPpfYearlyLimit)} a year'
               : 'Minimum ₹500, maximum ${formatInr(kPpfYearlyLimit)}',
         ),
         CalcFieldPair(
-          CalcField(controller: _rate, label: 'Interest rate', suffix: '%'),
+          CalcField(controller: _rate, label: appTextValue("Interest rate"), suffix: '%'),
           CalcField(
             controller: _years,
-            label: 'Period',
+            label: appTextValue("Period"),
             suffix: 'yrs',
             decimal: false,
             helper: '15, then +5 blocks',
@@ -308,7 +308,7 @@ class _PpfCalculatorScreenState extends State<PpfCalculatorScreen>
         ),
         const SizedBox(height: 4),
         CalcResultCard(
-          label: 'Maturity value',
+          label: appTextValue("Maturity value"),
           value: ppf.result.maturity,
           format: formatInr,
           sub: 'Tax-free at maturity (EEE)',
@@ -366,7 +366,7 @@ class _GstCalculatorScreenState extends State<GstCalculatorScreen>
     final half = Money.fromPaise((gst.tax.paise / 2).round());
 
     return CalculatorScaffold(
-      title: 'GST',
+      title: appTextValue("GST"),
       children: [
         CalcModeToggle(
           value: _inclusive,
@@ -378,7 +378,7 @@ class _GstCalculatorScreenState extends State<GstCalculatorScreen>
           label: _inclusive ? 'Price including GST' : 'Price before GST',
           prefix: '₹ ',
         ),
-        CalcField(controller: _rate, label: 'GST rate', suffix: '%'),
+        CalcField(controller: _rate, label: appTextValue("GST rate"), suffix: '%'),
         Padding(
           padding: const EdgeInsets.only(bottom: 16),
           child: Wrap(

@@ -179,7 +179,7 @@ class MoneyText extends StatelessWidget {
       // the figure doesn't.
       final sigma = (textStyle?.fontSize ?? 16) * 0.32;
       return Semantics(
-        label: 'Amount hidden',
+        label: appTextValue("Amount hidden"),
         child: ExcludeSemantics(
           child: ImageFiltered(
             imageFilter: ui.ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),

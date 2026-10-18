@@ -303,7 +303,7 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
                       right: -4,
                       top: -4,
                       child: Tooltip(
-                        message: 'Remove photo',
+                        message: appTextValue("Remove photo"),
                         child: InkWell(
                           onTap: () => setState(() => _photoPath = null),
                           customBorder: const CircleBorder(),
@@ -337,8 +337,8 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
               textCapitalization: TextCapitalization.words,
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
-                labelText: 'Name',
-                hintText: 'e.g. Yash',
+                labelText: appTextValue("Name"),
+                hintText: appTextValue("e.g. Yash"),
                 suffixIcon: IconButton(
                   tooltip: widget.person == null
                       ? 'Pick from contacts'
@@ -370,9 +370,9 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
                   controller: _upiIdController,
                   textInputAction: TextInputAction.next,
                   autocorrect: false,
-                  decoration: const InputDecoration(
-                    labelText: 'UPI ID',
-                    hintText: 'e.g. rahul@okhdfcbank',
+                  decoration:  InputDecoration(
+                    labelText: appTextValue("UPI ID"),
+                    hintText: appTextValue("e.g. rahul@okhdfcbank"),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -382,9 +382,9 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
                   controller: _paypalController,
                   textInputAction: TextInputAction.next,
                   autocorrect: false,
-                  decoration: const InputDecoration(
-                    labelText: 'PayPal.me ID',
-                    hintText: 'e.g. rahul',
+                  decoration:  InputDecoration(
+                    labelText: appTextValue("PayPal.me ID"),
+                    hintText: appTextValue("e.g. rahul"),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -394,9 +394,9 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
                   controller: _venmoController,
                   textInputAction: TextInputAction.next,
                   autocorrect: false,
-                  decoration: const InputDecoration(
-                    labelText: 'Venmo username',
-                    hintText: 'e.g. rahul (US)',
+                  decoration:  InputDecoration(
+                    labelText: appTextValue("Venmo username"),
+                    hintText: appTextValue("e.g. rahul (US)"),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -406,8 +406,8 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
                   controller: _cashappController,
                   textInputAction: TextInputAction.next,
                   autocorrect: false,
-                  decoration: const InputDecoration(
-                    labelText: 'Cash App cashtag',
+                  decoration:  InputDecoration(
+                    labelText: appTextValue("Cash App cashtag"),
                     hintText: r'e.g. $rahul (US)',
                   ),
                 ),
@@ -418,9 +418,9 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
                   controller: _revolutController,
                   textInputAction: TextInputAction.next,
                   autocorrect: false,
-                  decoration: const InputDecoration(
-                    labelText: 'Revolut.me username',
-                    hintText: 'e.g. rahul (Europe)',
+                  decoration:  InputDecoration(
+                    labelText: appTextValue("Revolut.me username"),
+                    hintText: appTextValue("e.g. rahul (Europe)"),
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -432,9 +432,9 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
               controller: _phoneController,
               keyboardType: TextInputType.phone,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
-                labelText: 'Phone',
-                hintText: 'Optional',
+              decoration:  InputDecoration(
+                labelText: appTextValue("Phone"),
+                hintText: appTextValue("Optional"),
               ),
             ),
             const SizedBox(height: 16),
@@ -442,9 +442,9 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
             TextField(
               controller: _contactController,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
-                labelText: 'Contact',
-                hintText: 'Any other way to reach them — optional',
+              decoration:  InputDecoration(
+                labelText: appTextValue("Contact"),
+                hintText: appTextValue("Any other way to reach them — optional"),
               ),
             ),
             const SizedBox(height: 16),
@@ -453,9 +453,9 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
               controller: _noteController,
               textInputAction: TextInputAction.done,
               maxLines: 3,
-              decoration: const InputDecoration(
-                labelText: 'Note',
-                hintText: 'Optional',
+              decoration:  InputDecoration(
+                labelText: appTextValue("Note"),
+                hintText: appTextValue("Optional"),
               ),
             ),
             const SizedBox(height: 24),

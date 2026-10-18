@@ -64,7 +64,7 @@ class BottomNavSettingsScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 20),
-          _PinnedRow(label: 'Dashboard'),
+          _PinnedRow(label: appTextValue("Dashboard")),
           const SizedBox(height: 8),
           _SlotTile(
             label: bottomNavCatalogLabels[leftId]!,
@@ -78,7 +78,7 @@ class BottomNavSettingsScreen extends ConsumerWidget {
             onTap: () => pick(false),
           ),
           const SizedBox(height: 8),
-          _PinnedRow(label: 'More'),
+          _PinnedRow(label: appTextValue("More")),
           const SizedBox(height: 20),
           AppCard(
             margin: EdgeInsets.zero,

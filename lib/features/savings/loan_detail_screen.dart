@@ -53,12 +53,12 @@ class LoanDetailScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const AppIcon(Icons.edit_outlined),
-            tooltip: 'Edit',
+            tooltip: appTextValue("Edit"),
             onPressed: () => openLoanEditor(context, loan),
           ),
           IconButton(
             icon: const AppIcon(Icons.more_vert_rounded),
-            tooltip: 'More',
+            tooltip: appTextValue("More"),
             onPressed: () => _showActions(context, ref, loan),
           ),
         ],
@@ -292,7 +292,7 @@ class LoanDetailScreen extends ConsumerWidget {
             categoryMap: categoryMap,
             ownIds: {accountId},
             currency: null,
-            emptyMessage: 'No payments yet.',
+            emptyMessage: appTextValue("No payments yet."),
           ),
         ],
       ),
@@ -778,7 +778,7 @@ class _LoanPaymentSheetState extends ConsumerState<_LoanPaymentSheet> {
                       ),
                     ),
                     IconButton(
-                      tooltip: 'Change time',
+                      tooltip: appTextValue("Change time"),
                       icon: AppIcon(
                         Icons.access_time_rounded,
                         color: theme.colorScheme.onSurfaceVariant,
@@ -793,7 +793,7 @@ class _LoanPaymentSheetState extends ConsumerState<_LoanPaymentSheet> {
             DropdownButtonFormField<int>(
               initialValue: _sourceAccountId,
               isExpanded: true,
-              decoration: const InputDecoration(labelText: 'From'),
+              decoration:  InputDecoration(labelText: appTextValue("From")),
               items: [
                 for (final a in accounts)
                   DropdownMenuItem(value: a.id, child: Text(a.name)),
@@ -805,14 +805,14 @@ class _LoanPaymentSheetState extends ConsumerState<_LoanPaymentSheet> {
               controller: _amountController,
               group: _amountGroup,
               autofocus: true,
-              label: 'Amount',
+              label: appTextValue("Amount"),
               yieldTo: const [],
             ),
             const SizedBox(height: 16),
             AmountKeypadField(
               controller: _interestController,
               group: _amountGroup,
-              label: 'Interest (optional)',
+              label: appTextValue("Interest (optional)"),
               hintText: '0.00',
               yieldTo: const [],
             ),

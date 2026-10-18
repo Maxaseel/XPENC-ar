@@ -104,7 +104,7 @@ class ThisMonthSection extends ConsumerWidget {
               children: [
                 Expanded(
                   child: StatTile(
-                    label: 'Income',
+                    label: appTextValue("Income"),
                     value: MoneyFormat.symbol(totals.income),
                     color: AppColors.income,
                   ),
@@ -112,7 +112,7 @@ class ThisMonthSection extends ConsumerWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: StatTile(
-                    label: 'Expense',
+                    label: appTextValue("Expense"),
                     value: MoneyFormat.symbol(totals.expense),
                     color: AppColors.expense,
                   ),
@@ -121,7 +121,7 @@ class ThisMonthSection extends ConsumerWidget {
             ),
             const SizedBox(height: 12),
             StatTile(
-              label: 'Net',
+              label: appTextValue("Net"),
               value: net.isZero
                   ? MoneyFormat.symbol(net)
                   : MoneyFormat.signed(net),
@@ -463,16 +463,16 @@ class HighlightsSection extends ConsumerWidget {
             NctVeil(
               active: biggest?.isNct ?? false,
               child: HighlightRow(
-                label: 'Biggest expense',
+                label: appTextValue("Biggest expense"),
                 value: biggestValue,
               ),
             ),
             HighlightRow(
-              label: 'Average daily spend',
+              label: appTextValue("Average daily spend"),
               value: MoneyFormat.symbol(avgDaily),
             ),
-            HighlightRow(label: 'Transactions', value: '${periodTxs.length}'),
-            HighlightRow(label: 'Top category', value: topValue),
+            HighlightRow(label: appTextValue("Transactions"), value: '${periodTxs.length}'),
+            HighlightRow(label: appTextValue("Top category"), value: topValue),
           ],
         );
       },

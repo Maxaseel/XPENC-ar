@@ -44,7 +44,7 @@ Future<ShareFormat?> pickShareFormat(
 
 /// Share one transaction as a receipt.
 Future<void> shareTransaction(BuildContext context, TransactionRow t) async {
-  final format = await pickShareFormat(context, title: 'Share transaction');
+  final format = await pickShareFormat(context, title: appTextValue("Share transaction"));
   if (format == null || !context.mounted) return;
   final data = TransactionShare.resolve(
     ProviderScope.containerOf(context, listen: false),
@@ -58,7 +58,7 @@ Future<void> shareTransaction(BuildContext context, TransactionRow t) async {
     await _openImage(
       context,
       ShareImageScreen(
-        title: 'Share transaction',
+        title: appTextValue("Share transaction"),
         fileStem: stem,
         subject: subject,
         secure: t.isNct,

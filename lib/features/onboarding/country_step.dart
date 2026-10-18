@@ -545,10 +545,10 @@ class _SearchField extends StatelessWidget {
       onChanged: onChanged,
       textInputAction: TextInputAction.search,
       decoration: InputDecoration(
-        hintText: 'Search country or currency',
+        hintText: appTextValue("Search country or currency"),
         prefixIcon: searching
             ? IconButton(
-                tooltip: 'Back',
+                tooltip: appTextValue("Back"),
                 onPressed: onExit,
                 icon: const AppIcon(Icons.arrow_back_rounded),
               )
@@ -556,7 +556,7 @@ class _SearchField extends StatelessWidget {
         suffixIcon: controller.text.isEmpty
             ? null
             : IconButton(
-                tooltip: 'Clear',
+                tooltip: appTextValue("Clear"),
                 onPressed: () {
                   controller.clear();
                   onChanged('');

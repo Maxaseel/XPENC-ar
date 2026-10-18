@@ -422,7 +422,7 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
               child: Center(child: CircularProgressIndicator()),
             ),
             error: (_, _) =>
-                const InlineErrorView(message: "Couldn't load backups"),
+                 InlineErrorView(message: appTextValue("Couldn't load backups")),
             data: (backups) {
               if (backups.isEmpty) {
                 return Padding(
@@ -820,8 +820,8 @@ class _AutoBackupSettingsSheetState
                 TextField(
                   controller: _cooldownCtrl,
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'Minutes between backups',
+                  decoration:  InputDecoration(
+                    labelText: appTextValue("Minutes between backups"),
                   ),
                   onChanged: (_) => setState(() {}),
                 ),
@@ -850,7 +850,7 @@ class _AutoBackupSettingsSheetState
                       child: TextField(
                         controller: _daysCtrl,
                         keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(labelText: 'Days'),
+                        decoration:  InputDecoration(labelText: appTextValue("Days")),
                         onChanged: (_) => setState(() {}),
                       ),
                     ),
@@ -859,7 +859,7 @@ class _AutoBackupSettingsSheetState
                       child: TextField(
                         controller: _hoursCtrl,
                         keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(labelText: 'Hours'),
+                        decoration:  InputDecoration(labelText: appTextValue("Hours")),
                         onChanged: (_) => setState(() {}),
                       ),
                     ),
@@ -945,8 +945,8 @@ class _AutoBackupSettingsSheetState
                 TextField(
                   controller: _retentionCountCtrl,
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'Number of backups to keep',
+                  decoration:  InputDecoration(
+                    labelText: appTextValue("Number of backups to keep"),
                   ),
                   onChanged: (_) => setState(() {}),
                 ),

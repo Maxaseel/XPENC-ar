@@ -187,7 +187,7 @@ class PendingCard extends ConsumerWidget {
       SnackBar(
         content: const Text.localized('Dismissed'),
         action: SnackBarAction(
-          label: 'Undo',
+          label: appTextValue("Undo"),
           onPressed: () =>
               db.setPendingStatus(pending.id, PendingStatus.pending),
         ),
@@ -593,7 +593,7 @@ class _ApproveSheetState extends ConsumerState<_ApproveSheet> {
               TextField(
                 controller: _payeeController,
                 textCapitalization: TextCapitalization.words,
-                decoration: const InputDecoration(hintText: 'Who was this with?'),
+                decoration:  InputDecoration(hintText: appTextValue("Who was this with?")),
                 // Keeps the "remember this merchant" tile below in sync with
                 // what's actually about to be posted as it's typed.
                 onChanged: (_) => setState(() {}),

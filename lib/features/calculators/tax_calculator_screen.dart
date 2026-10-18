@@ -27,14 +27,14 @@ class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
     return CalculatorScaffold(
-      title: 'Income Tax',
+      title: appTextValue("Income Tax"),
       footnote: _country.footnote,
       children: [
         DropdownButtonFormField<TaxCountry>(
           initialValue: _country,
           isExpanded: true,
-          decoration: const InputDecoration(
-            labelText: 'Country',
+          decoration:  InputDecoration(
+            labelText: appTextValue("Country"),
             border: OutlineInputBorder(),
           ),
           items: [
@@ -127,10 +127,10 @@ class _IndiaTaxBodyState extends State<_IndiaTaxBody> with CalculatorFormMixin {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const CalcHeading('Income (yearly)'),
-        CalcField(controller: _salary, label: 'Salary / pension', prefix: '₹ '),
+        CalcField(controller: _salary, label: appTextValue("Salary / pension"), prefix: '₹ '),
         CalcField(
           controller: _other,
-          label: 'Other income',
+          label: appTextValue("Other income"),
           prefix: '₹ ',
           helper: 'Interest, rent, freelance, etc.',
         ),
@@ -169,31 +169,31 @@ class _IndiaTaxBodyState extends State<_IndiaTaxBody> with CalculatorFormMixin {
         const CalcHeading('Old regime deductions'),
         CalcField(
           controller: _sec80c,
-          label: '80C (PF, ELSS, LIC, PPF…)',
+          label: appTextValue("80C (PF, ELSS, LIC, PPF…)"),
           prefix: '₹ ',
           helper: 'Up to ₹1,50,000',
         ),
         CalcField(
           controller: _sec80d,
-          label: '80D (health insurance)',
+          label: appTextValue("80D (health insurance)"),
           prefix: '₹ ',
         ),
-        CalcField(controller: _hra, label: 'HRA exemption', prefix: '₹ '),
+        CalcField(controller: _hra, label: appTextValue("HRA exemption"), prefix: '₹ '),
         CalcField(
           controller: _homeLoan,
-          label: 'Home loan interest (24b)',
+          label: appTextValue("Home loan interest (24b)"),
           prefix: '₹ ',
           helper: 'Up to ₹2,00,000 for a self-occupied home',
         ),
         CalcField(
           controller: _nps,
-          label: 'NPS 80CCD(1B)',
+          label: appTextValue("NPS 80CCD(1B)"),
           prefix: '₹ ',
           helper: 'Up to ₹50,000',
         ),
         CalcField(
           controller: _otherDed,
-          label: 'Other deductions',
+          label: appTextValue("Other deductions"),
           prefix: '₹ ',
           helper: '80E, 80G, 80TTA, professional tax…',
         ),

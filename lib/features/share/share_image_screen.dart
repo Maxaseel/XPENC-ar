@@ -147,15 +147,15 @@ class _ShareImageScreenState extends State<ShareImageScreen> {
                       children: [
                         SegmentedButton<ShareCardTone>(
                           showSelectedIcon: false,
-                          segments: const [
+                          segments:  [
                             ButtonSegment(
                               value: ShareCardTone.dark,
-                              tooltip: 'Dark card',
+                              tooltip: appTextValue("Dark card"),
                               icon: AppIcon(Icons.dark_mode_outlined),
                             ),
                             ButtonSegment(
                               value: ShareCardTone.light,
-                              tooltip: 'Light card',
+                              tooltip: appTextValue("Light card"),
                               icon: AppIcon(Icons.light_mode_outlined),
                             ),
                           ],

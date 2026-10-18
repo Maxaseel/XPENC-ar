@@ -62,7 +62,7 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen>
         actions: [
           IconButton(
             icon: const AppIcon(Icons.dashboard_customize_outlined),
-            tooltip: 'Templates',
+            tooltip: appTextValue("Templates"),
             onPressed: () => context.push('/more/categories/templates'),
           ),
         ],
@@ -82,7 +82,7 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen>
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: 'New category',
+        tooltip: appTextValue("New category"),
         onPressed: () {
           final kind = _tabController.index == 0
               ? CategoryKind.expense
@@ -108,10 +108,10 @@ class _CategoryList extends ConsumerWidget {
 
     return categoriesAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (_, _) => const Center(
+      error: (_, _) =>  Center(
         child: Padding(
           padding: EdgeInsets.all(24),
-          child: InlineErrorView(message: "Couldn't load categories"),
+          child: InlineErrorView(message: appTextValue("Couldn't load categories")),
         ),
       ),
       data: (categories) {
@@ -248,7 +248,7 @@ class _CategoryTile extends ConsumerWidget {
           if (!isChild)
             IconButton(
               icon: const AppIcon(Icons.add),
-              tooltip: 'Add subcategory',
+              tooltip: appTextValue("Add subcategory"),
               visualDensity: VisualDensity.compact,
               onPressed: () => _openCategoryEditor(
                 context,
@@ -258,7 +258,7 @@ class _CategoryTile extends ConsumerWidget {
             ),
           IconButton(
             icon: const AppIcon(Icons.edit_outlined),
-            tooltip: 'Edit',
+            tooltip: appTextValue("Edit"),
             visualDensity: VisualDensity.compact,
             onPressed: () => _openCategoryEditor(
               context,
@@ -268,7 +268,7 @@ class _CategoryTile extends ConsumerWidget {
           ),
           IconButton(
             icon: const AppIcon(Icons.archive_outlined),
-            tooltip: 'Archive',
+            tooltip: appTextValue("Archive"),
             visualDensity: VisualDensity.compact,
             onPressed: () => _confirmArchive(context, ref, category),
           ),
@@ -505,9 +505,9 @@ class _CategoryEditorSheetState extends ConsumerState<_CategoryEditorSheet> {
               autofocus: !_isEdit,
               textCapitalization: TextCapitalization.words,
               maxLength: 40,
-              decoration: const InputDecoration(
-                labelText: 'Name',
-                hintText: 'e.g. Groceries, Salary',
+              decoration:  InputDecoration(
+                labelText: appTextValue("Name"),
+                hintText: appTextValue("e.g. Groceries, Salary"),
                 counterText: '',
               ),
               onSubmitted: (_) => _save(),
@@ -557,7 +557,7 @@ class _CategoryEditorSheetState extends ConsumerState<_CategoryEditorSheet> {
     if (hasChildren) {
       return wrap(
         InputDecorator(
-          decoration: const InputDecoration(labelText: 'Parent category'),
+          decoration:  InputDecoration(labelText: appTextValue("Parent category")),
           child: Text.localized('Top-level — it has subcategories',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
@@ -582,9 +582,9 @@ class _CategoryEditorSheetState extends ConsumerState<_CategoryEditorSheet> {
       DropdownButtonFormField<int?>(
         initialValue: value,
         isExpanded: true,
-        decoration: const InputDecoration(
-          labelText: 'Parent category',
-          helperText: 'Optional — nest this under another category',
+        decoration:  InputDecoration(
+          labelText: appTextValue("Parent category"),
+          helperText: appTextValue("Optional — nest this under another category"),
         ),
         items: [
           const DropdownMenuItem<int?>(

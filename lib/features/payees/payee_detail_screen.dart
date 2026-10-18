@@ -54,7 +54,7 @@ class PayeeDetailScreen extends ConsumerWidget {
               if (pid == null)
                 IconButton(
                   icon: const AppIcon(Icons.edit_outlined),
-                  tooltip: 'Rename',
+                  tooltip: appTextValue("Rename"),
                   onPressed: () => _renameDialog(context, ref),
                 )
               else
@@ -201,10 +201,10 @@ class PayeeDetailScreen extends ConsumerWidget {
           controller: controller,
           autofocus: true,
           textCapitalization: TextCapitalization.words,
-          decoration: const InputDecoration(
-            labelText: 'Name',
+          decoration:  InputDecoration(
+            labelText: appTextValue("Name"),
             helperText:
-                'Renaming to an existing payee merges the two together.',
+                appTextValue("Renaming to an existing payee merges the two together."),
           ),
           onSubmitted: (value) => Navigator.of(dialogContext).pop(value.trim()),
         ),
@@ -419,7 +419,7 @@ class _ConnectPersonSheetState extends ConsumerState<_ConnectPersonSheet> {
               child: TextField(
                 onChanged: (v) => setState(() => _query = v),
                 decoration: InputDecoration(
-                  hintText: 'Search people',
+                  hintText: appTextValue("Search people"),
                   prefixIcon: const AppIcon(Icons.search_rounded),
                   filled: true,
                   fillColor: theme.colorScheme.surfaceContainerHighest,

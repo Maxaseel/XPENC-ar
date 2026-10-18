@@ -41,7 +41,7 @@ class ModuleShortcuts extends StatelessWidget {
     final glass = AppSurface.of(context).isGlass;
     return Semantics(
       container: true,
-      label: 'Shortcuts',
+      label: appTextValue("Shortcuts"),
       // A tab embedded in the shell may have no Material of its own above
       // it; the chips need one.
       child: Material(

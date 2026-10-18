@@ -58,7 +58,7 @@ class ShoppingListScreen extends ConsumerWidget {
             data: (items) => items.any((i) => i.isChecked)
                 ? IconButton(
                     icon: const AppIcon(Icons.delete_sweep_outlined),
-                    tooltip: 'Clear checked items',
+                    tooltip: appTextValue("Clear checked items"),
                     onPressed: () =>
                         ref.read(dbProvider).clearCheckedShoppingItems(listId),
                   )
@@ -158,7 +158,7 @@ class ShoppingListScreen extends ConsumerWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: 'Add item',
+        tooltip: appTextValue("Add item"),
         onPressed: () => _openItemEditor(context, listId),
         child: const AppIcon(Icons.add),
       ),
@@ -263,7 +263,7 @@ class _ShoppingItemTile extends ConsumerWidget {
             backgroundColor: AppColors.expense,
             foregroundColor: Colors.white,
             icon: Icons.delete_outline,
-            label: 'Delete',
+            label: appTextValue("Delete"),
           ),
         ],
       ),
@@ -421,9 +421,9 @@ class _ItemEditorSheetState extends ConsumerState<_ItemEditorSheet> {
               autofocus: !_isEdit,
               textCapitalization: TextCapitalization.sentences,
               maxLength: 120,
-              decoration: const InputDecoration(
-                labelText: 'Item',
-                hintText: 'e.g. Milk, New shoes',
+              decoration:  InputDecoration(
+                labelText: appTextValue("Item"),
+                hintText: appTextValue("e.g. Milk, New shoes"),
                 counterText: '',
               ),
               onSubmitted: (_) => _save(),
@@ -431,7 +431,7 @@ class _ItemEditorSheetState extends ConsumerState<_ItemEditorSheet> {
             const SizedBox(height: 16),
             AmountKeypadField(
               controller: _amountController,
-              label: 'Estimated price (optional)',
+              label: appTextValue("Estimated price (optional)"),
               hintText: '0.00',
               yieldTo: [_nameFocus],
             ),

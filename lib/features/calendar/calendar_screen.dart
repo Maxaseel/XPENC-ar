@@ -194,12 +194,12 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         actions: [
           if (!_onCurrentMonth)
             IconButton(
-              tooltip: 'Today',
+              tooltip: appTextValue("Today"),
               icon: const AppIcon(Icons.today_rounded),
               onPressed: _goToToday,
             ),
           IconButton(
-            tooltip: 'New reminder',
+            tooltip: appTextValue("New reminder"),
             icon: const AppIcon(Icons.add_rounded),
             onPressed: _openReminderSheet,
           ),
@@ -305,7 +305,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     return Row(
       children: [
         IconButton(
-          tooltip: 'Previous month',
+          tooltip: appTextValue("Previous month"),
           icon: const AppIcon(Icons.chevron_left_rounded),
           onPressed: () => _stepMonth(-1),
         ),
@@ -320,7 +320,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           ),
         ),
         IconButton(
-          tooltip: 'Next month',
+          tooltip: appTextValue("Next month"),
           icon: const AppIcon(Icons.chevron_right_rounded),
           onPressed: () => _stepMonth(1),
         ),
@@ -709,7 +709,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   ),
                 ),
                 IconButton(
-                  tooltip: 'Delete reminder',
+                  tooltip: appTextValue("Delete reminder"),
                   icon: AppIcon(
                     Icons.delete_outline_rounded,
                     color: cs.onSurfaceVariant,
@@ -984,15 +984,15 @@ class _ReminderSheetState extends ConsumerState<_ReminderSheet> {
             focusNode: _titleFocus,
             autofocus: true,
             textCapitalization: TextCapitalization.sentences,
-            decoration: const InputDecoration(
-              labelText: 'Title',
-              hintText: 'e.g. Electricity bill',
+            decoration:  InputDecoration(
+              labelText: appTextValue("Title"),
+              hintText: appTextValue("e.g. Electricity bill"),
             ),
           ),
           const SizedBox(height: 16),
           AmountKeypadField(
             controller: _amountCtrl,
-            label: 'Amount (optional)',
+            label: appTextValue("Amount (optional)"),
             yieldTo: [_titleFocus],
           ),
           const SizedBox(height: 20),

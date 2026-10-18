@@ -31,9 +31,9 @@ class AutoRuleDetailScreen extends ConsumerWidget {
     if (rule == null) {
       return Scaffold(
         appBar: AppTopBar(),
-        body: const ErrorView(
-          title: 'Rule not found',
-          message: 'This auto rule may have been deleted.',
+        body:  ErrorView(
+          title: appTextValue("Rule not found"),
+          message: appTextValue("This auto rule may have been deleted."),
         ),
       );
     }
@@ -61,12 +61,12 @@ class AutoRuleDetailScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const AppIcon(Icons.edit_outlined),
-            tooltip: 'Edit',
+            tooltip: appTextValue("Edit"),
             onPressed: () => showRecurringRuleSheet(context, existing: rule),
           ),
           IconButton(
             icon: const AppIcon(Icons.more_vert_rounded),
-            tooltip: 'More',
+            tooltip: appTextValue("More"),
             onPressed: () => _showActions(context, ref, rule),
           ),
         ],
@@ -209,7 +209,7 @@ class AutoRuleDetailScreen extends ConsumerWidget {
             categoryMap: categoryMap,
             ownIds: {rule.accountId},
             currency: null,
-            emptyMessage: 'Nothing posted yet.',
+            emptyMessage: appTextValue("Nothing posted yet."),
           ),
         ],
       ),

@@ -197,12 +197,12 @@ class _PeriodTiles extends ConsumerWidget {
       children: [
         pair(
           StatTile(
-            label: 'Money in',
+            label: appTextValue("Money in"),
             value: MoneyFormat.symbol(s.moneyIn),
             color: AppColors.income,
           ),
           StatTile(
-            label: 'Money out',
+            label: appTextValue("Money out"),
             value: MoneyFormat.symbol(s.moneyOut),
             sub: net.isZero ? null : 'Net ${MoneyFormat.signed(net)}',
             color: AppColors.expense,
@@ -211,12 +211,12 @@ class _PeriodTiles extends ConsumerWidget {
         const SizedBox(height: 12),
         pair(
           StatTile(
-            label: 'Moved between accounts',
+            label: appTextValue("Moved between accounts"),
             value: MoneyFormat.symbol(s.moved),
             sub: '${s.transfers} transfer${s.transfers == 1 ? '' : 's'}',
           ),
           StatTile(
-            label: 'Most used',
+            label: appTextValue("Most used"),
             value: busiest?.name ?? '—',
             sub: busiest == null
                 ? 'No activity'

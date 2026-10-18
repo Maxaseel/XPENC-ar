@@ -37,7 +37,7 @@ class FontSettingsScreen extends ConsumerWidget {
         title: const Text.localized('Font'),
         actions: [
           IconButton(
-            tooltip: 'Reset to default',
+            tooltip: appTextValue("Reset to default"),
             icon: const AppIcon(Icons.restart_alt_rounded),
             onPressed: isDefault
                 ? null

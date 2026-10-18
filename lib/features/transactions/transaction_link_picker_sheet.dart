@@ -71,7 +71,7 @@ class _TransactionLinkPickerSheetState
                 textInputAction: TextInputAction.search,
                 decoration: InputDecoration(
                   isDense: true,
-                  hintText: 'Search note, payee, category or account',
+                  hintText: appTextValue("Search note, payee, category or account"),
                   prefixIcon: const AppIcon(Icons.search_rounded),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),

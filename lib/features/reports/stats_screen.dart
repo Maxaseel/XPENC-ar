@@ -106,7 +106,7 @@ class StatsScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const AppIcon(Icons.picture_as_pdf_outlined),
-            tooltip: 'Download report',
+            tooltip: appTextValue("Download report"),
             onPressed: () => _downloadReport(context, ref, month, showYear),
           ),
         ],

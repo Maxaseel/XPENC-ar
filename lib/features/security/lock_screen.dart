@@ -444,7 +444,7 @@ class _LockScreenState extends ConsumerState<LockScreen> {
             extraKey: biometricEnabled
                 ? IconButton(
                     icon: const AppIcon(Icons.fingerprint_rounded, size: 28),
-                    tooltip: 'Use biometric unlock',
+                    tooltip: appTextValue("Use biometric unlock"),
                     onPressed: _tryBiometric,
                   )
                 : null,

@@ -43,17 +43,17 @@ class AccountsScreen extends ConsumerWidget {
               title: const Text.localized('Accounts'),
               actions: [GlassActionGroup(children: [
                 IconButton(
-                  tooltip: 'Statement',
+                  tooltip: appTextValue("Statement"),
                   icon: const AppIcon(Icons.picture_as_pdf_outlined),
                   onPressed: () => _downloadCombinedStatement(context, ref),
                 ),
                 IconButton(
-                  tooltip: 'Archived accounts',
+                  tooltip: appTextValue("Archived accounts"),
                   icon: const AppIcon(Icons.inventory_2_outlined),
                   onPressed: () => context.push('/more/accounts/archived'),
                 ),
                 IconButton(
-                  tooltip: 'Add account',
+                  tooltip: appTextValue("Add account"),
                   icon: const AppIcon(Icons.add_rounded),
                   onPressed: () => showAddAccountSheet(context),
                 ),
@@ -658,7 +658,7 @@ class _RenameAccountDialogState extends State<_RenameAccountDialog> {
         controller: _controller,
         autofocus: true,
         textCapitalization: TextCapitalization.words,
-        decoration: const InputDecoration(labelText: 'Name'),
+        decoration:  InputDecoration(labelText: appTextValue("Name")),
         onSubmitted: (v) => Navigator.of(context).pop(v),
       ),
       actions: [
@@ -720,7 +720,7 @@ class _MinimumBalanceDialogState extends State<_MinimumBalanceDialog> {
           const SizedBox(height: 16),
           AmountKeypadField(
             controller: _controller,
-            label: 'Minimum balance',
+            label: appTextValue("Minimum balance"),
             autofocus: true,
             yieldTo: const [],
           ),

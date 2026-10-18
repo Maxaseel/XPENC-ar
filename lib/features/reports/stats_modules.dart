@@ -365,14 +365,14 @@ class _CashFlowBody extends ConsumerWidget {
             const SectionCaption('Last 6 months'),
             _TilePair(
               StatTile(
-                label: 'Net saved',
+                label: appTextValue("Net saved"),
                 value: net.isZero
                     ? MoneyFormat.symbol(net)
                     : MoneyFormat.signed(net),
                 color: net.isNegative ? AppColors.expense : AppColors.income,
               ),
               StatTile(
-                label: 'Savings rate',
+                label: appTextValue("Savings rate"),
                 value: rate == null ? '—' : _pct(rate),
                 sub: 'Of income kept',
                 color: rate == null
@@ -549,14 +549,14 @@ class _IncomeBody extends ConsumerWidget {
           children: [
             _TilePair(
               StatTile(
-                label: 'This month',
+                label: appTextValue("This month"),
                 value: thisMonth == null
                     ? '—'
                     : MoneyFormat.symbol(thisMonth.income),
                 color: AppColors.income,
               ),
               StatTile(
-                label: 'Monthly average',
+                label: appTextValue("Monthly average"),
                 value: MoneyFormat.symbol(Money(total.paise ~/ 6)),
                 sub: 'Last 6 months',
               ),
@@ -564,12 +564,12 @@ class _IncomeBody extends ConsumerWidget {
             _tileGap,
             _TilePair(
               StatTile(
-                label: 'Consistency',
+                label: appTextValue("Consistency"),
                 value: '$monthsWithIncome / 6',
                 sub: 'Months with income',
               ),
               StatTile(
-                label: 'Top source share',
+                label: appTextValue("Top source share"),
                 value: topShare == null ? '—' : _pct(topShare),
                 sub: topShare != null && topShare > 0.8
                     ? 'Highly concentrated'
@@ -643,19 +643,19 @@ class _NetWorthBody extends ConsumerWidget {
         return _ModuleList(
           children: [
             StatTile(
-              label: 'Net worth',
+              label: appTextValue("Net worth"),
               value: netWorth == null ? '—' : MoneyFormat.symbol(netWorth),
               sub: 'Everything you own minus everything you owe',
             ),
             _tileGap,
             _TilePair(
               StatTile(
-                label: 'Assets',
+                label: appTextValue("Assets"),
                 value: MoneyFormat.symbol(assets),
                 color: AppColors.income,
               ),
               StatTile(
-                label: 'Liabilities',
+                label: appTextValue("Liabilities"),
                 value: MoneyFormat.symbol(liabilities),
                 color: liabilities.isZero ? null : AppColors.expense,
               ),
@@ -764,13 +764,13 @@ class _DebtBody extends ConsumerWidget {
           children: [
             _TilePair(
               StatTile(
-                label: 'Total owed',
+                label: appTextValue("Total owed"),
                 value: MoneyFormat.symbol(debt.total),
                 color: debt.total.isZero ? AppColors.income : AppColors.expense,
                 sub: debt.total.isZero ? 'Debt-free' : null,
               ),
               StatTile(
-                label: 'Per month',
+                label: appTextValue("Per month"),
                 value: MoneyFormat.symbol(debt.monthlyObligations),
                 sub: 'EMIs + dues',
               ),
@@ -778,7 +778,7 @@ class _DebtBody extends ConsumerWidget {
             _tileGap,
             _TilePair(
               StatTile(
-                label: 'Debt to income',
+                label: appTextValue("Debt to income"),
                 value: dti == null ? '—' : _pct(dti),
                 sub: 'Healthy: under 20%',
                 color: dti == null
@@ -790,7 +790,7 @@ class _DebtBody extends ConsumerWidget {
                     : null,
               ),
               StatTile(
-                label: 'Interest paid',
+                label: appTextValue("Interest paid"),
                 value: MoneyFormat.symbol(interestPaid),
                 sub: 'On loans, to date',
               ),
@@ -940,13 +940,13 @@ class _PeopleBody extends ConsumerWidget {
       children: [
         _TilePair(
           StatTile(
-            label: "You'll get",
+            label: appTextValue("You'll get"),
             value: MoneyFormat.symbol(totals.youGet),
             color: AppColors.income,
             sub: '${oweYou.length} people',
           ),
           StatTile(
-            label: "You'll pay",
+            label: appTextValue("You'll pay"),
             value: MoneyFormat.symbol(totals.youPay),
             color: AppColors.expense,
             sub: '${youOwe.length} people',
@@ -955,14 +955,14 @@ class _PeopleBody extends ConsumerWidget {
         _tileGap,
         _TilePair(
           StatTile(
-            label: 'Net',
+            label: appTextValue("Net"),
             value: net.isZero
                 ? MoneyFormat.symbol(net)
                 : MoneyFormat.signed(net),
             color: net.isNegative ? AppColors.expense : AppColors.income,
           ),
           StatTile(
-            label: 'Overdue',
+            label: appTextValue("Overdue"),
             value: '${overdueDue.length}',
             sub: 'Past their due date',
             color: overdueDue.isEmpty ? null : AppColors.expense,
@@ -1044,7 +1044,7 @@ class _SavingsBody extends ConsumerWidget {
           children: [
             _TilePair(
               StatTile(
-                label: 'Saved in goals',
+                label: appTextValue("Saved in goals"),
                 value: MoneyFormat.symbol(saved),
                 color: AppColors.income,
                 sub: target.isPositive
@@ -1053,13 +1053,13 @@ class _SavingsBody extends ConsumerWidget {
                     : null,
               ),
               StatTile(
-                label: 'Goals reached',
+                label: appTextValue("Goals reached"),
                 value: '$reached / ${goals.length}',
               ),
             ),
             _tileGap,
             StatTile(
-              label: 'Emergency runway',
+              label: appTextValue("Emergency runway"),
               value: runway == null
                   ? '—'
                   : '${runway.toStringAsFixed(1)} months',
@@ -1136,9 +1136,9 @@ class _BudgetsBody extends ConsumerWidget {
             ),
             const SizedBox(height: 16),
             _TilePair(
-              StatTile(label: 'Budgeted', value: MoneyFormat.symbol(limit)),
+              StatTile(label: appTextValue("Budgeted"), value: MoneyFormat.symbol(limit)),
               StatTile(
-                label: 'Spent',
+                label: appTextValue("Spent"),
                 value: MoneyFormat.symbol(spent),
                 sub: limit.isPositive
                     ? '${_pct(spent.paise / limit.paise)} used'
@@ -1149,12 +1149,12 @@ class _BudgetsBody extends ConsumerWidget {
             _tileGap,
             _TilePair(
               StatTile(
-                label: 'On track',
+                label: appTextValue("On track"),
                 value: '${budgets.length - over - near}',
                 color: AppColors.income,
               ),
               StatTile(
-                label: 'Near / over',
+                label: appTextValue("Near / over"),
                 value: '$near / $over',
                 color: over > 0 ? AppColors.expense : null,
               ),
@@ -1257,19 +1257,19 @@ class _RecurringBody extends ConsumerWidget {
       children: [
         _TilePair(
           StatTile(
-            label: 'Out per month',
+            label: appTextValue("Out per month"),
             value: MoneyFormat.symbol(summary.monthlyOut),
             color: AppColors.expense,
           ),
           StatTile(
-            label: 'In per month',
+            label: appTextValue("In per month"),
             value: MoneyFormat.symbol(summary.monthlyIn),
             color: AppColors.income,
           ),
         ),
         _tileGap,
         StatTile(
-          label: 'Income already committed',
+          label: appTextValue("Income already committed"),
           value: committed == null ? '—' : _pct(committed),
           sub: 'Recurring outflow vs. average monthly income',
           color: committed != null && committed > 0.5

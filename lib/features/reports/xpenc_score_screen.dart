@@ -280,7 +280,7 @@ class XpencScoreScreen extends ConsumerWidget {
                   children: [
                     Expanded(
                       child: StatTile(
-                        label: 'Income · 90 days',
+                        label: appTextValue("Income · 90 days"),
                         value: MoneyFormat.compact(result.windowIncome),
                         color: AppColors.income,
                       ),
@@ -288,7 +288,7 @@ class XpencScoreScreen extends ConsumerWidget {
                     const SizedBox(width: 12),
                     Expanded(
                       child: StatTile(
-                        label: 'Expense · 90 days',
+                        label: appTextValue("Expense · 90 days"),
                         value: MoneyFormat.compact(result.windowExpense),
                         color: AppColors.expense,
                       ),

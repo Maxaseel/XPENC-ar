@@ -100,17 +100,17 @@ class PersonDetailScreen extends ConsumerWidget {
             ),
             actions: [GlassActionGroup(children: [
               IconButton(
-                tooltip: 'Share',
+                tooltip: appTextValue("Share"),
                 icon: const AppIcon(Icons.ios_share_rounded),
                 onPressed: () => sharePerson(context, person),
               ),
               IconButton(
-                tooltip: 'Edit person',
+                tooltip: appTextValue("Edit person"),
                 icon: const AppIcon(Icons.edit_outlined),
                 onPressed: () => showEditPersonSheet(context, ref, person),
               ),
               IconButton(
-                tooltip: 'Delete person',
+                tooltip: appTextValue("Delete person"),
                 icon: const AppIcon(Icons.delete_outline_rounded),
                 onPressed: () async {
                   if (await confirmDeletePerson(context, ref, person) &&
@@ -495,7 +495,7 @@ class _ActionButtons extends ConsumerWidget {
           if (balance.isPositive && anyPaymentMethodEnabled) ...[
             const SizedBox(height: 16),
             PersonPaymentRow(
-              label: 'Request',
+              label: appTextValue("Request"),
               methods: [
                 if (upiEnabled)
                   PaymentMethodSpec(
@@ -563,7 +563,7 @@ class _ActionButtons extends ConsumerWidget {
           ] else if (balance.isNegative && anyPaymentMethodEnabled) ...[
             const SizedBox(height: 16),
             PersonPaymentRow(
-              label: 'Pay',
+              label: appTextValue("Pay"),
               methods: [
                 if (upiEnabled)
                   PaymentMethodSpec(
@@ -694,7 +694,7 @@ class _EntryRow extends ConsumerWidget {
             backgroundColor: AppColors.expense,
             foregroundColor: Colors.white,
             icon: Icons.delete_outline,
-            label: 'Delete',
+            label: appTextValue("Delete"),
           ),
         ],
       ),
@@ -1081,7 +1081,7 @@ class _EntrySheetState extends ConsumerState<_EntrySheet> {
               AmountKeypadField(
                 controller: _amountController,
                 autofocus: true,
-                label: 'Amount',
+                label: appTextValue("Amount"),
                 yieldTo: [_noteFocus],
                 onChanged: (_) {
                   if (_amountError != null) {
@@ -1126,7 +1126,7 @@ class _EntrySheetState extends ConsumerState<_EntrySheet> {
                   if (_dueDate != null)
                     IconButton(
                       icon: const AppIcon(Icons.close),
-                      tooltip: 'Clear due date',
+                      tooltip: appTextValue("Clear due date"),
                       onPressed: () => setState(() => _dueDate = null),
                     ),
                 ],
@@ -1136,8 +1136,8 @@ class _EntrySheetState extends ConsumerState<_EntrySheet> {
                 controller: _noteController,
                 focusNode: _noteFocus,
                 textCapitalization: TextCapitalization.sentences,
-                decoration: const InputDecoration(
-                  labelText: 'Note (optional)',
+                decoration:  InputDecoration(
+                  labelText: appTextValue("Note (optional)"),
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -1147,8 +1147,8 @@ class _EntrySheetState extends ConsumerState<_EntrySheet> {
                 // hands is the normal case; not moving any is the exception.
                 initialValue: _accountId,
                 isExpanded: true,
-                decoration: const InputDecoration(
-                  labelText: 'Money moved through',
+                decoration:  InputDecoration(
+                  labelText: appTextValue("Money moved through"),
                   border: OutlineInputBorder(),
                 ),
                 items: [
@@ -1241,8 +1241,8 @@ class _RepaymentCategoryField extends ConsumerWidget {
     return DropdownButtonFormField<int?>(
       initialValue: value,
       isExpanded: true,
-      decoration: const InputDecoration(
-        labelText: 'Category',
+      decoration:  InputDecoration(
+        labelText: appTextValue("Category"),
         border: OutlineInputBorder(),
       ),
       items: [

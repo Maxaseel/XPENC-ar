@@ -38,10 +38,10 @@ class TagGroupsScreen extends ConsumerWidget {
       appBar: AppTopBar(title: const Text.localized('Tag groups')),
       body: groupsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, _) => const Center(
+        error: (_, _) =>  Center(
           child: Padding(
             padding: EdgeInsets.all(24),
-            child: InlineErrorView(message: "Couldn't load tag groups"),
+            child: InlineErrorView(message: appTextValue("Couldn't load tag groups")),
           ),
         ),
         data: (groups) {
@@ -84,7 +84,7 @@ class TagGroupsScreen extends ConsumerWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: 'New group',
+        tooltip: appTextValue("New group"),
         onPressed: () => _openGroupEditor(context),
         child: const AppIcon(Icons.add),
       ),
@@ -164,7 +164,7 @@ class _GroupTile extends ConsumerWidget {
       onTap: () => _openGroupEditor(context, existing: group),
       trailing: IconButton(
         icon: AppIcon(Icons.delete_outline, color: theme.colorScheme.error),
-        tooltip: 'Delete',
+        tooltip: appTextValue("Delete"),
         visualDensity: VisualDensity.compact,
         onPressed: () => _confirmDelete(context, ref, group),
       ),
@@ -338,9 +338,9 @@ class _GroupEditorSheetState extends ConsumerState<_GroupEditorSheet> {
                 autofocus: !_isEdit,
                 textCapitalization: TextCapitalization.words,
                 maxLength: 30,
-                decoration: const InputDecoration(
-                  labelText: 'Name',
-                  hintText: 'e.g. Work trip, Tax deductible',
+                decoration:  InputDecoration(
+                  labelText: appTextValue("Name"),
+                  hintText: appTextValue("e.g. Work trip, Tax deductible"),
                   counterText: '',
                 ),
               ),

@@ -9,6 +9,7 @@ import '../../core/currency.dart';
 import '../../core/money.dart';
 import '../../data/database.dart';
 import '../../data/tables.dart';
+import '../../core/localization/app_text.dart';
 
 /// Builds the two statement PDFs — an account/cash statement and a budget
 /// statement.
@@ -262,7 +263,7 @@ Future<Uint8List> buildCombinedStatementPdf({
   required DateTime end,
   required List<CombinedStatementLine> lines,
 }) async {
-  final doc = pw.Document(title: 'Combined statement');
+  final doc = pw.Document(title: appTextValue("Combined statement"));
 
   doc.addPage(
     pw.MultiPage(

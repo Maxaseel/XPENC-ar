@@ -1,12 +1,13 @@
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 
 import 'app_colors.dart';
 import 'theme_shape.dart';
+import '../localization/app_text.dart';
 
 /// The Glass theme's building blocks, modelled on iOS's Liquid Glass.
 ///
@@ -225,7 +226,7 @@ const _poolSpots = <(Alignment, double)>[
 /// at the end.
 enum GlassBackdrop {
   aurora(
-    label: 'Aurora',
+    label: appTextValue("Aurora"),
     tone: GlassTone.light,
     base: Color(0xFFEFF2F8),
     pools: [
@@ -236,10 +237,10 @@ enum GlassBackdrop {
       Color(0xFFC9D6FF),
     ],
   ),
-  white(label: 'White', tone: GlassTone.paper, base: Color(0xFFF2F2F7)),
-  black(label: 'Black', tone: GlassTone.ink, base: Color(0xFF000000)),
+  white(label: appTextValue("White"), tone: GlassTone.paper, base: Color(0xFFF2F2F7)),
+  black(label: appTextValue("Black"), tone: GlassTone.ink, base: Color(0xFF000000)),
   ocean(
-    label: 'Ocean',
+    label: appTextValue("Ocean"),
     tone: GlassTone.dark,
     base: Color(0xFF03101F),
     pools: [
@@ -251,7 +252,7 @@ enum GlassBackdrop {
     ],
   ),
   sunset(
-    label: 'Sunset',
+    label: appTextValue("Sunset"),
     tone: GlassTone.light,
     base: Color(0xFFFFEDE3),
     pools: [
@@ -263,7 +264,7 @@ enum GlassBackdrop {
     ],
   ),
   nebula(
-    label: 'Nebula',
+    label: appTextValue("Nebula"),
     tone: GlassTone.dark,
     base: Color(0xFF07040F),
     pools: [

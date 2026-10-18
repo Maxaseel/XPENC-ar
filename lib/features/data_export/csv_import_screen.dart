@@ -435,8 +435,8 @@ class _MappingForm extends StatelessWidget {
             const SizedBox(height: 12),
             DropdownButtonFormField<int>(
               initialValue: accountId,
-              decoration: const InputDecoration(
-                labelText: 'Import into account',
+              decoration:  InputDecoration(
+                labelText: appTextValue("Import into account"),
               ),
               items: [
                 for (final a in accounts)
@@ -448,7 +448,7 @@ class _MappingForm extends StatelessWidget {
             Text.localized('Columns', style: theme.textTheme.labelLarge),
             const SizedBox(height: 8),
             _ColumnDropdown(
-              label: 'Date',
+              label: appTextValue("Date"),
               headers: headers,
               value: dateColumn,
               allowNone: false,
@@ -456,7 +456,7 @@ class _MappingForm extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             _ColumnDropdown(
-              label: 'Note / description (optional)',
+              label: appTextValue("Note / description (optional)"),
               headers: headers,
               value: noteColumn,
               allowNone: true,
@@ -464,7 +464,7 @@ class _MappingForm extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             _ColumnDropdown(
-              label: 'Category (optional)',
+              label: appTextValue("Category (optional)"),
               headers: headers,
               value: categoryColumn,
               allowNone: true,
@@ -492,7 +492,7 @@ class _MappingForm extends StatelessWidget {
             const SizedBox(height: 12),
             if (twoColumnMode) ...[
               _ColumnDropdown(
-                label: 'Debit / withdrawal',
+                label: appTextValue("Debit / withdrawal"),
                 headers: headers,
                 value: debitColumn,
                 allowNone: true,
@@ -500,7 +500,7 @@ class _MappingForm extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               _ColumnDropdown(
-                label: 'Credit / deposit',
+                label: appTextValue("Credit / deposit"),
                 headers: headers,
                 value: creditColumn,
                 allowNone: true,
@@ -508,7 +508,7 @@ class _MappingForm extends StatelessWidget {
               ),
             ] else
               _ColumnDropdown(
-                label: 'Amount (negative = expense, positive = income)',
+                label: appTextValue("Amount (negative = expense, positive = income)"),
                 headers: headers,
                 value: amountColumn,
                 allowNone: false,

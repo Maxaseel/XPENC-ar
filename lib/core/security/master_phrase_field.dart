@@ -74,7 +74,7 @@ class _MasterPhraseFieldState extends State<MasterPhraseField> {
             onSubmitted: (_) => _submit(),
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              hintText: 'word1 word2 word3 …',
+              hintText: appTextValue("word1 word2 word3 …"),
               errorText: error,
             ),
           ),

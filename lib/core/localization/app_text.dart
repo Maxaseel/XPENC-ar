@@ -2,9 +2,25 @@ import 'package:flutter/material.dart' as m;
 
 import 'app_translations.dart';
 
+/// The app root updates this before building its widget tree so static widget
+/// properties can use the active locale as well.
+class AppTextLocale {
+  AppTextLocale._();
+
+  static m.Locale current = const m.Locale('en');
+}
+
 /// Returns Arabic for an explicitly marked UI string when Arabic is active.
-String appText(m.BuildContext context, String english, [String? arabic]) {
-  if (m.Localizations.localeOf(context).languageCode != 'ar') return english;
+String appText(m.BuildContext context, String english, [String? arabic]) =>
+    _localized(m.Localizations.localeOf(context), english, arabic);
+
+/// Localizes a static widget property using the locale most recently built by
+/// the app root. Use [appText] when a BuildContext is available.
+String appTextValue(String english, [String? arabic]) =>
+    _localized(AppTextLocale.current, english, arabic);
+
+String _localized(m.Locale locale, String english, String? arabic) {
+  if (locale.languageCode != 'ar') return english;
   return arabic ?? arabicUiStrings[english] ?? english;
 }
 

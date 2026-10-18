@@ -127,7 +127,7 @@ class BudgetsScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const AppIcon(Icons.picture_as_pdf_outlined),
-            tooltip: 'Download budget statement',
+            tooltip: appTextValue("Download budget statement"),
             onPressed: () => _downloadBudgetStatement(context, ref),
           ),
         ],
@@ -891,7 +891,7 @@ class _BudgetEditSheetState extends ConsumerState<BudgetEditSheet> {
           AmountKeypadField(
             controller: _amountCtrl,
             autofocus: !hasBudget,
-            label: 'Monthly budget',
+            label: appTextValue("Monthly budget"),
             yieldTo: [_noteFocus],
           ),
           ..._budgetHint(context),
@@ -903,9 +903,9 @@ class _BudgetEditSheetState extends ConsumerState<BudgetEditSheet> {
             maxLength: 200,
             maxLines: 3,
             minLines: 1,
-            decoration: const InputDecoration(
-              labelText: 'Note (optional)',
-              hintText: 'What this budget is for, or anything to remember',
+            decoration:  InputDecoration(
+              labelText: appTextValue("Note (optional)"),
+              hintText: appTextValue("What this budget is for, or anything to remember"),
             ),
           ),
           const SizedBox(height: 8),

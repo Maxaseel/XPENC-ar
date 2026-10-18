@@ -74,7 +74,7 @@ class TaxSummaryView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         CalcResultCard(
-          label: 'Total tax (yearly)',
+          label: appTextValue("Total tax (yearly)"),
           value: summary.totalTax,
           format: fmt,
           sub:
@@ -150,25 +150,25 @@ class _UsTaxBodyState extends State<UsTaxBody> with CalculatorFormMixin {
         const CalcHeading('Income (yearly)'),
         CalcField(
           controller: _wages,
-          label: 'Wages / salary (W-2)',
+          label: appTextValue("Wages / salary (W-2)"),
           prefix: country.inputPrefix,
         ),
         CalcField(
           controller: _other,
-          label: 'Other income',
+          label: appTextValue("Other income"),
           prefix: country.inputPrefix,
           helper: 'Interest, freelance, rental — no FICA applied',
         ),
         const CalcHeading('Deductions'),
         CalcField(
           controller: _preTax,
-          label: 'Pre-tax contributions',
+          label: appTextValue("Pre-tax contributions"),
           prefix: country.inputPrefix,
           helper: '401(k), HSA, traditional IRA',
         ),
         CalcField(
           controller: _itemized,
-          label: 'Itemized deductions (optional)',
+          label: appTextValue("Itemized deductions (optional)"),
           prefix: country.inputPrefix,
           helper:
               'Used only if above the ${country.format(Money.fromRupees(std))} '
@@ -210,18 +210,18 @@ class _UkTaxBodyState extends State<UkTaxBody> with CalculatorFormMixin {
         const CalcHeading('Income (yearly)'),
         CalcField(
           controller: _salary,
-          label: 'Salary (PAYE)',
+          label: appTextValue("Salary (PAYE)"),
           prefix: country.inputPrefix,
         ),
         CalcField(
           controller: _other,
-          label: 'Other taxable income',
+          label: appTextValue("Other taxable income"),
           prefix: country.inputPrefix,
           helper: 'Rent, savings interest over allowance — no NI applied',
         ),
         CalcField(
           controller: _pension,
-          label: 'Pension via salary sacrifice',
+          label: appTextValue("Pension via salary sacrifice"),
           prefix: country.inputPrefix,
           helper: 'Reduces both income tax and National Insurance',
         ),
@@ -267,7 +267,7 @@ class _GermanyTaxBodyState extends State<GermanyTaxBody>
         const CalcHeading('Income (yearly)'),
         CalcField(
           controller: _taxable,
-          label: 'Taxable income (zvE)',
+          label: appTextValue("Taxable income (zvE)"),
           prefix: country.inputPrefix,
           helper: _married
               ? 'Combined for both spouses'

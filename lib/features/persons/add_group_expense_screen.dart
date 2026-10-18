@@ -255,7 +255,7 @@ class _AddGroupExpenseScreenState
         children: [
           AmountKeypadField(
             controller: _amountController,
-            label: 'Amount',
+            label: appTextValue("Amount"),
             autofocus: true,
             group: _amountGroup,
             yieldTo: [_noteFocus],
@@ -276,8 +276,8 @@ class _AddGroupExpenseScreenState
           DropdownButtonFormField<int?>(
             initialValue: _payerId,
             isExpanded: true,
-            decoration: const InputDecoration(
-              labelText: 'Paid by',
+            decoration:  InputDecoration(
+              labelText: appTextValue("Paid by"),
               border: OutlineInputBorder(),
             ),
             items: [
@@ -350,8 +350,8 @@ class _AddGroupExpenseScreenState
             controller: _noteController,
             focusNode: _noteFocus,
             textCapitalization: TextCapitalization.sentences,
-            decoration: const InputDecoration(
-              labelText: 'Note (optional)',
+            decoration:  InputDecoration(
+              labelText: appTextValue("Note (optional)"),
               border: OutlineInputBorder(),
             ),
           ),
@@ -430,7 +430,7 @@ class _AddGroupExpenseScreenState
               ),
             ),
           _RunningTotal(
-            label: 'Total',
+            label: appTextValue("Total"),
             value: '${totalBp.toStringAsFixed(2)}%',
             matches: (totalBp - 100).abs() <= 0.5,
           ),
@@ -458,7 +458,7 @@ class _AddGroupExpenseScreenState
               ),
             ),
           _RunningTotal(
-            label: 'Total',
+            label: appTextValue("Total"),
             value: MoneyFormat.symbol(totalEntered),
             matches: amount != null && totalEntered == amount,
           ),
@@ -584,8 +584,8 @@ class _AccountAndCategoryFields extends ConsumerWidget {
         DropdownButtonFormField<int?>(
           initialValue: accountId,
           isExpanded: true,
-          decoration: const InputDecoration(
-            labelText: 'Account',
+          decoration:  InputDecoration(
+            labelText: appTextValue("Account"),
             border: OutlineInputBorder(),
           ),
           items: [
@@ -598,8 +598,8 @@ class _AccountAndCategoryFields extends ConsumerWidget {
         DropdownButtonFormField<int?>(
           initialValue: categoryId,
           isExpanded: true,
-          decoration: const InputDecoration(
-            labelText: 'Category',
+          decoration:  InputDecoration(
+            labelText: appTextValue("Category"),
             border: OutlineInputBorder(),
           ),
           items: [

@@ -180,7 +180,7 @@ class _OcrCorrectionCaptureScreenState
                   const SizedBox(height: 12),
                   TextField(
                     controller: _countryController,
-                    decoration: const InputDecoration(labelText: 'Country'),
+                    decoration:  InputDecoration(labelText: appTextValue("Country")),
                   ),
                   const SizedBox(height: 16),
                   ExpansionTile(
@@ -201,27 +201,27 @@ class _OcrCorrectionCaptureScreenState
                   TextField(
                     controller: _amountController,
                     enabled: _showCorrectionFields,
-                    decoration: const InputDecoration(labelText: 'Amount'),
+                    decoration:  InputDecoration(labelText: appTextValue("Amount")),
                   ),
                   const SizedBox(height: 8),
                   TextField(
                     controller: _directionController,
                     enabled: _showCorrectionFields,
-                    decoration: const InputDecoration(
-                      labelText: 'Direction (debit/credit)',
+                    decoration:  InputDecoration(
+                      labelText: appTextValue("Direction (debit/credit)"),
                     ),
                   ),
                   const SizedBox(height: 8),
                   TextField(
                     controller: _payeeController,
                     enabled: _showCorrectionFields,
-                    decoration: const InputDecoration(labelText: 'Payee'),
+                    decoration:  InputDecoration(labelText: appTextValue("Payee")),
                   ),
                   const SizedBox(height: 8),
                   TextField(
                     controller: _referenceController,
                     enabled: _showCorrectionFields,
-                    decoration: const InputDecoration(labelText: 'Reference'),
+                    decoration:  InputDecoration(labelText: appTextValue("Reference")),
                   ),
                   const SizedBox(height: 20),
                   if (!_showCorrectionFields) ...[

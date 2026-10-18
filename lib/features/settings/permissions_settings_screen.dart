@@ -46,7 +46,7 @@ class _PermissionsSettingsScreenState extends State<PermissionsSettingsScreen> {
       if (after == PermissionState.blocked) {
         if (!mounted) return;
         final go = await _confirm(
-          title: 'Allow in system settings',
+          title: appTextValue("Allow in system settings"),
           body:
               'Android won\'t ask again for ${p.title.toLowerCase()}. '
               'Open XPENC\'s settings page to allow it there.',
@@ -55,7 +55,7 @@ class _PermissionsSettingsScreenState extends State<PermissionsSettingsScreen> {
       }
     } else {
       final go = await _confirm(
-        title: 'Turn off in system settings',
+        title: appTextValue("Turn off in system settings"),
         body:
             'Android only lets you remove a permission from system '
             'settings. Turning one off there restarts XPENC — your data '
@@ -131,18 +131,18 @@ class _PermissionsSettingsScreenState extends State<PermissionsSettingsScreen> {
           AppCard(
             child: Column(
               children: [
-                const _InfoTile(
+                 _InfoTile(
                   icon: Icons.restart_alt_rounded,
-                  title: 'Run at startup',
+                  title: appTextValue("Run at startup"),
                   subtitle:
-                      'Re-schedules your reminders after the phone restarts',
+                      appTextValue("Re-schedules your reminders after the phone restarts"),
                 ),
                 Divider(height: 1, color: cs.outline),
-                const _InfoTile(
+                 _InfoTile(
                   icon: Icons.fingerprint_rounded,
-                  title: 'Biometrics',
+                  title: appTextValue("Biometrics"),
                   subtitle:
-                      'Fingerprint or face unlock, only if you turn on Biometric unlock',
+                      appTextValue("Fingerprint or face unlock, only if you turn on Biometric unlock"),
                 ),
               ],
             ),
@@ -151,24 +151,24 @@ class _PermissionsSettingsScreenState extends State<PermissionsSettingsScreen> {
           AppCard(
             child: Column(
               children: [
-                const _InfoTile(
+                 _InfoTile(
                   icon: Icons.wifi_off_rounded,
-                  title: 'Internet',
+                  title: appTextValue("Internet"),
                   subtitle: 'XPENC cannot connect to the internet — your '
                       'data never leaves this device',
                 ),
                 Divider(height: 1, color: cs.outline),
-                const _InfoTile(
+                 _InfoTile(
                   icon: Icons.sms_outlined,
-                  title: 'SMS',
+                  title: appTextValue("SMS"),
                   subtitle: 'Bank messages come in only when you share one '
                       'to XPENC',
                 ),
                 Divider(height: 1, color: cs.outline),
-                const _InfoTile(
+                 _InfoTile(
                   icon: Icons.location_off_outlined,
-                  title: 'Location, microphone, phone',
-                  subtitle: 'Not used for anything',
+                  title: appTextValue("Location, microphone, phone"),
+                  subtitle: appTextValue("Not used for anything"),
                 ),
               ],
             ),

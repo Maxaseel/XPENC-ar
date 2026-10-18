@@ -24,10 +24,10 @@ class CategoryTemplatesScreen extends ConsumerWidget {
       appBar: AppTopBar(title: const Text.localized('Category templates')),
       body: templatesAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, _) => const Center(
+        error: (_, _) =>  Center(
           child: Padding(
             padding: EdgeInsets.all(24),
-            child: InlineErrorView(message: "Couldn't load templates"),
+            child: InlineErrorView(message: appTextValue("Couldn't load templates")),
           ),
         ),
         data: (templates) => ListView(
@@ -81,7 +81,7 @@ class CategoryTemplatesScreen extends ConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: 'Save current as template',
+        tooltip: appTextValue("Save current as template"),
         onPressed: () => _saveCurrentAsTemplate(context, ref),
         child: const AppIcon(Icons.add),
       ),
@@ -149,7 +149,7 @@ class _TemplateTile extends ConsumerWidget {
 enum _TemplateAction { apply, rename, delete }
 
 Future<void> _saveCurrentAsTemplate(BuildContext context, WidgetRef ref) async {
-  final name = await _promptForName(context, title: 'Save as template');
+  final name = await _promptForName(context, title: appTextValue("Save as template"));
   if (name == null || name.isEmpty) return;
   if (!context.mounted) return;
 
@@ -167,7 +167,7 @@ Future<void> _renameTemplate(
 ) async {
   final name = await _promptForName(
     context,
-    title: 'Rename template',
+    title: appTextValue("Rename template"),
     initialValue: template.name,
   );
   if (name == null || name.isEmpty || name == template.name) return;
@@ -191,9 +191,9 @@ Future<String?> _promptForName(
         autofocus: true,
         maxLength: 60,
         textCapitalization: TextCapitalization.words,
-        decoration: const InputDecoration(
-          labelText: 'Name',
-          hintText: 'e.g. Minimalist, Detailed tracking',
+        decoration:  InputDecoration(
+          labelText: appTextValue("Name"),
+          hintText: appTextValue("e.g. Minimalist, Detailed tracking"),
           counterText: '',
         ),
         onSubmitted: (v) => Navigator.of(dialogContext).pop(v.trim()),

@@ -1054,7 +1054,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
       isScrollControlled: true,
       showDragHandle: true,
       builder: (_) => _AccountPickerSheet(
-        title: 'Account',
+        title: appTextValue("Account"),
         excludeGoals: true,
         excludeIds: excludeIds,
       ),
@@ -1295,7 +1295,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         ),
         IconButton(
           icon: const AppIcon(Icons.close_rounded, size: 18),
-          tooltip: 'Remove',
+          tooltip: appTextValue("Remove"),
           onPressed: _hybridLegs.length <= 1
               ? null
               : () => setState(() {
@@ -1318,7 +1318,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
       isScrollControlled: true,
       showDragHandle: true,
       builder: (_) => _AccountPickerSheet(
-        title: 'Change to account',
+        title: appTextValue("Change to account"),
         excludeId: _accountId,
         onlyTypes: const {AccountType.cash},
       ),
@@ -1633,7 +1633,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         ),
         IconButton(
           icon: const AppIcon(Icons.close_rounded, size: 18),
-          tooltip: 'Remove',
+          tooltip: appTextValue("Remove"),
           onPressed: _splitRows.length <= 1
               ? null
               : () => setState(() {
@@ -2081,7 +2081,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                   if (_isEditing)
                     IconButton(
                       icon: const AppIcon(Icons.delete_outline),
-                      tooltip: 'Delete',
+                      tooltip: appTextValue("Delete"),
                       onPressed: _confirmDelete,
                     ),
                   TextButton(onPressed: _save, child: const Text.localized('Save')),
@@ -2195,7 +2195,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
       tiles.add(
         _pickerTile(
           icon: AppIcons.resolve('bank'),
-          label: 'From account',
+          label: appTextValue("From account"),
           value: accountMap[_accountId]?.name ?? 'Select account',
           selected: _accountId != null,
           onTap: () => _pickAccount(isFrom: true),
@@ -2205,7 +2205,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
       tiles.add(
         _pickerTile(
           icon: AppIcons.resolve('transfer'),
-          label: 'To account',
+          label: appTextValue("To account"),
           value: accountMap[_toAccountId]?.name ?? 'Select account',
           selected: _toAccountId != null,
           onTap: () => _pickAccount(isFrom: false),
@@ -2298,7 +2298,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           _pickerTile(
             icon: AppIcons.resolve(cat?.iconKey ?? 'other'),
             iconKey: cat?.iconKey,
-            label: 'Category',
+            label: appTextValue("Category"),
             value: cat == null
                 ? 'Select category'
                 : parent == null
@@ -2373,7 +2373,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           ),
         ),
         trailing: IconButton(
-          tooltip: 'Change time',
+          tooltip: appTextValue("Change time"),
           icon: AppIcon(
             Icons.access_time_rounded,
             color: theme.colorScheme.onSurfaceVariant,
@@ -2433,7 +2433,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           focusNode: _noteFocus,
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
-            hintText: 'Note (optional)',
+            hintText: appTextValue("Note (optional)"),
             border: InputBorder.none,
             icon: AppIcon(
               Icons.notes_outlined,
@@ -2508,7 +2508,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
               if (name.isNotEmpty)
                 IconButton(
                   icon: const AppIcon(Icons.close_rounded),
-                  tooltip: 'Clear payee',
+                  tooltip: appTextValue("Clear payee"),
                   visualDensity: VisualDensity.compact,
                   onPressed: () => setState(() {
                     _payeeController.clear();
@@ -2562,7 +2562,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         label: Text('$count'),
         child: AppIcon(count > 0 ? Icons.sell_rounded : Icons.sell_outlined),
       ),
-      tooltip: 'Tags',
+      tooltip: appTextValue("Tags"),
       onPressed: _pickTags,
     );
   }
@@ -2905,7 +2905,7 @@ class _CategoryPickerSheetState extends ConsumerState<_CategoryPickerSheet> {
           children: [
             IconButton(
               icon: const AppIcon(Icons.arrow_back),
-              tooltip: 'All categories',
+              tooltip: appTextValue("All categories"),
               onPressed: () => setState(() => _drillParentId = null),
             ),
             Expanded(

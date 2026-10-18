@@ -327,7 +327,7 @@ class _AssignSheetState extends ConsumerState<_AssignSheet> {
                     ? _accountId
                     : poolAccounts.first.id,
                 isExpanded: true,
-                decoration: const InputDecoration(labelText: 'Account'),
+                decoration:  InputDecoration(labelText: appTextValue("Account")),
                 items: [
                   for (final account in poolAccounts)
                     DropdownMenuItem(

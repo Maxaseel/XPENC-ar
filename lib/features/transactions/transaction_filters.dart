@@ -206,7 +206,7 @@ class _TransactionFiltersSheetState
                             visualDensity: VisualDensity.compact,
                             onPressed: () => _stepWeek(-1),
                             icon: const AppIcon(Icons.chevron_left_rounded),
-                            tooltip: 'Previous week',
+                            tooltip: appTextValue("Previous week"),
                           ),
                           Expanded(
                             child: Text(
@@ -221,7 +221,7 @@ class _TransactionFiltersSheetState
                             visualDensity: VisualDensity.compact,
                             onPressed: () => _stepWeek(1),
                             icon: const AppIcon(Icons.chevron_right_rounded),
-                            tooltip: 'Next week',
+                            tooltip: appTextValue("Next week"),
                           ),
                         ],
                       ),

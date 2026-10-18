@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 
 import '../../data/database.dart' show TransactionTemplateRow;
 import '../../data/tables.dart' show AppMode, TxType;
 import '../../features/calculators/calculator_kind.dart';
 import '../widgets/money_text.dart' show iconForTxType;
+import '../localization/app_text.dart';
 
 /// The hold-➕ radial menu's 8 slots — one ball per compass direction around
 /// a fixed ✕ (cancel) in the middle. Slot `i` sits at [holdMenuSlotAngles]
@@ -73,112 +74,112 @@ class QuickActionSpec {
 final List<QuickActionSpec> quickActionCatalog = [
   QuickActionSpec(
     id: 'add-expense',
-    label: 'Add expense',
+    label: appTextValue("Add expense"),
     icon: iconForTxType(TxType.expense),
     route: '/add?type=expense',
     group: 'Add',
   ),
   QuickActionSpec(
     id: 'add-income',
-    label: 'Add income',
+    label: appTextValue("Add income"),
     icon: iconForTxType(TxType.income),
     route: '/add?type=income',
     group: 'Add',
   ),
-  const QuickActionSpec(
+   QuickActionSpec(
     id: 'transactions',
-    label: 'Transactions',
+    label: appTextValue("Transactions"),
     icon: Icons.receipt_long_rounded,
     route: '/more/transactions',
   ),
-  const QuickActionSpec(
+   QuickActionSpec(
     id: 'accounts',
-    label: 'Accounts',
+    label: appTextValue("Accounts"),
     icon: Icons.account_balance_wallet_rounded,
     route: '/more/accounts',
   ),
-  const QuickActionSpec(
+   QuickActionSpec(
     id: 'persons',
-    label: 'Persons',
+    label: appTextValue("Persons"),
     icon: Icons.people_alt_rounded,
     route: '/more/persons',
   ),
-  const QuickActionSpec(
+   QuickActionSpec(
     id: 'budgets',
-    label: 'Budgets',
+    label: appTextValue("Budgets"),
     icon: Icons.donut_large_rounded,
     route: '/more/budgets',
     hiddenInBasic: true,
   ),
-  const QuickActionSpec(
+   QuickActionSpec(
     id: 'auto',
-    label: 'Auto',
+    label: appTextValue("Auto"),
     icon: Icons.autorenew_rounded,
     route: '/more/auto',
   ),
-  const QuickActionSpec(
+   QuickActionSpec(
     id: 'payees',
-    label: 'Payees',
+    label: appTextValue("Payees"),
     icon: Icons.storefront_rounded,
     route: '/more/payees',
   ),
-  const QuickActionSpec(
+   QuickActionSpec(
     id: 'goals',
-    label: 'Goals & Loans',
+    label: appTextValue("Goals & Loans"),
     icon: Icons.savings_rounded,
     route: '/more/goals',
   ),
-  const QuickActionSpec(
+   QuickActionSpec(
     id: 'shopping',
-    label: 'Shopping List',
+    label: appTextValue("Shopping List"),
     icon: Icons.checklist_rounded,
     route: '/more/shopping',
   ),
-  const QuickActionSpec(
+   QuickActionSpec(
     id: 'calendar',
-    label: 'Calendar',
+    label: appTextValue("Calendar"),
     icon: Icons.calendar_month_rounded,
     route: '/more/calendar',
   ),
-  const QuickActionSpec(
+   QuickActionSpec(
     id: 'stats',
-    label: 'Stats',
+    label: appTextValue("Stats"),
     icon: Icons.insights_rounded,
     route: '/more/stats',
   ),
-  const QuickActionSpec(
+   QuickActionSpec(
     id: 'account-reports',
-    label: 'Account Reports',
+    label: appTextValue("Account Reports"),
     icon: Icons.account_balance_rounded,
     route: '/more/account-reports',
   ),
-  const QuickActionSpec(
+   QuickActionSpec(
     id: 'categories',
-    label: 'Categories',
+    label: appTextValue("Categories"),
     icon: Icons.category_rounded,
     route: '/more/categories',
   ),
-  const QuickActionSpec(
+   QuickActionSpec(
     id: 'tags',
-    label: 'Tags',
+    label: appTextValue("Tags"),
     icon: Icons.sell_rounded,
     route: '/more/tags',
   ),
-  const QuickActionSpec(
+   QuickActionSpec(
     id: 'backup',
-    label: 'Backup',
+    label: appTextValue("Backup"),
     icon: Icons.backup_rounded,
     route: '/more/backup',
   ),
-  const QuickActionSpec(
+   QuickActionSpec(
     id: 'export',
-    label: 'Download Data',
+    label: appTextValue("Download Data"),
     icon: Icons.download_rounded,
     route: '/more/export',
   ),
-  const QuickActionSpec(
+   QuickActionSpec(
     id: 'settings',
-    label: 'Settings',
+    label: appTextValue("Settings"),
     icon: Icons.settings_rounded,
     route: '/more/settings',
   ),

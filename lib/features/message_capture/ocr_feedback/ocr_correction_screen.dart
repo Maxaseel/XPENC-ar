@@ -74,7 +74,7 @@ class OcrCorrectionScreen extends ConsumerWidget {
                       backgroundColor: theme.colorScheme.error,
                       foregroundColor: Colors.white,
                       icon: Icons.delete_outline_rounded,
-                      label: 'Delete',
+                      label: appTextValue("Delete"),
                     ),
                   ],
                 ),

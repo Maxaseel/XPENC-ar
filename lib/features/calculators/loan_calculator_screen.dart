@@ -75,31 +75,31 @@ class _LoanCalculatorScreenState extends State<LoanCalculatorScreen>
     }
 
     return CalculatorScaffold(
-      title: 'Loan EMI',
+      title: appTextValue("Loan EMI"),
       children: [
         CalcField(
           controller: _principal,
-          label: 'Loan amount',
+          label: appTextValue("Loan amount"),
           prefix: MoneyFormat.inputPrefix,
         ),
-        CalcField(controller: _rate, label: 'Interest rate', suffix: '% p.a.'),
+        CalcField(controller: _rate, label: appTextValue("Interest rate"), suffix: '% p.a.'),
         CalcFieldPair(
           CalcField(
             controller: _years,
-            label: 'Years',
+            label: appTextValue("Years"),
             suffix: 'yrs',
             decimal: false,
           ),
           CalcField(
             controller: _months,
-            label: 'Months',
+            label: appTextValue("Months"),
             suffix: 'mo',
             decimal: false,
           ),
         ),
         const SizedBox(height: 4),
         CalcResultCard(
-          label: 'Monthly EMI',
+          label: appTextValue("Monthly EMI"),
           value: emi,
           format: MoneyFormat.symbol,
           sub: tenure <= 0
@@ -119,7 +119,7 @@ class _LoanCalculatorScreenState extends State<LoanCalculatorScreen>
         const SizedBox(height: 10),
         CalcField(
           controller: _extra,
-          label: 'Extra payment on top of EMI',
+          label: appTextValue("Extra payment on top of EMI"),
           prefix: MoneyFormat.inputPrefix,
         ),
         if (withExtra != null && extraInterest != null)

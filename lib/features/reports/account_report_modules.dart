@@ -420,12 +420,12 @@ class _BalancesBody extends ConsumerWidget {
           children: [
             _TilePair(
               StatTile(
-                label: 'You have',
+                label: appTextValue("You have"),
                 value: MoneyFormat.symbol(assets),
                 color: AppColors.income,
               ),
               StatTile(
-                label: 'You owe',
+                label: appTextValue("You owe"),
                 value: MoneyFormat.symbol(owed),
                 color: owed.isZero ? null : AppColors.expense,
               ),
@@ -518,13 +518,13 @@ class _ActivityBody extends ConsumerWidget {
             const SizedBox(height: 16),
             _TilePair(
               StatTile(
-                label: 'Money in',
+                label: appTextValue("Money in"),
                 value: MoneyFormat.symbol(summary.moneyIn),
                 sub: 'Income + from people',
                 color: AppColors.income,
               ),
               StatTile(
-                label: 'Money out',
+                label: appTextValue("Money out"),
                 value: MoneyFormat.symbol(summary.moneyOut),
                 sub: 'Spent + to people',
                 color: AppColors.expense,
@@ -643,12 +643,12 @@ class _HistoryBodyState extends ConsumerState<_HistoryBody> {
             const SizedBox(height: 16),
             _TilePair(
               StatTile(
-                label: 'Now',
+                label: appTextValue("Now"),
                 value: points.isEmpty ? '—' : fmt(points.last.value),
                 sub: selected == null ? 'Total money' : selected.name,
               ),
               StatTile(
-                label: 'Change',
+                label: appTextValue("Change"),
                 value: change.isZero
                     ? fmt(change)
                     : '${change.isNegative ? '-' : '+'}${fmt(change.abs)}',
@@ -673,12 +673,12 @@ class _HistoryBodyState extends ConsumerState<_HistoryBody> {
               _tileGap,
               _TilePair(
                 StatTile(
-                  label: 'Highest',
+                  label: appTextValue("Highest"),
                   value: fmt(high.value),
                   sub: DateFormat('MMM yyyy').format(high.month),
                 ),
                 StatTile(
-                  label: 'Lowest',
+                  label: appTextValue("Lowest"),
                   value: fmt(low.value),
                   sub: DateFormat('MMM yyyy').format(low.month),
                   color: low.value.isNegative ? AppColors.expense : null,
@@ -745,12 +745,12 @@ class _TransfersBody extends ConsumerWidget {
             const SizedBox(height: 16),
             _TilePair(
               StatTile(
-                label: 'Moved',
+                label: appTextValue("Moved"),
                 value: MoneyFormat.symbol(summary.moved),
                 sub: 'Between your accounts',
               ),
               StatTile(
-                label: 'Transfers',
+                label: appTextValue("Transfers"),
                 value: '${summary.transfers}',
                 sub: routes.isEmpty
                     ? 'None ${periodNoun(ref)}'
@@ -832,12 +832,12 @@ class _PaymentMethodsBody extends ConsumerWidget {
             const SizedBox(height: 16),
             _TilePair(
               StatTile(
-                label: 'Spent',
+                label: appTextValue("Spent"),
                 value: MoneyFormat.symbol(total),
                 color: total.isZero ? null : AppColors.expense,
               ),
               StatTile(
-                label: 'Payments',
+                label: appTextValue("Payments"),
                 value: '$count',
                 sub: count == 0
                     ? 'None ${periodNoun(ref)}'
@@ -965,7 +965,7 @@ class _CardsBody extends ConsumerWidget {
         return _ModuleList(
           children: [
             StatTile(
-              label: 'Outstanding',
+              label: appTextValue("Outstanding"),
               value: MoneyFormat.symbol(owed),
               sub: owed.isZero
                   ? 'Nothing owed right now'
@@ -977,12 +977,12 @@ class _CardsBody extends ConsumerWidget {
             const SizedBox(height: 16),
             _TilePair(
               StatTile(
-                label: 'Spent on cards',
+                label: appTextValue("Spent on cards"),
                 value: MoneyFormat.symbol(spent),
                 sub: noun,
               ),
               StatTile(
-                label: 'Repaid',
+                label: appTextValue("Repaid"),
                 value: MoneyFormat.symbol(repaid),
                 sub: noun,
                 color: repaid.isZero ? null : AppColors.income,

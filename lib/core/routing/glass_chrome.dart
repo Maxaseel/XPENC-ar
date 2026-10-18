@@ -242,7 +242,7 @@ class _GlassTopBarState extends ConsumerState<_GlassTopBar>
     final trailing = index == 2
         ? _TonalIconButton(
             key: const ValueKey('settled'),
-            tooltip: 'Settled',
+            tooltip: appTextValue("Settled"),
             icon: const AppIcon(Icons.task_alt_rounded),
             onPressed: () => _pushFromTop(context, '/persons/settled'),
           )
@@ -250,7 +250,7 @@ class _GlassTopBarState extends ConsumerState<_GlassTopBar>
         ? const SizedBox.shrink(key: ValueKey('none'))
         : _TonalIconButton(
             key: const ValueKey('inbox'),
-            tooltip: 'Review Inbox',
+            tooltip: appTextValue("Review Inbox"),
             icon: const AppIcon(Icons.inbox_outlined),
             onPressed: () => _pushFromTop(context, '/inbox'),
           );

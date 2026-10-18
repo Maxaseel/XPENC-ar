@@ -1,6 +1,6 @@
 import 'dart:ui' as ui;
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/providers.dart';
@@ -10,6 +10,7 @@ import '../money.dart';
 import '../theme/app_colors.dart';
 import '../theme/glass.dart';
 import 'app_surfaces.dart';
+import '../localization/app_text.dart';
 
 /// Broadcasts the active currency down the tree so every [MoneyText] rebuilds
 /// the instant it changes — even a screen kept alive in the background. The

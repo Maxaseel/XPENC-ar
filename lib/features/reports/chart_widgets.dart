@@ -1,12 +1,13 @@
 import 'dart:math' as math;
 
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:intl/intl.dart';
 
 import '../../core/money.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/app_surfaces.dart';
+import '../../core/localization/app_text.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // The single charting layer. Stats and Account Reports both build on these —

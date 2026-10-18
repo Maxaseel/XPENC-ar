@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 
 import 'app_surfaces.dart';
+import '../localization/app_text.dart';
 
 /// A long-press actions sheet (title + a list of option tiles) that never
 /// hides options behind the bottom nav.

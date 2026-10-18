@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 
 import '../theme/bar_page_transition.dart';
 import '../theme/glass.dart';
 import 'app_surfaces.dart';
+import '../localization/app_text.dart';
 
 /// A page a module links to directly — Currency from Accounts, Categories
 /// from Budgets — so a related feature is a tap away rather than a trip

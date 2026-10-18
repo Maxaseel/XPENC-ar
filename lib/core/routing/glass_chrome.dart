@@ -853,7 +853,7 @@ class _GlassMonthPanelState extends ConsumerState<_GlassMonthPanel> {
             child: TextButton.icon(
               onPressed: selected == current ? null : () => _pick(current),
               icon: const AppIcon(Icons.today_rounded, size: 18),
-              label: const Text('This month'),
+              label: const Text.localized('This month'),
             ),
           ),
         ],

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/widgets/app_surfaces.dart';
@@ -6,6 +6,7 @@ import '../../data/database.dart';
 import '../../data/providers.dart';
 import 'person_avatar.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// People and groups hidden via **Archive** — only ever by hand (the
 /// Persons long-press sheet, a group's menu, or "Archive" on the settled
@@ -20,7 +21,7 @@ class ArchivedPersonsScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppTopBar(
-          title: const Text('Archived'),
+          title: const Text.localized('Archived'),
           bottom: const TabBar(
             tabs: [
               Tab(text: 'Individual'),
@@ -176,15 +177,14 @@ class _ArchivedTile extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
       ),
-      subtitle: Text(
-        'Archived',
+      subtitle: Text.localized('Archived',
         style: theme.textTheme.bodySmall?.copyWith(
           color: theme.colorScheme.onSurfaceVariant,
         ),
       ),
       trailing: TextButton.icon(
         icon: const AppIcon(Icons.unarchive_outlined, size: 18),
-        label: const Text('Restore'),
+        label: const Text.localized('Restore'),
         onPressed: () async {
           final messenger = ScaffoldMessenger.of(context);
           await onRestore();

@@ -1,5 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:intl/intl.dart';
 
 import '../../core/loan_amortization.dart';
@@ -7,6 +7,7 @@ import '../../core/money.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/app_surfaces.dart';
 import '../../data/providers.dart';
+import '../../core/localization/app_text.dart';
 
 // fl_chart speaks in doubles — `paise / 100` is fine here only, same rule as
 // reports/chart_widgets.dart: these values are drawn, never stored.
@@ -238,7 +239,7 @@ class _LoanInsightsSectionState extends State<LoanInsightsSection> {
           const SizedBox(height: 12),
           SegmentedButton<_ChartView>(
             segments: const [
-              ButtonSegment(value: _ChartView.monthly, label: Text('Monthly')),
+              ButtonSegment(value: _ChartView.monthly, label: Text.localized('Monthly')),
               ButtonSegment(value: _ChartView.yearly, label: Text('Yearly')),
             ],
             selected: {_view},

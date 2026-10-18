@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart' show Value;
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,6 +13,7 @@ import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../data/tables.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Preset colours for a category. Plain ints — this is the category's own
 /// decorative colour, not a money-direction signal.
@@ -57,7 +58,7 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppTopBar(
-        title: const Text('Categories'),
+        title: const Text.localized('Categories'),
         actions: [
           IconButton(
             icon: const AppIcon(Icons.dashboard_customize_outlined),
@@ -369,11 +370,11 @@ Future<void> _confirmArchive(
       actions: [
         TextButton(
           onPressed: () => Navigator.of(dialogContext).pop(false),
-          child: const Text('Cancel'),
+          child: const Text.localized('Cancel'),
         ),
         FilledButton(
           onPressed: () => Navigator.of(dialogContext).pop(true),
-          child: const Text('Archive'),
+          child: const Text.localized('Archive'),
         ),
       ],
     ),
@@ -534,7 +535,7 @@ class _CategoryEditorSheetState extends ConsumerState<_CategoryEditorSheet> {
                       width: 22,
                       child: CircularProgressIndicator(strokeWidth: 2.4),
                     )
-                  : const Text('Save'),
+                  : const Text.localized('Save'),
             ),
           ],
         ),
@@ -678,8 +679,7 @@ class _CategoryEditorSheetState extends ConsumerState<_CategoryEditorSheet> {
             ),
             const SizedBox(width: 14),
             Expanded(
-              child: Text(
-                'Tap to change',
+              child: Text.localized('Tap to change',
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),

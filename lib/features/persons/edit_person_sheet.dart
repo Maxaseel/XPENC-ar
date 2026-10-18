@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,6 +7,7 @@ import '../../data/database.dart';
 import '../../data/providers.dart';
 import 'contact_import.dart';
 import 'person_avatar.dart';
+import '../../core/localization/app_text.dart';
 
 /// Opens the "edit person" bottom sheet.
 Future<void> showEditPersonSheet(

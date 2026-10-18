@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 
 import 'recovery_words.dart';
+import '../localization/app_text.dart';
 
 /// Free-text entry for the master recovery phrase — used both embedded in
 /// the lock screen (no `Scaffold` of its own) and wrapped in a route for the

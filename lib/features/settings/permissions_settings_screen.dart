@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 
 import '../../core/permissions/app_permissions.dart';
 import '../../core/widgets/app_surfaces.dart';
 import 'settings_common.dart';
+import '../../core/localization/app_text.dart';
 
 /// Every permission XPENC holds or could ask for, and every one it never
 /// asks for. Turning a permission on shows Android's own dialog; turning one
@@ -74,7 +75,7 @@ class _PermissionsSettingsScreenState extends State<PermissionsSettingsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),

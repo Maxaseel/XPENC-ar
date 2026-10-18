@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -13,6 +13,7 @@ import '../../data/providers.dart';
 import '../../data/tables.dart';
 import 'recurring_rule_sheet.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Auto Expenses / Auto Income — transactions that post themselves on a
 /// schedule, with no confirmation step. A rule whose amount varies (e.g. a
@@ -345,7 +346,7 @@ class _RuleTile extends ConsumerWidget {
             ),
             AppListTile(
               leading: const AppIcon(Icons.bolt_outlined),
-              title: const Text('Pay now'),
+              title: const Text.localized('Pay now'),
               subtitle: Text(
                 rule.nextDueDate.isAfter(DateTime.now())
                     ? "Pay it early, ahead of ${DateFormat('d MMM').format(rule.nextDueDate)} — "
@@ -369,12 +370,10 @@ class _RuleTile extends ConsumerWidget {
                 Icons.delete_outline,
                 color: theme.colorScheme.error,
               ),
-              title: Text(
-                'Delete',
+              title: Text.localized('Delete',
                 style: TextStyle(color: theme.colorScheme.error),
               ),
-              subtitle: const Text(
-                'Removes the rule. Past auto-posted transactions stay.',
+              subtitle: const Text.localized('Removes the rule. Past auto-posted transactions stay.',
               ),
               onTap: () => Navigator.of(sheetContext).pop(_RuleAction.delete),
             ),
@@ -412,11 +411,11 @@ class _RuleTile extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           FilledButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('Pay now'),
+            child: const Text.localized('Pay now'),
           ),
         ],
       ),
@@ -434,21 +433,20 @@ class _RuleTile extends ConsumerWidget {
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text('Delete "${rule.name}"?'),
-        content: const Text(
-          "Its transactions already posted stay in your ledger — only the "
+        content: const Text.localized("Its transactions already posted stay in your ledger — only the "
           "rule itself, and future auto-posting, goes away.",
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(ctx).colorScheme.error,
             ),
-            child: const Text('Delete'),
+            child: const Text.localized('Delete'),
           ),
         ],
       ),
@@ -458,7 +456,7 @@ class _RuleTile extends ConsumerWidget {
     if (!context.mounted) return;
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Rule deleted')));
+      ..showSnackBar(const SnackBar(content: Text.localized('Rule deleted')));
   }
 }
 

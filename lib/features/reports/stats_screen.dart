@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -10,6 +10,7 @@ import 'stats_modules.dart';
 import 'stats_sections.dart';
 import 'xpenc_score_screen.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// The Stats hub: the XPENC Score up top, this month at a glance, then one
 /// tile per [StatsModule] — each opens a focused screen (cash flow, spending,

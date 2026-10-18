@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/routing/app_router.dart' show appRouter;
@@ -7,6 +7,7 @@ import '../../core/routing/app_shell.dart'
 import '../../core/widgets/app_surfaces.dart';
 import '../../data/providers.dart';
 import '../../data/tables.dart' show AppMode;
+import '../../core/localization/app_text.dart';
 
 /// Pick which of the 7 catalog destinations occupy the two configurable
 /// bottom-nav slots flanking the ➕ button — GitHub #70. Dashboard and More
@@ -227,8 +228,7 @@ class _SlotTile extends StatelessWidget {
         title: Text(label),
         trailing: const AppIcon(Icons.chevron_right_rounded),
         onTap: onTap,
-        subtitle: Text(
-          'Tap to change',
+        subtitle: Text.localized('Tap to change',
           style: theme.textTheme.bodySmall?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),

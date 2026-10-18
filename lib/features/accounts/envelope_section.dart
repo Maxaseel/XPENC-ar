@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -6,6 +6,7 @@ import '../../core/widgets/app_surfaces.dart';
 import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../data/tables.dart' show AppMode;
+import '../../core/localization/app_text.dart';
 
 /// The on-budget (pool participation) toggle for [account] — only shown
 /// while Ready to Assign is on globally (GitHub #100 v2); there's nothing to
@@ -92,11 +93,11 @@ class EnvelopeSection extends ConsumerWidget {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(false),
-              child: const Text('Cancel'),
+              child: const Text.localized('Cancel'),
             ),
             FilledButton(
               onPressed: () => Navigator.of(dialogContext).pop(true),
-              child: const Text('Turn on'),
+              child: const Text.localized('Turn on'),
             ),
           ],
         ),

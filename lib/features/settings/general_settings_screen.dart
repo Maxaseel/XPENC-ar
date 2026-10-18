@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,6 +11,7 @@ import '../../data/providers.dart';
 import 'more_screen_layout_sheet.dart';
 import 'settings_common.dart';
 import 'theme_picker_sheet.dart';
+import '../../core/localization/app_text.dart';
 
 /// General — currency, theme, font and layout. The settings that shape how
 /// XPENC looks and reads, independent of app mode or any one feature.

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -26,6 +26,7 @@ import '../reports/stats_modules.dart';
 import 'dashboard_layout.dart';
 import 'sparkline.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// The graphical glance view: net worth, this-month income vs expense,
 /// account balances, budgets, spend breakdown and recent activity — whichever
@@ -2086,7 +2087,7 @@ class _EmptyState extends StatelessWidget {
               FilledButton.icon(
                 onPressed: () => context.push('/add'),
                 icon: const AppIcon(Icons.add_rounded),
-                label: const Text('Add transaction'),
+                label: const Text.localized('Add transaction'),
               ),
             ],
           ),
@@ -2472,7 +2473,7 @@ class _ShortcutsSection extends ConsumerWidget {
             'Shortcuts',
             trailing: TextButton(
               onPressed: () => context.push(_editRoute),
-              child: const Text('Edit'),
+              child: const Text.localized('Edit'),
             ),
           ),
           Padding(

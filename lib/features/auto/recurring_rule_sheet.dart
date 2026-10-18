@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -11,6 +11,7 @@ import '../../data/providers.dart';
 import '../../data/tables.dart';
 import '../settings/currency_picker_sheet.dart';
 import '../tags/tag_picker_sheet.dart';
+import '../../core/localization/app_text.dart';
 
 /// Opens the add/edit sheet. Pass [existing] to edit that rule instead of
 /// creating a new one, or [prefillFrom] to seed a new rule's fields from a
@@ -462,8 +463,8 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
             const SizedBox(height: 20),
             SegmentedButton<_RuleKind>(
               segments: const [
-                ButtonSegment(value: _RuleKind.expense, label: Text('Expense')),
-                ButtonSegment(value: _RuleKind.income, label: Text('Income')),
+                ButtonSegment(value: _RuleKind.expense, label: Text.localized('Expense')),
+                ButtonSegment(value: _RuleKind.income, label: Text.localized('Income')),
                 ButtonSegment(value: _RuleKind.goalOrLoan, label: Text('G&L')),
               ],
               selected: {_ruleKind},
@@ -563,7 +564,7 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
             if (!isGoalOrLoan) ...[
               AppSwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Foreign currency'),
+                title: const Text.localized('Foreign currency'),
                 subtitle: const Text(
                   'Record what this really costs in another currency.',
                 ),
@@ -656,7 +657,7 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
               ),
               items: [
                 if (isGoalOrLoan)
-                  const DropdownMenuItem(value: null, child: Text('None')),
+                  const DropdownMenuItem(value: null, child: Text.localized('None')),
                 for (final c in categories)
                   DropdownMenuItem(
                     value: c.id,
@@ -692,7 +693,7 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
                 segments: const [
                   ButtonSegment(
                     value: RecurringFrequency.daily,
-                    label: Text('Daily'),
+                    label: Text.localized('Daily'),
                   ),
                   ButtonSegment(
                     value: RecurringFrequency.weekly,
@@ -704,7 +705,7 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
                   ),
                   ButtonSegment(
                     value: RecurringFrequency.monthly,
-                    label: Text('Monthly'),
+                    label: Text.localized('Monthly'),
                   ),
                 ],
                 selected: {_frequency},

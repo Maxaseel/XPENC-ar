@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 
 import '../../core/calculators.dart';
 import '../../core/currency.dart';
@@ -8,6 +8,7 @@ import 'calculator_kind.dart';
 import 'calculator_widgets.dart';
 import 'loan_calculator_screen.dart';
 import 'tax_calculator_screen.dart';
+import '../../core/localization/app_text.dart';
 
 /// Route target for `/more/calculators/<kind>`.
 class CalculatorScreen extends StatelessWidget {

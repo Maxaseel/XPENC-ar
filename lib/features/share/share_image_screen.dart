@@ -1,6 +1,6 @@
 import 'dart:ui' as ui;
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter/rendering.dart';
 
 import '../../core/security/nct.dart';
@@ -8,6 +8,7 @@ import '../../core/widgets/app_surfaces.dart';
 import 'share_cards.dart';
 import 'share_files.dart';
 import 'share_models.dart';
+import '../../core/localization/app_text.dart';
 
 /// Shows the card exactly as it will be sent — with a Dark/Light switch and,
 /// for a ledger, a period switch — then captures it at 3× (a 1080 px wide

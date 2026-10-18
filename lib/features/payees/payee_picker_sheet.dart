@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,6 +7,7 @@ import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../persons/contact_import.dart';
 import '../persons/person_avatar.dart';
+import '../../core/localization/app_text.dart';
 
 /// What the payee picker hands back. [personId] is set when the payee is one
 /// of the user's people — the transaction then shows on their page, but
@@ -254,7 +255,7 @@ class _PayeePickerSheetState extends ConsumerState<PayeePickerSheet> {
                         personId: null,
                         notice: null,
                       )),
-                      child: const Text('Clear'),
+                      child: const Text.localized('Clear'),
                     ),
                 ],
               ),

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
@@ -27,6 +27,7 @@ import 'payment_action_row.dart';
 import 'person_avatar.dart';
 import '../share/share_flows.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// One person's ledger. Net balance = Σ(theyOwe) − Σ(iOwe).
 /// `+` they owe you · `-` you owe them.
@@ -1211,7 +1212,7 @@ class _EntrySheetState extends ConsumerState<_EntrySheet> {
                           color: Colors.white,
                         ),
                       )
-                    : const Text('Save'),
+                    : const Text.localized('Save'),
               ),
             ],
           ),

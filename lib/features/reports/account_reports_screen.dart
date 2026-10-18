@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -18,6 +18,7 @@ import 'account_reports_data.dart';
 import 'chart_widgets.dart';
 import 'stats_sections.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Account Reports hub — the same shape as Stats: total money up top, this
 /// period across your accounts, then one tile per [AccountReportModule]
@@ -106,8 +107,7 @@ class _HeroCard extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Total money',
+            Text.localized('Total money',
               style: theme.textTheme.labelMedium?.copyWith(
                 color: cs.onSurfaceVariant,
                 fontWeight: FontWeight.w600,
@@ -378,7 +378,7 @@ class _LinkedChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Chip(
-      label: const Text('Linked'),
+      label: const Text.localized('Linked'),
       labelStyle: theme.textTheme.labelSmall?.copyWith(
         color: theme.colorScheme.onSurfaceVariant,
         fontWeight: FontWeight.w600,

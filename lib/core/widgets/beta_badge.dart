@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
+import '../localization/app_text.dart';
 
 /// Small "BETA" pill for features whose behavior may still change — the
 /// Pay/Request row, the More → Calculators group and its screens.

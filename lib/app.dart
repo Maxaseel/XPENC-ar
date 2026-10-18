@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,6 +18,7 @@ import 'data/providers.dart';
 import 'features/message_capture/parser/bank_message.dart';
 import 'features/message_capture/share_intake.dart';
 import 'features/security/lock_screen.dart';
+import 'core/localization/app_text.dart';
 
 class XpencApp extends ConsumerStatefulWidget {
   const XpencApp({super.key});

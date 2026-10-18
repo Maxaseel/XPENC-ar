@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/security/master_phrase_field.dart';
 import '../../core/widgets/app_surfaces.dart';
 import '../../data/providers.dart';
+import '../../core/localization/app_text.dart';
 
 /// Turning the master phrase off requires re-entering it — same reasoning
 /// as "Remove passcode" re-verifying the current PIN even though you're

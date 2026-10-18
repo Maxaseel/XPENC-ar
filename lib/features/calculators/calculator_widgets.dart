@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter/services.dart';
 
 import '../../core/money.dart';
 import '../../core/widgets/app_surfaces.dart';
 import '../../core/widgets/beta_badge.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Shared building blocks for every More → Calculators screen: the page
 /// shell, number fields, the headline result card and breakdown rows.

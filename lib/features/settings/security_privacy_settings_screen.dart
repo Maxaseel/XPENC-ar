@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,6 +10,7 @@ import 'lock_screen_style_sheet.dart';
 import 'master_phrase_attempts_sheet.dart';
 import 'pin_timeout_sheet.dart';
 import 'settings_common.dart';
+import '../../core/localization/app_text.dart';
 
 /// Security & Privacy — the app's unlock methods (PIN, master recovery
 /// phrase, authenticator app) plus screenshot handling. Two sections:

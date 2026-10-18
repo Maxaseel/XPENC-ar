@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:go_router/go_router.dart';
 
 import '../../data/database.dart';
 import 'app_surfaces.dart';
+import '../localization/app_text.dart';
 
 /// Small pill naming the group a transaction or person entry came from.
 /// Tapping it opens that group.

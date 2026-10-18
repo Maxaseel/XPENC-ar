@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -14,6 +14,7 @@ import 'delete_person_or_group.dart';
 import 'group_member_picker_sheet.dart';
 import '../share/share_flows.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// One group's members and shared-expense history. Balances shown here
 /// (the group's aggregate and each member's figure) come from this group's
@@ -87,11 +88,11 @@ class GroupDetailScreen extends ConsumerWidget {
             itemBuilder: (context) => const [
               PopupMenuItem(
                 value: _GroupMenuAction.archive,
-                child: Text('Archive'),
+                child: Text.localized('Archive'),
               ),
               PopupMenuItem(
                 value: _GroupMenuAction.remove,
-                child: Text('Delete'),
+                child: Text.localized('Delete'),
               ),
             ],
           ),
@@ -128,7 +129,7 @@ class GroupDetailScreen extends ConsumerWidget {
                   TextButton.icon(
                     onPressed: () => _editMembers(context, ref, group),
                     icon: const AppIcon(Icons.edit_outlined, size: 16),
-                    label: const Text('Edit'),
+                    label: const Text.localized('Edit'),
                   ),
                 ],
               ),
@@ -279,11 +280,11 @@ class GroupDetailScreen extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           FilledButton(
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: const Text('Save'),
+            child: const Text.localized('Save'),
           ),
         ],
       ),
@@ -492,14 +493,14 @@ class _ExpenseRow extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(ctx).colorScheme.error,
             ),
-            child: const Text('Delete'),
+            child: const Text.localized('Delete'),
           ),
         ],
       ),

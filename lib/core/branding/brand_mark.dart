@@ -1,9 +1,10 @@
 import 'dart:math' as math;
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 
 import 'app_info.dart';
+import '../localization/app_text.dart';
 
 /// The XPENC mark, drawn rather than shipped as an asset.
 ///

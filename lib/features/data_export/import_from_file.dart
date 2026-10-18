@@ -2,11 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/widgets/app_surfaces.dart';
 import '../../data/providers.dart';
+import '../../core/localization/app_text.dart';
 
 /// Import a backup file the app didn't necessarily write itself — any
 /// `.json` produced by "Everything (JSON)" on the Download Data screen or
@@ -78,14 +79,14 @@ Future<void> importDataFromFile(
       actions: [
         TextButton(
           onPressed: () => Navigator.of(dialogContext).pop(false),
-          child: const Text('Cancel'),
+          child: const Text.localized('Cancel'),
         ),
         TextButton(
           style: TextButton.styleFrom(
             foregroundColor: Theme.of(dialogContext).colorScheme.error,
           ),
           onPressed: () => Navigator.of(dialogContext).pop(true),
-          child: const Text('Replace everything'),
+          child: const Text.localized('Replace everything'),
         ),
       ],
     ),

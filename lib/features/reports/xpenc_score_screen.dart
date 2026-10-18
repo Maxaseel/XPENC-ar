@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,6 +13,7 @@ import 'stats_sections.dart';
 import 'xpenc_score.dart';
 import 'xpenc_score_provider.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Where the full score breakdown lives. Pushed on the root navigator, so it
 /// opens full-screen from the Stats tab as well as from More › Stats.

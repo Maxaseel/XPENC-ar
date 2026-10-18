@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +9,7 @@ import '../../../data/database.dart';
 import '../../../data/providers.dart';
 import 'ocr_correction_export.dart';
 import '../../../core/widgets/nav_bar_inset.dart';
+import '../../../core/localization/app_text.dart';
 
 /// Settings > Message Capture > OCR corrections. See
 /// docs/superpowers/specs/2026-08-14-ocr-corrections-design.md.

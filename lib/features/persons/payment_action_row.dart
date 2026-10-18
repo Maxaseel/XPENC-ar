@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter/services.dart';
 
 import '../../core/widgets/beta_badge.dart';
+import '../../core/localization/app_text.dart';
 
 /// One payment method's worth of state for a [PersonPaymentRow] — a button
 /// label, the id used to decide whether it's ready, and the launch attempt

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -14,6 +14,7 @@ import '../../data/tables.dart';
 import '../auto/linked_auto_rules_card.dart';
 import 'savings_goals_screen.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// One goal: progress ring, target date, and the two shortcuts that move
 /// money in and out of it — each just posts an ordinary transfer, the same
@@ -201,8 +202,7 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Notes',
+                    Text.localized('Notes',
                       style: theme.textTheme.labelSmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                         fontWeight: FontWeight.w700,
@@ -217,8 +217,7 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
             ),
           ],
           const SizedBox(height: 28),
-          Text(
-            'History',
+          Text.localized('History',
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w700,
             ),
@@ -300,7 +299,7 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
             ),
             AppListTile(
               leading: const AppIcon(Icons.archive_outlined),
-              title: const Text('Archive'),
+              title: const Text.localized('Archive'),
               subtitle: const Text(
                 'Hides it from active goals. Its money and history stay.',
               ),
@@ -311,8 +310,7 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
                 Icons.delete_outline,
                 color: Theme.of(sheetContext).colorScheme.error,
               ),
-              title: Text(
-                'Delete',
+              title: Text.localized('Delete',
                 style: TextStyle(
                   color: Theme.of(sheetContext).colorScheme.error,
                 ),
@@ -368,7 +366,7 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           FilledButton(
             onPressed: () {
@@ -385,7 +383,7 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
               }
               Navigator.of(dialogContext).pop(amount);
             },
-            child: const Text('Save'),
+            child: const Text.localized('Save'),
           ),
         ],
       ),
@@ -433,11 +431,11 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           FilledButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('Archive'),
+            child: const Text.localized('Archive'),
           ),
         ],
       ),
@@ -469,14 +467,14 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(true),
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(dialogContext).colorScheme.error,
             ),
-            child: const Text('Delete'),
+            child: const Text.localized('Delete'),
           ),
         ],
       ),
@@ -692,7 +690,7 @@ class _FundsSheetState extends ConsumerState<_FundsSheet> {
                 labelText: 'Category (optional)',
               ),
               items: [
-                const DropdownMenuItem(value: null, child: Text('None')),
+                const DropdownMenuItem(value: null, child: Text.localized('None')),
                 for (final c in categories)
                   DropdownMenuItem(value: c.id, child: Text(c.name)),
               ],

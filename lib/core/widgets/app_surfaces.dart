@@ -1,13 +1,14 @@
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
-import 'package:flutter/cupertino.dart' show CupertinoIcons;
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart' hide Text;
+import 'package:flutter/material.dart' hide Text;
 
 import '../app_icons.dart';
 import '../theme/glass.dart';
 import 'glass_sheet.dart';
 import 'nav_bar_inset.dart';
+import '../localization/app_text.dart';
 
 export 'glass_sheet.dart' show GlassBarScope, GlassSheetRoute;
 

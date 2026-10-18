@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'app_surfaces.dart';
 import 'nav_bar_inset.dart';
+import '../localization/app_text.dart';
 
 /// Shown when something has genuinely failed.
 ///

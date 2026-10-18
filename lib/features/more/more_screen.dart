@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/branding/app_info.dart';
@@ -11,6 +11,7 @@ import '../../data/providers.dart';
 import '../../data/tables.dart' show AppMode, MoreScreenViewMode;
 import '../calculators/calculator_kind.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Hub page. Grouped, not a flat dump. Every tile navigates to a real route.
 class MoreScreen extends ConsumerWidget {

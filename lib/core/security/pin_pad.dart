@@ -1,8 +1,9 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 
 import '../widgets/app_surfaces.dart';
+import '../localization/app_text.dart';
 
 /// Filled/empty circles showing how many of [length] digits have been typed.
 /// [shake] is set briefly after a wrong PIN to animate a horizontal shake.

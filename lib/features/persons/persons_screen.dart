@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -19,6 +19,7 @@ import 'edit_person_sheet.dart';
 import 'group_member_picker_sheet.dart';
 import 'person_avatar.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Who owes you, who you owe — split into Individual (a single named
 /// contact, unchanged from before groups existed), Group (shared expenses
@@ -74,7 +75,7 @@ class _PersonsScreenState extends ConsumerState<PersonsScreen>
     List<Widget> actions(BuildContext dialogContext) => [
       TextButton(
         onPressed: () => Navigator.of(dialogContext).pop(),
-        child: const Text('Cancel'),
+        child: const Text.localized('Cancel'),
       ),
       FilledButton(
         onPressed: () =>
@@ -500,7 +501,7 @@ class _PersonTile extends ConsumerWidget {
       options: (sheetContext) => [
         AppListTile(
           leading: const AppIcon(Icons.edit_outlined),
-          title: const Text('Edit'),
+          title: const Text.localized('Edit'),
           subtitle: const Text('Name, UPI ID, phone and more.'),
           onTap: () => Navigator.of(sheetContext).pop(_PersonAction.edit),
         ),
@@ -521,13 +522,13 @@ class _PersonTile extends ConsumerWidget {
         else if (balance.isZero)
           AppListTile(
             leading: const AppIcon(Icons.check_circle_outline_rounded),
-            title: const Text('Move to Settled'),
+            title: const Text.localized('Move to Settled'),
             subtitle: const Text('Balance is zero. History stays intact.'),
             onTap: () => Navigator.of(sheetContext).pop(_PersonAction.settle),
           ),
         AppListTile(
           leading: const AppIcon(Icons.archive_outlined),
-          title: const Text('Archive'),
+          title: const Text.localized('Archive'),
           subtitle: const Text('Hide them. History stays intact.'),
           onTap: () => Navigator.of(sheetContext).pop(_PersonAction.archive),
         ),
@@ -536,8 +537,7 @@ class _PersonTile extends ConsumerWidget {
             Icons.delete_outline,
             color: theme.colorScheme.error,
           ),
-          title: Text(
-            'Delete',
+          title: Text.localized('Delete',
             style: TextStyle(color: theme.colorScheme.error),
           ),
           subtitle: const Text('Permanently, with all their history.'),
@@ -625,14 +625,14 @@ class _PersonTile extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(ctx).colorScheme.error,
             ),
-            child: const Text('Archive'),
+            child: const Text.localized('Archive'),
           ),
         ],
       ),
@@ -829,13 +829,13 @@ class _GroupTile extends ConsumerWidget {
         else if (balance.isZero)
           AppListTile(
             leading: const AppIcon(Icons.check_circle_outline_rounded),
-            title: const Text('Move to Settled'),
+            title: const Text.localized('Move to Settled'),
             subtitle: const Text('Balance is zero. History stays intact.'),
             onTap: () => Navigator.of(sheetContext).pop(_GroupAction.settle),
           ),
         AppListTile(
           leading: const AppIcon(Icons.archive_outlined),
-          title: const Text('Archive'),
+          title: const Text.localized('Archive'),
           subtitle: const Text('Hide it. Expense history stays intact.'),
           onTap: () => Navigator.of(sheetContext).pop(_GroupAction.archive),
         ),
@@ -844,8 +844,7 @@ class _GroupTile extends ConsumerWidget {
             Icons.delete_outline,
             color: theme.colorScheme.error,
           ),
-          title: Text(
-            'Delete',
+          title: Text.localized('Delete',
             style: TextStyle(color: theme.colorScheme.error),
           ),
           subtitle: const Text('Permanently, with all its expenses.'),
@@ -889,14 +888,14 @@ class _GroupTile extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(ctx).colorScheme.error,
             ),
-            child: const Text('Archive'),
+            child: const Text.localized('Archive'),
           ),
         ],
       ),

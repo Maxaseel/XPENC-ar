@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter/services.dart';
 
 import '../widgets/app_surfaces.dart';
 import 'screen_security.dart';
+import '../localization/app_text.dart';
 
 // NCT — "non-capturable transaction" (GitHub #143).
 //

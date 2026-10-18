@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -13,6 +13,7 @@ import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../data/tables.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Warning tint for the "possible duplicate" banner. Amber is neither money-in
 /// nor money-out — it's a caution, so it deliberately sits outside the semantic
@@ -628,7 +629,7 @@ class _ApproveSheetState extends ConsumerState<_ApproveSheet> {
                 style: FilledButton.styleFrom(
                   minimumSize: const Size.fromHeight(52),
                 ),
-                child: const Text('Add transaction'),
+                child: const Text.localized('Add transaction'),
               ),
             ],
           ),

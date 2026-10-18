@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/money.dart';
@@ -7,6 +7,7 @@ import '../../core/widgets/app_surfaces.dart';
 import '../../core/widgets/money_text.dart';
 import '../../data/providers.dart';
 import '../../data/tables.dart';
+import '../../core/localization/app_text.dart';
 
 /// Shared by a transfer out and a "they owe" lending entry — the two ways
 /// money can leave an Envelope Mode account **without** being an expense.

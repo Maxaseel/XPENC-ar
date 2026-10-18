@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
+import '../../core/localization/app_text.dart';
 
 /// Shared look for a settings sub-screen's section header — used across every
 /// settings module page so they read as one family.

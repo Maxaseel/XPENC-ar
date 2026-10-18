@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 
 import '../../core/loan_amortization.dart';
 import '../../core/money.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/app_surfaces.dart';
 import 'calculator_widgets.dart';
+import '../../core/localization/app_text.dart';
 
 /// Reducing-balance EMI calculator. Reuses [LoanAmortization] — the same
 /// math behind real loans in Goals & Loans — so the numbers here match what

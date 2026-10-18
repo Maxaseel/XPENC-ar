@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/widgets/app_surfaces.dart';
@@ -6,6 +6,7 @@ import '../../core/widgets/error_view.dart';
 import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Save the current category structure as a reusable template, and switch
 /// between saved templates (GitHub #101). Switching never touches a
@@ -138,8 +139,8 @@ class _TemplateTile extends ConsumerWidget {
             value: _TemplateAction.apply,
             child: Text('Switch to this template'),
           ),
-          PopupMenuItem(value: _TemplateAction.rename, child: Text('Rename')),
-          PopupMenuItem(value: _TemplateAction.delete, child: Text('Delete')),
+          PopupMenuItem(value: _TemplateAction.rename, child: Text.localized('Rename')),
+          PopupMenuItem(value: _TemplateAction.delete, child: Text.localized('Delete')),
         ],
       ),
       onTap: () => _applyTemplate(context, ref, template),
@@ -202,12 +203,12 @@ Future<String?> _promptForName(
       actions: [
         TextButton(
           onPressed: () => Navigator.of(dialogContext).pop(),
-          child: const Text('Cancel'),
+          child: const Text.localized('Cancel'),
         ),
         FilledButton(
           onPressed: () =>
               Navigator.of(dialogContext).pop(controller.text.trim()),
-          child: const Text('Save'),
+          child: const Text.localized('Save'),
         ),
       ],
     ),
@@ -232,7 +233,7 @@ Future<void> _applyTemplate(
       actions: [
         TextButton(
           onPressed: () => Navigator.of(dialogContext).pop(false),
-          child: const Text('Cancel'),
+          child: const Text.localized('Cancel'),
         ),
         FilledButton(
           onPressed: () => Navigator.of(dialogContext).pop(true),
@@ -274,14 +275,14 @@ Future<void> _deleteTemplate(
       actions: [
         TextButton(
           onPressed: () => Navigator.of(dialogContext).pop(false),
-          child: const Text('Cancel'),
+          child: const Text.localized('Cancel'),
         ),
         TextButton(
           onPressed: () => Navigator.of(dialogContext).pop(true),
           style: TextButton.styleFrom(
             foregroundColor: Theme.of(dialogContext).colorScheme.error,
           ),
-          child: const Text('Delete'),
+          child: const Text.localized('Delete'),
         ),
       ],
     ),

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -11,6 +11,7 @@ import '../../data/tables.dart';
 import 'backup_service.dart';
 import 'import_from_file.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 String _sizeLabel(int bytes) {
   if (bytes < 1024) return '$bytes B';
@@ -133,14 +134,14 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           TextButton(
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(dialogContext).colorScheme.error,
             ),
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: const Text('Replace everything'),
+            child: const Text.localized('Replace everything'),
           ),
         ],
       ),
@@ -192,14 +193,14 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           TextButton(
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(dialogContext).colorScheme.error,
             ),
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: const Text('Delete'),
+            child: const Text.localized('Delete'),
           ),
         ],
       ),
@@ -237,14 +238,14 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           TextButton(
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(dialogContext).colorScheme.error,
             ),
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: const Text('Delete'),
+            child: const Text.localized('Delete'),
           ),
         ],
       ),
@@ -351,8 +352,7 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
             ),
           ),
           const SizedBox(height: 24),
-          Text(
-            'Automatic backups',
+          Text.localized('Automatic backups',
             style: theme.textTheme.titleSmall?.copyWith(
               color: cs.onSurfaceVariant,
             ),
@@ -370,7 +370,7 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
                     : Icons.schedule_outlined,
                 color: autoBackup.enabled ? cs.primary : cs.onSurfaceVariant,
               ),
-              title: const Text('Automatic backups'),
+              title: const Text.localized('Automatic backups'),
               subtitle: Text(
                 _autoBackupSummary(autoBackup),
                 style: theme.textTheme.bodySmall?.copyWith(
@@ -397,7 +397,7 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
                   onPressed: _busy
                       ? null
                       : () => setState(() => _selected.clear()),
-                  child: const Text('Cancel'),
+                  child: const Text.localized('Cancel'),
                 ),
                 TextButton.icon(
                   onPressed: _busy
@@ -406,7 +406,7 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
                           backupsAsync.valueOrNull ?? const [],
                         ),
                   icon: const AppIcon(Icons.delete_outline, size: 18),
-                  label: const Text('Delete'),
+                  label: const Text.localized('Delete'),
                   style: TextButton.styleFrom(foregroundColor: cs.error),
                 ),
               ] else ...[
@@ -608,12 +608,12 @@ class _BackupTile extends StatelessWidget {
                   itemBuilder: (_) => [
                     const PopupMenuItem(
                       value: 'restore',
-                      child: Text('Restore'),
+                      child: Text.localized('Restore'),
                     ),
-                    const PopupMenuItem(value: 'share', child: Text('Share')),
+                    const PopupMenuItem(value: 'share', child: Text.localized('Share')),
                     PopupMenuItem(
                       value: 'delete',
-                      child: Text('Delete', style: TextStyle(color: cs.error)),
+                      child: Text.localized('Delete', style: TextStyle(color: cs.error)),
                     ),
                   ],
                 ),
@@ -763,8 +763,7 @@ class _AutoBackupSettingsSheetState
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              'Automatic backups',
+            Text.localized('Automatic backups',
               style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.w700,
               ),
@@ -798,11 +797,11 @@ class _AutoBackupSettingsSheetState
                   segments: const [
                     ButtonSegment(
                       value: AutoBackupFrequency.daily,
-                      label: Text('Daily'),
+                      label: Text.localized('Daily'),
                     ),
                     ButtonSegment(
                       value: AutoBackupFrequency.monthly,
-                      label: Text('Monthly'),
+                      label: Text.localized('Monthly'),
                     ),
                     ButtonSegment(
                       value: AutoBackupFrequency.custom,
@@ -891,7 +890,7 @@ class _AutoBackupSettingsSheetState
                   segments: const [
                     ButtonSegment(
                       value: BackupRetentionMode.days,
-                      label: Text('Time'),
+                      label: Text.localized('Time'),
                     ),
                     ButtonSegment(
                       value: BackupRetentionMode.count,
@@ -989,7 +988,7 @@ class _AutoBackupSettingsSheetState
                         color: Colors.white,
                       ),
                     )
-                  : const Text('Save'),
+                  : const Text.localized('Save'),
             ),
           ],
         ),

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/money.dart';
@@ -11,6 +11,7 @@ import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../data/tables.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// The shared Ready to Assign figure, pooled across every Envelope-Mode
 /// account (see `readyToAssignProvider` in `data/providers.dart` —
@@ -34,8 +35,7 @@ class ReadyToAssignCard extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Ready to Assign',
+                  Text.localized('Ready to Assign',
                     style: theme.textTheme.labelLarge?.copyWith(
                       color: cs.onSurfaceVariant,
                     ),
@@ -72,7 +72,7 @@ class ReadyToAssignScreen extends ConsumerWidget {
     final poolAccounts = ref.watch(envelopeModeAccountsProvider);
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Ready to Assign')),
+      appBar: AppTopBar(title: const Text.localized('Ready to Assign')),
       body: poolAccounts.isEmpty
           ? const _EmptyState()
           : ListView(
@@ -82,8 +82,7 @@ class ReadyToAssignScreen extends ConsumerWidget {
                 const SizedBox(height: 16),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8, left: 4),
-                  child: Text(
-                    'Categories',
+                  child: Text.localized('Categories',
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
@@ -238,7 +237,7 @@ class _AssignSheetState extends ConsumerState<_AssignSheet> {
     final typed = Money.tryParse(_amountCtrl.text);
     if (typed == null || !typed.isPositive) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Enter an amount greater than zero')),
+        const SnackBar(content: Text.localized('Enter an amount greater than zero')),
       );
       return;
     }
@@ -353,7 +352,7 @@ class _AssignSheetState extends ConsumerState<_AssignSheet> {
             onPressed: _save,
             child: const Padding(
               padding: EdgeInsets.symmetric(vertical: 4),
-              child: Text('Save'),
+              child: Text.localized('Save'),
             ),
           ),
         ],

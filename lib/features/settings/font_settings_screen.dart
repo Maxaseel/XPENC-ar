@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/font_options.dart';
 import '../../core/widgets/app_surfaces.dart';
 import '../../data/providers.dart';
+import '../../core/localization/app_text.dart';
 
 /// Text size, boldness and font family — three global reading-comfort knobs,
 /// each applied over the whole app (see `AppTheme.of` and `XpencApp`'s

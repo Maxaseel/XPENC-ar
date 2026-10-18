@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -17,6 +17,7 @@ import '../auto/linked_auto_rules_card.dart';
 import 'loan_insights.dart';
 import 'savings_goals_screen.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// One loan: outstanding balance, original amount, repayment progress, and a
 /// "Make a payment" shortcut that posts an ordinary transfer into the loan
@@ -119,7 +120,7 @@ class LoanDetailScreen extends ConsumerWidget {
                       ? null
                       : () => _openPaymentSheet(context, loan: loan),
                   icon: const AppIcon(Icons.payments_outlined),
-                  label: const Text('Make a payment'),
+                  label: const Text.localized('Make a payment'),
                 ),
               ),
             ],
@@ -283,8 +284,7 @@ class LoanDetailScreen extends ConsumerWidget {
             LoanInsightsSection(loan: loan),
           ],
           const SizedBox(height: 28),
-          Text(
-            'History',
+          Text.localized('History',
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w700,
             ),
@@ -355,7 +355,7 @@ class LoanDetailScreen extends ConsumerWidget {
           children: [
             AppListTile(
               leading: const AppIcon(Icons.archive_outlined),
-              title: const Text('Archive'),
+              title: const Text.localized('Archive'),
               subtitle: const Text(
                 'Hides it from active loans. Its history stays.',
               ),
@@ -366,8 +366,7 @@ class LoanDetailScreen extends ConsumerWidget {
                 Icons.delete_outline,
                 color: Theme.of(sheetContext).colorScheme.error,
               ),
-              title: Text(
-                'Delete',
+              title: Text.localized('Delete',
                 style: TextStyle(
                   color: Theme.of(sheetContext).colorScheme.error,
                 ),
@@ -408,11 +407,11 @@ class LoanDetailScreen extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           FilledButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('Archive'),
+            child: const Text.localized('Archive'),
           ),
         ],
       ),
@@ -444,14 +443,14 @@ class LoanDetailScreen extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(true),
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(dialogContext).colorScheme.error,
             ),
-            child: const Text('Delete'),
+            child: const Text.localized('Delete'),
           ),
         ],
       ),
@@ -750,8 +749,7 @@ class _LoanPaymentSheetState extends ConsumerState<_LoanPaymentSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              'Make a payment',
+            Text.localized('Make a payment',
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w700,
               ),
@@ -773,8 +771,7 @@ class _LoanPaymentSheetState extends ConsumerState<_LoanPaymentSheet> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Date',
+                          Text.localized('Date',
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
                             ),
@@ -848,7 +845,7 @@ class _LoanPaymentSheetState extends ConsumerState<_LoanPaymentSheet> {
                     : null,
               ),
               items: [
-                const DropdownMenuItem(value: null, child: Text('None')),
+                const DropdownMenuItem(value: null, child: Text.localized('None')),
                 for (final c in categories)
                   DropdownMenuItem(value: c.id, child: Text(c.name)),
               ],
@@ -863,7 +860,7 @@ class _LoanPaymentSheetState extends ConsumerState<_LoanPaymentSheet> {
                       width: 22,
                       child: CircularProgressIndicator(strokeWidth: 2.4),
                     )
-                  : const Text('Make a payment'),
+                  : const Text.localized('Make a payment'),
             ),
           ],
         ),

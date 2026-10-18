@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,6 +11,7 @@ import '../../data/providers.dart';
 import '../../data/tables.dart' show AppMode;
 import 'settings_common.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Quick Actions — shortcuts that don't fit any other module. Bank-SMS
 /// capture and OCR corrections live under General's "Message Capture"

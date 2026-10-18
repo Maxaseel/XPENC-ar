@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/app_icons.dart';
@@ -7,6 +7,7 @@ import '../../core/widgets/custom_icon_badge.dart';
 import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Accounts hidden via **Archive** on the Accounts screen. Restoring one here
 /// is the only way back — archiving never deletes anything, so this list is
@@ -93,15 +94,14 @@ class _ArchivedAccountTile extends ConsumerWidget {
         account.name,
         style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
       ),
-      subtitle: Text(
-        'Archived',
+      subtitle: Text.localized('Archived',
         style: theme.textTheme.bodySmall?.copyWith(
           color: theme.colorScheme.onSurfaceVariant,
         ),
       ),
       trailing: TextButton.icon(
         icon: const AppIcon(Icons.unarchive_outlined, size: 18),
-        label: const Text('Restore'),
+        label: const Text.localized('Restore'),
         onPressed: () async {
           final messenger = ScaffoldMessenger.of(context);
           await ref.read(dbProvider).unarchiveAccount(account.id);

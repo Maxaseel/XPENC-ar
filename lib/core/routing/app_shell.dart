@@ -1,9 +1,9 @@
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
-import 'package:flutter/cupertino.dart' show CupertinoIcons;
+import 'package:flutter/cupertino.dart' hide Text;
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter/physics.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -28,6 +28,7 @@ import '../budget_cycle.dart';
 import '../theme/bar_page_transition.dart';
 import '../theme/glass.dart';
 import '../widgets/nav_bar_inset.dart';
+import '../localization/app_text.dart';
 
 part 'glass_chrome.dart';
 

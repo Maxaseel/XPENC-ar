@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -7,6 +7,7 @@ import '../../core/widgets/app_surfaces.dart';
 import '../../data/providers.dart';
 import '../../data/tables.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Which widget the "Date range" section shows — a plain range picker, or a
 /// week-at-a-time stepper (GitHub #121). Local to the sheet: neither
@@ -174,7 +175,7 @@ class _TransactionFiltersSheetState
                         segments: const [
                           ButtonSegment(
                             value: _DateFilterMode.custom,
-                            label: Text('Custom range'),
+                            label: Text.localized('Custom range'),
                           ),
                           ButtonSegment(
                             value: _DateFilterMode.week,

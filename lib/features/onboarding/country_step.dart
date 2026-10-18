@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter/services.dart';
 
 import '../../core/countries.dart';
@@ -7,6 +7,7 @@ import '../../core/money.dart';
 import '../../core/widgets/app_surfaces.dart';
 import '../../core/widgets/custom_icon_badge.dart';
 import '../settings/currency_picker_sheet.dart';
+import '../../core/localization/app_text.dart';
 
 /// What the country step settled on: a country, and so its currency — or,
 /// for a country the list doesn't carry, a currency picked directly.

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:intl/intl.dart';
 
 import '../../core/app_icons.dart';
@@ -15,6 +15,7 @@ import '../../data/database.dart';
 import '../../data/tables.dart';
 import '../persons/person_avatar.dart' show personInitials;
 import 'share_models.dart';
+import '../../core/localization/app_text.dart';
 
 /// The shareable image cards — a transaction receipt, a person's balance,
 /// a group's spend. Each is a fixed 360-wide layout, captured at 3× into a

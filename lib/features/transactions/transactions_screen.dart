@@ -1,6 +1,6 @@
 import 'dart:ui' show ImageFilter;
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
@@ -27,6 +27,7 @@ import 'transaction_filters.dart';
 import '../../core/widgets/nav_bar_inset.dart';
 import '../persons/person_avatar.dart';
 import '../share/share_flows.dart';
+import '../../core/localization/app_text.dart';
 
 /// All transactions, grouped day-wise (newest first) with a per-day net total.
 /// Searchable by note / category / account and filterable by [TxType].
@@ -67,7 +68,7 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
       context: context,
       builder: (context) => AlertDialog(
         icon: const AppIcon(Icons.delete_outline_rounded),
-        title: const Text('Delete this transaction?'),
+        title: const Text.localized('Delete this transaction?'),
         content: Text(
           '$title · ${MoneyFormat.symbol(tx.amount)}\n\n'
           'The account balance will be corrected. This cannot be undone.',
@@ -75,7 +76,7 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           FilledButton.icon(
             style: FilledButton.styleFrom(
@@ -87,7 +88,7 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
             ),
             onPressed: () => Navigator.pop(context, true),
             icon: const AppIcon(Icons.delete_outline_rounded, size: 18),
-            label: const Text('Delete'),
+            label: const Text.localized('Delete'),
           ),
         ],
       ),
@@ -120,12 +121,12 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           FilledButton(
             onPressed: () =>
                 Navigator.of(dialogContext).pop(controller.text.trim()),
-            child: const Text('Save'),
+            child: const Text.localized('Save'),
           ),
         ],
       ),
@@ -171,7 +172,7 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
     try {
       await ref.read(dbProvider).deleteTransaction(id);
       messenger.showSnackBar(
-        const SnackBar(content: Text('Transaction deleted')),
+        const SnackBar(content: Text.localized('Transaction deleted')),
       );
     } on ArgumentError catch (e) {
       // e.g. a person movement, which must be deleted from the person's page.
@@ -387,7 +388,7 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
                           ref.read(txSearchQueryProvider.notifier).state =
                               value,
                     )
-                  : const Text('Transactions'),
+                  : const Text.localized('Transactions'),
               actions: [
                 GlassActionGroup(
                   children: [
@@ -962,7 +963,7 @@ Future<void> _openQuickActions(
         ),
         AppListTile(
           leading: const AppIcon(Icons.edit_outlined),
-          title: const Text('Edit'),
+          title: const Text.localized('Edit'),
           onTap: () {
             Navigator.of(sheetContext).pop();
             context.push('/add?id=${tx.id}');
@@ -971,7 +972,7 @@ Future<void> _openQuickActions(
       ],
       AppListTile(
         leading: const AppIcon(Icons.ios_share_rounded),
-        title: const Text('Share'),
+        title: const Text.localized('Share'),
         subtitle: const Text('As a PDF receipt or an image card'),
         onTap: () {
           Navigator.of(sheetContext).pop();
@@ -983,8 +984,7 @@ Future<void> _openQuickActions(
           Icons.delete_outline_rounded,
           color: theme.colorScheme.error,
         ),
-        title: Text(
-          'Delete',
+        title: Text.localized('Delete',
           style: TextStyle(color: theme.colorScheme.error),
         ),
         onTap: () {
@@ -1095,7 +1095,7 @@ class _TxCard extends StatelessWidget {
                 children: [
                   AppIcon(Icons.delete_outline_rounded, size: 20),
                   SizedBox(height: 4),
-                  Text('Delete', style: TextStyle(fontSize: 11)),
+                  Text.localized('Delete', style: TextStyle(fontSize: 11)),
                 ],
               ),
             ),

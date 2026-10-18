@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -9,6 +9,7 @@ import '../../core/widgets/error_view.dart';
 import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Preset colours for a tag. Plain ints — this is the tag's own decorative
 /// colour, not a money-direction signal.
@@ -206,14 +207,14 @@ Future<void> _confirmDelete(
       actions: [
         TextButton(
           onPressed: () => Navigator.of(dialogContext).pop(false),
-          child: const Text('Cancel'),
+          child: const Text.localized('Cancel'),
         ),
         TextButton(
           onPressed: () => Navigator.of(dialogContext).pop(true),
           style: TextButton.styleFrom(
             foregroundColor: Theme.of(dialogContext).colorScheme.error,
           ),
-          child: const Text('Delete'),
+          child: const Text.localized('Delete'),
         ),
       ],
     ),
@@ -340,8 +341,7 @@ class _TagEditorSheetState extends ConsumerState<_TagEditorSheet> {
               onSubmitted: (_) => _save(),
             ),
             const SizedBox(height: 8),
-            Text(
-              'COLOUR',
+            Text.localized('COLOUR',
               style: theme.textTheme.labelSmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
                 fontWeight: FontWeight.w700,
@@ -363,7 +363,7 @@ class _TagEditorSheetState extends ConsumerState<_TagEditorSheet> {
                       width: 22,
                       child: CircularProgressIndicator(strokeWidth: 2.4),
                     )
-                  : const Text('Save'),
+                  : const Text.localized('Save'),
             ),
           ],
         ),

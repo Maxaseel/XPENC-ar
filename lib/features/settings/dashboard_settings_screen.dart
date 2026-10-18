@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,6 +12,7 @@ import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../dashboard/dashboard_layout.dart';
 import 'settings_common.dart';
+import '../../core/localization/app_text.dart';
 
 /// Settings ▸ Customize dashboard: which widgets the Dashboard shows and in
 /// what order — drag to reorder, − to take one off, + to add one back — and
@@ -353,8 +354,7 @@ class _NetWorthAccounts extends ConsumerWidget {
             padding: EdgeInsets.all(24),
             child: Center(child: CircularProgressIndicator()),
           ),
-          error: (_, _) => Text(
-            'Could not load your accounts.',
+          error: (_, _) => Text.localized('Could not load your accounts.',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: cs.onSurfaceVariant,
             ),

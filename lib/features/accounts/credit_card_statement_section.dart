@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -7,6 +7,7 @@ import '../../core/widgets/app_surfaces.dart';
 import '../../core/widgets/money_text.dart';
 import '../../data/database.dart';
 import '../../data/providers.dart';
+import '../../core/localization/app_text.dart';
 
 /// Opt-in statement/due-date tracking for a credit card (GitHub #91) — off
 /// unless the user turns it on, same shape as [EnvelopeSection]'s own
@@ -58,7 +59,7 @@ class CreditCardStatementSection extends ConsumerWidget {
                 child: TextButton(
                   onPressed: () =>
                       _showCycleDialog(context, ref, existing: detail),
-                  child: const Text('Edit'),
+                  child: const Text.localized('Edit'),
                 ),
               ),
             ),
@@ -101,7 +102,7 @@ class CreditCardStatementSection extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           FilledButton(
             onPressed: () => Navigator.of(ctx).pop(true),
@@ -315,7 +316,7 @@ class _CreditCardCycleDialogState extends State<_CreditCardCycleDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
+          child: const Text.localized('Cancel'),
         ),
         FilledButton(
           onPressed: () => Navigator.of(context).pop((
@@ -323,7 +324,7 @@ class _CreditCardCycleDialogState extends State<_CreditCardCycleDialog> {
             dueDay: _dueDay,
             notifyDaysBefore: _notifyDays.round(),
           )),
-          child: const Text('Save'),
+          child: const Text.localized('Save'),
         ),
       ],
     );

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -8,6 +8,7 @@ import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../data/tables.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Auto rules paused via **Pause** on [AutoScreen] — hidden from its main
 /// list entirely (see GitHub #61) and gathered here instead. Restoring one
@@ -95,7 +96,7 @@ class _ArchivedRuleTile extends ConsumerWidget {
       ),
       trailing: TextButton.icon(
         icon: const AppIcon(Icons.unarchive_outlined, size: 18),
-        label: const Text('Restore'),
+        label: const Text.localized('Restore'),
         style: TextButton.styleFrom(foregroundColor: color),
         onPressed: () async {
           final messenger = ScaffoldMessenger.of(context);

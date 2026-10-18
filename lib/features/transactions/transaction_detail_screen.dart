@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -19,6 +19,7 @@ import '../auto/recurring_rule_sheet.dart';
 import '../share/share_flows.dart';
 import '../tags/tag_picker_sheet.dart';
 import 'transaction_link_picker_sheet.dart';
+import '../../core/localization/app_text.dart';
 
 /// Read-only view of a single transaction, with edit + delete in the app bar.
 ///
@@ -111,19 +112,19 @@ class TransactionDetailScreen extends ConsumerWidget {
     final confirmed = await showAppDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Delete this transaction?'),
-        content: const Text('The amount will be added back to your balance.'),
+        title: const Text.localized('Delete this transaction?'),
+        content: const Text.localized('The amount will be added back to your balance.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           TextButton(
             style: TextButton.styleFrom(
               foregroundColor: theme.colorScheme.error,
             ),
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: const Text('Delete'),
+            child: const Text.localized('Delete'),
           ),
         ],
       ),
@@ -135,7 +136,7 @@ class TransactionDetailScreen extends ConsumerWidget {
       navigator.pop();
       messenger
         ..hideCurrentSnackBar()
-        ..showSnackBar(const SnackBar(content: Text('Transaction deleted')));
+        ..showSnackBar(const SnackBar(content: Text.localized('Transaction deleted')));
     } catch (e) {
       messenger
         ..hideCurrentSnackBar()
@@ -777,8 +778,7 @@ class _NctRow extends ConsumerWidget {
       value: transaction.isNct,
       onChanged: (v) =>
           ref.read(dbProvider).setTransactionNct(transaction.id, v),
-      title: Text(
-        'Hide from screenshots',
+      title: Text.localized('Hide from screenshots',
         style: theme.textTheme.bodyMedium,
       ),
       subtitle: Text(

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +17,7 @@ import '../../data/providers.dart';
 import '../../data/tables.dart';
 import '../auto/recurring_rule_sheet.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// A month calendar built by hand (no calendar package). Each day cell shows the
 /// money in / out for that day and a dot when an open reminder falls on it.
@@ -83,7 +84,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     final confirmed = await showAppDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Mark as paid'),
+        title: const Text.localized('Mark as paid'),
         content: const Text(
           'This will not post anything by itself. '
           'Confirm to record the transaction.',
@@ -91,7 +92,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           FilledButton(
             onPressed: () => Navigator.of(ctx).pop(true),
@@ -724,7 +725,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () => _confirmMarkPaid(r.id),
-                child: const Text('Mark as paid'),
+                child: const Text.localized('Mark as paid'),
               ),
             ),
           ],
@@ -919,7 +920,7 @@ class _ReminderSheetState extends ConsumerState<_ReminderSheet> {
       amount = Money.tryParse(amtText);
       if (amount == null || !amount.isPositive) {
         messenger.showSnackBar(
-          const SnackBar(content: Text('Enter a valid amount')),
+          const SnackBar(content: Text.localized('Enter a valid amount')),
         );
         return;
       }

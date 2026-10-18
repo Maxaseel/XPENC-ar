@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -14,6 +14,7 @@ import 'app_surfaces.dart';
 import 'custom_icon_badge.dart';
 import 'error_view.dart';
 import 'money_text.dart';
+import '../localization/app_text.dart';
 
 /// Day-grouped transaction history, signed relative to [ownIds]. Shared by
 /// every screen that shows one account's (or goal's / loan's, which are

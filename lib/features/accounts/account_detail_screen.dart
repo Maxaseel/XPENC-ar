@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/currency.dart';
@@ -16,6 +16,7 @@ import '../../data/tables.dart';
 import 'credit_card_statement_section.dart';
 import 'envelope_section.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// [account]'s own currency — null for the parent currency, matching
 /// [AccountRow.currencyCode]'s own convention. A debit/UPI instrument
@@ -454,7 +455,7 @@ class _HeaderCard extends ConsumerWidget {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(false),
-              child: const Text('Cancel'),
+              child: const Text.localized('Cancel'),
             ),
             FilledButton(
               onPressed: () {
@@ -468,7 +469,7 @@ class _HeaderCard extends ConsumerWidget {
                 }
                 Navigator.of(dialogContext).pop(true);
               },
-              child: const Text('Save'),
+              child: const Text.localized('Save'),
             ),
           ],
         );
@@ -575,7 +576,7 @@ Future<void> _downloadStatement(
   final service = ref.read(backupServiceProvider);
   messenger
     ..hideCurrentSnackBar()
-    ..showSnackBar(const SnackBar(content: Text('Generating statement...')));
+    ..showSnackBar(const SnackBar(content: Text.localized('Generating statement...')));
   try {
     final file = await service.writeAccountStatementPdf(
       account: account,

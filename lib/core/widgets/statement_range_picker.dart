@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 
 import 'app_surfaces.dart';
+import '../localization/app_text.dart';
 
 /// This month / Last month / a custom range picked via the platform's
 /// built-in range picker — the same choice sheet every statement download
@@ -54,7 +55,7 @@ Future<({DateTimeRange? range})?> _pick(
             ),
           AppListTile(
             leading: const AppIcon(Icons.calendar_today_outlined),
-            title: const Text('This month'),
+            title: const Text.localized('This month'),
             onTap: () => Navigator.of(sheetContext).pop('this'),
           ),
           AppListTile(
@@ -64,7 +65,7 @@ Future<({DateTimeRange? range})?> _pick(
           ),
           AppListTile(
             leading: const AppIcon(Icons.date_range_outlined),
-            title: const Text('Custom range'),
+            title: const Text.localized('Custom range'),
             onTap: () => Navigator.of(sheetContext).pop('custom'),
           ),
           const SizedBox(height: 8),

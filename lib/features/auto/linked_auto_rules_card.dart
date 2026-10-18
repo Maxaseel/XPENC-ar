@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -7,6 +7,7 @@ import '../../core/money.dart';
 import '../../core/widgets/app_surfaces.dart';
 import '../../data/providers.dart';
 import 'recurring_rule_sheet.dart';
+import '../../core/localization/app_text.dart';
 
 /// The Auto rules paying into goal/loan [accountId], shown on that goal's or
 /// loan's own screen — so a rule set up in Auto is visible where the money

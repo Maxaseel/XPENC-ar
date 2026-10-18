@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +17,7 @@ import 'stats_sections.dart';
 import 'xpenc_score.dart';
 import 'xpenc_score_provider.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// The Stats hub's categories. Each opens its own [StatsModuleScreen] at
 /// `/more/stats/<name>`, and has a tile on the hub with one live headline.

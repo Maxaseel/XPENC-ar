@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/platform/platform_features.dart';
 import '../../core/widgets/app_surfaces.dart';
 import '../../data/database.dart';
 import '../../data/providers.dart';
+import '../../core/localization/app_text.dart';
 
 /// Notifications — the master switch, the daily expense reminder, and quick
 /// add straight from a notification's reply field.
@@ -83,7 +84,7 @@ class NotificationsSettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: const AppIcon(Icons.schedule_outlined),
-                    title: const Text('Time'),
+                    title: const Text.localized('Time'),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 
 import '../app_icons.dart';
 import '../theme/glass.dart';
 import 'app_surfaces.dart';
+import '../localization/app_text.dart';
 
 /// Renders a `TransactionRow.customIcon` value — see the doc on
 /// `Transactions.customIcon` for the two encodings this parses: an XPENC

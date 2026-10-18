@@ -1,12 +1,13 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/money.dart';
 import '../../core/widgets/app_surfaces.dart';
 import '../../data/database.dart';
 import '../../data/providers.dart';
+import '../../core/localization/app_text.dart';
 
 /// Watches every person's and group's balance and, the moment one comes
 /// back to exactly zero, asks what to do with it: **Move to Settled**,
@@ -219,11 +220,11 @@ class _SettledDialog extends StatelessWidget {
         ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(_SettledChoice.archive),
-          child: const Text('Archive'),
+          child: const Text.localized('Archive'),
         ),
         FilledButton(
           onPressed: () => Navigator.of(context).pop(_SettledChoice.settled),
-          child: const Text('Move to Settled'),
+          child: const Text.localized('Move to Settled'),
         ),
       ],
     );

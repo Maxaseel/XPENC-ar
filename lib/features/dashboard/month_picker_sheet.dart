@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:intl/intl.dart';
 
 import '../../core/budget_cycle.dart';
 import '../../core/widgets/app_surfaces.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Opens the month picker and returns the chosen period anchor (day 1 of its
 /// month, same shape `selectedMonthProvider` stores), or null if dismissed.
@@ -122,7 +123,7 @@ class _MonthPickerSheetState extends State<MonthPickerSheet> {
                 ? null
                 : () => Navigator.of(context).pop(widget.current),
             icon: const AppIcon(Icons.today_rounded),
-            label: const Text('This month'),
+            label: const Text.localized('This month'),
           ),
         ],
       ),

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -12,6 +12,7 @@ import '../../core/widgets/money_text.dart';
 import '../../data/providers.dart';
 import 'budgets_screen.dart' show BudgetEditSheet;
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// One category's budget: this period's transactions (a parent's page rolls
 /// up its children's, same as the summary tile that links here), with a
@@ -84,8 +85,7 @@ class BudgetDetailScreen extends ConsumerWidget {
             fundingState: fundingState,
           ),
           const SizedBox(height: 24),
-          Text(
-            'Transactions',
+          Text.localized('Transactions',
             style: theme.textTheme.titleSmall?.copyWith(
               color: cs.onSurfaceVariant,
             ),
@@ -119,7 +119,7 @@ class BudgetDetailScreen extends ConsumerWidget {
     final service = ref.read(backupServiceProvider);
     messenger
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Generating statement...')));
+      ..showSnackBar(const SnackBar(content: Text.localized('Generating statement...')));
     try {
       final file = await service.writeCategoryStatementPdf(
         categoryId: categoryId,

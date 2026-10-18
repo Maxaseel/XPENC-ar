@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/money.dart';
 import '../../core/routing/app_router.dart' show appRouter;
@@ -12,6 +12,7 @@ import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../data/tables.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// A top-level category paired with its live (non-archived) children, in the
 /// tree shape the budgets list renders — see [_categoryTree].
@@ -178,8 +179,7 @@ class BudgetsScreen extends ConsumerWidget {
       const SizedBox(height: 12),
       ModuleShortcuts(shortcuts, padding: EdgeInsets.zero),
       const SizedBox(height: 16),
-      Text(
-        'Categories',
+      Text.localized('Categories',
         style: theme.textTheme.titleSmall?.copyWith(color: cs.onSurfaceVariant),
       ),
       const SizedBox(height: 12),
@@ -235,7 +235,7 @@ class BudgetsScreen extends ConsumerWidget {
     final service = ref.read(backupServiceProvider);
     messenger
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Generating statement...')));
+      ..showSnackBar(const SnackBar(content: Text.localized('Generating statement...')));
     try {
       final file = await service.writeBudgetStatementPdf(
         month,
@@ -297,8 +297,7 @@ class _SummaryCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              'This month',
+            Text.localized('This month',
               style: theme.textTheme.labelLarge?.copyWith(
                 color: cs.onSurfaceVariant,
               ),
@@ -458,8 +457,8 @@ class _BudgetTile extends ConsumerWidget {
         ),
         const SizedBox(width: 8),
         compact
-            ? TextButton(onPressed: onTap, child: const Text('Set'))
-            : OutlinedButton(onPressed: onTap, child: const Text('Set')),
+            ? TextButton(onPressed: onTap, child: const Text.localized('Set'))
+            : OutlinedButton(onPressed: onTap, child: const Text.localized('Set')),
       ],
     );
   }
@@ -724,7 +723,7 @@ class _BudgetEditSheetState extends ConsumerState<BudgetEditSheet> {
     final amount = Money.tryParse(_amountCtrl.text);
     if (amount == null || !amount.isPositive) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Enter an amount greater than zero')),
+        const SnackBar(content: Text.localized('Enter an amount greater than zero')),
       );
       return;
     }
@@ -1004,7 +1003,7 @@ class _BudgetEditSheetState extends ConsumerState<BudgetEditSheet> {
             onPressed: _save,
             child: const Padding(
               padding: EdgeInsets.symmetric(vertical: 4),
-              child: Text('Save'),
+              child: Text.localized('Save'),
             ),
           ),
           if (hasBudget) ...[

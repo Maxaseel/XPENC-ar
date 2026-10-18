@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/currency.dart';
 import '../../core/widgets/app_surfaces.dart';
 import '../../data/providers.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// A searchable list of every currency the app knows. Picking one writes it to
 /// settings; the whole app reformats immediately (see [CurrencyScope]).
@@ -96,7 +97,7 @@ class _CurrencyPickerSheetState extends ConsumerState<CurrencyPickerSheet> {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
-              child: Text('Currency', style: theme.textTheme.titleLarge),
+              child: Text.localized('Currency', style: theme.textTheme.titleLarge),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),

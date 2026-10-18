@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../core/branding/app_info.dart';
 import '../../core/branding/brand_mark.dart';
 import '../../core/widgets/app_surfaces.dart';
+import '../../core/localization/app_text.dart';
 
 /// Who made this, which build you are looking at, and where the source lives.
 class AboutScreen extends StatelessWidget {

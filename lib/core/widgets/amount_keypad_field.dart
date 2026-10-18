@@ -1,12 +1,13 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter/services.dart';
 
 import '../currency.dart';
 import '../money.dart';
 import '../../features/add_transaction/amount_buffer.dart';
 import 'app_surfaces.dart';
+import '../localization/app_text.dart';
 
 /// A [ChangeNotifier]-based, `TextEditingController`-shaped holder for an
 /// [AmountKeypadField]'s buffer text — a near drop-in replacement at call

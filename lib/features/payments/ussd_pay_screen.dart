@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter/services.dart' show Clipboard, ClipboardData;
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../core/widgets/amount_keypad_field.dart';
 import '../../core/widgets/app_surfaces.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 enum _IdKind { upiId, phone }
 
@@ -136,7 +137,7 @@ class _UssdPayScreenState extends State<UssdPayScreen> {
     final cs = theme.colorScheme;
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Pay without internet (Beta)')),
+      appBar: AppTopBar(title: const Text.localized('Pay without internet (Beta)')),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(20, 12, 20, 24).plusNavBar(context),

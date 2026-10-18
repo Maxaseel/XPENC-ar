@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,6 +13,7 @@ import '../../data/tables.dart' show AppMode;
 import '../data_export/backup_service.dart' show backupAppFolder;
 import '../../core/widgets/nav_bar_inset.dart';
 import 'country_step.dart';
+import '../../core/localization/app_text.dart';
 
 const _pageDuration = Duration(milliseconds: 280);
 

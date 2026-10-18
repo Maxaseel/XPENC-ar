@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/group_split_math.dart';
@@ -9,6 +9,7 @@ import '../../core/widgets/app_surfaces.dart';
 import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../data/tables.dart';
+import '../../core/localization/app_text.dart';
 
 /// Logs a shared expense across a group's members — equal, percentage, or
 /// manual split. Every number shown here is computed by the same

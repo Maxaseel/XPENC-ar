@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -15,6 +15,7 @@ import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../data/tables.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 const _presetColors = <int>[
   0xFF16A34A,
@@ -727,7 +728,7 @@ class _GoalEditorSheetState extends ConsumerState<_GoalEditorSheet> {
           ),
           FilledButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('Archive'),
+            child: const Text.localized('Archive'),
           ),
         ],
       ),
@@ -805,7 +806,7 @@ class _GoalEditorSheetState extends ConsumerState<_GoalEditorSheet> {
                 helperText: 'Tag contributions to this category.',
               ),
               items: [
-                const DropdownMenuItem(value: null, child: Text('None')),
+                const DropdownMenuItem(value: null, child: Text.localized('None')),
                 for (final c in categories)
                   DropdownMenuItem(value: c.id, child: Text(c.name)),
               ],
@@ -866,7 +867,7 @@ class _GoalEditorSheetState extends ConsumerState<_GoalEditorSheet> {
                       width: 22,
                       child: CircularProgressIndicator(strokeWidth: 2.4),
                     )
-                  : const Text('Save'),
+                  : const Text.localized('Save'),
             ),
           ],
         ),
@@ -1416,7 +1417,7 @@ class _LoanEditorSheetState extends ConsumerState<_LoanEditorSheet> {
                 helperText: 'Tag repayments to this category.',
               ),
               items: [
-                const DropdownMenuItem(value: null, child: Text('None')),
+                const DropdownMenuItem(value: null, child: Text.localized('None')),
                 for (final c in categories)
                   DropdownMenuItem(value: c.id, child: Text(c.name)),
               ],
@@ -1447,7 +1448,7 @@ class _LoanEditorSheetState extends ConsumerState<_LoanEditorSheet> {
                       width: 22,
                       child: CircularProgressIndicator(strokeWidth: 2.4),
                     )
-                  : const Text('Save'),
+                  : const Text.localized('Save'),
             ),
           ],
         ),

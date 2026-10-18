@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/widgets/app_surfaces.dart';
 import '../../data/database.dart';
 import '../../data/providers.dart';
+import '../../core/localization/app_text.dart';
 
 /// Asks, then permanently deletes [person] via [AppDatabase.deletePerson].
 /// The dialog spells out how much history goes with them, since any money
@@ -74,14 +75,14 @@ Future<bool> _confirm(
       actions: [
         TextButton(
           onPressed: () => Navigator.of(ctx).pop(false),
-          child: const Text('Cancel'),
+          child: const Text.localized('Cancel'),
         ),
         TextButton(
           onPressed: () => Navigator.of(ctx).pop(true),
           style: TextButton.styleFrom(
             foregroundColor: Theme.of(ctx).colorScheme.error,
           ),
-          child: const Text('Delete'),
+          child: const Text.localized('Delete'),
         ),
       ],
     ),

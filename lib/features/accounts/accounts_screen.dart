@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,6 +16,7 @@ import '../../data/providers.dart';
 import '../../data/tables.dart';
 import 'add_account_sheet.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Total money + per-account balances, grouped Cash · Bank · Cards.
 ///
@@ -104,8 +105,7 @@ class AccountsScreen extends ConsumerWidget {
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.all(32),
-                  child: Text(
-                    'Could not load your accounts.',
+                  child: Text.localized('Could not load your accounts.',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
@@ -131,7 +131,7 @@ class AccountsScreen extends ConsumerWidget {
     final service = ref.read(backupServiceProvider);
     messenger
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Generating statement...')));
+      ..showSnackBar(const SnackBar(content: Text.localized('Generating statement...')));
     try {
       final file = await service.writeCombinedStatementPdf(
         start: range.start,
@@ -254,8 +254,7 @@ class _TotalMoneyCard extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  Text(
-                    'Total money',
+                  Text.localized('Total money',
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                       fontWeight: FontWeight.w600,
@@ -433,7 +432,7 @@ class _AccountTile extends ConsumerWidget {
             ),
             AppListTile(
               leading: const AppIcon(Icons.edit_outlined),
-              title: const Text('Rename'),
+              title: const Text.localized('Rename'),
               onTap: () =>
                   Navigator.of(sheetContext).pop(_AccountAction.rename),
             ),
@@ -442,7 +441,7 @@ class _AccountTile extends ConsumerWidget {
             if (account.linkedAccountId == null)
               AppListTile(
                 leading: const AppIcon(Icons.savings_outlined),
-                title: const Text('Minimum balance'),
+                title: const Text.localized('Minimum balance'),
                 subtitle: Text(
                   account.minimumBalance == null
                       ? 'Get a note when spending takes this below a floor'
@@ -454,7 +453,7 @@ class _AccountTile extends ConsumerWidget {
               ),
             AppListTile(
               leading: const AppIcon(Icons.archive_outlined),
-              title: const Text('Archive'),
+              title: const Text.localized('Archive'),
               subtitle: const Text('Hide it. History stays intact.'),
               onTap: () =>
                   Navigator.of(sheetContext).pop(_AccountAction.archive),
@@ -464,8 +463,7 @@ class _AccountTile extends ConsumerWidget {
                 Icons.delete_outline,
                 color: theme.colorScheme.error,
               ),
-              title: Text(
-                'Remove',
+              title: Text.localized('Remove',
                 style: TextStyle(color: theme.colorScheme.error),
               ),
               subtitle: const Text('Delete permanently — only if unused.'),
@@ -549,14 +547,14 @@ class _AccountTile extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(ctx).colorScheme.error,
             ),
-            child: const Text('Archive'),
+            child: const Text.localized('Archive'),
           ),
         ],
       ),
@@ -586,14 +584,14 @@ class _AccountTile extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(ctx).colorScheme.error,
             ),
-            child: const Text('Remove'),
+            child: const Text.localized('Remove'),
           ),
         ],
       ),
@@ -669,11 +667,11 @@ class _RenameAccountDialogState extends State<_RenameAccountDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
+          child: const Text.localized('Cancel'),
         ),
         FilledButton(
           onPressed: () => Navigator.of(context).pop(_controller.text),
-          child: const Text('Save'),
+          child: const Text.localized('Save'),
         ),
       ],
     );
@@ -714,7 +712,7 @@ class _MinimumBalanceDialogState extends State<_MinimumBalanceDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Minimum balance'),
+      title: const Text.localized('Minimum balance'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -738,11 +736,11 @@ class _MinimumBalanceDialogState extends State<_MinimumBalanceDialog> {
             onPressed: () => Navigator.of(
               context,
             ).pop(const _MinimumBalanceResult(null)),
-            child: const Text('Clear'),
+            child: const Text.localized('Clear'),
           ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
+          child: const Text.localized('Cancel'),
         ),
         FilledButton(
           onPressed: () {
@@ -757,7 +755,7 @@ class _MinimumBalanceDialogState extends State<_MinimumBalanceDialog> {
             }
             Navigator.of(context).pop(_MinimumBalanceResult(parsed));
           },
-          child: const Text('Save'),
+          child: const Text.localized('Save'),
         ),
       ],
     );
@@ -770,7 +768,7 @@ class _LinkedChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Chip(
-      label: const Text('Linked'),
+      label: const Text.localized('Linked'),
       labelStyle: theme.textTheme.labelSmall?.copyWith(
         color: theme.colorScheme.onSurfaceVariant,
         fontWeight: FontWeight.w600,

@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 
 import '../../core/branding/app_info.dart';
 import '../../core/widgets/app_surfaces.dart';
 import '../../core/widgets/custom_icon_badge.dart';
 import 'whats_new_data.dart';
+import '../../core/localization/app_text.dart';
 
 /// What's new in the current version, one card per feature — what it is,
 /// where to find it, what it actually does. Hand-curated from

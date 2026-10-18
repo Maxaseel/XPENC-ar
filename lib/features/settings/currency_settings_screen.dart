@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -8,6 +8,7 @@ import '../../data/currency_conversion.dart';
 import '../../data/database.dart';
 import '../../data/providers.dart';
 import 'currency_picker_sheet.dart';
+import '../../core/localization/app_text.dart';
 
 final _dateFormat = DateFormat('d MMM yyyy');
 
@@ -27,7 +28,7 @@ class CurrencySettingsScreen extends ConsumerWidget {
     final ratesAsync = ref.watch(currencyRatesProvider);
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Currency')),
+      appBar: AppTopBar(title: const Text.localized('Currency')),
       body: ListView(
         // Explicit padding drops ListView's nav-bar inset; re-add it (#137).
         padding: EdgeInsets.fromLTRB(
@@ -250,9 +251,9 @@ class _AddRateDialogState extends State<_AddRateDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
+          child: const Text.localized('Cancel'),
         ),
-        FilledButton(onPressed: _save, child: const Text('Save')),
+        FilledButton(onPressed: _save, child: const Text.localized('Save')),
       ],
     );
   }

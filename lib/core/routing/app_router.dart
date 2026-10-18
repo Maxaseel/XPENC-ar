@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:go_router/go_router.dart';
 
 import '../../data/tables.dart';
@@ -75,6 +75,7 @@ import '../../features/transactions/transaction_detail_screen.dart';
 import '../../features/transactions/transactions_screen.dart';
 import '../widgets/app_surfaces.dart';
 import 'app_shell.dart';
+import '../localization/app_text.dart';
 
 final _rootKey = GlobalKey<NavigatorState>();
 

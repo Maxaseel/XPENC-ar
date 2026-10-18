@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 
 import '../../core/widgets/app_surfaces.dart';
 import 'guide_data.dart';
+import '../../core/localization/app_text.dart';
 
 /// Explains every module and feature in the app — what it does, how to use
 /// it, and where to find it — plus the three app-wide modes

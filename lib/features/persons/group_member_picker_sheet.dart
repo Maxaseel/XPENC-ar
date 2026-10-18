@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,6 +8,7 @@ import '../../data/providers.dart';
 import 'contact_import.dart';
 import 'person_avatar.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Bottom sheet: pick a group's members — used both when creating a group
 /// and when editing an existing one's membership. Returns the chosen person
@@ -138,7 +139,7 @@ class _GroupMemberPickerSheetState
                   ),
                   TextButton(
                     onPressed: _saving ? null : _done,
-                    child: const Text('Done'),
+                    child: const Text.localized('Done'),
                   ),
                 ],
               ),

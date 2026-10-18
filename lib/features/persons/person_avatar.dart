@@ -3,9 +3,10 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 
 import '../../core/theme/glass.dart';
+import '../../core/localization/app_text.dart';
 
 /// A person's avatar: their imported contact photo if they have one,
 /// otherwise the same two-letter-initials circle every person list showed

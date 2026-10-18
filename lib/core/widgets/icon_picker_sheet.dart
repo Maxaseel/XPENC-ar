@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/providers.dart';
@@ -6,6 +6,7 @@ import '../app_icons.dart';
 import 'app_surfaces.dart';
 import 'custom_icon_badge.dart';
 import 'nav_bar_inset.dart';
+import '../localization/app_text.dart';
 
 /// Opens the icon picker and resolves to the chosen key, or `null` if the
 /// sheet was dismissed without a pick. [accentColor] tints the selected tile
@@ -76,8 +77,7 @@ Future<String?> showEmojiInputSheet(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            'Emoji',
+          Text.localized('Emoji',
             style: Theme.of(
               sheetContext,
             ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
@@ -97,7 +97,7 @@ Future<String?> showEmojiInputSheet(
           FilledButton(
             onPressed: () =>
                 Navigator.of(sheetContext).pop(controller.text.trim()),
-            child: const Text('Done'),
+            child: const Text.localized('Done'),
           ),
         ],
       ),

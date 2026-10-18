@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/budget_cycle.dart';
@@ -7,6 +7,7 @@ import '../../data/providers.dart';
 import '../../data/tables.dart' show AppMode;
 import 'app_mode_sheet.dart';
 import 'budget_start_day_sheet.dart';
+import '../../core/localization/app_text.dart';
 
 /// Mode & Budgeting — which features are switched on (Basic/Medium/Pro) and
 /// how the budget cycle and Ready to Assign behave.
@@ -82,7 +83,7 @@ class ModeBudgetingSettingsScreen extends ConsumerWidget {
                   AppSwitchListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     secondary: const AppIcon(Icons.savings_outlined),
-                    title: const Text('Ready to Assign'),
+                    title: const Text.localized('Ready to Assign'),
                     subtitle: Text(
                       'Budget (a spending ceiling per category) is always '
                       'on. Ready to Assign adds an optional layer on top: '
@@ -129,11 +130,11 @@ class ModeBudgetingSettingsScreen extends ConsumerWidget {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(false),
-              child: const Text('Cancel'),
+              child: const Text.localized('Cancel'),
             ),
             FilledButton(
               onPressed: () => Navigator.of(dialogContext).pop(true),
-              child: const Text('Turn on'),
+              child: const Text.localized('Turn on'),
             ),
           ],
         ),

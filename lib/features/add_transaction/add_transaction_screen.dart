@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -26,6 +26,7 @@ import '../tags/tag_picker_sheet.dart';
 import 'date_time_combine.dart';
 import 'receipt_storage.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// One editable row of a split expense: which category, and how much of the
 /// total it takes. Holds its own [AmountKeypadController] so its buffer text
@@ -334,7 +335,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     if (row == null) {
       navigator.pop();
       messenger.showSnackBar(
-        const SnackBar(content: Text('Transaction not found')),
+        const SnackBar(content: Text.localized('Transaction not found')),
       );
       return;
     }
@@ -403,7 +404,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     if (row == null) {
       navigator.pop();
       messenger.showSnackBar(
-        const SnackBar(content: Text('Transaction not found')),
+        const SnackBar(content: Text.localized('Transaction not found')),
       );
       return;
     }
@@ -746,7 +747,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
             ),
             AppListTile(
               leading: const AppIcon(Icons.emoji_emotions_outlined),
-              title: const Text('Emoji'),
+              title: const Text.localized('Emoji'),
               subtitle: const Text('Type one with your keyboard\'s emoji key'),
               onTap: () =>
                   Navigator.of(sheetContext).pop(_CustomIconSource.emoji),
@@ -821,7 +822,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                         setState(() => _customIcon = null);
                       },
                       icon: const AppIcon(Icons.delete_outline),
-                      label: const Text('Remove'),
+                      label: const Text.localized('Remove'),
                     ),
                   ),
                 ],
@@ -982,7 +983,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                         _removeReceipt();
                       },
                       icon: const AppIcon(Icons.delete_outline),
-                      label: const Text('Remove'),
+                      label: const Text.localized('Remove'),
                     ),
                   ),
                 ],
@@ -1212,15 +1213,14 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 onPressed: () =>
                     setState(() => _hybridLegs.add(_PaymentLegEntry())),
                 icon: const AppIcon(Icons.add_rounded, size: 18),
-                label: const Text('Add account'),
+                label: const Text.localized('Add account'),
               ),
             ),
             const Divider(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Remaining',
+                Text.localized('Remaining',
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -1384,7 +1384,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           Icons.public_rounded,
           color: theme.colorScheme.onSurfaceVariant,
         ),
-        title: const Text('Foreign currency'),
+        title: const Text.localized('Foreign currency'),
         subtitle: _hasForeignCurrency
             ? null
             : const Text('Record what this cost in another currency'),
@@ -1558,8 +1558,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Remaining',
+                Text.localized('Remaining',
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -1667,7 +1666,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         : amount.isPositive;
     if (!amountValid) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('Enter a valid amount')),
+        const SnackBar(content: Text.localized('Enter a valid amount')),
       );
       return;
     }
@@ -1735,7 +1734,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         return;
       }
       navigator.pop();
-      messenger.showSnackBar(const SnackBar(content: Text('Saved')));
+      messenger.showSnackBar(const SnackBar(content: Text.localized('Saved')));
       return;
     }
     if (_accountId == null) {
@@ -1795,7 +1794,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         return;
       }
       navigator.pop();
-      messenger.showSnackBar(const SnackBar(content: Text('Saved')));
+      messenger.showSnackBar(const SnackBar(content: Text.localized('Saved')));
       return;
     }
     int? envelopeShortfallCategoryId;
@@ -1983,19 +1982,19 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     final confirmed = await showAppDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Delete this transaction?'),
-        content: const Text('The amount will be added back to your balance.'),
+        title: const Text.localized('Delete this transaction?'),
+        content: const Text.localized('The amount will be added back to your balance.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('Cancel'),
+            child: const Text.localized('Cancel'),
           ),
           TextButton(
             style: TextButton.styleFrom(
               foregroundColor: theme.colorScheme.error,
             ),
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: const Text('Delete'),
+            child: const Text.localized('Delete'),
           ),
         ],
       ),
@@ -2014,7 +2013,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
 
     navigator.pop();
     messenger.showSnackBar(
-      const SnackBar(content: Text('Transaction deleted')),
+      const SnackBar(content: Text.localized('Transaction deleted')),
     );
   }
 
@@ -2086,7 +2085,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                       tooltip: 'Delete',
                       onPressed: _confirmDelete,
                     ),
-                  TextButton(onPressed: _save, child: const Text('Save')),
+                  TextButton(onPressed: _save, child: const Text.localized('Save')),
                 ],
         ),
         body: _loading
@@ -2108,11 +2107,11 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                             segments: const [
                               ButtonSegment(
                                 value: TxType.expense,
-                                label: Text('Expense'),
+                                label: Text.localized('Expense'),
                               ),
                               ButtonSegment(
                                 value: TxType.income,
-                                label: Text('Income'),
+                                label: Text.localized('Income'),
                               ),
                               ButtonSegment(
                                 value: TxType.transfer,
@@ -2338,7 +2337,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           _isNct ? Icons.visibility_off_rounded : Icons.visibility_off_outlined,
           color: theme.colorScheme.onSurfaceVariant,
         ),
-        title: const Text('Hide from screenshots'),
+        title: const Text.localized('Hide from screenshots'),
         subtitle: Text(
           _isNct
               ? 'NCT · hidden in lists until held, captures blocked when open'
@@ -2363,8 +2362,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           Icons.event_outlined,
           color: theme.colorScheme.onSurfaceVariant,
         ),
-        title: Text(
-          'Date',
+        title: Text.localized('Date',
           style: theme.textTheme.bodySmall?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),

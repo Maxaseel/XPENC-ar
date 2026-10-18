@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/home_widget/home_widget_service.dart';
 import '../../core/widgets/app_surfaces.dart';
 import '../../data/providers.dart';
+import '../../core/localization/app_text.dart';
 
 /// Home-screen widgets — three presets, not a from-scratch designer (Android's
 /// RemoteViews format has hard limits on what a widget can even be: no

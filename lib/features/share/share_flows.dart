@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/money.dart';
@@ -13,6 +13,7 @@ import 'share_files.dart';
 import 'share_image_screen.dart';
 import 'share_models.dart';
 import 'share_pdfs.dart';
+import '../../core/localization/app_text.dart';
 
 /// Every Share button — a transaction, a person, a group — opens the same
 /// choice: a structured PDF, or a styled image card.

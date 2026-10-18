@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -13,6 +13,7 @@ import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../data/tables.dart';
 import 'chart_widgets.dart';
+import '../../core/localization/app_text.dart';
 
 /// Shared building blocks for the Stats hub and every stats module screen —
 /// pulled out of the old single-page Stats screen so each module can reuse
@@ -571,11 +572,11 @@ class StandingsControls extends StatelessWidget {
             segments: const [
               ButtonSegment(
                 value: StandingsMetric.transactions,
-                label: Text('Transactions'),
+                label: Text.localized('Transactions'),
               ),
               ButtonSegment(
                 value: StandingsMetric.categories,
-                label: Text('Categories'),
+                label: Text.localized('Categories'),
               ),
             ],
             selected: {metric},

@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/widgets/app_surfaces.dart';
 import '../../data/providers.dart';
 import 'settings_common.dart';
+import '../../core/localization/app_text.dart';
 
 /// Persons — how repayments post, and the payment methods & personal IDs
 /// used to request money from someone who owes you. A method's enable
@@ -112,7 +113,7 @@ class PersonsSettingsScreen extends ConsumerWidget {
                   Divider(height: 1, indent: 16, color: cs.outline),
                   AppListTile(
                     contentPadding: const EdgeInsets.only(left: 16, right: 8),
-                    title: const Text('Pay without internet (Beta)'),
+                    title: const Text.localized('Pay without internet (Beta)'),
                     subtitle: const Text(
                       'Send via *99# USSD when you have no data — tap for '
                       'how it works',
@@ -316,8 +317,7 @@ class PersonsSettingsScreen extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Pay without internet (Beta)',
+              Text.localized('Pay without internet (Beta)',
                 style: theme.textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
@@ -464,13 +464,13 @@ class _MyUpiDialogState extends State<_MyUpiDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
+          child: const Text.localized('Cancel'),
         ),
         FilledButton(
           onPressed: () => Navigator.of(
             context,
           ).pop((id: _idController.text, name: _nameController.text)),
-          child: const Text('Save'),
+          child: const Text.localized('Save'),
         ),
       ],
     );
@@ -519,11 +519,11 @@ class _MyIdDialogState extends State<_MyIdDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
+          child: const Text.localized('Cancel'),
         ),
         FilledButton(
           onPressed: () => Navigator.of(context).pop(_controller.text),
-          child: const Text('Save'),
+          child: const Text.localized('Save'),
         ),
       ],
     );

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 
 import '../../core/calculators.dart';
 import '../../core/money.dart';
@@ -7,6 +7,7 @@ import 'calculator_screen.dart' show formatInr;
 import '../../core/widgets/app_surfaces.dart';
 import 'calculator_widgets.dart';
 import 'world_tax_bodies.dart';
+import '../../core/localization/app_text.dart';
 
 /// Income tax by country. India compares its two regimes; every other
 /// country renders a [TaxSummaryView]. Opens on the country matching the

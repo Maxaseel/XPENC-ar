@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 
 import '../../core/currency.dart';
 import '../../core/money.dart';
 import '../../core/world_tax.dart';
 import 'calculator_widgets.dart';
+import '../../core/localization/app_text.dart';
 
 /// Countries the Income Tax calculator covers. [currencyCode] formats the
 /// results and picks the default country from the app's currency setting.

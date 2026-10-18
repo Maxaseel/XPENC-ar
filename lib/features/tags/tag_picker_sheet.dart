@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/widgets/app_surfaces.dart';
 import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Bottom sheet: pick any number of tags as toggleable filter chips. New tags
 /// are created from **More → Tags**, not from here — this sheet only selects.
@@ -53,7 +54,7 @@ class _TagPickerSheetState extends ConsumerState<TagPickerSheet> {
                   ),
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(_selected),
-                    child: const Text('Done'),
+                    child: const Text.localized('Done'),
                   ),
                 ],
               ),

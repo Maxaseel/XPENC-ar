@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,6 +12,7 @@ import '../../data/database.dart';
 import '../../data/providers.dart';
 import '../../data/tables.dart';
 import '../settings/currency_picker_sheet.dart';
+import '../../core/localization/app_text.dart';
 
 /// Preset colours for an account. Plain ints — colour here is decorative,
 /// not a money-direction signal.
@@ -193,8 +194,7 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              'Add account',
+            Text.localized('Add account',
               style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.w700,
               ),
@@ -286,7 +286,7 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
                       width: 22,
                       child: CircularProgressIndicator(strokeWidth: 2.4),
                     )
-                  : const Text('Add account'),
+                  : const Text.localized('Add account'),
             ),
           ],
         ),
@@ -463,7 +463,7 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
         ),
         child: Row(
           children: [
-            const Text('Currency'),
+            const Text.localized('Currency'),
             const Spacer(),
             Flexible(
               child: Text(
@@ -600,8 +600,7 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
             ),
             const SizedBox(width: 14),
             Expanded(
-              child: Text(
-                'Tap to change',
+              child: Text.localized('Tap to change',
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),

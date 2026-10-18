@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Text;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/app_icons.dart';
@@ -13,6 +13,7 @@ import '../../data/providers.dart';
 import '../../data/tables.dart';
 import 'csv_import.dart';
 import '../../core/widgets/nav_bar_inset.dart';
+import '../../core/localization/app_text.dart';
 
 /// Preset colours assigned round-robin to categories the importer creates
 /// on the fly — same palette `CategoriesScreen` offers by hand.
@@ -569,7 +570,7 @@ class _ColumnDropdown extends StatelessWidget {
       initialValue: value,
       decoration: InputDecoration(labelText: label),
       items: [
-        if (allowNone) const DropdownMenuItem(value: null, child: Text('None')),
+        if (allowNone) const DropdownMenuItem(value: null, child: Text.localized('None')),
         for (var i = 0; i < headers.length; i++)
           DropdownMenuItem(value: i, child: Text('${headers[i]}')),
       ],
@@ -672,7 +673,7 @@ class _SummaryCard extends StatelessWidget {
             const SizedBox(height: 20),
             FilledButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Done'),
+              child: const Text.localized('Done'),
             ),
           ],
         ),

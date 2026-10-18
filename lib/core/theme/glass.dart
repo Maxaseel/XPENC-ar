@@ -226,7 +226,7 @@ const _poolSpots = <(Alignment, double)>[
 /// at the end.
 enum GlassBackdrop {
   aurora(
-    label: appTextValue("Aurora"),
+    label: "Aurora",
     tone: GlassTone.light,
     base: Color(0xFFEFF2F8),
     pools: [
@@ -237,10 +237,10 @@ enum GlassBackdrop {
       Color(0xFFC9D6FF),
     ],
   ),
-  white(label: appTextValue("White"), tone: GlassTone.paper, base: Color(0xFFF2F2F7)),
-  black(label: appTextValue("Black"), tone: GlassTone.ink, base: Color(0xFF000000)),
+  white(label: "White", tone: GlassTone.paper, base: Color(0xFFF2F2F7)),
+  black(label: "Black", tone: GlassTone.ink, base: Color(0xFF000000)),
   ocean(
-    label: appTextValue("Ocean"),
+    label: "Ocean",
     tone: GlassTone.dark,
     base: Color(0xFF03101F),
     pools: [
@@ -252,7 +252,7 @@ enum GlassBackdrop {
     ],
   ),
   sunset(
-    label: appTextValue("Sunset"),
+    label: "Sunset",
     tone: GlassTone.light,
     base: Color(0xFFFFEDE3),
     pools: [
@@ -264,7 +264,7 @@ enum GlassBackdrop {
     ],
   ),
   nebula(
-    label: appTextValue("Nebula"),
+    label: "Nebula",
     tone: GlassTone.dark,
     base: Color(0xFF07040F),
     pools: [

@@ -7,7 +7,7 @@ import '../../core/localization/app_text.dart';
 /// the full, dated history — this is just the current version's highlights,
 /// written for someone opening the app, not reading a changelog).
 class WhatsNewEntry {
-  const WhatsNewEntry({
+  WhatsNewEntry({
     required this.icon,
     required this.title,
     required this.location,
@@ -22,10 +22,10 @@ class WhatsNewEntry {
   final String description;
 }
 
-const whatsNewEntries = <WhatsNewEntry>[
+final whatsNewEntries = <WhatsNewEntry>[
   WhatsNewEntry(
     icon: Icons.add_reaction_outlined,
-    title: appTextValue("Your own emoji as a category icon"),
+    title: "Your own emoji as a category icon",
     location: 'More → Categories → a category → Icon',
     description:
         'Tap ➕ under Emoji and type any emoji with your keyboard — 🍕 for '
@@ -34,7 +34,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.phone_iphone_outlined,
-    title: appTextValue("XPENC on iPhone"),
+    title: "XPENC on iPhone",
     location: 'xpenc.in/ios',
     description:
         'The same app, now on iPhone through SideStore or AltStore. A '
@@ -43,7 +43,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.ios_share_rounded,
-    title: appTextValue("Share as a PDF or an image"),
+    title: "Share as a PDF or an image",
     location: 'A transaction, person or group → Share',
     description:
         'Pick PDF for a clean, printable document — a receipt for a '
@@ -53,7 +53,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.visibility_off_outlined,
-    title: appTextValue("Hide a transaction from screenshots"),
+    title: "Hide a transaction from screenshots",
     location: 'Add or edit a transaction → Hide from screenshots',
     description:
         'Turn it on and the transaction shows as a frosted “Hidden · hold '
@@ -64,7 +64,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.dashboard_customize_outlined,
-    title: appTextValue("Make the Dashboard yours"),
+    title: "Make the Dashboard yours",
     location: 'Settings → General → Customize dashboard',
     description:
         'Drag widgets into the order you want, take off the ones you '
@@ -73,7 +73,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.history_rounded,
-    title: appTextValue("Look back at any month"),
+    title: "Look back at any month",
     location: 'Dashboard → month pill',
     description:
         'Pick a past month and the Dashboard shows it as it closed: its '
@@ -82,7 +82,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.shortcut_rounded,
-    title: appTextValue("Shortcuts to related pages"),
+    title: "Shortcuts to related pages",
     location: 'Accounts, Budgets, Transactions and more',
     description:
         'Every module now has a row of shortcuts to the pages that go '
@@ -92,7 +92,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.open_in_full_rounded,
-    title: appTextValue("Glass grows out of what you tap"),
+    title: "Glass grows out of what you tap",
     location: 'Glass theme · top bar, Persons, Transactions',
     description:
         'Switch tabs and the top bar resizes to the new tab’s buttons. '
@@ -103,7 +103,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.water_drop_outlined,
-    title: appTextValue("Glass that moves like liquid"),
+    title: "Glass that moves like liquid",
     location: 'Glass theme',
     description:
         'The tab bar now transforms into whatever you open from it: every '
@@ -116,7 +116,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.bolt_rounded,
-    title: appTextValue("Glass quick actions, and smoother everything"),
+    title: "Glass quick actions, and smoother everything",
     location: 'Glass theme · hold ➕ (turn on in Settings → Quick Actions)',
     description:
         'Hold the ➕ and your quick actions spring out onto two arcs in the '
@@ -132,7 +132,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.blur_on_rounded,
-    title: appTextValue("New themes: Classic, Noir and Glass"),
+    title: "New themes: Classic, Noir and Glass",
     location: 'Settings → General → Theme',
     description:
         'Glass is Liquid Glass, like iPhone: frosted cards, a floating tab '
@@ -146,7 +146,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.storefront_outlined,
-    title: appTextValue("People as payees"),
+    title: "People as payees",
     location: 'Add expense/income → Payee',
     description:
         'Pick one of your people as the payee — like money given to a '
@@ -158,7 +158,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.radio_button_checked_rounded,
-    title: appTextValue("Quick actions ring"),
+    title: "Quick actions ring",
     location: 'Hold ➕ · set up in Settings → Quick Actions',
     description:
         'Hold the ➕ and a ring of 8 shortcuts opens mid-screen — slide '
@@ -168,7 +168,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.task_alt_rounded,
-    title: appTextValue("Settled, instead of vanishing"),
+    title: "Settled, instead of vanishing",
     location: 'Persons → ✓ in the top bar',
     description:
         'When someone\'s balance reaches zero, XPENC now asks: Move to '
@@ -178,7 +178,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.delete_outline_rounded,
-    title: appTextValue("Delete a person or group"),
+    title: "Delete a person or group",
     location: 'Persons → hold a person or group → Delete',
     description:
         'Delete now works even with history: every entry and group expense '
@@ -187,7 +187,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.calculate_outlined,
-    title: appTextValue("Calculators (Beta)"),
+    title: "Calculators (Beta)",
     location: 'More → Calculators',
     description:
         'FD & RD, Loan EMI with a year-wise schedule and prepayment savings, '
@@ -197,7 +197,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.tune_rounded,
-    title: appTextValue("Correct a balance"),
+    title: "Correct a balance",
     location: 'Accounts → an account → ✎ next to the balance',
     description:
         'App says ₹100 in cash but your wallet has ₹75? Enter what you '
@@ -208,7 +208,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.account_balance_outlined,
-    title: appTextValue("Account Reports, rebuilt"),
+    title: "Account Reports, rebuilt",
     location: 'More → Account Reports',
     description:
         'Money in and out for any month or year, plus seven reports: '
@@ -219,7 +219,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.history_rounded,
-    title: appTextValue("Add loans that started years ago"),
+    title: "Add loans that started years ago",
     location: 'Goals & Loans → Loans → +',
     description:
         'Dates now go back to 2000, and the first auto-payment can start on '
@@ -229,7 +229,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.account_balance_rounded,
-    title: appTextValue("Loan payments, clearer"),
+    title: "Loan payments, clearer",
     location: 'Transactions → an EMI',
     description:
         'An EMI\'s interest always gets a category (the loan\'s, the '
@@ -240,7 +240,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.groups_outlined,
-    title: appTextValue("Who owes whom in a group"),
+    title: "Who owes whom in a group",
     location: 'Persons → a group → Who owes whom',
     description:
         'Each member\'s net balance, the fewest payments that settle the '
@@ -249,7 +249,7 @@ const whatsNewEntries = <WhatsNewEntry>[
   ),
   WhatsNewEntry(
     icon: Icons.fullscreen_exit_rounded,
-    title: appTextValue("Nothing hidden under the nav bar"),
+    title: "Nothing hidden under the nav bar",
     location: 'Every list',
     description:
         'The last item of every list now scrolls clear of Android\'s '

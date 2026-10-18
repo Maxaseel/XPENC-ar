@@ -19,31 +19,31 @@ class NotificationService {
   final _plugin = FlutterLocalNotificationsPlugin();
   var _ready = false;
 
-  static const _budgetChannel = AndroidNotificationChannel(
+  static final _budgetChannel = AndroidNotificationChannel(
     'budgets',
     'Budget alerts',
-    description: appTextValue("Warns when a category nears or passes its limit."),
+    description: "Warns when a category nears or passes its limit.",
     importance: Importance.high,
   );
 
-  static const _reminderChannel = AndroidNotificationChannel(
+  static final _reminderChannel = AndroidNotificationChannel(
     'reminders',
     'Payment reminders',
-    description: appTextValue("Reminds you about a planned payment on its due date."),
+    description: "Reminds you about a planned payment on its due date.",
     importance: Importance.high,
   );
 
-  static const _captureChannel = AndroidNotificationChannel(
+  static final _captureChannel = AndroidNotificationChannel(
     'capture',
     'Detected transactions',
-    description: appTextValue("A bank message was detected and is waiting for review."),
+    description: "A bank message was detected and is waiting for review.",
     importance: Importance.defaultImportance,
   );
 
-  static const _autoChannel = AndroidNotificationChannel(
+  static final _autoChannel = AndroidNotificationChannel(
     'auto',
     'Auto expenses & income',
-    description: appTextValue("Warns ahead of an auto-post, and confirms once one lands."),
+    description: "Warns ahead of an auto-post, and confirms once one lands.",
     importance: Importance.high,
   );
 
@@ -541,7 +541,7 @@ class NotificationService {
     try {
       await _plugin.zonedSchedule(
         id: _expenseNudgeId,
-        title: appTextValue("Log today's spending"),
+        title: "Log today's spending",
         body: "A minute now beats reconstructing it from memory later.",
         scheduledDate: fireAt,
         notificationDetails: _details(_expenseNudgeChannel),
@@ -580,7 +580,7 @@ class NotificationService {
     try {
       await _plugin.show(
         id: _quickAddId,
-        title: appTextValue("Quick add"),
+        title: "Quick add",
         body: 'Reply with an amount to log an expense or income.',
         notificationDetails: NotificationDetails(
           android: AndroidNotificationDetails(
@@ -600,13 +600,13 @@ class NotificationService {
                 _quickAddExpenseAction,
                 'Add expense',
                 cancelNotification: false,
-                inputs: [AndroidNotificationActionInput(label: appTextValue("Amount"))],
+                inputs: [AndroidNotificationActionInput(label: "Amount")],
               ),
               AndroidNotificationAction(
                 _quickAddIncomeAction,
                 'Add income',
                 cancelNotification: false,
-                inputs: [AndroidNotificationActionInput(label: appTextValue("Amount"))],
+                inputs: [AndroidNotificationActionInput(label: "Amount")],
               ),
             ],
           ),
@@ -657,7 +657,7 @@ Future<void> _handleQuickAddReply(NotificationResponse response) async {
 
   Future<void> result(String body) => plugin.show(
     id: NotificationService._quickAddResultId,
-    title: appTextValue("Quick add"),
+    title: "Quick add",
     body: body,
     notificationDetails: NotificationDetails(
       android: AndroidNotificationDetails(

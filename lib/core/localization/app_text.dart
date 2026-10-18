@@ -137,7 +137,7 @@ class Text extends m.StatelessWidget {
     }
 
     return m.Text(
-      renderedData,
+      renderedData ?? '',
       style: style,
       strutStyle: strutStyle,
       textAlign: textAlign,
@@ -158,11 +158,18 @@ class Text extends m.StatelessWidget {
 
 m.InlineSpan _translateSpan(m.BuildContext context, m.InlineSpan span) {
   if (span is m.TextSpan) {
-    return span.copyWith(
+    return m.TextSpan(
       text: span.text == null ? null : appText(context, span.text!),
       children: span.children
           ?.map((child) => _translateSpan(context, child))
           .toList(growable: false),
+      style: span.style,
+      recognizer: span.recognizer,
+      mouseCursor: span.mouseCursor,
+      onEnter: span.onEnter,
+      onExit: span.onExit,
+      semanticsLabel: span.semanticsLabel,
+      spellOut: span.spellOut,
     );
   }
   return span;

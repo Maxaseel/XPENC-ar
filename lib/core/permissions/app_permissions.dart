@@ -7,17 +7,17 @@ import '../localization/app_text.dart';
 enum AppPermission {
   notifications(
     androidName: 'android.permission.POST_NOTIFICATIONS',
-    title: appTextValue("Notifications"),
+    title: "Notifications",
     reason: 'Bill and due-date reminders, quick add from the notification shade',
   ),
   camera(
     androidName: 'android.permission.CAMERA',
-    title: appTextValue("Camera"),
+    title: "Camera",
     reason: 'Take a photo of a receipt from Add transaction',
   ),
   contacts(
     androidName: 'android.permission.READ_CONTACTS',
-    title: appTextValue("Contacts"),
+    title: "Contacts",
     reason:
         'Import a phone number and photo when you pick a person from '
         'contacts. Without it, picking still works — name only',

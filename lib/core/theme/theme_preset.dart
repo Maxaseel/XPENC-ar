@@ -13,24 +13,24 @@ import '../localization/app_text.dart';
 /// Add new ones at the end.
 enum ThemeStyle {
   classic(
-    label: appTextValue("Classic"),
-    description: appTextValue("Clean and monochrome"),
+    label: "Classic",
+    description: "Clean and monochrome",
     icon: Icons.contrast_rounded,
     lightPalette: AppPalettes.monoLight,
     darkPalette: AppPalettes.monoDark,
     shape: ThemeShape.classic,
   ),
   noir(
-    label: appTextValue("Noir"),
-    description: appTextValue("Heavy type, ink outlines, coral & gold"),
+    label: "Noir",
+    description: "Heavy type, ink outlines, coral & gold",
     icon: Icons.bolt_rounded,
     lightPalette: AppPalettes.noirLight,
     darkPalette: AppPalettes.noirDark,
     shape: ThemeShape.noir,
   ),
   glass(
-    label: appTextValue("Glass"),
-    description: appTextValue("Liquid Glass Theme"),
+    label: "Glass",
+    description: "Liquid Glass Theme",
     icon: Icons.blur_on_rounded,
     lightPalette: AppPalettes.glass,
     darkPalette: AppPalettes.glassDark,

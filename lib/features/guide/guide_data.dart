@@ -6,7 +6,7 @@ import '../../core/localization/app_text.dart';
 /// automated link to the code, so a renamed screen or moved menu item
 /// needs its entry updated here too.
 class GuideEntry {
-  const GuideEntry({
+  GuideEntry({
     required this.icon,
     required this.title,
     required this.whatItDoes,
@@ -67,11 +67,11 @@ const appModeGuide = <({
   ),
 ];
 
-const guideSections = <GuideSection>[
+final guideSections = <GuideSection>[
   GuideSection('Money', [
     GuideEntry(
       icon: Icons.account_balance_wallet_outlined,
-      title: appTextValue("Accounts"),
+      title: "Accounts",
       whatItDoes:
           'Every place your money actually lives: cash, bank accounts, '
           'debit/credit cards, prepaid balances, and multi-currency '
@@ -87,7 +87,7 @@ const guideSections = <GuideSection>[
     ),
     GuideEntry(
       icon: Icons.tune_rounded,
-      title: appTextValue("Correct a balance"),
+      title: "Correct a balance",
       whatItDoes:
           'When an account shows the wrong amount — say ₹100 in cash but '
           'your wallet has ₹75 — enter what you really have and the '
@@ -103,7 +103,7 @@ const guideSections = <GuideSection>[
     ),
     GuideEntry(
       icon: Icons.receipt_long_outlined,
-      title: appTextValue("Transactions"),
+      title: "Transactions",
       whatItDoes:
           'Every income, expense, transfer and lending movement you\'ve '
           'logged, searchable and filterable by date, ISO week, account, '
@@ -117,7 +117,7 @@ const guideSections = <GuideSection>[
     ),
     GuideEntry(
       icon: Icons.people_alt_outlined,
-      title: appTextValue("Persons"),
+      title: "Persons",
       whatItDoes:
           'Tracks who owes you and who you owe, kept separate from your '
           'own accounts — lending someone money isn\'t an expense, and '
@@ -133,7 +133,7 @@ const guideSections = <GuideSection>[
     ),
     GuideEntry(
       icon: Icons.groups_outlined,
-      title: appTextValue("Groups & Who owes whom"),
+      title: "Groups & Who owes whom",
       whatItDoes:
           'Split a shared expense across several people at once. Each '
           'group shows its overall balance, every member\'s net share, '
@@ -146,7 +146,7 @@ const guideSections = <GuideSection>[
     ),
     GuideEntry(
       icon: Icons.task_alt_rounded,
-      title: appTextValue("Settled"),
+      title: "Settled",
       whatItDoes:
           'People and groups whose balance is zero and that you\'ve moved '
           'out of the way. They stay full, live rows — same history — and '
@@ -159,7 +159,7 @@ const guideSections = <GuideSection>[
     ),
     GuideEntry(
       icon: Icons.donut_large_rounded,
-      title: appTextValue("Budgets"),
+      title: "Budgets",
       whatItDoes:
           'A spending limit per category, tracked against what\'s '
           'actually been spent this period — Medium and Pro only, Basic '
@@ -173,7 +173,7 @@ const guideSections = <GuideSection>[
     ),
     GuideEntry(
       icon: Icons.savings_outlined,
-      title: appTextValue("Ready to Assign"),
+      title: "Ready to Assign",
       whatItDoes:
           'Pro-only envelope budgeting: instead of a limit sitting on '
           'each category independently, every on-budget account\'s money '
@@ -187,7 +187,7 @@ const guideSections = <GuideSection>[
     ),
     GuideEntry(
       icon: Icons.autorenew_rounded,
-      title: appTextValue("Auto (recurring rules)"),
+      title: "Auto (recurring rules)",
       whatItDoes:
           'Rules that post themselves on schedule instead of you logging '
           'them by hand: a fixed expense or income, a transfer into a '
@@ -201,7 +201,7 @@ const guideSections = <GuideSection>[
     ),
     GuideEntry(
       icon: Icons.storefront_outlined,
-      title: appTextValue("Payees"),
+      title: "Payees",
       whatItDoes:
           'Every name typed into a transaction\'s payee field, grouped '
           'automatically — there\'s no separate payee list to maintain.',
@@ -213,7 +213,7 @@ const guideSections = <GuideSection>[
     ),
     GuideEntry(
       icon: Icons.savings_outlined,
-      title: appTextValue("Goals & Loans"),
+      title: "Goals & Loans",
       whatItDoes:
           'Savings goals track progress toward a target amount, '
           'optionally auto-funded from an account. Loans track what you '
@@ -232,7 +232,7 @@ const guideSections = <GuideSection>[
     ),
     GuideEntry(
       icon: Icons.checklist_outlined,
-      title: appTextValue("Shopping List"),
+      title: "Shopping List",
       whatItDoes:
           'Plan purchases before you make them — named lists (e.g. '
           '"Groceries") with items you check off, kept separate from your '
@@ -244,7 +244,7 @@ const guideSections = <GuideSection>[
   GuideSection('Tools', [
     GuideEntry(
       icon: Icons.radio_button_checked_rounded,
-      title: appTextValue("Quick actions ring"),
+      title: "Quick actions ring",
       whatItDoes:
           'Eight shortcuts one gesture away: hold the ➕ and a ring opens '
           'mid-screen with ✕ (cancel) in the centre.',
@@ -257,7 +257,7 @@ const guideSections = <GuideSection>[
     ),
     GuideEntry(
       icon: Icons.calculate_outlined,
-      title: appTextValue("Calculators (Beta)"),
+      title: "Calculators (Beta)",
       whatItDoes:
           'FD & RD, Loan EMI (year-wise schedule, prepayment savings), SIP '
           '& Lumpsum with yearly step-up, PPF, GST, and Income Tax for '
@@ -271,7 +271,7 @@ const guideSections = <GuideSection>[
   GuideSection('Insights', [
     GuideEntry(
       icon: Icons.calendar_month_outlined,
-      title: appTextValue("Calendar & Reminders"),
+      title: "Calendar & Reminders",
       whatItDoes:
           'A day-by-day view of what came in and went out, plus upcoming '
           'recurring payments so nothing catches you off guard.',
@@ -280,7 +280,7 @@ const guideSections = <GuideSection>[
     ),
     GuideEntry(
       icon: Icons.insights_outlined,
-      title: appTextValue("Stats"),
+      title: "Stats",
       whatItDoes:
           'Trends over time, spending-by-category charts, and Standings — '
           'a ranked top-transactions/top-categories list for the period.',
@@ -291,7 +291,7 @@ const guideSections = <GuideSection>[
     ),
     GuideEntry(
       icon: Icons.account_balance_outlined,
-      title: appTextValue("Account Reports"),
+      title: "Account Reports",
       whatItDoes:
           'A money-first view across every account: total money, money in '
           'and out this month or year, and seven reports — Balances, '
@@ -307,7 +307,7 @@ const guideSections = <GuideSection>[
   GuideSection('Data', [
     GuideEntry(
       icon: Icons.download_outlined,
-      title: appTextValue("Download Data"),
+      title: "Download Data",
       whatItDoes:
           'Exports your whole ledger to CSV or JSON — for a spreadsheet, '
           'a backup you keep yourself, or moving your data elsewhere.',
@@ -316,7 +316,7 @@ const guideSections = <GuideSection>[
     ),
     GuideEntry(
       icon: Icons.backup_outlined,
-      title: appTextValue("Backup & Restore"),
+      title: "Backup & Restore",
       whatItDoes:
           'Manual backups plus scheduled auto-backups, with a choice of '
           'retention rule (keep the last N, or a time window). Restoring '
@@ -332,7 +332,7 @@ const guideSections = <GuideSection>[
   GuideSection('Setup', [
     GuideEntry(
       icon: Icons.category_outlined,
-      title: appTextValue("Categories"),
+      title: "Categories",
       whatItDoes:
           'Income and expense categories, each with its own icon and '
           'colour, picked from a searchable icon sheet.',
@@ -344,7 +344,7 @@ const guideSections = <GuideSection>[
     ),
     GuideEntry(
       icon: Icons.sell_outlined,
-      title: appTextValue("Tags"),
+      title: "Tags",
       whatItDoes:
           'Labels that cut across categories — a tag isn\'t tied to '
           'income or expense, so it can mark anything that shares a '
@@ -357,7 +357,7 @@ const guideSections = <GuideSection>[
     ),
     GuideEntry(
       icon: Icons.settings_outlined,
-      title: appTextValue("Settings"),
+      title: "Settings",
       whatItDoes:
           'Currency, theme, security (PIN, master password, and/or an '
           'authenticator app — any combination you turn on unlocks the '

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart' hide Text;
-import '../../core/localization/app_text.dart';
 
 /// One line item on the What's New screen — what shipped, where to find it,
 /// and what it actually does. Updated by hand alongside CHANGELOG.md each

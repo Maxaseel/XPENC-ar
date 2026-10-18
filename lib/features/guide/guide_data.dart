@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart' hide Text;
-import '../../core/localization/app_text.dart';
 
 /// One feature explained: what it does, how to use it, and where to find
 /// it. Hand-maintained alongside the actual features — there's no

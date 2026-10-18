@@ -102,8 +102,11 @@ class Text extends m.StatelessWidget {
   final m.TextWidthBasis? textWidthBasis;
   final m.TextHeightBehavior? textHeightBehavior;
   final m.TextScaler? textScaler;
-  @Deprecated('Use textScaler instead.')
+  // Legacy compatibility: converted to TextScaler before reaching Flutter's Text.
   final double? textScaleFactor;
+  m.TextScaler? get _effectiveTextScaler =>
+      textScaler ??
+      (textScaleFactor == null ? null : m.TextScaler.linear(textScaleFactor!));
   final m.Color? selectionColor;
 
   @override
@@ -130,8 +133,7 @@ class Text extends m.StatelessWidget {
         semanticsLabel: renderedSemantics,
         textWidthBasis: textWidthBasis,
         textHeightBehavior: textHeightBehavior,
-        textScaler: textScaler,
-        textScaleFactor: textScaleFactor,
+        textScaler: _effectiveTextScaler,
         selectionColor: selectionColor,
       );
     }
@@ -149,8 +151,7 @@ class Text extends m.StatelessWidget {
       semanticsLabel: renderedSemantics,
       textWidthBasis: textWidthBasis,
       textHeightBehavior: textHeightBehavior,
-      textScaler: textScaler,
-      textScaleFactor: textScaleFactor,
+      textScaler: _effectiveTextScaler,
       selectionColor: selectionColor,
     );
   }

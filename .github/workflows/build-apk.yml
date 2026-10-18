@@ -33,6 +33,9 @@ jobs:
       - name: Resolve dependencies
         run: flutter pub get
 
+      - name: Analyze
+        run: flutter analyze
+
       - name: Build APK
         run: flutter build apk --release --split-per-abi
 

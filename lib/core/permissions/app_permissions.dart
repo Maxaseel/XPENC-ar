@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-import '../localization/app_text.dart';
 
 /// A runtime permission XPENC asks for, and why — what Settings > Permissions
 /// lists. Each one is optional: the feature that needs it degrades, nothing

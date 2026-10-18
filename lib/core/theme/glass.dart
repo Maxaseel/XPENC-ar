@@ -7,7 +7,6 @@ import 'package:flutter/scheduler.dart';
 
 import 'app_colors.dart';
 import 'theme_shape.dart';
-import '../localization/app_text.dart';
 
 /// The Glass theme's building blocks, modelled on iOS's Liquid Glass.
 ///

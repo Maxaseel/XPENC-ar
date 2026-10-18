@@ -3,7 +3,6 @@ import 'package:flutter/material.dart' hide Text;
 import 'app_colors.dart';
 import 'glass.dart';
 import 'theme_shape.dart';
-import '../localization/app_text.dart';
 
 /// The looks a user can pick — "Classic, Noir, Glass" is what a person expects
 /// to see. Brightness is a separate, smaller choice ([ThemeChoice.mode]) that

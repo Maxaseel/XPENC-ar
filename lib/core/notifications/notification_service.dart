@@ -9,7 +9,6 @@ import '../../data/database.dart';
 import '../../data/tables.dart';
 import '../money.dart';
 import '../platform/platform_features.dart';
-import '../localization/app_text.dart';
 
 /// Local notifications only. Nothing leaves the device.
 class NotificationService {

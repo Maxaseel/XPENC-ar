@@ -2452,8 +2452,8 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 ],
               ),
               Text(
-                DateFormat('d MMM yyyy').format(_date),
-                maxLines: 1,
+                DateFormat('d MMM yyyy, h:mm a').format(_date),
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.titleMedium?.copyWith(
                   color: theme.colorScheme.onSurface,

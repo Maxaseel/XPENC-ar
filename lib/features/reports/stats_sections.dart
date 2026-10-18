@@ -70,8 +70,7 @@ class NotEnoughDataText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Text(
-      'Not enough data yet.',
+    return Text.localized('Not enough data yet.',
       style: theme.textTheme.bodyMedium?.copyWith(
         color: theme.colorScheme.onSurfaceVariant,
       ),
@@ -192,8 +191,8 @@ class PeriodToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     return SegmentedButton<bool>(
       segments: const [
-        ButtonSegment(value: false, label: Text('Month')),
-        ButtonSegment(value: true, label: Text('Year')),
+        ButtonSegment(value: false, label: Text.localized('Month')),
+        ButtonSegment(value: true, label: Text.localized('Year')),
       ],
       selected: {showYear},
       showSelectedIcon: false,
@@ -218,8 +217,8 @@ class CategoryDetailToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     return SegmentedButton<bool>(
       segments: const [
-        ButtonSegment(value: false, label: Text('Main categories')),
-        ButtonSegment(value: true, label: Text('Subcategories')),
+        ButtonSegment(value: false, label: Text.localized('Main categories')),
+        ButtonSegment(value: true, label: Text.localized('Subcategories')),
       ],
       selected: {showSubcategories},
       showSelectedIcon: false,

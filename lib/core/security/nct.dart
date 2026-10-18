@@ -157,8 +157,7 @@ class _Frost extends StatelessWidget {
                         ),
                         const SizedBox(width: 6),
                         Flexible(
-                          child: Text(
-                            'Hidden · hold to view',
+                          child: Text.localized('Hidden · hold to view',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: theme.textTheme.bodySmall?.copyWith(

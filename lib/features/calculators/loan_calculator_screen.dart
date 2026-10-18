@@ -111,8 +111,7 @@ class _LoanCalculatorScreenState extends State<LoanCalculatorScreen>
           ],
         ),
         const SizedBox(height: 20),
-        Text(
-          'Prepay every month',
+        Text.localized('Prepay every month',
           style: theme.textTheme.titleSmall?.copyWith(
             fontWeight: FontWeight.w700,
           ),
@@ -139,8 +138,7 @@ class _LoanCalculatorScreenState extends State<LoanCalculatorScreen>
           ),
         if (yearly.isNotEmpty) ...[
           const SizedBox(height: 20),
-          Text(
-            'Year-wise schedule',
+          Text.localized('Year-wise schedule',
             style: theme.textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w700,
             ),

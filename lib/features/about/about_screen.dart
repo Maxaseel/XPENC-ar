@@ -18,7 +18,7 @@ class AboutScreen extends StatelessWidget {
     final cs = theme.colorScheme;
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('About')),
+      appBar: AppTopBar(title: const Text.localized('About')),
       // Not a `SafeArea` — on some 3-button-nav devices its reported inset
       // doesn't clear the nav bar (GitHub #53, the same class of bug as
       // #14). Adding the inset explicitly is the pattern that actually held
@@ -53,7 +53,7 @@ class AboutScreen extends StatelessWidget {
                   child: FilledButton.icon(
                     onPressed: () => _openPlayStore(context),
                     icon: const AppIcon(Icons.shop_rounded, size: 20),
-                    label: const Text('Google Play'),
+                    label: const Text.localized('Google Play'),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -63,7 +63,7 @@ class AboutScreen extends StatelessWidget {
                     builder: (buttonContext) => OutlinedButton.icon(
                       onPressed: () => _shareApp(buttonContext),
                       icon: const AppIcon(Icons.share_rounded, size: 20),
-                      label: const Text('Share XPENC'),
+                      label: const Text.localized('Share XPENC'),
                     ),
                   ),
                 ),
@@ -257,8 +257,7 @@ class AboutScreen extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             Center(
-              child: Text(
-                'Offline-first · built with Flutter',
+              child: Text.localized('Offline-first · built with Flutter',
                 style: theme.textTheme.labelSmall?.copyWith(
                   color: cs.onSurfaceVariant,
                   letterSpacing: 0.4,
@@ -302,7 +301,7 @@ class _VersionPill extends StatelessWidget {
         if (!context.mounted) return;
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
-          ..showSnackBar(const SnackBar(content: Text('Version copied')));
+          ..showSnackBar(const SnackBar(content: Text.localized('Version copied')));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -397,8 +396,7 @@ class _GetUpdateSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Get the latest version',
+            Text.localized('Get the latest version',
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w700,
               ),

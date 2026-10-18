@@ -46,11 +46,11 @@ class ShoppingListScreen extends ConsumerWidget {
               itemBuilder: (_) => const [
                 PopupMenuItem(
                   value: _ListAction.rename,
-                  child: Text('Rename list'),
+                  child: Text.localized('Rename list'),
                 ),
                 PopupMenuItem(
                   value: _ListAction.delete,
-                  child: Text('Delete list'),
+                  child: Text.localized('Delete list'),
                 ),
               ],
             ),
@@ -70,8 +70,7 @@ class ShoppingListScreen extends ConsumerWidget {
       body: itemsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (_, _) => Center(
-          child: Text(
-            "Couldn't load this list.",
+          child: Text.localized("Couldn't load this list.",
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -89,8 +88,7 @@ class ShoppingListScreen extends ConsumerWidget {
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
                   const SizedBox(height: 16),
-                  Text(
-                    'Nothing here yet — tap + to add something.',
+                  Text.localized('Nothing here yet — tap + to add something.',
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
@@ -123,8 +121,7 @@ class ShoppingListScreen extends ConsumerWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'Estimated total',
+                          Text.localized('Estimated total',
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
                             ),
@@ -177,7 +174,7 @@ class ShoppingListScreen extends ConsumerWidget {
     final newName = await showAppDialog<String>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Rename list'),
+        title: const Text.localized('Rename list'),
         content: TextField(
           controller: controller,
           autofocus: true,
@@ -222,7 +219,7 @@ class ShoppingListScreen extends ConsumerWidget {
       context: context,
       builder: (dialogContext) => AlertDialog(
         title: Text('Delete "${list.name}"?'),
-        content: const Text('This removes the list and everything on it.'),
+        content: const Text.localized('This removes the list and everything on it.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),

@@ -445,8 +445,7 @@ class _ScreenshotAllowedTag extends StatelessWidget {
     return SafeArea(
       child: GestureDetector(
         onTap: () => appRouter.push('/more/settings'),
-        child: Text(
-          'Screenshots allowed',
+        child: Text.localized('Screenshots allowed',
           style: theme.textTheme.labelSmall?.copyWith(
             color: theme.colorScheme.onSurface.withValues(alpha: 0.35),
           ),

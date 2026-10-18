@@ -29,14 +29,14 @@ Future<ShareFormat?> pickShareFormat(
   options: (sheetContext) => [
     AppListTile(
       leading: const AppIcon(Icons.picture_as_pdf_outlined),
-      title: const Text('PDF document'),
-      subtitle: const Text('Structured and printable, with every detail.'),
+      title: const Text.localized('PDF document'),
+      subtitle: const Text.localized('Structured and printable, with every detail.'),
       onTap: () => Navigator.of(sheetContext).pop(ShareFormat.pdf),
     ),
     AppListTile(
       leading: const AppIcon(Icons.image_outlined),
-      title: const Text('Image'),
-      subtitle: const Text('A styled card, ready for any chat.'),
+      title: const Text.localized('Image'),
+      subtitle: const Text.localized('A styled card, ready for any chat.'),
       onTap: () => Navigator.of(sheetContext).pop(ShareFormat.image),
     ),
   ],
@@ -170,7 +170,7 @@ Future<void> _sharePdf(
   final messenger = ScaffoldMessenger.of(context);
   messenger
     ..hideCurrentSnackBar()
-    ..showSnackBar(const SnackBar(content: Text('Preparing PDF...')));
+    ..showSnackBar(const SnackBar(content: Text.localized('Preparing PDF...')));
   try {
     final file = await writeShareFile(await build(), '$fileStem.pdf');
     messenger.hideCurrentSnackBar();

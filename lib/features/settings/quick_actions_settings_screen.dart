@@ -28,7 +28,7 @@ class QuickActionsSettingsScreen extends ConsumerWidget {
     final holdMenuEnabled = ref.watch(holdMenuEnabledProvider);
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Quick Actions')),
+      appBar: AppTopBar(title: const Text.localized('Quick Actions')),
       body: ListView(
         // Explicit padding drops ListView's nav-bar inset; re-add it (#137).
         padding: EdgeInsets.fromLTRB(
@@ -45,9 +45,8 @@ class QuickActionsSettingsScreen extends ConsumerWidget {
                 AppSwitchListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   secondary: const AppIcon(Icons.radio_button_checked_rounded),
-                  title: const Text('Hold ➕ for quick actions'),
-                  subtitle: Text(
-                    'Press and hold ➕ — a ring of shortcuts opens. Slide '
+                  title: const Text.localized('Hold ➕ for quick actions'),
+                  subtitle: Text.localized('Press and hold ➕ — a ring of shortcuts opens. Slide '
                     'toward one and let go to open it; let go in the middle '
                     'to cancel.',
                     style: theme.textTheme.bodySmall?.copyWith(
@@ -70,8 +69,7 @@ class QuickActionsSettingsScreen extends ConsumerWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    child: Text(
-                      'Tap a circle to choose what it opens. The ✕ in the '
+                    child: Text.localized('Tap a circle to choose what it opens. The ✕ in the '
                       'middle is always Cancel.',
                       textAlign: TextAlign.center,
                       style: theme.textTheme.bodySmall?.copyWith(
@@ -89,9 +87,8 @@ class QuickActionsSettingsScreen extends ConsumerWidget {
               child: AppListTile(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                 leading: const AppIcon(Icons.widgets_outlined),
-                title: const Text('Home screen widgets'),
-                subtitle: Text(
-                  'Balance, Budgets, Quick Add or This Month — pick what to '
+                title: const Text.localized('Home screen widgets'),
+                subtitle: Text.localized('Balance, Budgets, Quick Add or This Month — pick what to '
                   'put on your home screen.',
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: cs.onSurfaceVariant,
@@ -108,9 +105,8 @@ class QuickActionsSettingsScreen extends ConsumerWidget {
               child: AppSwitchListTile(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                 secondary: const AppIcon(Icons.screenshot_monitor_outlined),
-                title: const Text('Screenshot blocking'),
-                subtitle: Text(
-                  'Turn screenshot blocking on or off from the lock screen. '
+                title: const Text.localized('Screenshot blocking'),
+                subtitle: Text.localized('Turn screenshot blocking on or off from the lock screen. '
                   'On applies right away; off only after you unlock.',
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: cs.onSurfaceVariant,
@@ -351,7 +347,7 @@ class _QuickActionPickerSheet extends ConsumerWidget {
             if (current.isNotEmpty)
               AppListTile(
                 leading: const AppIcon(Icons.remove_circle_outline_rounded),
-                title: const Text('Leave empty'),
+                title: const Text.localized('Leave empty'),
                 onTap: () => Navigator.of(context).pop(''),
               ),
             for (final group in groups.entries) ...[
@@ -365,8 +361,7 @@ class _QuickActionPickerSheet extends ConsumerWidget {
                 if (templates.isEmpty)
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
-                    child: Text(
-                      'No templates yet. Save one from Add Transaction and '
+                    child: Text.localized('No templates yet. Save one from Add Transaction and '
                       'it shows up here.',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: cs.onSurfaceVariant,

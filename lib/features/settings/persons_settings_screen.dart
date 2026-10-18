@@ -33,7 +33,7 @@ class PersonsSettingsScreen extends ConsumerWidget {
     final revolutEnabled = ref.watch(revolutEnabledProvider);
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Persons')),
+      appBar: AppTopBar(title: const Text.localized('Persons')),
       body: ListView(
         // Explicit padding drops ListView's nav-bar inset; re-add it (#137).
         padding: EdgeInsets.fromLTRB(
@@ -47,9 +47,8 @@ class PersonsSettingsScreen extends ConsumerWidget {
             child: AppSwitchListTile(
               contentPadding: const EdgeInsets.symmetric(horizontal: 16),
               secondary: const AppIcon(Icons.handshake_outlined),
-              title: const Text('Count repayments as income'),
-              subtitle: Text(
-                'Offers "Mark as repaid" on a person\'s page — a repayment '
+              title: const Text.localized('Count repayments as income'),
+              subtitle: Text.localized('Offers "Mark as repaid" on a person\'s page — a repayment '
                 'posts as income under a category you choose, instead of '
                 'staying off income/expense like lending normally does.',
                 style: theme.textTheme.bodySmall?.copyWith(
@@ -66,8 +65,7 @@ class PersonsSettingsScreen extends ConsumerWidget {
           AppCard(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-              child: Text(
-                'Turn off any method not used or supported where you are — '
+              child: Text.localized('Turn off any method not used or supported where you are — '
                 'it disappears from person pages instead of sitting there '
                 'disabled. Turn one on to fill in your own ID for it.',
                 style: theme.textTheme.bodySmall?.copyWith(
@@ -82,8 +80,8 @@ class PersonsSettingsScreen extends ConsumerWidget {
               children: [
                 AppSwitchListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                  title: const Text('UPI'),
-                  subtitle: const Text('India'),
+                  title: const Text.localized('UPI'),
+                  subtitle: const Text.localized('India'),
                   value: upiEnabled,
                   onChanged: (v) => ref.read(dbProvider).setUpiEnabled(v),
                 ),
@@ -92,7 +90,7 @@ class PersonsSettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: const AppIcon(Icons.qr_code_outlined),
-                    title: const Text('My UPI ID'),
+                    title: const Text.localized('My UPI ID'),
                     subtitle: Text(
                       (myUpiId?.isNotEmpty ?? false)
                           ? myUpiId!
@@ -114,8 +112,7 @@ class PersonsSettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.only(left: 16, right: 8),
                     title: const Text.localized('Pay without internet (Beta)'),
-                    subtitle: const Text(
-                      'Send via *99# USSD when you have no data — tap for '
+                    subtitle: const Text.localized('Send via *99# USSD when you have no data — tap for '
                       'how it works',
                     ),
                     onTap: () => _showUssdPayInfoSheet(context),
@@ -135,8 +132,8 @@ class PersonsSettingsScreen extends ConsumerWidget {
               children: [
                 AppSwitchListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                  title: const Text('PayPal'),
-                  subtitle: const Text('Worldwide'),
+                  title: const Text.localized('PayPal'),
+                  subtitle: const Text.localized('Worldwide'),
                   value: paypalEnabled,
                   onChanged: (v) => ref.read(dbProvider).setPaypalEnabled(v),
                 ),
@@ -145,7 +142,7 @@ class PersonsSettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: const AppIcon(Icons.attach_money_rounded),
-                    title: const Text('My PayPal.me ID'),
+                    title: const Text.localized('My PayPal.me ID'),
                     subtitle: Text(
                       (myPaypal?.isNotEmpty ?? false)
                           ? myPaypal!
@@ -175,7 +172,7 @@ class PersonsSettingsScreen extends ConsumerWidget {
               children: [
                 AppSwitchListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                  title: const Text('Venmo'),
+                  title: const Text.localized('Venmo'),
                   subtitle: const Text('US'),
                   value: venmoEnabled,
                   onChanged: (v) => ref.read(dbProvider).setVenmoEnabled(v),
@@ -185,7 +182,7 @@ class PersonsSettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: const AppIcon(Icons.attach_money_rounded),
-                    title: const Text('My Venmo username'),
+                    title: const Text.localized('My Venmo username'),
                     subtitle: Text(
                       (myVenmo?.isNotEmpty ?? false)
                           ? myVenmo!
@@ -215,7 +212,7 @@ class PersonsSettingsScreen extends ConsumerWidget {
               children: [
                 AppSwitchListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                  title: const Text('Cash App'),
+                  title: const Text.localized('Cash App'),
                   subtitle: const Text('US'),
                   value: cashappEnabled,
                   onChanged: (v) => ref.read(dbProvider).setCashappEnabled(v),
@@ -225,7 +222,7 @@ class PersonsSettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: const AppIcon(Icons.attach_money_rounded),
-                    title: const Text('My Cash App cashtag'),
+                    title: const Text.localized('My Cash App cashtag'),
                     subtitle: Text(
                       (myCashapp?.isNotEmpty ?? false)
                           ? myCashapp!
@@ -255,8 +252,8 @@ class PersonsSettingsScreen extends ConsumerWidget {
               children: [
                 AppSwitchListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                  title: const Text('Revolut'),
-                  subtitle: const Text('Europe'),
+                  title: const Text.localized('Revolut'),
+                  subtitle: const Text.localized('Europe'),
                   value: revolutEnabled,
                   onChanged: (v) => ref.read(dbProvider).setRevolutEnabled(v),
                 ),
@@ -265,7 +262,7 @@ class PersonsSettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: const AppIcon(Icons.attach_money_rounded),
-                    title: const Text('My Revolut.me username'),
+                    title: const Text.localized('My Revolut.me username'),
                     subtitle: Text(
                       (myRevolut?.isNotEmpty ?? false)
                           ? myRevolut!
@@ -323,22 +320,19 @@ class PersonsSettingsScreen extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              Text(
-                '*99# is NPCI\'s USSD banking service — it sends a UPI '
+              Text.localized('*99# is NPCI\'s USSD banking service — it sends a UPI '
                 'payment over your SIM\'s signal alone, no data connection '
                 'needed, on almost any phone.',
                 style: theme.textTheme.bodyMedium,
               ),
               const SizedBox(height: 12),
-              Text(
-                'XPENC can\'t read or answer the *99# menu for you — that '
+              Text.localized('XPENC can\'t read or answer the *99# menu for you — that '
                 'screen belongs to your phone\'s own dialer, not any app. '
                 'What this does instead:',
                 style: theme.textTheme.bodyMedium,
               ),
               const SizedBox(height: 8),
-              Text(
-                '1. You enter who you\'re paying (UPI ID or phone number).\n'
+              Text.localized('1. You enter who you\'re paying (UPI ID or phone number).\n'
                 '2. Tap Dial *99# — XPENC copies it and opens your dialer, '
                 'ready to call.\n'
                 '3. You go through the menu yourself: Send Money → paste → '
@@ -351,7 +345,7 @@ class PersonsSettingsScreen extends ConsumerWidget {
               const SizedBox(height: 20),
               FilledButton(
                 onPressed: () => Navigator.of(sheetContext).pop(),
-                child: const Text('Got it'),
+                child: const Text.localized('Got it'),
               ),
             ],
           ),
@@ -437,7 +431,7 @@ class _MyUpiDialogState extends State<_MyUpiDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('My UPI ID'),
+      title: const Text.localized('My UPI ID'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -41,7 +41,7 @@ class TransactionDetailScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppTopBar(
-        title: const Text('Transaction'),
+        title: const Text.localized('Transaction'),
         actions: [
           if (t != null)
             IconButton(
@@ -291,8 +291,7 @@ class _ReceiptCard extends StatelessWidget {
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
                   const SizedBox(width: 8),
-                  Text(
-                    'Receipt',
+                  Text.localized('Receipt',
                     style: theme.textTheme.labelLarge?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -308,8 +307,7 @@ class _ReceiptCard extends StatelessWidget {
                 fit: BoxFit.cover,
                 errorBuilder: (_, _, _) => Padding(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                  child: Text(
-                    "This receipt's file is missing from the device.",
+                  child: Text.localized("This receipt's file is missing from the device.",
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -597,8 +595,7 @@ class _LinkedTransactionsCard extends ConsumerWidget {
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(
-                    'Linked transactions',
+                  child: Text.localized('Linked transactions',
                     style: theme.textTheme.labelLarge?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                       fontWeight: FontWeight.w700,
@@ -624,8 +621,7 @@ class _LinkedTransactionsCard extends ConsumerWidget {
                 if (links.isEmpty) {
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(26, 0, 8, 0),
-                    child: Text(
-                      'No linked transactions yet.',
+                    child: Text.localized('No linked transactions yet.',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),

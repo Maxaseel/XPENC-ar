@@ -72,7 +72,7 @@ class _SavingsGoalsScreenState extends ConsumerState<SavingsGoalsScreen>
 
     return Scaffold(
       appBar: AppTopBar(
-        title: const Text('Goals & Loans'),
+        title: const Text.localized('Goals & Loans'),
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
@@ -134,8 +134,7 @@ class _GoalsTab extends ConsumerWidget {
     return detailsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (_, _) => Center(
-        child: Text(
-          "Couldn't load savings goals.",
+        child: Text.localized("Couldn't load savings goals.",
           style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),
@@ -153,8 +152,7 @@ class _GoalsTab extends ConsumerWidget {
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
                 const SizedBox(height: 16),
-                Text(
-                  'No savings goals yet — tap + to set one, either fresh '
+                Text.localized('No savings goals yet — tap + to set one, either fresh '
                   'or by turning an account you already have into a goal.',
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodyMedium?.copyWith(
@@ -306,8 +304,7 @@ class _LoansTab extends ConsumerWidget {
     return detailsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (_, _) => Center(
-        child: Text(
-          "Couldn't load loans.",
+        child: Text.localized("Couldn't load loans.",
           style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),
@@ -325,8 +322,7 @@ class _LoansTab extends ConsumerWidget {
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
                 const SizedBox(height: 16),
-                Text(
-                  'No loans tracked yet — tap + to add a loan you have taken.',
+                Text.localized('No loans tracked yet — tap + to add a loan you have taken.',
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
@@ -482,8 +478,7 @@ Future<void> _openNewGoalChoice(BuildContext context) async {
             padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
             child: Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                'New goal',
+              child: Text.localized('New goal',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
@@ -492,15 +487,14 @@ Future<void> _openNewGoalChoice(BuildContext context) async {
           ),
           AppListTile(
             leading: const AppIcon(Icons.add_circle_outline_rounded),
-            title: const Text('Start fresh'),
-            subtitle: const Text('A new goal, empty until you fund it.'),
+            title: const Text.localized('Start fresh'),
+            subtitle: const Text.localized('A new goal, empty until you fund it.'),
             onTap: () => Navigator.of(sheetContext).pop(_NewGoalChoice.fresh),
           ),
           AppListTile(
             leading: const AppIcon(Icons.savings_outlined),
-            title: const Text('Turn an account into a goal'),
-            subtitle: const Text(
-              'Move its balance in and set it aside for this.',
+            title: const Text.localized('Turn an account into a goal'),
+            subtitle: const Text.localized('Move its balance in and set it aside for this.',
             ),
             onTap: () =>
                 Navigator.of(sheetContext).pop(_NewGoalChoice.fromAccount),
@@ -685,7 +679,7 @@ class _GoalEditorSheetState extends ConsumerState<_GoalEditorSheet> {
     final move = await showAppDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Move the balance in?'),
+        title: const Text.localized('Move the balance in?'),
         content: Text(
           'Transfer ${MoneyFormat.symbol(source.currentBalance)} from '
           '"${source.name}" into this goal now?',
@@ -693,11 +687,11 @@ class _GoalEditorSheetState extends ConsumerState<_GoalEditorSheet> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Not now'),
+            child: const Text.localized('Not now'),
           ),
           FilledButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('Move it'),
+            child: const Text.localized('Move it'),
           ),
         ],
       ),
@@ -717,14 +711,13 @@ class _GoalEditorSheetState extends ConsumerState<_GoalEditorSheet> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text('Archive "${source.name}"?'),
-        content: const Text(
-          'It stays in your history — this only hides it from active '
+        content: const Text.localized('It stays in your history — this only hides it from active '
           "accounts, if you don't need it day-to-day anymore.",
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Keep it'),
+            child: const Text.localized('Keep it'),
           ),
           FilledButton(
             onPressed: () => Navigator.of(ctx).pop(true),
@@ -827,7 +820,7 @@ class _GoalEditorSheetState extends ConsumerState<_GoalEditorSheet> {
                 alignment: Alignment.centerLeft,
                 child: TextButton(
                   onPressed: () => setState(() => _targetDate = null),
-                  child: const Text('Clear date'),
+                  child: const Text.localized('Clear date'),
                 ),
               ),
             const SizedBox(height: 16),
@@ -1382,8 +1375,7 @@ class _LoanEditorSheetState extends ConsumerState<_LoanEditorSheet> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Repayment start date',
+                          Text.localized('Repayment start date',
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
                             ),
@@ -1469,7 +1461,7 @@ class _LoanEditorSheetState extends ConsumerState<_LoanEditorSheet> {
         children: [
           AppSwitchListTile(
             contentPadding: EdgeInsets.zero,
-            title: const Text('Auto-pay EMI'),
+            title: const Text.localized('Auto-pay EMI'),
             subtitle: Text(
               'Posts ${MoneyFormat.symbol(emi)} every month on its own and '
               'shows up in Auto.',
@@ -1497,8 +1489,7 @@ class _LoanEditorSheetState extends ConsumerState<_LoanEditorSheet> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'First auto-payment',
+                          Text.localized('First auto-payment',
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: cs.onSurfaceVariant,
                             ),

@@ -20,7 +20,7 @@ class WidgetsScreen extends ConsumerWidget {
     final canPin = ref.watch(_canRequestPinProvider).valueOrNull ?? false;
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Widgets')),
+      appBar: AppTopBar(title: const Text.localized('Widgets')),
       body: ListView(
         // Explicit padding drops ListView's nav-bar inset; re-add it (#137).
         padding: EdgeInsets.fromLTRB(
@@ -180,7 +180,7 @@ class _WidgetCard extends ConsumerWidget {
               FilledButton.tonal(
                 onPressed: () =>
                     ref.read(homeWidgetServiceProvider).requestPin(widget),
-                child: const Text('Add to home screen'),
+                child: const Text.localized('Add to home screen'),
               ),
             ],
           ],

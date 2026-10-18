@@ -104,8 +104,7 @@ class _EmptyState extends StatelessWidget {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32),
-        child: Text(
-          'Add an account, then come back here to start assigning money '
+        child: Text.localized('Add an account, then come back here to start assigning money '
           'into categories.',
           textAlign: TextAlign.center,
           style: Theme.of(
@@ -244,7 +243,7 @@ class _AssignSheetState extends ConsumerState<_AssignSheet> {
     final accountId = _accountId ?? ref.read(defaultEnvelopeAccountIdProvider);
     if (accountId == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('No account is in Envelope Mode')),
+        const SnackBar(content: Text.localized('No account is in Envelope Mode')),
       );
       return;
     }
@@ -313,8 +312,8 @@ class _AssignSheetState extends ConsumerState<_AssignSheet> {
           const SizedBox(height: 20),
           SegmentedButton<bool>(
             segments: const [
-              ButtonSegment(value: false, label: Text('Assign')),
-              ButtonSegment(value: true, label: Text('Unassign')),
+              ButtonSegment(value: false, label: Text.localized('Assign')),
+              ButtonSegment(value: true, label: Text.localized('Unassign')),
             ],
             selected: {_unassign},
             onSelectionChanged: (s) => setState(() => _unassign = s.first),

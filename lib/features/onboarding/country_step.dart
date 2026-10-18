@@ -232,8 +232,7 @@ class _CountryStepState extends State<CountryStep> {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Text(
-              'Where do you live?',
+            child: Text.localized('Where do you live?',
               style: theme.textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.w700,
                 height: 1.2,
@@ -242,8 +241,7 @@ class _CountryStepState extends State<CountryStep> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(8, 12, 8, 24),
-            child: Text(
-              'Your country sets your parent currency — every total '
+            child: Text.localized('Your country sets your parent currency — every total '
               'in XPENC is shown in it. You can change it later in '
               'Settings.',
               style: theme.textTheme.bodyLarge?.copyWith(
@@ -356,15 +354,13 @@ class _EmptyChoice extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Pick your country',
+              Text.localized('Pick your country',
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
-                'Search or scroll the list below.',
+              Text.localized('Search or scroll the list below.',
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: cs.onSurfaceVariant,
                 ),
@@ -450,8 +446,7 @@ class _FilledChoice extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: Text(
-                  'Amounts will look like',
+                child: Text.localized('Amounts will look like',
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: cs.onSurfaceVariant,
                   ),
@@ -481,8 +476,7 @@ class _FilledChoice extends StatelessWidget {
               AppIcon(Icons.near_me_rounded, size: 16, color: cs.primary),
               const SizedBox(width: 6),
               Expanded(
-                child: Text(
-                  "Suggested from your phone's region",
+                child: Text.localized("Suggested from your phone's region",
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: cs.primary,
                     fontWeight: FontWeight.w600,
@@ -770,15 +764,13 @@ class _NotListedTile extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Don't see your country?",
+                    Text.localized("Don't see your country?",
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     const SizedBox(height: 2),
-                    Text(
-                      'Choose your currency directly instead.',
+                    Text.localized('Choose your currency directly instead.',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: cs.onSurfaceVariant,
                       ),

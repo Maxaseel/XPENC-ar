@@ -32,7 +32,7 @@ class AutoScreen extends ConsumerWidget {
         slivers: [
           SliverAppBar(
             pinned: true,
-            title: const Text('Auto'),
+            title: const Text.localized('Auto'),
             actions: [GlassActionGroup(children: [
               IconButton(
                 tooltip: 'Archived auto rules',
@@ -75,8 +75,7 @@ class AutoScreen extends ConsumerWidget {
             error: (_, _) => SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.all(32),
-                child: Text(
-                  'Could not load your auto rules.',
+                child: Text.localized('Could not load your auto rules.',
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -202,8 +201,7 @@ class _EmptyAuto extends StatelessWidget {
             color: theme.colorScheme.onSurfaceVariant,
           ),
           const SizedBox(height: 16),
-          Text(
-            'Nothing set up yet — tap + to automate a fixed expense like '
+          Text.localized('Nothing set up yet — tap + to automate a fixed expense like '
             'rent or a subscription, income like salary, or a fixed '
             'contribution toward a goal or loan payment.',
             textAlign: TextAlign.center,
@@ -358,9 +356,8 @@ class _RuleTile extends ConsumerWidget {
             ),
             AppListTile(
               leading: const AppIcon(Icons.pause_circle_outline),
-              title: const Text('Pause'),
-              subtitle: const Text(
-                'Move it to Archived auto rules until you restore it. '
+              title: const Text.localized('Pause'),
+              subtitle: const Text.localized('Move it to Archived auto rules until you restore it. '
                 'Nothing is deleted.',
               ),
               onTap: () => Navigator.of(sheetContext).pop(_RuleAction.pause),

@@ -37,7 +37,7 @@ class EnvelopeSection extends ConsumerWidget {
         AppCard(
           margin: const EdgeInsets.fromLTRB(20, 8, 20, 4),
           child: AppSwitchListTile(
-            title: const Text('On-budget'),
+            title: const Text.localized('On-budget'),
             subtitle: Text(
               account.envelopeMode
                   ? 'In the shared Ready to Assign pool. An expense needs a '
@@ -65,7 +65,7 @@ class EnvelopeSection extends ConsumerWidget {
                             '${poolSize - 1 == 1 ? '' : 's'}'
                       : 'Its own Ready to Assign pool for now',
                 ),
-                subtitle: const Text('View shared budget'),
+                subtitle: const Text.localized('View shared budget'),
                 trailing: const AppIcon(Icons.chevron_right),
                 onTap: () => context.push('/more/ready-to-assign'),
               ),
@@ -84,9 +84,8 @@ class EnvelopeSection extends ConsumerWidget {
       final confirmed = await showAppDialog<bool>(
         context: context,
         builder: (dialogContext) => AlertDialog(
-          title: const Text('Mark this account on-budget?'),
-          content: const Text(
-            'Money you assign to a category becomes reserved for it. '
+          title: const Text.localized('Mark this account on-budget?'),
+          content: const Text.localized('Money you assign to a category becomes reserved for it. '
             'Unassigned money sits in Ready to Assign. From now on, an '
             'expense on this account needs a category.',
           ),
@@ -110,8 +109,7 @@ class EnvelopeSection extends ConsumerWidget {
     if (rtaAutoDisabled && context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text(
-            'Ready to Assign turned off — this was the last account in the '
+          content: Text.localized('Ready to Assign turned off — this was the last account in the '
             'pool.',
           ),
         ),

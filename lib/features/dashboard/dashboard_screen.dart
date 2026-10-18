@@ -206,8 +206,7 @@ class _InlineError extends StatelessWidget {
     final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Text(
-        "Couldn't load",
+      child: Text.localized("Couldn't load",
         style: theme.textTheme.bodySmall?.copyWith(
           color: theme.colorScheme.onSurfaceVariant,
         ),
@@ -240,8 +239,7 @@ class _ReviewCardsSection extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Text(
-                'Detected transactions',
+              Text.localized('Detected transactions',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
@@ -1612,7 +1610,7 @@ class _BudgetsSection extends ConsumerWidget {
             'Budgets',
             trailing: TextButton(
               onPressed: () => context.push('/more/budgets'),
-              child: const Text('Manage'),
+              child: const Text.localized('Manage'),
             ),
           ),
           Padding(
@@ -2069,15 +2067,13 @@ class _EmptyState extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              Text(
-                'No transactions yet',
+              Text.localized('No transactions yet',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
-                'Add your first one to see it here.',
+              Text.localized('Add your first one to see it here.',
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
@@ -2300,7 +2296,7 @@ class _CashFlowSection extends ConsumerWidget {
             'Cash flow',
             trailing: TextButton(
               onPressed: () => context.push(StatsModule.cashFlow.route),
-              child: const Text('More'),
+              child: const Text.localized('More'),
             ),
           ),
           Padding(
@@ -2743,15 +2739,13 @@ class _EmptyDashboard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              Text(
-                'Your dashboard is empty',
+              Text.localized('Your dashboard is empty',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
-                'Add the widgets you want to see here.',
+              Text.localized('Add the widgets you want to see here.',
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
@@ -2762,7 +2756,7 @@ class _EmptyDashboard extends StatelessWidget {
                 onPressed: () =>
                     pushFromBar<void>(context, '/more/settings/dashboard'),
                 icon: const AppIcon(Icons.add_rounded),
-                label: const Text('Add widgets'),
+                label: const Text.localized('Add widgets'),
               ),
             ],
           ),

@@ -64,7 +64,7 @@ class _UssdPayScreenState extends State<UssdPayScreen> {
     if (!mounted) return;
     messenger
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Copied')));
+      ..showSnackBar(const SnackBar(content: Text.localized('Copied')));
   }
 
   /// Copies the ID first — same as tapping "Copy ID" separately — so the
@@ -103,7 +103,7 @@ class _UssdPayScreenState extends State<UssdPayScreen> {
     if (opened || !mounted) return;
     messenger
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text("Couldn't open the dialer")));
+      ..showSnackBar(const SnackBar(content: Text.localized("Couldn't open the dialer")));
   }
 
   void _logPayment() {
@@ -144,8 +144,7 @@ class _UssdPayScreenState extends State<UssdPayScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                'Who are you paying?',
+              Text.localized('Who are you paying?',
                 style: theme.textTheme.labelLarge?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
@@ -153,10 +152,10 @@ class _UssdPayScreenState extends State<UssdPayScreen> {
               const SizedBox(height: 10),
               SegmentedButton<_IdKind>(
                 segments: const [
-                  ButtonSegment(value: _IdKind.upiId, label: Text('UPI ID')),
+                  ButtonSegment(value: _IdKind.upiId, label: Text.localized('UPI ID')),
                   ButtonSegment(
                     value: _IdKind.phone,
-                    label: Text('Phone number'),
+                    label: Text.localized('Phone number'),
                   ),
                 ],
                 selected: {_idKind},
@@ -198,15 +197,13 @@ class _UssdPayScreenState extends State<UssdPayScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'How to pay',
+                      Text.localized('How to pay',
                         style: theme.textTheme.labelLarge?.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Text(
-                        '1. Tap Dial *99# below — it copies the ID above and '
+                      Text.localized('1. Tap Dial *99# below — it copies the ID above and '
                         'opens the dialer in one go.\n'
                         '2. Your phone\'s own USSD menu takes over from here '
                         '(XPENC can\'t read or answer it).\n'
@@ -229,7 +226,7 @@ class _UssdPayScreenState extends State<UssdPayScreen> {
                     child: OutlinedButton.icon(
                       onPressed: _copyId,
                       icon: const AppIcon(Icons.copy_rounded),
-                      label: const Text('Copy ID'),
+                      label: const Text.localized('Copy ID'),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -237,7 +234,7 @@ class _UssdPayScreenState extends State<UssdPayScreen> {
                     child: OutlinedButton.icon(
                       onPressed: _logPayment,
                       icon: const AppIcon(Icons.check_circle_outline_rounded),
-                      label: const Text('Log payment'),
+                      label: const Text.localized('Log payment'),
                     ),
                   ),
                 ],
@@ -247,7 +244,7 @@ class _UssdPayScreenState extends State<UssdPayScreen> {
               FilledButton.icon(
                 onPressed: _dial,
                 icon: const AppIcon(Icons.send_rounded),
-                label: const Text('Dial *99#'),
+                label: const Text.localized('Dial *99#'),
               ),
             ],
           ),

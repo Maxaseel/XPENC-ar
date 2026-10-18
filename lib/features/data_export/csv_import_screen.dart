@@ -110,7 +110,7 @@ class _CsvImportScreenState extends ConsumerState<CsvImportScreen> {
       messenger
         ..hideCurrentSnackBar()
         ..showSnackBar(
-          const SnackBar(content: Text("Couldn't read that file.")),
+          const SnackBar(content: Text.localized("Couldn't read that file.")),
         );
       return;
     }
@@ -122,7 +122,7 @@ class _CsvImportScreenState extends ConsumerState<CsvImportScreen> {
         ..hideCurrentSnackBar()
         ..showSnackBar(
           const SnackBar(
-            content: Text('That file has no data rows below the header.'),
+            content: Text.localized('That file has no data rows below the header.'),
           ),
         );
       return;
@@ -240,7 +240,7 @@ class _CsvImportScreenState extends ConsumerState<CsvImportScreen> {
     final summary = _summary;
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Import CSV')),
+      appBar: AppTopBar(title: const Text.localized('Import CSV')),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 32).plusNavBar(context),
         children: [
@@ -328,8 +328,7 @@ class _PickFileCard extends StatelessWidget {
               color: theme.colorScheme.onSurfaceVariant,
             ),
             const SizedBox(height: 16),
-            Text(
-              'Pick a bank-exported .csv statement. Most banks\' formats '
+            Text.localized('Pick a bank-exported .csv statement. Most banks\' formats '
               '(a signed Amount column, or separate Withdrawal/Deposit '
               "columns) are detected automatically — you'll get a chance to "
               'check the mapping before anything is imported.',
@@ -342,7 +341,7 @@ class _PickFileCard extends StatelessWidget {
             FilledButton.icon(
               onPressed: busy ? null : onPick,
               icon: const AppIcon(Icons.file_open_outlined),
-              label: const Text('Choose CSV file'),
+              label: const Text.localized('Choose CSV file'),
             ),
           ],
         ),
@@ -429,7 +428,7 @@ class _MappingForm extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: busy ? null : onPickDifferentFile,
-                  child: const Text('Change file'),
+                  child: const Text.localized('Change file'),
                 ),
               ],
             ),
@@ -446,7 +445,7 @@ class _MappingForm extends StatelessWidget {
               onChanged: busy ? null : onAccountChanged,
             ),
             const SizedBox(height: 20),
-            Text('Columns', style: theme.textTheme.labelLarge),
+            Text.localized('Columns', style: theme.textTheme.labelLarge),
             const SizedBox(height: 8),
             _ColumnDropdown(
               label: 'Date',
@@ -472,8 +471,7 @@ class _MappingForm extends StatelessWidget {
               onChanged: busy ? null : onCategoryColumnChanged,
             ),
             const SizedBox(height: 4),
-            Text(
-              "Matched against your existing categories by name — anything "
+            Text.localized("Matched against your existing categories by name — anything "
               "that doesn't match is created automatically.",
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
@@ -482,8 +480,8 @@ class _MappingForm extends StatelessWidget {
             const SizedBox(height: 16),
             SegmentedButton<bool>(
               segments: const [
-                ButtonSegment(value: false, label: Text('Signed amount')),
-                ButtonSegment(value: true, label: Text('Debit & credit')),
+                ButtonSegment(value: false, label: Text.localized('Signed amount')),
+                ButtonSegment(value: true, label: Text.localized('Debit & credit')),
               ],
               selected: {twoColumnMode},
               showSelectedIcon: false,
@@ -518,7 +516,7 @@ class _MappingForm extends StatelessWidget {
               ),
             if (previewRows.isNotEmpty) ...[
               const SizedBox(height: 20),
-              Text('Preview', style: theme.textTheme.labelLarge),
+              Text.localized('Preview', style: theme.textTheme.labelLarge),
               const SizedBox(height: 8),
               AppCard(
                 child: Column(

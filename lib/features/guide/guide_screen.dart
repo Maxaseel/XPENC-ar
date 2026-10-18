@@ -17,7 +17,7 @@ class GuideScreen extends StatelessWidget {
     final cs = theme.colorScheme;
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Guide')),
+      appBar: AppTopBar(title: const Text.localized('Guide')),
       body: ListView(
         padding: EdgeInsets.fromLTRB(
           20,
@@ -26,15 +26,13 @@ class GuideScreen extends StatelessWidget {
           32 + MediaQuery.of(context).padding.bottom,
         ),
         children: [
-          Text(
-            'App modes',
+          Text.localized('App modes',
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w700,
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            'Every feature below belongs to one of three tiers. Switch any '
+          Text.localized('Every feature below belongs to one of three tiers. Switch any '
             'time in Settings → Budgeting — it never deletes data, it just '
             'changes what\'s shown.',
             style: theme.textTheme.bodySmall?.copyWith(

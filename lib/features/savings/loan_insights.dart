@@ -71,8 +71,7 @@ class _LoanInsightsSectionState extends State<LoanInsightsSection> {
     if (base.isEmpty) {
       return _card(
         theme,
-        child: Text(
-          "The EMI doesn't cover this month's interest, so the balance would "
+        child: Text.localized("The EMI doesn't cover this month's interest, so the balance would "
           'never go down. Check the EMI and rate.',
           style: theme.textTheme.bodyMedium?.copyWith(color: AppColors.expense),
         ),
@@ -240,7 +239,7 @@ class _LoanInsightsSectionState extends State<LoanInsightsSection> {
           SegmentedButton<_ChartView>(
             segments: const [
               ButtonSegment(value: _ChartView.monthly, label: Text.localized('Monthly')),
-              ButtonSegment(value: _ChartView.yearly, label: Text('Yearly')),
+              ButtonSegment(value: _ChartView.yearly, label: Text.localized('Yearly')),
             ],
             selected: {_view},
             showSelectedIcon: false,
@@ -261,8 +260,7 @@ class _LoanInsightsSectionState extends State<LoanInsightsSection> {
             ),
           if (_view == _ChartView.monthly && simulated != null) ...[
             const SizedBox(height: 8),
-            Text(
-              'Dashed: with the extra payment from the simulator below.',
+            Text.localized('Dashed: with the extra payment from the simulator below.',
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -270,8 +268,7 @@ class _LoanInsightsSectionState extends State<LoanInsightsSection> {
           ],
           if (_view == _ChartView.yearly) ...[
             const SizedBox(height: 8),
-            Text(
-              'Early years are mostly interest; the principal share grows '
+            Text.localized('Early years are mostly interest; the principal share grows '
               'as the balance shrinks.',
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
@@ -380,8 +377,7 @@ class _LoanInsightsSectionState extends State<LoanInsightsSection> {
             ),
           ],
           const SizedBox(height: 4),
-          Text(
-            'Assumes the rate stays the same and the bank reduces tenure '
+          Text.localized('Assumes the rate stays the same and the bank reduces tenure '
             '(not EMI) on prepayment.',
             style: theme.textTheme.bodySmall?.copyWith(
               color: cs.onSurfaceVariant,

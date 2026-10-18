@@ -39,12 +39,11 @@ class MasterPhraseAttemptsSheet extends ConsumerWidget {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
-            child: Text('Require after', style: theme.textTheme.titleLarge),
+            child: Text.localized('Require after', style: theme.textTheme.titleLarge),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
-            child: Text(
-              'How many wrong PINs in a row before XPENC stops accepting the '
+            child: Text.localized('How many wrong PINs in a row before XPENC stops accepting the '
               'PIN and asks for your master recovery phrase instead.',
               style: theme.textTheme.bodySmall?.copyWith(
                 color: cs.onSurfaceVariant,

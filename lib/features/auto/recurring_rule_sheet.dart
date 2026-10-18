@@ -473,8 +473,7 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
             ),
             if (isGoalOrLoan) ...[
               const SizedBox(height: 6),
-              Text(
-                'Automatically moves money into a goal or pays down a loan '
+              Text.localized('Automatically moves money into a goal or pays down a loan '
                 'on schedule.',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: cs.onSurfaceVariant,
@@ -505,8 +504,7 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
             ),
             if (_isEstimate) ...[
               const SizedBox(height: 4),
-              Text(
-                "You'll be nudged to confirm the exact figure each time it "
+              Text.localized("You'll be nudged to confirm the exact figure each time it "
                 'posts.',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: cs.onSurfaceVariant,
@@ -515,18 +513,16 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
             ],
             AppSwitchListTile(
               contentPadding: EdgeInsets.zero,
-              title: const Text('Amount varies each time'),
-              subtitle: const Text(
-                'For a salary or bill that changes, e.g. by hours worked.',
+              title: const Text.localized('Amount varies each time'),
+              subtitle: const Text.localized('For a salary or bill that changes, e.g. by hours worked.',
               ),
               value: _isEstimate,
               onChanged: (v) => setState(() => _isEstimate = v),
             ),
             AppSwitchListTile(
               contentPadding: EdgeInsets.zero,
-              title: const Text('Add a promotion'),
-              subtitle: const Text(
-                'A discounted price for the next few occurrences, then back '
+              title: const Text.localized('Add a promotion'),
+              subtitle: const Text.localized('A discounted price for the next few occurrences, then back '
                 'to the usual amount automatically.',
               ),
               value: _hasPromo,
@@ -565,8 +561,7 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
               AppSwitchListTile(
                 contentPadding: EdgeInsets.zero,
                 title: const Text.localized('Foreign currency'),
-                subtitle: const Text(
-                  'Record what this really costs in another currency.',
+                subtitle: const Text.localized('Record what this really costs in another currency.',
                 ),
                 value: _hasForeignCurrency,
                 onChanged: (v) => setState(() => _hasForeignCurrency = v),
@@ -697,11 +692,11 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
                   ),
                   ButtonSegment(
                     value: RecurringFrequency.weekly,
-                    label: Text('Weekly'),
+                    label: Text.localized('Weekly'),
                   ),
                   ButtonSegment(
                     value: RecurringFrequency.biweekly,
-                    label: Text('2 weeks'),
+                    label: Text.localized('2 weeks'),
                   ),
                   ButtonSegment(
                     value: RecurringFrequency.monthly,
@@ -753,8 +748,7 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
               ),
             ),
             if (_frequency == RecurringFrequency.monthly)
-              Text(
-                'A shorter month snaps to its last day, then returns to the '
+              Text.localized('A shorter month snaps to its last day, then returns to the '
                 '${_dueDate.day}${_ordinalSuffix(_dueDate.day)} once it exists again.',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: cs.onSurfaceVariant,
@@ -881,16 +875,14 @@ class _RecurringRuleSheetState extends ConsumerState<RecurringRuleSheet> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Tags (optional)',
+                  Text.localized('Tags (optional)',
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: cs.onSurfaceVariant,
                     ),
                   ),
                   const SizedBox(height: 6),
                   if (selected.isEmpty)
-                    Text(
-                      'Stamped on every transaction this rule posts',
+                    Text.localized('Stamped on every transaction this rule posts',
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: cs.onSurfaceVariant,
                       ),

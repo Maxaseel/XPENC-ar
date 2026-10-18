@@ -16,7 +16,7 @@ class DataSettingsScreen extends ConsumerWidget {
     final cs = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Data')),
+      appBar: AppTopBar(title: const Text.localized('Data')),
       body: ListView(
         // Explicit padding drops ListView's nav-bar inset; re-add it (#137).
         padding: EdgeInsets.fromLTRB(
@@ -32,9 +32,8 @@ class DataSettingsScreen extends ConsumerWidget {
                 AppListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   leading: const AppIcon(Icons.calculate_outlined),
-                  title: const Text('Recalculate balances'),
-                  subtitle: Text(
-                    'Rebuild every balance from the ledger. Safe to run any time.',
+                  title: const Text.localized('Recalculate balances'),
+                  subtitle: Text.localized('Rebuild every balance from the ledger. Safe to run any time.',
                     style: Theme.of(
                       context,
                     ).textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
@@ -46,7 +45,7 @@ class DataSettingsScreen extends ConsumerWidget {
                     messenger
                       ..hideCurrentSnackBar()
                       ..showSnackBar(
-                        const SnackBar(content: Text('Balances recalculated')),
+                        const SnackBar(content: Text.localized('Balances recalculated')),
                       );
                   },
                 ),
@@ -54,12 +53,10 @@ class DataSettingsScreen extends ConsumerWidget {
                 AppListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   leading: AppIcon(Icons.delete_forever_outlined, color: cs.error),
-                  title: Text(
-                    'Clear all data',
+                  title: Text.localized('Clear all data',
                     style: TextStyle(color: cs.error),
                   ),
-                  subtitle: Text(
-                    'Wipe every account, transaction, budget and person, and '
+                  subtitle: Text.localized('Wipe every account, transaction, budget and person, and '
                     'start fresh. A safety backup is saved first.',
                     style: Theme.of(
                       context,
@@ -86,9 +83,8 @@ class DataSettingsScreen extends ConsumerWidget {
     final confirmed = await showAppDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Clear all data?'),
-        content: Text(
-          'This wipes every account, transaction, category, budget, person '
+        title: const Text.localized('Clear all data?'),
+        content: Text.localized('This wipes every account, transaction, category, budget, person '
           'and everything else on this phone, then starts fresh with the '
           'same defaults a new install gets. A safety backup is saved '
           '$backupWhere first — restore it from Backup & Restore if this '
@@ -104,7 +100,7 @@ class DataSettingsScreen extends ConsumerWidget {
               foregroundColor: Theme.of(dialogContext).colorScheme.error,
             ),
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: const Text('Clear everything'),
+            child: const Text.localized('Clear everything'),
           ),
         ],
       ),
@@ -119,7 +115,7 @@ class DataSettingsScreen extends ConsumerWidget {
         ..hideCurrentSnackBar()
         ..showSnackBar(
           const SnackBar(
-            content: Text('All data cleared. A safety backup was saved.'),
+            content: Text.localized('All data cleared. A safety backup was saved.'),
           ),
         );
     } catch (e) {

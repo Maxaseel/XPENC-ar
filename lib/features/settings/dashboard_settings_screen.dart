@@ -64,7 +64,7 @@ class _DashboardSettingsScreenState
         w.unavailableNote(mode: mode, rtaOn: rtaOn);
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Customize dashboard')),
+      appBar: AppTopBar(title: const Text.localized('Customize dashboard')),
       body: CustomScrollView(
         slivers: [
           SliverPadding(
@@ -77,8 +77,7 @@ class _DashboardSettingsScreenState
                   if (shown.isEmpty)
                     Padding(
                       padding: const EdgeInsets.fromLTRB(4, 0, 4, 8),
-                      child: Text(
-                        'Nothing yet — add a widget below.',
+                      child: Text.localized('Nothing yet — add a widget below.',
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: cs.onSurfaceVariant,
                         ),
@@ -87,8 +86,7 @@ class _DashboardSettingsScreenState
                   else
                     Padding(
                       padding: const EdgeInsets.fromLTRB(4, 0, 4, 10),
-                      child: Text(
-                        'Hold a widget, or drag its handle, to move it. The '
+                      child: Text.localized('Hold a widget, or drag its handle, to move it. The '
                         'top of this list is the top of your dashboard.',
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: cs.onSurfaceVariant,
@@ -175,8 +173,7 @@ class _DashboardSettingsScreenState
                   if (hidden.isEmpty)
                     Padding(
                       padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
-                      child: Text(
-                        'Every widget is on your dashboard.',
+                      child: Text.localized('Every widget is on your dashboard.',
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: cs.onSurfaceVariant,
                         ),
@@ -219,7 +216,7 @@ class _DashboardSettingsScreenState
                         child: TextButton.icon(
                           onPressed: () => _apply(defaultDashboardLayout),
                           icon: const AppIcon(Icons.restart_alt_rounded),
-                          label: const Text('Reset to default'),
+                          label: const Text.localized('Reset to default'),
                         ),
                       ),
                     ),
@@ -331,8 +328,7 @@ class _NetWorthAccounts extends ConsumerWidget {
           data: (accounts) => accounts.isEmpty
               ? Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: Text(
-                    'Add an account to see it here.',
+                  child: Text.localized('Add an account to see it here.',
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: cs.onSurfaceVariant,
                     ),

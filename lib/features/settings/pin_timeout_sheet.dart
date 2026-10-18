@@ -43,12 +43,11 @@ class PinTimeoutSheet extends ConsumerWidget {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
-            child: Text('Lock after', style: theme.textTheme.titleLarge),
+            child: Text.localized('Lock after', style: theme.textTheme.titleLarge),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
-            child: Text(
-              'How long XPENC may sit in the background before it asks for '
+            child: Text.localized('How long XPENC may sit in the background before it asks for '
               'your PIN again.',
               style: theme.textTheme.bodySmall?.copyWith(
                 color: cs.onSurfaceVariant,

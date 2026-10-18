@@ -38,8 +38,7 @@ Future<({DateTimeRange? range})?> _pick(
             padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
             child: Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                'Statement period',
+              child: Text.localized('Statement period',
                 style: Theme.of(
                   sheetContext,
                 ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
@@ -49,8 +48,8 @@ Future<({DateTimeRange? range})?> _pick(
           if (offerAllTime)
             AppListTile(
               leading: const AppIcon(Icons.all_inclusive_rounded),
-              title: const Text('All time'),
-              subtitle: const Text('Every entry, from the very first'),
+              title: const Text.localized('All time'),
+              subtitle: const Text.localized('Every entry, from the very first'),
               onTap: () => Navigator.of(sheetContext).pop('all'),
             ),
           AppListTile(
@@ -60,7 +59,7 @@ Future<({DateTimeRange? range})?> _pick(
           ),
           AppListTile(
             leading: const AppIcon(Icons.calendar_view_month_outlined),
-            title: const Text('Last month'),
+            title: const Text.localized('Last month'),
             onTap: () => Navigator.of(sheetContext).pop('last'),
           ),
           AppListTile(

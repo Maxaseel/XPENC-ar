@@ -184,7 +184,7 @@ class _SettledDialog extends StatelessWidget {
 
     return AlertDialog(
       icon: const AppIcon(Icons.check_circle_outline_rounded),
-      title: const Text('All settled'),
+      title: const Text.localized('All settled'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -203,8 +203,7 @@ class _SettledDialog extends StatelessWidget {
               _NameRow(icon: Icons.groups_outlined, name: g.name),
           ],
           const SizedBox(height: 12),
-          Text(
-            'Settled keeps them one tap away with full history. Archive '
+          Text.localized('Settled keeps them one tap away with full history. Archive '
             'hides them.',
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
@@ -216,7 +215,7 @@ class _SettledDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(_SettledChoice.keep),
-          child: const Text('Keep here'),
+          child: const Text.localized('Keep here'),
         ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(_SettledChoice.archive),

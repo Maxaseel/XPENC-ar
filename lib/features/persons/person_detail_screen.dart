@@ -44,8 +44,8 @@ class PersonDetailScreen extends ConsumerWidget {
       loading: () =>
           const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (error, _) => Scaffold(
-        appBar: AppTopBar(title: const Text('Person')),
-        body: const Center(child: Text('Something went wrong')),
+        appBar: AppTopBar(title: const Text.localized('Person')),
+        body: const Center(child: Text.localized('Something went wrong')),
       ),
       data: (persons) {
         PersonRow? person;
@@ -57,8 +57,8 @@ class PersonDetailScreen extends ConsumerWidget {
         }
         if (person == null) {
           return Scaffold(
-            appBar: AppTopBar(title: const Text('Person')),
-            body: const Center(child: Text('Person not found')),
+            appBar: AppTopBar(title: const Text.localized('Person')),
+            body: const Center(child: Text.localized('Person not found')),
           );
         }
         return _buildScaffold(context, ref, person);
@@ -128,8 +128,7 @@ class PersonDetailScreen extends ConsumerWidget {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(24, 14, 24, 6),
-              child: Text(
-                'HISTORY',
+              child: Text.localized('HISTORY',
                 style: theme.textTheme.labelSmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                   fontWeight: FontWeight.w700,
@@ -149,8 +148,7 @@ class PersonDetailScreen extends ConsumerWidget {
               child: Padding(
                 padding: const EdgeInsets.all(32),
                 child: Center(
-                  child: Text(
-                    "Couldn't load history",
+                  child: Text.localized("Couldn't load history",
                     style: TextStyle(color: theme.colorScheme.error),
                   ),
                 ),
@@ -161,7 +159,7 @@ class PersonDetailScreen extends ConsumerWidget {
                 return const SliverToBoxAdapter(
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(20, 24, 20, 40),
-                    child: Center(child: Text('No entries yet.')),
+                    child: Center(child: Text.localized('No entries yet.')),
                   ),
                 );
               }
@@ -225,8 +223,7 @@ class _PayeeActivity extends ConsumerWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: Text(
-                    'AS PAYEE',
+                  child: Text.localized('AS PAYEE',
                     style: theme.textTheme.labelSmall?.copyWith(
                       color: muted,
                       fontWeight: FontWeight.w700,
@@ -247,8 +244,7 @@ class _PayeeActivity extends ConsumerWidget {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(4, 0, 4, 8),
-            child: Text(
-              'Paid to or received from them. Not counted in owe/due.',
+            child: Text.localized('Paid to or received from them. Not counted in owe/due.',
               style: theme.textTheme.bodySmall?.copyWith(color: muted),
             ),
           ),
@@ -462,7 +458,7 @@ class _ActionButtons extends ConsumerWidget {
                     personId,
                     PersonDirection.theyOwe,
                   ),
-                  child: const Text('They owe'),
+                  child: const Text.localized('They owe'),
                 ),
               ),
               const SizedBox(width: 12),
@@ -475,7 +471,7 @@ class _ActionButtons extends ConsumerWidget {
                   ),
                   onPressed: () =>
                       _showEntrySheet(context, personId, PersonDirection.iOwe),
-                  child: const Text('I owe'),
+                  child: const Text.localized('I owe'),
                 ),
               ),
             ],
@@ -492,7 +488,7 @@ class _ActionButtons extends ConsumerWidget {
                   isRepayment: true,
                 ),
                 icon: const AppIcon(Icons.paid_outlined, size: 18),
-                label: const Text('Mark as repaid'),
+                label: const Text.localized('Mark as repaid'),
               ),
             ),
           ],
@@ -756,7 +752,7 @@ class _EntryRow extends ConsumerWidget {
     await ref.read(dbProvider).deletePersonEntry(entry.id);
     messenger
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Entry deleted')));
+      ..showSnackBar(const SnackBar(content: Text.localized('Entry deleted')));
   }
 }
 
@@ -892,14 +888,14 @@ class _EntrySheetState extends ConsumerState<_EntrySheet> {
     final note = _noteController.text.trim();
     if (widget.isRepayment && _repaymentCategoryId == null) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('Choose a category for this income')),
+        const SnackBar(content: Text.localized('Choose a category for this income')),
       );
       return;
     }
     if (widget.isRepayment && _accountId == null) {
       messenger.showSnackBar(
         const SnackBar(
-          content: Text('A repayment counted as income must move money'),
+          content: Text.localized('A repayment counted as income must move money'),
         ),
       );
       return;
@@ -1168,7 +1164,7 @@ class _EntrySheetState extends ConsumerState<_EntrySheet> {
                   if (!widget.isRepayment)
                     const DropdownMenuItem<int?>(
                       value: null,
-                      child: Text("Don't move money (just note it)"),
+                      child: Text.localized("Don't move money (just note it)"),
                     ),
                 ],
                 onChanged: (value) => setState(() => _accountId = value),

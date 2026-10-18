@@ -36,8 +36,8 @@ class LoanDetailScreen extends ConsumerWidget {
 
     if (loan == null) {
       return Scaffold(
-        appBar: AppTopBar(title: const Text('Loan')),
-        body: const Center(child: Text('Loan not found')),
+        appBar: AppTopBar(title: const Text.localized('Loan')),
+        body: const Center(child: Text.localized('Loan not found')),
       );
     }
 
@@ -99,8 +99,7 @@ class LoanDetailScreen extends ConsumerWidget {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      Text(
-                        'paid',
+                      Text.localized('paid',
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
@@ -248,8 +247,7 @@ class LoanDetailScreen extends ConsumerWidget {
                             size: 18,
                           ),
                           const SizedBox(width: 6),
-                          Text(
-                            'Paid off',
+                          Text.localized('Paid off',
                             style: theme.textTheme.bodyLarge?.copyWith(
                               fontWeight: FontWeight.w500,
                               color: AppColors.income,
@@ -274,8 +272,7 @@ class LoanDetailScreen extends ConsumerWidget {
           ],
           if (LoanInsightsSection.canShow(loan)) ...[
             const SizedBox(height: 28),
-            Text(
-              'Insights',
+            Text.localized('Insights',
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w700,
               ),
@@ -356,8 +353,7 @@ class LoanDetailScreen extends ConsumerWidget {
             AppListTile(
               leading: const AppIcon(Icons.archive_outlined),
               title: const Text.localized('Archive'),
-              subtitle: const Text(
-                'Hides it from active loans. Its history stays.',
+              subtitle: const Text.localized('Hides it from active loans. Its history stays.',
               ),
               onTap: () => Navigator.of(sheetContext).pop(_LoanAction.archive),
             ),
@@ -371,8 +367,7 @@ class LoanDetailScreen extends ConsumerWidget {
                   color: Theme.of(sheetContext).colorScheme.error,
                 ),
               ),
-              subtitle: const Text(
-                'Only for a loan with no payment history yet.',
+              subtitle: const Text.localized('Only for a loan with no payment history yet.',
               ),
               onTap: () => Navigator.of(sheetContext).pop(_LoanAction.delete),
             ),
@@ -400,8 +395,7 @@ class LoanDetailScreen extends ConsumerWidget {
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text('Archive "${loan.account.name}"?'),
-        content: const Text(
-          "It stays in your history and net worth — this only hides it from "
+        content: const Text.localized("It stays in your history and net worth — this only hides it from "
           'the active loans list.',
         ),
         actions: [
@@ -422,7 +416,7 @@ class LoanDetailScreen extends ConsumerWidget {
     navigator.pop();
     messenger
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Loan archived')));
+      ..showSnackBar(const SnackBar(content: Text.localized('Loan archived')));
   }
 
   Future<void> _confirmDelete(
@@ -436,8 +430,7 @@ class LoanDetailScreen extends ConsumerWidget {
       context: context,
       builder: (dialogContext) => AlertDialog(
         title: Text('Delete "${loan.account.name}"?'),
-        content: const Text(
-          'Permanent. A loan that has had payments refuses to delete — '
+        content: const Text.localized('Permanent. A loan that has had payments refuses to delete — '
           'archive it instead.',
         ),
         actions: [

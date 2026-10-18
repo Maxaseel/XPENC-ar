@@ -53,12 +53,11 @@ class MoreScreenLayoutSheet extends ConsumerWidget {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
-            child: Text('More screen layout', style: theme.textTheme.titleLarge),
+            child: Text.localized('More screen layout', style: theme.textTheme.titleLarge),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
-            child: Text(
-              'How the More hub shows Accounts, Budgets, Auto and the rest.',
+            child: Text.localized('How the More hub shows Accounts, Budgets, Auto and the rest.',
               style: theme.textTheme.bodySmall?.copyWith(
                 color: cs.onSurfaceVariant,
               ),

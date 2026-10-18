@@ -81,7 +81,7 @@ class _MasterPhraseSetupScreenState
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
-        const SnackBar(content: Text('Master recovery phrase set')),
+        const SnackBar(content: Text.localized('Master recovery phrase set')),
       );
   }
 
@@ -124,8 +124,7 @@ class _MasterPhraseSetupScreenState
               AppIcon(Icons.warning_amber_rounded, color: cs.onErrorContainer),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(
-                  "It can't be changed and it isn't stored anywhere "
+                child: Text.localized("It can't be changed and it isn't stored anywhere "
                   'recoverable — not in a backup, not by XPENC. Lose it '
                   "along with your PIN and there's no way back into your "
                   'data on this device.',
@@ -179,12 +178,12 @@ class _MasterPhraseSetupScreenState
         TextButton.icon(
           onPressed: _regenerate,
           icon: const AppIcon(Icons.refresh_rounded),
-          label: const Text('Generate different words'),
+          label: const Text.localized('Generate different words'),
         ),
         const SizedBox(height: 12),
         FilledButton(
           onPressed: _goToConfirm,
-          child: const Text("I've written it down"),
+          child: const Text.localized("I've written it down"),
         ),
       ],
     );
@@ -198,8 +197,7 @@ class _MasterPhraseSetupScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Tap the words in the order you wrote them down.',
+          Text.localized('Tap the words in the order you wrote them down.',
             style: theme.textTheme.bodyMedium,
           ),
           const SizedBox(height: 12),
@@ -218,8 +216,7 @@ class _MasterPhraseSetupScreenState
           ),
           if (_mismatch) ...[
             const SizedBox(height: 8),
-            Text(
-              "That's not the next word — try again",
+            Text.localized("That's not the next word — try again",
               style: theme.textTheme.bodySmall?.copyWith(color: cs.error),
             ),
           ],

@@ -177,8 +177,7 @@ class _AccountDetailView extends ConsumerWidget {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(24, 48, 24, 24),
                 child: Center(
-                  child: Text(
-                    'No transactions on this account yet.',
+                  child: Text.localized('No transactions on this account yet.',
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
@@ -383,7 +382,7 @@ class _HeaderCard extends ConsumerWidget {
       builder: (dialogContext) {
         final theme = Theme.of(dialogContext);
         return AlertDialog(
-          title: const Text('Correct balance'),
+          title: const Text.localized('Correct balance'),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -440,8 +439,7 @@ class _HeaderCard extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                Text(
-                  'Corrections are never counted as income or spending, but '
+                Text.localized('Corrections are never counted as income or spending, but '
                   'they lower your XPENC Score\'s Tracking habit — logging as '
                   'you go keeps the balance right on its own.',
                   style: theme.textTheme.bodySmall?.copyWith(
@@ -463,7 +461,7 @@ class _HeaderCard extends ConsumerWidget {
                   messenger
                     ..hideCurrentSnackBar()
                     ..showSnackBar(
-                      const SnackBar(content: Text('Enter a valid amount.')),
+                      const SnackBar(content: Text.localized('Enter a valid amount.')),
                     );
                   return;
                 }

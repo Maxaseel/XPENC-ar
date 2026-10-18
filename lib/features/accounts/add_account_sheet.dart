@@ -225,16 +225,16 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
               scrollDirection: Axis.horizontal,
               child: SegmentedButton<AccountType>(
                 segments: const [
-                  ButtonSegment(value: AccountType.cash, label: Text('Cash')),
-                  ButtonSegment(value: AccountType.bank, label: Text('Bank')),
-                  ButtonSegment(value: AccountType.card, label: Text('Card')),
+                  ButtonSegment(value: AccountType.cash, label: Text.localized('Cash')),
+                  ButtonSegment(value: AccountType.bank, label: Text.localized('Bank')),
+                  ButtonSegment(value: AccountType.card, label: Text.localized('Card')),
                   ButtonSegment(
                     value: AccountType.payLater,
-                    label: Text('Pay later'),
+                    label: Text.localized('Pay later'),
                   ),
                   ButtonSegment(
                     value: AccountType.prepaidBalance,
-                    label: Text('Prepaid'),
+                    label: Text.localized('Prepaid'),
                   ),
                 ],
                 selected: {_type},
@@ -326,8 +326,8 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
           const SizedBox(height: 8),
           SegmentedButton<CardKind>(
             segments: const [
-              ButtonSegment(value: CardKind.credit, label: Text('Credit')),
-              ButtonSegment(value: CardKind.debit, label: Text('Debit')),
+              ButtonSegment(value: CardKind.credit, label: Text.localized('Credit')),
+              ButtonSegment(value: CardKind.debit, label: Text.localized('Debit')),
             ],
             selected: {_cardKind},
             showSelectedIcon: false,
@@ -398,8 +398,7 @@ class _AddAccountSheetState extends ConsumerState<AddAccountSheet> {
       if (banks.isEmpty)
         Padding(
           padding: const EdgeInsets.only(bottom: 16),
-          child: Text(
-            'Add a bank account first, then link the debit card to it.',
+          child: Text.localized('Add a bank account first, then link the debit card to it.',
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.error,
             ),

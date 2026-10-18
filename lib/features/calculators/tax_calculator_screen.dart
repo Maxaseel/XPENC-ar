@@ -65,8 +65,7 @@ class _TaxCalculatorScreenState extends State<TaxCalculatorScreen> {
               AppIcon(Icons.public_rounded, size: 18, color: cs.onSurfaceVariant),
               const SizedBox(width: 10),
               Expanded(
-                child: Text(
-                  'More countries will be added over time. Missing yours? '
+                child: Text.localized('More countries will be added over time. Missing yours? '
                   'Tell us via About → Feedback & suggestions.',
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: cs.onSurfaceVariant,
@@ -142,7 +141,7 @@ class _IndiaTaxBodyState extends State<_IndiaTaxBody> with CalculatorFormMixin {
             runSpacing: 8,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Text('Age', style: theme.textTheme.bodyMedium),
+              Text.localized('Age', style: theme.textTheme.bodyMedium),
               for (final a in TaxpayerAge.values)
                 ChoiceChip(
                   label: Text(a.label),
@@ -309,8 +308,7 @@ class _RegimeTile extends StatelessWidget {
             ),
             if (best) ...[
               const SizedBox(height: 4),
-              Text(
-                'Lower tax',
+              Text.localized('Lower tax',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: AppColors.income,
                   fontWeight: FontWeight.w600,

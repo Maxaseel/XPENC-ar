@@ -1076,8 +1076,7 @@ class GroupShareCard extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 24),
-                Text(
-                  'TOTAL SPENT',
+                Text.localized('TOTAL SPENT',
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w700,

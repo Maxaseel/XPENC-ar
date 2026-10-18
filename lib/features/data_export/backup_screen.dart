@@ -60,7 +60,7 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
       if (!mounted) return;
       messenger
         ..hideCurrentSnackBar()
-        ..showSnackBar(const SnackBar(content: Text('Backup created')));
+        ..showSnackBar(const SnackBar(content: Text.localized('Backup created')));
     } catch (e) {
       if (!mounted) return;
       messenger
@@ -125,9 +125,8 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
     final confirmed = await showAppDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Restore this backup?'),
-        content: const Text(
-          'This replaces ALL current data — every account, transaction, budget '
+        title: const Text.localized('Restore this backup?'),
+        content: const Text.localized('This replaces ALL current data — every account, transaction, budget '
           'and person — with the contents of this backup. This cannot be '
           'undone.',
         ),
@@ -160,8 +159,7 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
         ..hideCurrentSnackBar()
         ..showSnackBar(
           const SnackBar(
-            content: Text(
-              'Restored. A safety copy of your previous data was saved.',
+            content: Text.localized('Restored. A safety copy of your previous data was saved.',
             ),
           ),
         );
@@ -188,7 +186,7 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
     final confirmed = await showAppDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Delete this backup?'),
+        title: const Text.localized('Delete this backup?'),
         content: Text('${b.fileName} will be removed from this phone.'),
         actions: [
           TextButton(
@@ -214,7 +212,7 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
       if (!mounted) return;
       messenger
         ..hideCurrentSnackBar()
-        ..showSnackBar(const SnackBar(content: Text('Backup deleted')));
+        ..showSnackBar(const SnackBar(content: Text.localized('Backup deleted')));
     } catch (e) {
       if (!mounted) return;
       messenger
@@ -303,7 +301,7 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
     final autoBackup = ref.watch(autoBackupSettingsProvider);
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Backup & Restore')),
+      appBar: AppTopBar(title: const Text.localized('Backup & Restore')),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 32).plusNavBar(context),
         children: [
@@ -322,13 +320,13 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
                             child: CircularProgressIndicator(strokeWidth: 2),
                           )
                         : const AppIcon(Icons.backup_outlined),
-                    label: const Text('Back up now'),
+                    label: const Text.localized('Back up now'),
                   ),
                   const SizedBox(height: 12),
                   OutlinedButton.icon(
                     onPressed: _busy ? null : _importFromFile,
                     icon: const AppIcon(Icons.file_open_outlined),
-                    label: const Text('Import from file'),
+                    label: const Text.localized('Import from file'),
                   ),
                   const SizedBox(height: 12),
                   Text(
@@ -413,7 +411,7 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
                 TextButton.icon(
                   onPressed: _busy ? null : _findExistingBackups,
                   icon: const AppIcon(Icons.search_rounded, size: 18),
-                  label: const Text('Find existing'),
+                  label: const Text.localized('Find existing'),
                 ),
               ],
             ],
@@ -429,8 +427,7 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
               if (backups.isEmpty) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 24),
-                  child: Text(
-                    'No backups yet. If you reinstalled and had backups '
+                  child: Text.localized('No backups yet. If you reinstalled and had backups '
                     'before, tap "Find existing" above.',
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyMedium?.copyWith(
@@ -783,7 +780,7 @@ class _AutoBackupSettingsSheetState
             const SizedBox(height: 8),
             AppSwitchListTile(
               contentPadding: EdgeInsets.zero,
-              title: const Text('Back up automatically'),
+              title: const Text.localized('Back up automatically'),
               value: _enabled,
               onChanged: (v) => setState(() => _enabled = v),
             ),
@@ -805,11 +802,11 @@ class _AutoBackupSettingsSheetState
                     ),
                     ButtonSegment(
                       value: AutoBackupFrequency.custom,
-                      label: Text('Custom'),
+                      label: Text.localized('Custom'),
                     ),
                     ButtonSegment(
                       value: AutoBackupFrequency.onChange,
-                      label: Text('On change'),
+                      label: Text.localized('On change'),
                     ),
                   ],
                   selected: {_frequency},
@@ -894,7 +891,7 @@ class _AutoBackupSettingsSheetState
                     ),
                     ButtonSegment(
                       value: BackupRetentionMode.count,
-                      label: Text('Count'),
+                      label: Text.localized('Count'),
                     ),
                   ],
                   selected: {_retentionMode},
@@ -921,8 +918,7 @@ class _AutoBackupSettingsSheetState
                 ),
                 if (!_retentionAllowed(_retentionDays)) ...[
                   const SizedBox(height: 8),
-                  Text(
-                    "That's shorter than how often backups run — pick a "
+                  Text.localized("That's shorter than how often backups run — pick a "
                     'longer window, or backups could be deleted before the '
                     'next one is made.',
                     style: theme.textTheme.bodySmall?.copyWith(

@@ -26,7 +26,7 @@ class MessageCaptureScreen extends ConsumerWidget {
     final pendingCount = ref.watch(pendingCountProvider);
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Message Capture')),
+      appBar: AppTopBar(title: const Text.localized('Message Capture')),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 8, 20, 40).plusNavBar(context),
         children: [
@@ -55,8 +55,7 @@ class MessageCaptureScreen extends ConsumerWidget {
                       border: Border.all(color: cs.outline),
                       borderRadius: BorderRadius.circular(999),
                     ),
-                    child: Text(
-                      'COMING SOON',
+                    child: Text.localized('COMING SOON',
                       style: theme.textTheme.labelSmall?.copyWith(
                         fontWeight: FontWeight.w700,
                         letterSpacing: 1.2,
@@ -64,15 +63,13 @@ class MessageCaptureScreen extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(height: 14),
-                  Text(
-                    'Auto-capture will be back',
+                  Text.localized('Auto-capture will be back',
                     style: theme.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Text(
-                    'XPENC used to read bank SMS on this device and turn them '
+                  Text.localized('XPENC used to read bank SMS on this device and turn them '
                     'into review cards. Google Play Protect blocks apps '
                     'installed outside the Play Store that ask for SMS '
                     'permissions — installing XPENC meant pausing your '
@@ -85,8 +82,7 @@ class MessageCaptureScreen extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  Text(
-                    'Auto-capture returns in a Play-compliant form. Until '
+                  Text.localized('Auto-capture returns in a Play-compliant form. Until '
                     'then, adding a transaction by hand takes a few seconds — '
                     'and everything else works exactly as before.',
                     style: theme.textTheme.bodyMedium?.copyWith(
@@ -108,8 +104,7 @@ class MessageCaptureScreen extends ConsumerWidget {
                   AppIcon(Icons.lock_outline, color: cs.onSurfaceVariant),
                   const SizedBox(width: 14),
                   Expanded(
-                    child: Text(
-                      'Nothing about the privacy promise changes: your data '
+                    child: Text.localized('Nothing about the privacy promise changes: your data '
                       'lives on this device and is never uploaded. This build '
                       'simply asks for no SMS permission at all.',
                       style: theme.textTheme.bodyMedium,
@@ -125,7 +120,7 @@ class MessageCaptureScreen extends ConsumerWidget {
               child: AppListTile(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                 leading: const AppIcon(Icons.inbox_outlined),
-                title: const Text('Review Inbox'),
+                title: const Text.localized('Review Inbox'),
                 subtitle: Text(
                   '$pendingCount earlier detected '
                   '${pendingCount == 1 ? 'transaction' : 'transactions'} '

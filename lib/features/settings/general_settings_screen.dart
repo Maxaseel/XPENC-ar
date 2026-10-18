@@ -62,7 +62,7 @@ class GeneralSettingsScreen extends ConsumerWidget {
                     builder: (sheetContext) => SafeArea(
                       child: Column(mainAxisSize: MainAxisSize.min, children: [
                         ListTile(
-                          title: const Text('English'),
+                          title: const Text.localized('English'),
                           onTap: () {
                             const locale = Locale('en');
                             ref.read(localeProvider.notifier).state = locale;
@@ -145,8 +145,7 @@ class GeneralSettingsScreen extends ConsumerWidget {
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   leading: const AppIcon(Icons.text_fields_rounded),
                   title: Text(isArabic ? 'الخط' : 'Font'),
-                  subtitle: Text(
-                    'Text size, boldness and font family',
+                  subtitle: Text.localized('Text size, boldness and font family',
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: cs.onSurfaceVariant,
                     ),
@@ -188,8 +187,7 @@ class GeneralSettingsScreen extends ConsumerWidget {
               contentPadding: const EdgeInsets.symmetric(horizontal: 16),
               leading: const AppIcon(Icons.dashboard_customize_outlined),
               title: Text(isArabic ? 'تخصيص الرئيسية' : 'Customize dashboard'),
-              subtitle: Text(
-                'Add, remove and reorder widgets, and pick what counts toward '
+              subtitle: Text.localized('Add, remove and reorder widgets, and pick what counts toward '
                 'Net Worth.',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: cs.onSurfaceVariant,
@@ -206,8 +204,7 @@ class GeneralSettingsScreen extends ConsumerWidget {
               contentPadding: const EdgeInsets.symmetric(horizontal: 16),
               secondary: const AppIcon(Icons.calendar_month_outlined),
               title: Text(isArabic ? 'إظهار إجمالي اليوم' : 'Show day totals'),
-              subtitle: Text(
-                'Selecting a day on the calendar shows its money in/out '
+              subtitle: Text.localized('Selecting a day on the calendar shows its money in/out '
                 'totals.',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: cs.onSurfaceVariant,
@@ -225,8 +222,7 @@ class GeneralSettingsScreen extends ConsumerWidget {
               contentPadding: const EdgeInsets.symmetric(horizontal: 16),
               leading: const AppIcon(Icons.dashboard_customize_outlined),
               title: Text(isArabic ? 'تخصيص شريط التنقل' : 'Customize bottom nav'),
-              subtitle: Text(
-                'Choose what goes next to the ➕ button',
+              subtitle: Text.localized('Choose what goes next to the ➕ button',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: cs.onSurfaceVariant,
                 ),
@@ -244,8 +240,7 @@ class GeneralSettingsScreen extends ConsumerWidget {
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   leading: const AppIcon(Icons.sms_outlined),
                   title: Text(isArabic ? 'التقاط رسائل البنك' : 'Bank-SMS auto-capture'),
-                  subtitle: Text(
-                    'Coming soon — removed for now so the app installs '
+                  subtitle: Text.localized('Coming soon — removed for now so the app installs '
                     'without a Play Protect block.',
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: cs.onSurfaceVariant,
@@ -259,9 +254,8 @@ class GeneralSettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: const AppIcon(Icons.rate_review_outlined),
-                    title: const Text('OCR corrections'),
-                    subtitle: Text(
-                      'Optional — test a payment screenshot and help improve '
+                    title: const Text.localized('OCR corrections'),
+                    subtitle: Text.localized('Optional — test a payment screenshot and help improve '
                       'OCR by sharing what you find, entirely on your terms.',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: cs.onSurfaceVariant,

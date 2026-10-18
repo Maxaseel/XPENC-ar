@@ -123,7 +123,7 @@ class BudgetsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppTopBar(
-        title: const Text('Budgets'),
+        title: const Text.localized('Budgets'),
         actions: [
           IconButton(
             icon: const AppIcon(Icons.picture_as_pdf_outlined),
@@ -186,8 +186,7 @@ class BudgetsScreen extends ConsumerWidget {
       if (categories.isEmpty)
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 24),
-          child: Text(
-            'No expense categories yet.',
+          child: Text.localized('No expense categories yet.',
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: cs.onSurfaceVariant,
@@ -212,8 +211,7 @@ class BudgetsScreen extends ConsumerWidget {
           ],
         ),
       const SizedBox(height: 8),
-      Text(
-        'Budgets only count expenses. Transfers between your own '
+      Text.localized('Budgets only count expenses. Transfers between your own '
         'accounts are never counted.',
         style: theme.textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
       ),
@@ -446,8 +444,7 @@ class _BudgetTile extends ConsumerWidget {
                     : theme.textTheme.titleMedium,
               ),
               const SizedBox(height: 2),
-              Text(
-                'No budget set',
+              Text.localized('No budget set',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
@@ -566,8 +563,7 @@ class _BudgetTile extends ConsumerWidget {
       color: AppColors.expense.withValues(alpha: 0.15),
       borderRadius: BorderRadius.circular(8),
     ),
-    child: const Text(
-      'OVER',
+    child: const Text.localized('OVER',
       style: TextStyle(
         color: AppColors.expense,
         fontSize: 11,
@@ -962,7 +958,7 @@ class _BudgetEditSheetState extends ConsumerState<BudgetEditSheet> {
                   children: [
                     AppSwitchListTile(
                       contentPadding: EdgeInsets.zero,
-                      title: const Text('Rollover'),
+                      title: const Text.localized('Rollover'),
                       subtitle: Text(
                         _rolloverEnabled
                             ? 'Unspent budget carries into next period'
@@ -1011,7 +1007,7 @@ class _BudgetEditSheetState extends ConsumerState<BudgetEditSheet> {
             TextButton(
               onPressed: _remove,
               style: TextButton.styleFrom(foregroundColor: AppColors.expense),
-              child: const Text('Remove budget'),
+              child: const Text.localized('Remove budget'),
             ),
           ],
         ],
@@ -1052,8 +1048,7 @@ class _OverflowTargetTile extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Overflow',
+                    Text.localized('Overflow',
                       style: theme.textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -1136,8 +1131,7 @@ class _OverflowTargetSheet extends ConsumerWidget {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
-              child: Text(
-                'Overflow into which category?',
+              child: Text.localized('Overflow into which category?',
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
@@ -1145,8 +1139,7 @@ class _OverflowTargetSheet extends ConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
-              child: Text(
-                'Spending over this budget will show up against the chosen '
+              child: Text.localized('Spending over this budget will show up against the chosen '
                 "category's total instead — never the other way around.",
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: cs.onSurfaceVariant,
@@ -1172,7 +1165,7 @@ class _OverflowTargetSheet extends ConsumerWidget {
                     children: [
                       AppListTile(
                         leading: const AppIcon(Icons.block_rounded),
-                        title: const Text('Off'),
+                        title: const Text.localized('Off'),
                         selected: currentTarget == null,
                         onTap: () => Navigator.of(
                           context,

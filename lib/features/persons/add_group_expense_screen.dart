@@ -143,7 +143,7 @@ class _AddGroupExpenseScreenState
     if (_participantIds.isEmpty) {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
-        ..showSnackBar(const SnackBar(content: Text('Pick at least one participant')));
+        ..showSnackBar(const SnackBar(content: Text.localized('Pick at least one participant')));
       return;
     }
     if (_payerId == null &&
@@ -153,7 +153,7 @@ class _AddGroupExpenseScreenState
         ..hideCurrentSnackBar()
         ..showSnackBar(
           const SnackBar(
-            content: Text('Pick an account and category for your own share'),
+            content: Text.localized('Pick an account and category for your own share'),
           ),
         );
       return;
@@ -213,7 +213,7 @@ class _AddGroupExpenseScreenState
     navigator.pop();
     messenger
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Expense added')));
+      ..showSnackBar(const SnackBar(content: Text.localized('Expense added')));
   }
 
   @override
@@ -221,7 +221,7 @@ class _AddGroupExpenseScreenState
     final membersAsync = ref.watch(groupMembersProvider(widget.groupId));
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Add group expense')),
+      appBar: AppTopBar(title: const Text.localized('Add group expense')),
       body: membersAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text("Couldn't load members.\n$e")),
@@ -281,14 +281,14 @@ class _AddGroupExpenseScreenState
               border: OutlineInputBorder(),
             ),
             items: [
-              const DropdownMenuItem<int?>(value: null, child: Text('You')),
+              const DropdownMenuItem<int?>(value: null, child: Text.localized('You')),
               for (final m in members)
                 DropdownMenuItem<int?>(value: m.id, child: Text(m.name)),
             ],
             onChanged: (v) => setState(() => _payerId = v),
           ),
           const SizedBox(height: 20),
-          Text('Participants', style: theme.textTheme.titleSmall),
+          Text.localized('Participants', style: theme.textTheme.titleSmall),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
@@ -309,21 +309,21 @@ class _AddGroupExpenseScreenState
             ],
           ),
           const SizedBox(height: 20),
-          Text('Split', style: theme.textTheme.titleSmall),
+          Text.localized('Split', style: theme.textTheme.titleSmall),
           const SizedBox(height: 8),
           SegmentedButton<GroupSplitMethod>(
             segments: const [
               ButtonSegment(
                 value: GroupSplitMethod.equal,
-                label: Text('Equal'),
+                label: Text.localized('Equal'),
               ),
               ButtonSegment(
                 value: GroupSplitMethod.percentage,
-                label: Text('Percent'),
+                label: Text.localized('Percent'),
               ),
               ButtonSegment(
                 value: GroupSplitMethod.manual,
-                label: Text('Manual'),
+                label: Text.localized('Manual'),
               ),
             ],
             selected: {_splitMethod},
@@ -331,8 +331,7 @@ class _AddGroupExpenseScreenState
           ),
           const SizedBox(height: 16),
           if (_participantIds.isEmpty)
-            Text(
-              'Pick at least one participant.',
+            Text.localized('Pick at least one participant.',
               style: theme.textTheme.bodyMedium?.copyWith(color: cs.error),
             )
           else
@@ -374,7 +373,7 @@ class _AddGroupExpenseScreenState
                     width: 22,
                     child: CircularProgressIndicator(strokeWidth: 2.4),
                   )
-                : const Text('Save expense'),
+                : const Text.localized('Save expense'),
           ),
         ],
       ),
@@ -502,8 +501,7 @@ class _ShareRow extends StatelessWidget {
               children: [
                 Text(label, style: theme.textTheme.bodyMedium),
                 if (!tracked)
-                  Text(
-                    'Not tracked — shown for reference only',
+                  Text.localized('Not tracked — shown for reference only',
                     style: theme.textTheme.labelSmall?.copyWith(
                       color: cs.onSurfaceVariant,
                     ),
@@ -581,7 +579,7 @@ class _AccountAndCategoryFields extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Your share', style: Theme.of(context).textTheme.titleSmall),
+        Text.localized('Your share', style: Theme.of(context).textTheme.titleSmall),
         const SizedBox(height: 8),
         DropdownButtonFormField<int?>(
           initialValue: accountId,

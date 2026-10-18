@@ -30,7 +30,7 @@ class NotificationsSettingsScreen extends ConsumerWidget {
     );
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Notifications')),
+      appBar: AppTopBar(title: const Text.localized('Notifications')),
       body: ListView(
         // Explicit padding drops ListView's nav-bar inset; re-add it (#137).
         padding: EdgeInsets.fromLTRB(
@@ -44,9 +44,8 @@ class NotificationsSettingsScreen extends ConsumerWidget {
             child: AppSwitchListTile(
               contentPadding: const EdgeInsets.symmetric(horizontal: 16),
               secondary: const AppIcon(Icons.notifications_outlined),
-              title: const Text('Notifications'),
-              subtitle: Text(
-                'Budget alerts and payment reminders.',
+              title: const Text.localized('Notifications'),
+              subtitle: Text.localized('Budget alerts and payment reminders.',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: cs.onSurfaceVariant,
                 ),
@@ -62,7 +61,7 @@ class NotificationsSettingsScreen extends ConsumerWidget {
                 AppSwitchListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   secondary: const AppIcon(Icons.edit_note_rounded),
-                  title: const Text('Daily expense reminder'),
+                  title: const Text.localized('Daily expense reminder'),
                   subtitle: Text(
                     expenseReminder.enabled
                         ? "A daily nudge at ${_timeLabel(expenseReminder.hour, expenseReminder.minute)} to log today's spending"
@@ -117,7 +116,7 @@ class NotificationsSettingsScreen extends ConsumerWidget {
                   AppSwitchListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     secondary: const AppIcon(Icons.flash_on_outlined),
-                    title: const Text('Quick add from notification'),
+                    title: const Text.localized('Quick add from notification'),
                     subtitle: Text(
                       notificationsEnabled
                           ? 'Reply to the notification with an amount — it '
@@ -216,7 +215,7 @@ class _QuickAddAccountTile extends ConsumerWidget {
     return AppListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16),
       leading: const AppIcon(Icons.account_balance_wallet_outlined),
-      title: const Text('Posts to'),
+      title: const Text.localized('Posts to'),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -250,14 +249,13 @@ class _QuickAddAccountTile extends ConsumerWidget {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
-              child: Text(
-                'Post to',
+              child: Text.localized('Post to',
                 style: Theme.of(sheetContext).textTheme.titleLarge,
               ),
             ),
             RadioListTile<int?>(
-              title: const Text('First account'),
-              subtitle: const Text('Whichever tops your Accounts list'),
+              title: const Text.localized('First account'),
+              subtitle: const Text.localized('Whichever tops your Accounts list'),
               value: null,
               // ignore: deprecated_member_use
               groupValue: chosenId,

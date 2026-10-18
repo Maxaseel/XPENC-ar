@@ -40,7 +40,7 @@ class AccountsScreen extends ConsumerWidget {
           if (!embedded)
             SliverAppBar(
               pinned: true,
-              title: const Text('Accounts'),
+              title: const Text.localized('Accounts'),
               actions: [GlassActionGroup(children: [
                 IconButton(
                   tooltip: 'Statement',
@@ -272,8 +272,7 @@ class _TotalMoneyCard extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
-                'Cash + Bank + Cards',
+              Text.localized('Cash + Bank + Cards',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
@@ -289,8 +288,7 @@ class _TotalMoneyCard extends ConsumerWidget {
                   ),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: Text(
-                      'Debit cards draw from their bank and are not counted twice.',
+                    child: Text.localized('Debit cards draw from their bank and are not counted twice.',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                         height: 1.35,
@@ -454,7 +452,7 @@ class _AccountTile extends ConsumerWidget {
             AppListTile(
               leading: const AppIcon(Icons.archive_outlined),
               title: const Text.localized('Archive'),
-              subtitle: const Text('Hide it. History stays intact.'),
+              subtitle: const Text.localized('Hide it. History stays intact.'),
               onTap: () =>
                   Navigator.of(sheetContext).pop(_AccountAction.archive),
             ),
@@ -466,7 +464,7 @@ class _AccountTile extends ConsumerWidget {
               title: Text.localized('Remove',
                 style: TextStyle(color: theme.colorScheme.error),
               ),
-              subtitle: const Text('Delete permanently — only if unused.'),
+              subtitle: const Text.localized('Delete permanently — only if unused.'),
               onTap: () =>
                   Navigator.of(sheetContext).pop(_AccountAction.remove),
             ),
@@ -504,7 +502,7 @@ class _AccountTile extends ConsumerWidget {
     if (!context.mounted) return;
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Account renamed')));
+      ..showSnackBar(const SnackBar(content: Text.localized('Account renamed')));
   }
 
   /// Purely informational floor (see the doc on [Accounts.minimumBalance]) —
@@ -539,7 +537,7 @@ class _AccountTile extends ConsumerWidget {
     final confirmed = await showAppDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Archive account?'),
+        title: const Text.localized('Archive account?'),
         content: Text(
           '"${account.name}" will be hidden from your accounts. '
           'Its history stays intact.',
@@ -565,7 +563,7 @@ class _AccountTile extends ConsumerWidget {
     if (!context.mounted) return;
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Account archived')));
+      ..showSnackBar(const SnackBar(content: Text.localized('Account archived')));
   }
 
   /// Unlike archiving, this can't be undone — [AppDatabase.deleteAccount]
@@ -576,8 +574,7 @@ class _AccountTile extends ConsumerWidget {
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text('Remove "${account.name}"?'),
-        content: const Text(
-          "This permanently deletes the account — it can't be undone. It "
+        content: const Text.localized("This permanently deletes the account — it can't be undone. It "
           'only works if the account has no transaction history; otherwise '
           'archive it instead.',
         ),
@@ -656,7 +653,7 @@ class _RenameAccountDialogState extends State<_RenameAccountDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Rename account'),
+      title: const Text.localized('Rename account'),
       content: TextField(
         controller: _controller,
         autofocus: true,
@@ -717,8 +714,7 @@ class _MinimumBalanceDialogState extends State<_MinimumBalanceDialog> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "A note when spending would take this account's balance below "
+          const Text.localized("A note when spending would take this account's balance below "
             'the amount you set here. Nothing is ever blocked.',
           ),
           const SizedBox(height: 16),
@@ -749,7 +745,7 @@ class _MinimumBalanceDialogState extends State<_MinimumBalanceDialog> {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
-                  const SnackBar(content: Text('Enter an amount above zero.')),
+                  const SnackBar(content: Text.localized('Enter an amount above zero.')),
                 );
               return;
             }

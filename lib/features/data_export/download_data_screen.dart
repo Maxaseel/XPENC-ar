@@ -91,7 +91,7 @@ class _DownloadDataScreenState extends ConsumerState<DownloadDataScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Download Data')),
+      appBar: AppTopBar(title: const Text.localized('Download Data')),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 32).plusNavBar(context),
         children: [
@@ -129,8 +129,7 @@ class _DownloadDataScreenState extends ConsumerState<DownloadDataScreen> {
           const SizedBox(height: 28),
           Padding(
             padding: const EdgeInsets.only(left: 4, bottom: 8),
-            child: Text(
-              'Import',
+            child: Text.localized('Import',
               style: Theme.of(
                 context,
               ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
@@ -183,8 +182,7 @@ class _IntroCard extends StatelessWidget {
             AppIcon(Icons.lock_outline, color: cs.onSurfaceVariant),
             const SizedBox(width: 14),
             Expanded(
-              child: Text(
-                'Your data never leaves this phone unless you choose to share '
+              child: Text.localized('Your data never leaves this phone unless you choose to share '
                 'it.',
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: cs.onSurfaceVariant,

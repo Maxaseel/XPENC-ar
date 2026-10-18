@@ -49,9 +49,8 @@ class _AppModeSheetState extends ConsumerState<AppModeSheet> {
       final proceed = await showAppDialog<bool>(
         context: context,
         builder: (dialogContext) => AlertDialog(
-          title: const Text("Couldn't back up your data"),
-          content: const Text(
-            'Switching mode is safe on its own — nothing is deleted — but '
+          title: const Text.localized("Couldn't back up your data"),
+          content: const Text.localized('Switching mode is safe on its own — nothing is deleted — but '
             "the usual safety-net backup couldn't be saved this time. "
             'Switch anyway?',
           ),
@@ -62,7 +61,7 @@ class _AppModeSheetState extends ConsumerState<AppModeSheet> {
             ),
             FilledButton(
               onPressed: () => Navigator.of(dialogContext).pop(true),
-              child: const Text('Switch anyway'),
+              child: const Text.localized('Switch anyway'),
             ),
           ],
         ),
@@ -102,15 +101,13 @@ class _AppModeSheetState extends ConsumerState<AppModeSheet> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            'App mode',
+          Text.localized('App mode',
             style: theme.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.w700,
             ),
           ),
           const SizedBox(height: 8),
-          Text(
-            'Switching takes a safety-net backup first. Existing data is '
+          Text.localized('Switching takes a safety-net backup first. Existing data is '
             'never deleted — it just stops showing while its tier is off.',
             style: theme.textTheme.bodySmall?.copyWith(
               color: cs.onSurfaceVariant,

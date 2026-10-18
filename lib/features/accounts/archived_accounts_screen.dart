@@ -21,12 +21,11 @@ class ArchivedAccountsScreen extends ConsumerWidget {
     final archivedAsync = ref.watch(archivedAccountsProvider);
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Archived accounts')),
+      appBar: AppTopBar(title: const Text.localized('Archived accounts')),
       body: archivedAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (_, _) => Center(
-          child: Text(
-            "Couldn't load archived accounts.",
+          child: Text.localized("Couldn't load archived accounts.",
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -44,8 +43,7 @@ class ArchivedAccountsScreen extends ConsumerWidget {
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
                   const SizedBox(height: 16),
-                  Text(
-                    'No archived accounts.',
+                  Text.localized('No archived accounts.',
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,

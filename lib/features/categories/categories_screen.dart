@@ -157,8 +157,7 @@ class _CategoryList extends ConsumerWidget {
                 ),
               ),
             const SizedBox(height: 20),
-            Text(
-              'Group related categories under a parent — a subcategory rolls its '
+            Text.localized('Group related categories under a parent — a subcategory rolls its '
               'spending up into its parent. Categories are archived, never '
               'deleted, so past reports stay intact.',
               textAlign: TextAlign.center,
@@ -383,7 +382,7 @@ Future<void> _confirmArchive(
   if (confirmed != true) return;
 
   await db.archiveCategory(category.id);
-  messenger.showSnackBar(const SnackBar(content: Text('Category archived')));
+  messenger.showSnackBar(const SnackBar(content: Text.localized('Category archived')));
 }
 
 /// Create or edit a category: name, parent, colour, icon.
@@ -559,8 +558,7 @@ class _CategoryEditorSheetState extends ConsumerState<_CategoryEditorSheet> {
       return wrap(
         InputDecorator(
           decoration: const InputDecoration(labelText: 'Parent category'),
-          child: Text(
-            'Top-level — it has subcategories',
+          child: Text.localized('Top-level — it has subcategories',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -591,7 +589,7 @@ class _CategoryEditorSheetState extends ConsumerState<_CategoryEditorSheet> {
         items: [
           const DropdownMenuItem<int?>(
             value: null,
-            child: Text('None (top-level)'),
+            child: Text.localized('None (top-level)'),
           ),
           for (final p in parents)
             DropdownMenuItem<int?>(

@@ -24,7 +24,7 @@ class ModeBudgetingSettingsScreen extends ConsumerWidget {
     final appMode = ref.watch(appModeProvider);
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Mode & Budgeting')),
+      appBar: AppTopBar(title: const Text.localized('Mode & Budgeting')),
       body: ListView(
         // Explicit padding drops ListView's nav-bar inset; re-add it (#137).
         padding: EdgeInsets.fromLTRB(
@@ -40,7 +40,7 @@ class ModeBudgetingSettingsScreen extends ConsumerWidget {
                 AppListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   leading: const AppIcon(Icons.tune_outlined),
-                  title: const Text('App mode'),
+                  title: const Text.localized('App mode'),
                   subtitle: Text(
                     switch (appMode) {
                       AppMode.basic => 'Basic — transactions & persons only',
@@ -62,7 +62,7 @@ class ModeBudgetingSettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: const AppIcon(Icons.event_repeat_outlined),
-                    title: const Text('Budget cycle start day'),
+                    title: const Text.localized('Budget cycle start day'),
                     subtitle: Text(
                       budgetStartDay == 1
                           ? '1st of the month — an ordinary calendar month'
@@ -84,8 +84,7 @@ class ModeBudgetingSettingsScreen extends ConsumerWidget {
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     secondary: const AppIcon(Icons.savings_outlined),
                     title: const Text.localized('Ready to Assign'),
-                    subtitle: Text(
-                      'Budget (a spending ceiling per category) is always '
+                    subtitle: Text.localized('Budget (a spending ceiling per category) is always '
                       'on. Ready to Assign adds an optional layer on top: '
                       'assign the money you actually have into categories '
                       'first, pooled across every on-budget account. '
@@ -121,9 +120,8 @@ class ModeBudgetingSettingsScreen extends ConsumerWidget {
       final confirmed = await showAppDialog<bool>(
         context: context,
         builder: (dialogContext) => AlertDialog(
-          title: const Text('Turn on Ready to Assign?'),
-          content: const Text(
-            'Every account joins the shared pool right away. You can opt '
+          title: const Text.localized('Turn on Ready to Assign?'),
+          content: const Text.localized('Every account joins the shared pool right away. You can opt '
             'individual accounts back out afterward from their own Account '
             'Detail screen.',
           ),

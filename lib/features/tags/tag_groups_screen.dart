@@ -35,7 +35,7 @@ class TagGroupsScreen extends ConsumerWidget {
     final tagsByGroup = ref.watch(tagGroupTagsByGroupProvider);
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Tag groups')),
+      appBar: AppTopBar(title: const Text.localized('Tag groups')),
       body: groupsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (_, _) => const Center(
@@ -71,8 +71,7 @@ class TagGroupsScreen extends ConsumerWidget {
                   ),
                 ),
               const SizedBox(height: 20),
-              Text(
-                'Picking a group from the tag picker selects every tag in it '
+              Text.localized('Picking a group from the tag picker selects every tag in it '
                 'at once. Deleting a group never touches the tags themselves '
                 'or anything already tagged.',
                 textAlign: TextAlign.center,
@@ -110,8 +109,7 @@ class _EmptyGroups extends StatelessWidget {
             color: theme.colorScheme.onSurfaceVariant,
           ),
           const SizedBox(height: 16),
-          Text(
-            'No tag groups yet — tap + to bundle a few tags together.',
+          Text.localized('No tag groups yet — tap + to bundle a few tags together.',
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
@@ -184,8 +182,7 @@ Future<void> _confirmDelete(
     context: context,
     builder: (dialogContext) => AlertDialog(
       title: Text('Delete "${group.name}"?'),
-      content: const Text(
-        'The tags in this group, and anything already tagged with them, '
+      content: const Text.localized('The tags in this group, and anything already tagged with them, '
         'are left exactly as they are.',
       ),
       actions: [
@@ -208,7 +205,7 @@ Future<void> _confirmDelete(
   await ref.read(dbProvider).deleteTagGroup(group.id);
   messenger
     ..hideCurrentSnackBar()
-    ..showSnackBar(const SnackBar(content: Text('Tag group deleted')));
+    ..showSnackBar(const SnackBar(content: Text.localized('Tag group deleted')));
 }
 
 Future<void> _openGroupEditor(BuildContext context, {TagGroupRow? existing}) {
@@ -362,8 +359,7 @@ class _GroupEditorSheetState extends ConsumerState<_GroupEditorSheet> {
                 children: [for (final c in _presetColors) _colorDot(theme, c)],
               ),
               const SizedBox(height: 20),
-              Text(
-                'TAGS',
+              Text.localized('TAGS',
                 style: theme.textTheme.labelSmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                   fontWeight: FontWeight.w700,
@@ -388,8 +384,7 @@ class _GroupEditorSheetState extends ConsumerState<_GroupEditorSheet> {
                   ),
                   data: (tags) {
                     if (tags.isEmpty) {
-                      return Text(
-                        'No tags yet — add one from More → Tags first.',
+                      return Text.localized('No tags yet — add one from More → Tags first.',
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),

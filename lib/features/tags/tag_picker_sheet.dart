@@ -50,7 +50,7 @@ class _TagPickerSheetState extends ConsumerState<TagPickerSheet> {
               child: Row(
                 children: [
                   Expanded(
-                    child: Text('Tags', style: theme.textTheme.titleLarge),
+                    child: Text.localized('Tags', style: theme.textTheme.titleLarge),
                   ),
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(_selected),
@@ -99,8 +99,7 @@ class _TagPickerSheetState extends ConsumerState<TagPickerSheet> {
                   if (tags.isEmpty) {
                     return Padding(
                       padding: const EdgeInsets.all(32),
-                      child: Text(
-                        'No tags yet — add one from More → Tags.',
+                      child: Text.localized('No tags yet — add one from More → Tags.',
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),

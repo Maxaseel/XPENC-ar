@@ -189,7 +189,7 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
         final addAnyway = await showAppDialog<bool>(
           context: context,
           builder: (ctx) => AlertDialog(
-            title: const Text('Already in your people'),
+            title: const Text.localized('Already in your people'),
             content: Text(
               '${existing.name} already exists'
               '${existing.isArchived ? ' (archived)' : ''}. '
@@ -198,11 +198,11 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(ctx).pop(true),
-                child: const Text('Add separate'),
+                child: const Text.localized('Add separate'),
               ),
               FilledButton(
                 onPressed: () => Navigator.of(ctx).pop(false),
-                child: const Text('Keep existing'),
+                child: const Text.localized('Keep existing'),
               ),
             ],
           ),
@@ -351,15 +351,13 @@ class _EditPersonSheetState extends ConsumerState<EditPersonSheet> {
             const SizedBox(height: 16),
 
             if (anyPaymentMethodEnabled) ...[
-              Text(
-                'Payment IDs',
+              Text.localized('Payment IDs',
                 style: theme.textTheme.labelLarge?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
-                "Lets you pay them directly from their page. Not shared "
+              Text.localized("Lets you pay them directly from their page. Not shared "
                 "anywhere — stored only on this phone. Turn a method off in "
                 "Settings → Payment Support if it doesn't apply here.",
                 style: theme.textTheme.bodySmall?.copyWith(

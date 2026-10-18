@@ -62,7 +62,7 @@ class PayeeDetailScreen extends ConsumerWidget {
                   itemBuilder: (_) => [
                     PopupMenuItem(
                       onTap: () => _disconnect(context, ref, pid),
-                      child: const Text('Disconnect from person'),
+                      child: const Text.localized('Disconnect from person'),
                     ),
                   ],
                 ),
@@ -78,7 +78,7 @@ class PayeeDetailScreen extends ConsumerWidget {
                   ? FilledButton.tonalIcon(
                       onPressed: () => _connect(context, ref),
                       icon: const AppIcon(Icons.link_rounded),
-                      label: const Text('Connect to person'),
+                      label: const Text.localized('Connect to person'),
                       style: FilledButton.styleFrom(
                         minimumSize: const Size.fromHeight(48),
                       ),
@@ -92,7 +92,7 @@ class PayeeDetailScreen extends ConsumerWidget {
                               photoPath: person.photoPath,
                               radius: 11,
                             ),
-                      label: const Text('Open person'),
+                      label: const Text.localized('Open person'),
                       style: FilledButton.styleFrom(
                         minimumSize: const Size.fromHeight(48),
                       ),
@@ -102,8 +102,7 @@ class PayeeDetailScreen extends ConsumerWidget {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(24, 14, 24, 6),
-              child: Text(
-                'HISTORY',
+              child: Text.localized('HISTORY',
                 style: theme.textTheme.labelSmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                   fontWeight: FontWeight.w700,
@@ -116,7 +115,7 @@ class PayeeDetailScreen extends ConsumerWidget {
             const SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.fromLTRB(20, 24, 20, 40),
-                child: Center(child: Text('No payments yet.')),
+                child: Center(child: Text.localized('No payments yet.')),
               ),
             )
           else
@@ -167,9 +166,8 @@ class PayeeDetailScreen extends ConsumerWidget {
     final confirmed = await showAppDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Disconnect from person?'),
-        content: const Text(
-          'These transactions stay under this payee name but no longer show '
+        title: const Text.localized('Disconnect from person?'),
+        content: const Text.localized('These transactions stay under this payee name but no longer show '
           "on the person's page.",
         ),
         actions: [
@@ -179,7 +177,7 @@ class PayeeDetailScreen extends ConsumerWidget {
           ),
           FilledButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('Disconnect'),
+            child: const Text.localized('Disconnect'),
           ),
         ],
       ),
@@ -198,7 +196,7 @@ class PayeeDetailScreen extends ConsumerWidget {
     final newName = await showAppDialog<String>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Rename payee'),
+        title: const Text.localized('Rename payee'),
         content: TextField(
           controller: controller,
           autofocus: true,
@@ -409,8 +407,7 @@ class _ConnectPersonSheetState extends ConsumerState<_ConnectPersonSheet> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 0, 24, 8),
-              child: Text(
-                'Their payments show on the person\'s page. Owe/due never '
+              child: Text.localized('Their payments show on the person\'s page. Owe/due never '
                 'changes.',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,

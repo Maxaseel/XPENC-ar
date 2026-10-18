@@ -190,7 +190,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         ..hideCurrentSnackBar()
         ..showSnackBar(
           const SnackBar(
-            content: Text('Something went wrong. Please try again.'),
+            content: Text.localized('Something went wrong. Please try again.'),
           ),
         );
     }
@@ -217,7 +217,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           ..hideCurrentSnackBar()
           ..showSnackBar(
             const SnackBar(
-              content: Text("Couldn't find a backup on this phone."),
+              content: Text.localized("Couldn't find a backup on this phone."),
             ),
           );
         return;
@@ -230,7 +230,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           ..hideCurrentSnackBar()
           ..showSnackBar(
             const SnackBar(
-              content: Text("Couldn't find a backup on this phone."),
+              content: Text.localized("Couldn't find a backup on this phone."),
             ),
           );
         return;
@@ -363,7 +363,7 @@ class _StepScaffold extends StatelessWidget {
           if (onSkip != null)
             Align(
               alignment: Alignment.centerRight,
-              child: TextButton(onPressed: onSkip, child: const Text('Skip')),
+              child: TextButton(onPressed: onSkip, child: const Text.localized('Skip')),
             )
           else
             const SizedBox(height: 40),
@@ -421,8 +421,7 @@ class _WelcomeStep extends StatelessWidget {
           const SizedBox(height: 22),
           const BrandWordmark(fontSize: 36),
           const SizedBox(height: 10),
-          Text(
-            'Track where your money is — simply and privately.',
+          Text.localized('Track where your money is — simply and privately.',
             style: theme.textTheme.bodyLarge?.copyWith(
               color: cs.onSurfaceVariant,
               height: 1.4,
@@ -467,16 +466,14 @@ class _PathChoiceStep extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Are you new to XPENC?',
+          Text.localized('Are you new to XPENC?',
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.w700,
               height: 1.2,
             ),
           ),
           const SizedBox(height: 12),
-          Text(
-            "We'll tailor the next few screens to your answer.",
+          Text.localized("We'll tailor the next few screens to your answer.",
             style: theme.textTheme.bodyLarge?.copyWith(
               color: cs.onSurfaceVariant,
               height: 1.4,
@@ -865,16 +862,14 @@ class _StartStep extends StatelessWidget {
         children: [
           const BrandMark(size: 56),
           const SizedBox(height: 22),
-          Text(
-            "You're all set",
+          Text.localized("You're all set",
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.w700,
               height: 1.2,
             ),
           ),
           const SizedBox(height: 12),
-          Text(
-            'Add an account from the Accounts tab, or just log your first '
+          Text.localized('Add an account from the Accounts tab, or just log your first '
             'transaction — XPENC is ready whenever you are.',
             style: theme.textTheme.bodyLarge?.copyWith(
               color: cs.onSurfaceVariant,
@@ -957,16 +952,14 @@ class _WelcomeBackStep extends StatelessWidget {
         children: [
           const BrandMark(size: 56),
           const SizedBox(height: 22),
-          Text(
-            'Welcome back',
+          Text.localized('Welcome back',
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.w700,
               height: 1.2,
             ),
           ),
           const SizedBox(height: 12),
-          Text(
-            "Good to see you again. Let's get you to your dashboard.",
+          Text.localized("Good to see you again. Let's get you to your dashboard.",
             style: theme.textTheme.bodyLarge?.copyWith(
               color: cs.onSurfaceVariant,
               height: 1.4,
@@ -1018,7 +1011,7 @@ class _BottomBar extends StatelessWidget {
               if (page > 0)
                 TextButton(
                   onPressed: submitting ? null : onBack,
-                  child: const Text('Back'),
+                  child: const Text.localized('Back'),
                 ),
               const Spacer(),
               if (showNext)

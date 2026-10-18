@@ -90,7 +90,7 @@ class _TotpSetupScreenState extends ConsumerState<TotpSetupScreen> {
     Navigator.of(context).pop();
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Authenticator app set up')));
+      ..showSnackBar(const SnackBar(content: Text.localized('Authenticator app set up')));
   }
 
   @override
@@ -115,8 +115,7 @@ class _TotpSetupScreenState extends ConsumerState<TotpSetupScreen> {
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 24).plusNavBar(context),
       children: [
-        Text(
-          'Scan this QR code with Google Authenticator, Authy, or any '
+        Text.localized('Scan this QR code with Google Authenticator, Authy, or any '
           'compatible app.',
           style: theme.textTheme.bodyMedium,
         ),
@@ -136,8 +135,7 @@ class _TotpSetupScreenState extends ConsumerState<TotpSetupScreen> {
           ),
         ),
         const SizedBox(height: 16),
-        Text(
-          "Can't scan? Enter this code manually:",
+        Text.localized("Can't scan? Enter this code manually:",
           style: theme.textTheme.bodySmall?.copyWith(
             color: cs.onSurfaceVariant,
           ),
@@ -163,8 +161,7 @@ class _TotpSetupScreenState extends ConsumerState<TotpSetupScreen> {
               AppIcon(Icons.warning_amber_rounded, color: cs.onErrorContainer),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(
-                  'If you lose this device or uninstall your authenticator '
+                child: Text.localized('If you lose this device or uninstall your authenticator '
                   'app, a master recovery phrase is the only way back in — '
                   'set one up too if you haven’t. Without one, losing the '
                   'authenticator locks you out until you restore a backup.',
@@ -179,7 +176,7 @@ class _TotpSetupScreenState extends ConsumerState<TotpSetupScreen> {
         const SizedBox(height: 20),
         FilledButton(
           onPressed: _goToConfirm,
-          child: const Text("I've added it to my app"),
+          child: const Text.localized("I've added it to my app"),
         ),
       ],
     );
@@ -190,16 +187,14 @@ class _TotpSetupScreenState extends ConsumerState<TotpSetupScreen> {
     return Column(
       children: [
         const Spacer(flex: 2),
-        Text(
-          'Enter the 6-digit code',
+        Text.localized('Enter the 6-digit code',
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w700,
           ),
         ),
         const SizedBox(height: 6),
         if (_error)
-          Text(
-            'Wrong code — try again',
+          Text.localized('Wrong code — try again',
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.error,
             ),

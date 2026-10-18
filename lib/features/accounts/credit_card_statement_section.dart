@@ -33,7 +33,7 @@ class CreditCardStatementSection extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           AppSwitchListTile(
-            title: const Text('Track statement & due date'),
+            title: const Text.localized('Track statement & due date'),
             subtitle: Text(
               detail != null
                   ? "Know when this month's bill is due, with a reminder "
@@ -94,9 +94,8 @@ class CreditCardStatementSection extends ConsumerWidget {
     final confirmed = await showAppDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Stop tracking this card\'s cycle?'),
-        content: const Text(
-          'The statement close day, due day and reminder are forgotten. '
+        title: const Text.localized('Stop tracking this card\'s cycle?'),
+        content: const Text.localized('The statement close day, due day and reminder are forgotten. '
           "Nothing about the card itself changes.",
         ),
         actions: [
@@ -106,7 +105,7 @@ class CreditCardStatementSection extends ConsumerWidget {
           ),
           FilledButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('Turn off'),
+            child: const Text.localized('Turn off'),
           ),
         ],
       ),
@@ -155,8 +154,7 @@ class _StatementSummary extends ConsumerWidget {
           Row(
             children: [
               Expanded(
-                child: Text(
-                  'You currently owe',
+                child: Text.localized('You currently owe',
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: cs.onSurfaceVariant,
                   ),
@@ -277,14 +275,14 @@ class _CreditCardCycleDialogState extends State<_CreditCardCycleDialog> {
           children: [
             AppListTile(
               contentPadding: EdgeInsets.zero,
-              title: const Text('Statement closes'),
+              title: const Text.localized('Statement closes'),
               subtitle: Text('The ${_ordinal(_statementDay)} of each month'),
               trailing: const AppIcon(Icons.calendar_month_outlined),
               onTap: () => _pickDay(forStatement: true),
             ),
             AppListTile(
               contentPadding: EdgeInsets.zero,
-              title: const Text('Payment due'),
+              title: const Text.localized('Payment due'),
               subtitle: Text('The ${_ordinal(_dueDay)} of each month'),
               trailing: const AppIcon(Icons.calendar_month_outlined),
               onTap: () => _pickDay(forStatement: false),
@@ -303,8 +301,7 @@ class _CreditCardCycleDialogState extends State<_CreditCardCycleDialog> {
               label: '${_notifyDays.round()}',
               onChanged: (v) => setState(() => _notifyDays = v),
             ),
-            Text(
-              'A shorter month snaps the close/due day to its last day, '
+            Text.localized('A shorter month snaps the close/due day to its last day, '
               'then returns once that day exists again.',
               style: theme.textTheme.bodySmall?.copyWith(
                 color: cs.onSurfaceVariant,

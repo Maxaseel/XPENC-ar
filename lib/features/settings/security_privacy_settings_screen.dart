@@ -46,7 +46,7 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
     );
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Security & Privacy')),
+      appBar: AppTopBar(title: const Text.localized('Security & Privacy')),
       body: ListView(
         // Explicit padding drops ListView's nav-bar inset; re-add it (#137).
         padding: EdgeInsets.fromLTRB(
@@ -67,8 +67,7 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
                 // still manages independently below, toggled on or not.
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-                  child: Text(
-                    'Turn on more than one and any of them unlocks the app — '
+                  child: Text.localized('Turn on more than one and any of them unlocks the app — '
                     'switch between them from "Try another method" on the '
                     'lock screen.',
                     style: theme.textTheme.bodySmall?.copyWith(
@@ -79,7 +78,7 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
                 AppSwitchListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   secondary: const AppIcon(Icons.pin_outlined),
-                  title: const Text('PIN'),
+                  title: const Text.localized('PIN'),
                   subtitle: Text(
                     !hasPasscode
                         ? 'Tap to set up a PIN'
@@ -103,7 +102,7 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
                 AppSwitchListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   secondary: const AppIcon(Icons.key_outlined),
-                  title: const Text('Master password'),
+                  title: const Text.localized('Master password'),
                   subtitle: Text(
                     !hasMasterPhrase
                         ? 'Tap to set up a recovery phrase'
@@ -127,7 +126,7 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
                 AppSwitchListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   secondary: const AppIcon(Icons.qr_code_2_rounded),
-                  title: const Text('Authenticator app'),
+                  title: const Text.localized('Authenticator app'),
                   subtitle: Text(
                     !hasTotp
                         ? 'Tap to set up an authenticator app'
@@ -173,9 +172,8 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
                   AppSwitchListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     secondary: const AppIcon(Icons.fingerprint_rounded),
-                    title: const Text('Biometric unlock'),
-                    subtitle: Text(
-                      'Use your fingerprint or face instead of the PIN — the '
+                    title: const Text.localized('Biometric unlock'),
+                    subtitle: Text.localized('Use your fingerprint or face instead of the PIN — the '
                       'PIN always still works. Only applies while PIN unlock '
                       'is turned on.',
                       style: theme.textTheme.bodySmall?.copyWith(
@@ -190,8 +188,7 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: AppIcon(Icons.lock_open_outlined, color: cs.error),
-                    title: Text(
-                      'Remove passcode',
+                    title: Text.localized('Remove passcode',
                       style: TextStyle(color: cs.error),
                     ),
                     onTap: () =>
@@ -206,9 +203,8 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: const AppIcon(Icons.key_outlined),
-                    title: const Text('Master recovery phrase'),
-                    subtitle: Text(
-                      'Set — also used as a fallback after too many wrong '
+                    title: const Text.localized('Master recovery phrase'),
+                    subtitle: Text.localized('Set — also used as a fallback after too many wrong '
                       'attempts at whichever method is active',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: cs.onSurfaceVariant,
@@ -219,9 +215,8 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: const AppIcon(Icons.pin_outlined),
-                    title: const Text('Require after'),
-                    subtitle: Text(
-                      'How many wrong attempts before the recovery phrase is '
+                    title: const Text.localized('Require after'),
+                    subtitle: Text.localized('How many wrong attempts before the recovery phrase is '
                       'asked for instead',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: cs.onSurfaceVariant,
@@ -249,8 +244,7 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: AppIcon(Icons.key_off_outlined, color: cs.error),
-                    title: Text(
-                      'Turn off recovery phrase',
+                    title: Text.localized('Turn off recovery phrase',
                       style: TextStyle(color: cs.error),
                     ),
                     onTap: () =>
@@ -260,9 +254,8 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: const AppIcon(Icons.key_outlined),
-                    title: const Text('Set up master recovery phrase'),
-                    subtitle: Text(
-                      'A 10-word backup that can unlock XPENC if the active '
+                    title: const Text.localized('Set up master recovery phrase'),
+                    subtitle: Text.localized('A 10-word backup that can unlock XPENC if the active '
                       'method is entered wrong too many times',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: cs.onSurfaceVariant,
@@ -283,9 +276,8 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: const AppIcon(Icons.qr_code_2_rounded),
-                    title: const Text('Authenticator app'),
-                    subtitle: Text(
-                      'Set up',
+                    title: const Text.localized('Authenticator app'),
+                    subtitle: Text.localized('Set up',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: cs.onSurfaceVariant,
                       ),
@@ -295,8 +287,7 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: AppIcon(Icons.qr_code_2_rounded, color: cs.error),
-                    title: Text(
-                      'Turn off authenticator app',
+                    title: Text.localized('Turn off authenticator app',
                       style: TextStyle(color: cs.error),
                     ),
                     onTap: () => context.push('/more/settings/totp/disable'),
@@ -305,9 +296,8 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: const AppIcon(Icons.qr_code_2_rounded),
-                    title: const Text('Set up authenticator app'),
-                    subtitle: Text(
-                      'Use Google Authenticator, Authy or similar to unlock '
+                    title: const Text.localized('Set up authenticator app'),
+                    subtitle: Text.localized('Use Google Authenticator, Authy or similar to unlock '
                       'XPENC with a 6-digit code',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: cs.onSurfaceVariant,
@@ -328,9 +318,8 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: const AppIcon(Icons.timer_outlined),
-                    title: const Text('Lock after'),
-                    subtitle: Text(
-                      'How long XPENC may sit in the background before it '
+                    title: const Text.localized('Lock after'),
+                    subtitle: Text.localized('How long XPENC may sit in the background before it '
                       'locks again',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: cs.onSurfaceVariant,
@@ -356,9 +345,8 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: const AppIcon(Icons.dialpad_outlined),
-                    title: const Text('Lock screen style'),
-                    subtitle: Text(
-                      'How the PIN/code pad looks',
+                    title: const Text.localized('Lock screen style'),
+                    subtitle: Text.localized('How the PIN/code pad looks',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: cs.onSurfaceVariant,
                       ),
@@ -392,9 +380,8 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
                   AppSwitchListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     secondary: const AppIcon(Icons.screenshot_outlined),
-                    title: const Text('Block screenshots'),
-                    subtitle: Text(
-                      'Hides XPENC from screenshots, screen recording and the '
+                    title: const Text.localized('Block screenshots'),
+                    subtitle: Text.localized('Hides XPENC from screenshots, screen recording and the '
                       'recent-apps thumbnail',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: cs.onSurfaceVariant,
@@ -408,9 +395,8 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
                   AppSwitchListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     secondary: const AppIcon(Icons.visibility_outlined),
-                    title: const Text('Remind when screenshots are allowed'),
-                    subtitle: Text(
-                      'A small tag in the corner whenever "Block screenshots" '
+                    title: const Text.localized('Remind when screenshots are allowed'),
+                    subtitle: Text.localized('A small tag in the corner whenever "Block screenshots" '
                       "is off — easy to forget it's still off. Off by default, "
                       "so leaving it off on purpose isn't disturbed.",
                       style: theme.textTheme.bodySmall?.copyWith(
@@ -462,7 +448,7 @@ class SecurityPrivacySettingsScreen extends ConsumerWidget {
         ..hideCurrentSnackBar()
         ..showSnackBar(
           const SnackBar(
-            content: Text('At least one unlock method must stay on'),
+            content: Text.localized('At least one unlock method must stay on'),
           ),
         );
     }

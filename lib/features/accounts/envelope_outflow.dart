@@ -87,8 +87,7 @@ class _EnvelopeSourceSheet extends ConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
-              child: Text(
-                "Ready to Assign doesn't cover the full amount — the rest "
+              child: Text.localized("Ready to Assign doesn't cover the full amount — the rest "
                 'has to come out of one category’s envelope.',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: cs.onSurfaceVariant,

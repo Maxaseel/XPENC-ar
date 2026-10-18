@@ -385,8 +385,7 @@ class _PayeePickerSheetState extends ConsumerState<PayeePickerSheet> {
                       typed.isEmpty)
                     Padding(
                       padding: const EdgeInsets.fromLTRB(32, 32, 32, 0),
-                      child: Text(
-                        'No payees yet — type a name above, or pick one '
+                      child: Text.localized('No payees yet — type a name above, or pick one '
                         'from your contacts.',
                         textAlign: TextAlign.center,
                         style: theme.textTheme.bodyMedium?.copyWith(

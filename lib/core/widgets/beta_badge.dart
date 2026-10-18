@@ -15,8 +15,7 @@ class BetaBadge extends StatelessWidget {
         color: cs.tertiaryContainer,
         borderRadius: BorderRadius.circular(6),
       ),
-      child: Text(
-        'BETA',
+      child: Text.localized('BETA',
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
           color: cs.onTertiaryContainer,
           fontWeight: FontWeight.w700,

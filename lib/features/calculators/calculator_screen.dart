@@ -135,8 +135,7 @@ class _DepositCalculatorScreenState extends State<DepositCalculatorScreen>
         ),
         if (!isFd) ...[
           const SizedBox(height: 12),
-          Text(
-            'Compounded quarterly, the way banks and the post office '
+          Text.localized('Compounded quarterly, the way banks and the post office '
             'calculate RD interest.',
             style: Theme.of(
               context,
@@ -320,8 +319,7 @@ class _PpfCalculatorScreenState extends State<PpfCalculatorScreen>
         ),
         if (ppf.yearEndBalances.isNotEmpty) ...[
           const SizedBox(height: 20),
-          Text(
-            'Year-end balance',
+          Text.localized('Year-end balance',
             style: theme.textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w700,
             ),

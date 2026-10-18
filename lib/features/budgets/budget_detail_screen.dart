@@ -27,8 +27,8 @@ class BudgetDetailScreen extends ConsumerWidget {
     final category = ref.watch(categoryMapProvider)[categoryId];
     if (category == null) {
       return Scaffold(
-        appBar: AppTopBar(title: const Text('Budget')),
-        body: const Center(child: Text('Category not found')),
+        appBar: AppTopBar(title: const Text.localized('Budget')),
+        body: const Center(child: Text.localized('Category not found')),
       );
     }
 
@@ -191,8 +191,7 @@ class _SummaryCard extends StatelessWidget {
               ),
             const SizedBox(height: 16),
             if (p == null)
-              Text(
-                'No budget set for this category yet — tap the edit icon '
+              Text.localized('No budget set for this category yet — tap the edit icon '
                 'above to set one.',
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: cs.onSurfaceVariant,

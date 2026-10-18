@@ -353,7 +353,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     if (isPersonLinked) {
       navigator.pop();
       messenger.showSnackBar(
-        const SnackBar(content: Text('Edit this from the person\'s page.')),
+        const SnackBar(content: Text.localized('Edit this from the person\'s page.')),
       );
       return;
     }
@@ -420,7 +420,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     if (isPersonLinked) {
       navigator.pop();
       messenger.showSnackBar(
-        const SnackBar(content: Text("This can't be duplicated from here.")),
+        const SnackBar(content: Text.localized("This can't be duplicated from here.")),
       );
       return;
     }
@@ -466,7 +466,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     if (row == null) {
       navigator.pop();
       messenger.showSnackBar(
-        const SnackBar(content: Text('Template not found')),
+        const SnackBar(content: Text.localized('Template not found')),
       );
       return;
     }
@@ -740,15 +740,15 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           children: [
             AppListTile(
               leading: const AppIcon(Icons.grid_view_rounded),
-              title: const Text('XPENC icon'),
-              subtitle: const Text('Pick from the app\'s own icon library'),
+              title: const Text.localized('XPENC icon'),
+              subtitle: const Text.localized('Pick from the app\'s own icon library'),
               onTap: () =>
                   Navigator.of(sheetContext).pop(_CustomIconSource.library),
             ),
             AppListTile(
               leading: const AppIcon(Icons.emoji_emotions_outlined),
               title: const Text.localized('Emoji'),
-              subtitle: const Text('Type one with your keyboard\'s emoji key'),
+              subtitle: const Text.localized('Type one with your keyboard\'s emoji key'),
               onTap: () =>
                   Navigator.of(sheetContext).pop(_CustomIconSource.emoji),
             ),
@@ -808,7 +808,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                         _pickCustomIcon();
                       },
                       icon: const AppIcon(Icons.swap_horiz_rounded),
-                      label: const Text('Change'),
+                      label: const Text.localized('Change'),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -852,13 +852,13 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           children: [
             AppListTile(
               leading: const AppIcon(Icons.photo_camera_outlined),
-              title: const Text('Take photo'),
+              title: const Text.localized('Take photo'),
               onTap: () =>
                   Navigator.of(sheetContext).pop(_ReceiptSource.camera),
             ),
             AppListTile(
               leading: const AppIcon(Icons.photo_library_outlined),
-              title: const Text('Choose from gallery'),
+              title: const Text.localized('Choose from gallery'),
               onTap: () =>
                   Navigator.of(sheetContext).pop(_ReceiptSource.gallery),
             ),
@@ -884,8 +884,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         ..hideCurrentSnackBar()
         ..showSnackBar(
           const SnackBar(
-            content: Text(
-              "Couldn't open the camera — check its permission in system "
+            content: Text.localized("Couldn't open the camera — check its permission in system "
               'settings.',
             ),
           ),
@@ -969,7 +968,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                         _showAttachReceiptSheet();
                       },
                       icon: const AppIcon(Icons.swap_horiz_rounded),
-                      label: const Text('Replace'),
+                      label: const Text.localized('Replace'),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -1034,10 +1033,10 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           Icons.call_split_rounded,
           color: theme.colorScheme.onSurfaceVariant,
         ),
-        title: const Text('Split into categories'),
+        title: const Text.localized('Split into categories'),
         subtitle: _isSplit
             ? null
-            : const Text('One expense, more than one category'),
+            : const Text.localized('One expense, more than one category'),
       ),
     );
   }
@@ -1347,10 +1346,10 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           Icons.currency_exchange_rounded,
           color: theme.colorScheme.onSurfaceVariant,
         ),
-        title: const Text('Change went elsewhere'),
+        title: const Text.localized('Change went elsewhere'),
         subtitle: _hasChange
             ? null
-            : const Text('Part of the change lands in another account'),
+            : const Text.localized('Part of the change lands in another account'),
       ),
     );
   }
@@ -1387,7 +1386,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         title: const Text.localized('Foreign currency'),
         subtitle: _hasForeignCurrency
             ? null
-            : const Text('Record what this cost in another currency'),
+            : const Text.localized('Record what this cost in another currency'),
       ),
     );
   }
@@ -1551,7 +1550,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
               child: TextButton.icon(
                 onPressed: () => setState(() => _splitRows.add(_SplitEntry())),
                 icon: const AppIcon(Icons.add_rounded, size: 18),
-                label: const Text('Add category'),
+                label: const Text.localized('Add category'),
               ),
             ),
             const Divider(height: 20),
@@ -1673,14 +1672,14 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     if (_isHybrid) {
       if (_hybridLegs.any((r) => r.accountId == null)) {
         messenger.showSnackBar(
-          const SnackBar(content: Text('Choose an account for every leg')),
+          const SnackBar(content: Text.localized('Choose an account for every leg')),
         );
         return;
       }
       if (_hybridLegs.any((r) => !r.amount.isPositive)) {
         messenger.showSnackBar(
           const SnackBar(
-            content: Text('Every leg needs an amount greater than zero'),
+            content: Text.localized('Every leg needs an amount greater than zero'),
           ),
         );
         return;
@@ -1752,13 +1751,13 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     if (_isChange) {
       if (_changeAccountId == null) {
         messenger.showSnackBar(
-          const SnackBar(content: Text('Choose where the change goes')),
+          const SnackBar(content: Text.localized('Choose where the change goes')),
         );
         return;
       }
       if (!_changeAmount.isPositive) {
         messenger.showSnackBar(
-          const SnackBar(content: Text('Enter how much change goes there')),
+          const SnackBar(content: Text.localized('Enter how much change goes there')),
         );
         return;
       }
@@ -1802,14 +1801,14 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     if (_type == TxType.transfer) {
       if (_toAccountId == null) {
         messenger.showSnackBar(
-          const SnackBar(content: Text('Choose the account to transfer to')),
+          const SnackBar(content: Text.localized('Choose the account to transfer to')),
         );
         return;
       }
       if (_toAccountId == _accountId) {
         messenger.showSnackBar(
           const SnackBar(
-            content: Text('Transfer must be between two different accounts'),
+            content: Text.localized('Transfer must be between two different accounts'),
           ),
         );
         return;
@@ -1836,14 +1835,14 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     } else if (_isSplitting) {
       if (_splitRows.any((r) => r.categoryId == null)) {
         messenger.showSnackBar(
-          const SnackBar(content: Text('Choose a category for every split')),
+          const SnackBar(content: Text.localized('Choose a category for every split')),
         );
         return;
       }
       if (_splitRows.any((r) => !r.amount.isPositive)) {
         messenger.showSnackBar(
           const SnackBar(
-            content: Text('Every split needs an amount greater than zero'),
+            content: Text.localized('Every split needs an amount greater than zero'),
           ),
         );
         return;
@@ -1870,7 +1869,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     if (_isForeignCurrency &&
         (_foreignCurrencyCode == null || !_foreignAmount.isPositive)) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('Choose a currency and enter its amount')),
+        const SnackBar(content: Text.localized('Choose a currency and enter its amount')),
       );
       return;
     }
@@ -2115,7 +2114,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                               ),
                               ButtonSegment(
                                 value: TxType.transfer,
-                                label: Text('Transfer'),
+                                label: Text.localized('Transfer'),
                               ),
                             ],
                             selected: {_type},
@@ -2498,8 +2497,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                             style: theme.textTheme.bodyLarge,
                           ),
                           if (person != null)
-                            Text(
-                              'Person · not counted in owe/due',
+                            Text.localized('Person · not counted in owe/due',
                               style: theme.textTheme.bodySmall?.copyWith(
                                 color: theme.colorScheme.onSurfaceVariant,
                               ),
@@ -2753,8 +2751,7 @@ class _AccountPickerSheet extends ConsumerWidget {
                   if (list.isEmpty) {
                     return Padding(
                       padding: const EdgeInsets.all(32),
-                      child: Text(
-                        'No accounts available',
+                      child: Text.localized('No accounts available',
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
@@ -2853,8 +2850,7 @@ class _CategoryPickerSheetState extends ConsumerState<_CategoryPickerSheet> {
     if (cats.isEmpty) {
       return Padding(
         padding: const EdgeInsets.all(32),
-        child: Text(
-          'No categories yet',
+        child: Text.localized('No categories yet',
           style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),

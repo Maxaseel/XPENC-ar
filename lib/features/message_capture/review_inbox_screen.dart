@@ -37,7 +37,7 @@ class ReviewInboxScreen extends ConsumerWidget {
     final pendingAsync = ref.watch(allPendingProvider);
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Review Inbox')),
+      appBar: AppTopBar(title: const Text.localized('Review Inbox')),
       body: pendingAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(
@@ -86,8 +86,7 @@ class ReviewInboxScreen extends ConsumerWidget {
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(28, 16, 28, 32),
-                  child: Text(
-                    'Low-confidence messages never post by themselves.',
+                  child: Text.localized('Low-confidence messages never post by themselves.',
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
@@ -140,13 +139,11 @@ class _EmptyInbox extends StatelessWidget {
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
                 const SizedBox(height: 16),
-                Text(
-                  'Nothing to review.',
+                Text.localized('Nothing to review.',
                   style: theme.textTheme.titleMedium,
                 ),
                 const SizedBox(height: 8),
-                Text(
-                  'Bank-SMS auto-capture is coming soon — cards detected by '
+                Text.localized('Bank-SMS auto-capture is coming soon — cards detected by '
                   'earlier versions appear here until then.',
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodySmall?.copyWith(
@@ -178,7 +175,7 @@ class PendingCard extends ConsumerWidget {
     final messenger = ScaffoldMessenger.of(context);
     await ref.read(dbProvider).undoPending(pending.id);
     messenger.showSnackBar(
-      const SnackBar(content: Text('Undone — transaction reversed')),
+      const SnackBar(content: Text.localized('Undone — transaction reversed')),
     );
   }
 
@@ -188,7 +185,7 @@ class PendingCard extends ConsumerWidget {
     db.setPendingStatus(pending.id, PendingStatus.dismissed);
     messenger.showSnackBar(
       SnackBar(
-        content: const Text('Dismissed'),
+        content: const Text.localized('Dismissed'),
         action: SnackBarAction(
           label: 'Undo',
           onPressed: () =>
@@ -341,7 +338,7 @@ class PendingCard extends ConsumerWidget {
           text: 'Auto-filled — already added. Tap Undo if this is wrong.',
           action: TextButton(
             onPressed: () => _undo(context, ref),
-            child: const Text('Undo'),
+            child: const Text.localized('Undo'),
           ),
         );
       case PendingStatus.duplicate:
@@ -351,7 +348,7 @@ class PendingCard extends ConsumerWidget {
           text: 'Looks like a duplicate of another message',
           action: TextButton(
             onPressed: () => _notDuplicate(ref),
-            child: const Text('Not a duplicate'),
+            child: const Text.localized('Not a duplicate'),
           ),
         );
       case PendingStatus.pending:
@@ -360,13 +357,13 @@ class PendingCard extends ConsumerWidget {
             Expanded(
               child: FilledButton(
                 onPressed: () => _openApproveSheet(context),
-                child: const Text('Categorise'),
+                child: const Text.localized('Categorise'),
               ),
             ),
             const SizedBox(width: 8),
             TextButton(
               onPressed: () => _dismiss(context, ref),
-              child: const Text('Dismiss'),
+              child: const Text.localized('Dismiss'),
             ),
           ],
         );
@@ -514,13 +511,13 @@ class _ApproveSheetState extends ConsumerState<_ApproveSheet> {
 
     if (accountId == null) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('Choose an account')),
+        const SnackBar(content: Text.localized('Choose an account')),
       );
       return;
     }
     if (categoryId == null) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('Choose a category')),
+        const SnackBar(content: Text.localized('Choose a category')),
       );
       return;
     }
@@ -543,7 +540,7 @@ class _ApproveSheetState extends ConsumerState<_ApproveSheet> {
     }
 
     navigator.pop();
-    messenger.showSnackBar(const SnackBar(content: Text('Added')));
+    messenger.showSnackBar(const SnackBar(content: Text.localized('Added')));
   }
 
   @override
@@ -566,8 +563,7 @@ class _ApproveSheetState extends ConsumerState<_ApproveSheet> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                'Categorise this transaction',
+              Text.localized('Categorise this transaction',
                 style: theme.textTheme.titleLarge,
               ),
               const SizedBox(height: 16),
@@ -589,8 +585,7 @@ class _ApproveSheetState extends ConsumerState<_ApproveSheet> {
                 ],
               ),
               const SizedBox(height: 20),
-              Text(
-                'Payee',
+              Text.localized('Payee',
                 style: theme.textTheme.titleSmall
                     ?.copyWith(color: cs.onSurfaceVariant),
               ),
@@ -604,16 +599,14 @@ class _ApproveSheetState extends ConsumerState<_ApproveSheet> {
                 onChanged: (_) => setState(() {}),
               ),
               const SizedBox(height: 20),
-              Text(
-                'Account',
+              Text.localized('Account',
                 style: theme.textTheme.titleSmall
                     ?.copyWith(color: cs.onSurfaceVariant),
               ),
               const SizedBox(height: 8),
               _accountPicker(theme),
               const SizedBox(height: 20),
-              Text(
-                'Category',
+              Text.localized('Category',
                 style: theme.textTheme.titleSmall
                     ?.copyWith(color: cs.onSurfaceVariant),
               ),
@@ -658,8 +651,7 @@ class _ApproveSheetState extends ConsumerState<_ApproveSheet> {
             .where((a) => a.type != AccountType.goal)
             .toList();
         if (accounts.isEmpty) {
-          return Text(
-            'No accounts yet — add one first.',
+          return Text.localized('No accounts yet — add one first.',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -723,8 +715,7 @@ class _ApproveSheetState extends ConsumerState<_ApproveSheet> {
       ),
       data: (cats) {
         if (cats.isEmpty) {
-          return Text(
-            'No categories yet.',
+          return Text.localized('No categories yet.',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -796,8 +787,7 @@ class _ApproveSheetState extends ConsumerState<_ApproveSheet> {
         onChanged: (v) => setState(() => _remember = v ?? false),
         controlAffinity: ListTileControlAffinity.leading,
         title: Text('Remember: always categorise "$_merchant" as this'),
-        subtitle: Text(
-          'Next time this is auto-filled for you. The card still appears so '
+        subtitle: Text.localized('Next time this is auto-filled for you. The card still appears so '
           'you can check it.',
           style: theme.textTheme.bodySmall?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,

@@ -21,7 +21,7 @@ class CategoryTemplatesScreen extends ConsumerWidget {
     final templatesAsync = ref.watch(categoryTemplatesProvider);
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Category templates')),
+      appBar: AppTopBar(title: const Text.localized('Category templates')),
       body: templatesAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (_, _) => const Center(
@@ -33,8 +33,7 @@ class CategoryTemplatesScreen extends ConsumerWidget {
         data: (templates) => ListView(
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 96).plusNavBar(context),
           children: [
-            Text(
-              'A template is a saved snapshot of your category and '
+            Text.localized('A template is a saved snapshot of your category and '
               'sub-category structure. Save your current one before trying '
               'a reorganization, or switch to another template any time — '
               "past transactions always keep the category they're already "
@@ -56,8 +55,7 @@ class CategoryTemplatesScreen extends ConsumerWidget {
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
                     const SizedBox(height: 16),
-                    Text(
-                      'No templates saved yet — tap + to save your current '
+                    Text.localized('No templates saved yet — tap + to save your current '
                       'categories as one.',
                       textAlign: TextAlign.center,
                       style: theme.textTheme.bodyMedium?.copyWith(
@@ -137,7 +135,7 @@ class _TemplateTile extends ConsumerWidget {
         itemBuilder: (_) => const [
           PopupMenuItem(
             value: _TemplateAction.apply,
-            child: Text('Switch to this template'),
+            child: Text.localized('Switch to this template'),
           ),
           PopupMenuItem(value: _TemplateAction.rename, child: Text.localized('Rename')),
           PopupMenuItem(value: _TemplateAction.delete, child: Text.localized('Delete')),
@@ -224,8 +222,7 @@ Future<void> _applyTemplate(
     context: context,
     builder: (dialogContext) => AlertDialog(
       title: Text('Switch to "${template.name}"?'),
-      content: const Text(
-        'Categories not in this template are archived, not deleted — every '
+      content: const Text.localized('Categories not in this template are archived, not deleted — every '
         "transaction keeps the category it's already tagged with, and "
         'switching back later brings the same categories back. Categories '
         'this template adds are created fresh.',
@@ -237,7 +234,7 @@ Future<void> _applyTemplate(
         ),
         FilledButton(
           onPressed: () => Navigator.of(dialogContext).pop(true),
-          child: const Text('Switch'),
+          child: const Text.localized('Switch'),
         ),
       ],
     ),
@@ -268,8 +265,7 @@ Future<void> _deleteTemplate(
     context: context,
     builder: (dialogContext) => AlertDialog(
       title: Text('Delete "${template.name}"?'),
-      content: const Text(
-        'This only deletes the saved template — your current categories '
+      content: const Text.localized('This only deletes the saved template — your current categories '
         'and every transaction are untouched.',
       ),
       actions: [

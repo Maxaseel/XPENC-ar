@@ -85,8 +85,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text.localized('Mark as paid'),
-        content: const Text(
-          'This will not post anything by itself. '
+        content: const Text.localized('This will not post anything by itself. '
           'Confirm to record the transaction.',
         ),
         actions: [
@@ -96,7 +95,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           ),
           FilledButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('Confirm'),
+            child: const Text.localized('Confirm'),
           ),
         ],
       ),
@@ -108,14 +107,13 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       await ref.read(dbProvider).setReminderStatus(id, ReminderStatus.done);
     } catch (_) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('Could not update reminder')),
+        const SnackBar(content: Text.localized('Could not update reminder')),
       );
       return;
     }
     messenger.showSnackBar(
       const SnackBar(
-        content: Text(
-          "Marked done — add the transaction from + when you're ready.",
+        content: Text.localized("Marked done — add the transaction from + when you're ready.",
         ),
       ),
     );
@@ -125,10 +123,10 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     final messenger = ScaffoldMessenger.of(context);
     try {
       await ref.read(dbProvider).deleteReminder(id);
-      messenger.showSnackBar(const SnackBar(content: Text('Reminder deleted')));
+      messenger.showSnackBar(const SnackBar(content: Text.localized('Reminder deleted')));
     } catch (_) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('Could not delete reminder')),
+        const SnackBar(content: Text.localized('Could not delete reminder')),
       );
     }
   }
@@ -192,7 +190,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
 
     return Scaffold(
       appBar: AppTopBar(
-        title: const Text('Calendar'),
+        title: const Text.localized('Calendar'),
         actions: [
           if (!_onCurrentMonth)
             IconButton(
@@ -290,8 +288,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
               expenseByDay[_selectedDay!],
             ),
           const SizedBox(height: 20),
-          Text(
-            'Reminders never post money on their own — you confirm each one.',
+          Text.localized('Reminders never post money on their own — you confirm each one.',
             textAlign: TextAlign.center,
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
@@ -910,7 +907,7 @@ class _ReminderSheetState extends ConsumerState<_ReminderSheet> {
     final messenger = ScaffoldMessenger.of(context);
     final title = _titleCtrl.text.trim();
     if (title.isEmpty) {
-      messenger.showSnackBar(const SnackBar(content: Text('Enter a title')));
+      messenger.showSnackBar(const SnackBar(content: Text.localized('Enter a title')));
       return;
     }
 
@@ -939,7 +936,7 @@ class _ReminderSheetState extends ConsumerState<_ReminderSheet> {
           );
     } catch (_) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('Could not save reminder')),
+        const SnackBar(content: Text.localized('Could not save reminder')),
       );
       return;
     }
@@ -976,8 +973,7 @@ class _ReminderSheetState extends ConsumerState<_ReminderSheet> {
               ),
             ),
           ),
-          Text(
-            'New reminder',
+          Text.localized('New reminder',
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.w700,
             ),
@@ -1004,12 +1000,12 @@ class _ReminderSheetState extends ConsumerState<_ReminderSheet> {
             segments: const [
               ButtonSegment(
                 value: ReminderDirection.pay,
-                label: Text('Pay'),
+                label: Text.localized('Pay'),
                 icon: AppIcon(Icons.arrow_upward_rounded),
               ),
               ButtonSegment(
                 value: ReminderDirection.receive,
-                label: Text('Receive'),
+                label: Text.localized('Receive'),
                 icon: AppIcon(Icons.arrow_downward_rounded),
               ),
             ],
@@ -1030,8 +1026,7 @@ class _ReminderSheetState extends ConsumerState<_ReminderSheet> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Due date',
+                        Text.localized('Due date',
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: cs.onSurfaceVariant,
                           ),
@@ -1070,7 +1065,7 @@ class _ReminderSheetState extends ConsumerState<_ReminderSheet> {
             onPressed: _save,
             child: const Padding(
               padding: EdgeInsets.symmetric(vertical: 4),
-              child: Text('Save reminder'),
+              child: Text.localized('Save reminder'),
             ),
           ),
         ],

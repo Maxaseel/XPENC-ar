@@ -210,7 +210,7 @@ class _IconPickerSheetState extends ConsumerState<_IconPickerSheet> {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
-              child: Text('Icon', style: theme.textTheme.titleLarge),
+              child: Text.localized('Icon', style: theme.textTheme.titleLarge),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),

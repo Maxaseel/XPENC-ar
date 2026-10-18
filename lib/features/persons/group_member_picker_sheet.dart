@@ -135,7 +135,7 @@ class _GroupMemberPickerSheetState
               child: Row(
                 children: [
                   Expanded(
-                    child: Text('Members', style: theme.textTheme.titleLarge),
+                    child: Text.localized('Members', style: theme.textTheme.titleLarge),
                   ),
                   TextButton(
                     onPressed: _saving ? null : _done,
@@ -163,7 +163,7 @@ class _GroupMemberPickerSheetState
                           OutlinedButton.icon(
                             onPressed: () => _addFromContacts(everyone),
                             icon: const AppIcon(Icons.contacts_outlined),
-                            label: const Text('Add from contacts'),
+                            label: const Text.localized('Add from contacts'),
                           ),
                           if (_notice != null) ...[
                             const SizedBox(height: 8),
@@ -199,8 +199,7 @@ class _GroupMemberPickerSheetState
                           ],
                           _label(theme, 'People'),
                           if (active.isEmpty)
-                            Text(
-                              'No people yet: add someone from your contacts '
+                            Text.localized('No people yet: add someone from your contacts '
                               'above.',
                               style: theme.textTheme.bodyMedium?.copyWith(
                                 color: cs.onSurfaceVariant,
@@ -210,8 +209,7 @@ class _GroupMemberPickerSheetState
                             _chips(active),
                           if (archived.isNotEmpty) ...[
                             _label(theme, 'Archived'),
-                            Text(
-                              'Adding someone archived moves them back to '
+                            Text.localized('Adding someone archived moves them back to '
                               'your Individual list.',
                               style: theme.textTheme.bodySmall?.copyWith(
                                 color: cs.onSurfaceVariant,

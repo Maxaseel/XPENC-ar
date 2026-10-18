@@ -35,12 +35,11 @@ class ShoppingListsScreen extends ConsumerWidget {
     final summaries = ref.watch(shoppingListSummaryProvider);
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Shopping Lists')),
+      appBar: AppTopBar(title: const Text.localized('Shopping Lists')),
       body: listsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (_, _) => Center(
-          child: Text(
-            "Couldn't load your shopping lists.",
+          child: Text.localized("Couldn't load your shopping lists.",
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -58,8 +57,7 @@ class ShoppingListsScreen extends ConsumerWidget {
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
                   const SizedBox(height: 16),
-                  Text(
-                    'No shopping lists yet — tap + to start one.',
+                  Text.localized('No shopping lists yet — tap + to start one.',
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
@@ -178,7 +176,7 @@ Future<void> _confirmDeleteList(
     context: context,
     builder: (dialogContext) => AlertDialog(
       title: Text('Delete "${list.name}"?'),
-      content: const Text('This removes the list and everything on it.'),
+      content: const Text.localized('This removes the list and everything on it.'),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(dialogContext).pop(false),
@@ -199,7 +197,7 @@ Future<void> _confirmDeleteList(
   await ref.read(dbProvider).deleteShoppingList(list.id);
   messenger
     ..hideCurrentSnackBar()
-    ..showSnackBar(const SnackBar(content: Text('List deleted')));
+    ..showSnackBar(const SnackBar(content: Text.localized('List deleted')));
 }
 
 Future<void> _openListEditor(

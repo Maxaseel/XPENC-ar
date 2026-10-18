@@ -178,7 +178,7 @@ class _ShareImageScreenState extends State<ShareImageScreen> {
                                     ),
                                   )
                                 : const AppIcon(Icons.ios_share_rounded),
-                            label: const Text('Share image'),
+                            label: const Text.localized('Share image'),
                           ),
                         ),
                       ],

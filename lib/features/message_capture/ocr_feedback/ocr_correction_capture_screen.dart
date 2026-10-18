@@ -87,7 +87,7 @@ class _OcrCorrectionCaptureScreenState
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(
-          const SnackBar(content: Text("Couldn't read that image")),
+          const SnackBar(content: Text.localized("Couldn't read that image")),
         );
       return;
     }
@@ -148,15 +148,14 @@ class _OcrCorrectionCaptureScreenState
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Test a screenshot')),
+      appBar: AppTopBar(title: const Text.localized('Test a screenshot')),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
               padding: const EdgeInsets.all(20).plusNavBar(context),
               children: [
                 if (_rawText == null) ...[
-                  Text(
-                    "Pick a screenshot of a payment app's confirmation "
+                  Text.localized("Pick a screenshot of a payment app's confirmation "
                     'screen. It is read on-device, entirely offline.',
                     style: theme.textTheme.bodyMedium,
                   ),
@@ -164,7 +163,7 @@ class _OcrCorrectionCaptureScreenState
                   FilledButton.icon(
                     onPressed: _pickAndRecognize,
                     icon: const AppIcon(Icons.image_outlined),
-                    label: const Text('Choose screenshot'),
+                    label: const Text.localized('Choose screenshot'),
                   ),
                 ] else ...[
                   Wrap(
@@ -185,7 +184,7 @@ class _OcrCorrectionCaptureScreenState
                   ),
                   const SizedBox(height: 16),
                   ExpansionTile(
-                    title: const Text('Raw OCR text'),
+                    title: const Text.localized('Raw OCR text'),
                     initiallyExpanded: _rawText!.isEmpty,
                     children: [
                       Padding(
@@ -228,18 +227,18 @@ class _OcrCorrectionCaptureScreenState
                   if (!_showCorrectionFields) ...[
                     FilledButton(
                       onPressed: () => _save(wasCorrect: true),
-                      child: const Text('This is correct'),
+                      child: const Text.localized('This is correct'),
                     ),
                     const SizedBox(height: 8),
                     OutlinedButton(
                       onPressed: () =>
                           setState(() => _showCorrectionFields = true),
-                      child: const Text("This is wrong — let me fix it"),
+                      child: const Text.localized("This is wrong — let me fix it"),
                     ),
                   ] else
                     FilledButton(
                       onPressed: () => _save(wasCorrect: false),
-                      child: const Text('Save correction'),
+                      child: const Text.localized('Save correction'),
                     ),
                 ],
               ],

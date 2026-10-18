@@ -34,8 +34,8 @@ class GroupDetailScreen extends ConsumerWidget {
       loading: () =>
           const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (error, _) => Scaffold(
-        appBar: AppTopBar(title: const Text('Group')),
-        body: const Center(child: Text('Something went wrong')),
+        appBar: AppTopBar(title: const Text.localized('Group')),
+        body: const Center(child: Text.localized('Something went wrong')),
       ),
       data: (groups) {
         GroupRow? group;
@@ -47,8 +47,8 @@ class GroupDetailScreen extends ConsumerWidget {
         }
         if (group == null) {
           return Scaffold(
-            appBar: AppTopBar(title: const Text('Group')),
-            body: const Center(child: Text('Group not found')),
+            appBar: AppTopBar(title: const Text.localized('Group')),
+            body: const Center(child: Text.localized('Group not found')),
           );
         }
         return _buildScaffold(context, ref, group);
@@ -101,7 +101,7 @@ class GroupDetailScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.push('/group/${group.id}/add-expense'),
         icon: const AppIcon(Icons.add_rounded),
-        label: const Text('Add expense'),
+        label: const Text.localized('Add expense'),
       ),
       body: CustomScrollView(
         slivers: [
@@ -117,8 +117,7 @@ class GroupDetailScreen extends ConsumerWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: Text(
-                      'MEMBERS',
+                    child: Text.localized('MEMBERS',
                       style: theme.textTheme.labelSmall?.copyWith(
                         color: cs.onSurfaceVariant,
                         fontWeight: FontWeight.w700,
@@ -146,8 +145,7 @@ class GroupDetailScreen extends ConsumerWidget {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
-                child: Text(
-                  'No members yet — tap Edit to add some.',
+                child: Text.localized('No members yet — tap Edit to add some.',
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: cs.onSurfaceVariant,
                   ),
@@ -175,8 +173,7 @@ class GroupDetailScreen extends ConsumerWidget {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(24, 14, 24, 6),
-              child: Text(
-                'EXPENSE HISTORY',
+              child: Text.localized('EXPENSE HISTORY',
                 style: theme.textTheme.labelSmall?.copyWith(
                   color: cs.onSurfaceVariant,
                   fontWeight: FontWeight.w700,
@@ -196,8 +193,7 @@ class GroupDetailScreen extends ConsumerWidget {
               child: Padding(
                 padding: const EdgeInsets.all(32),
                 child: Center(
-                  child: Text(
-                    "Couldn't load history",
+                  child: Text.localized("Couldn't load history",
                     style: TextStyle(color: cs.error),
                   ),
                 ),
@@ -208,7 +204,7 @@ class GroupDetailScreen extends ConsumerWidget {
                 return const SliverToBoxAdapter(
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(20, 8, 20, 96),
-                    child: Center(child: Text('No expenses yet.')),
+                    child: Center(child: Text.localized('No expenses yet.')),
                   ),
                 );
               }
@@ -260,7 +256,7 @@ class GroupDetailScreen extends ConsumerWidget {
     final saved = await showAppDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Edit group'),
+        title: const Text.localized('Edit group'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -376,7 +372,7 @@ class _GroupBalanceHero extends StatelessWidget {
               TextButton.icon(
                 onPressed: onSeeAll,
                 icon: const AppIcon(Icons.open_in_full_rounded, size: 16),
-                label: const Text('Who owes whom'),
+                label: const Text.localized('Who owes whom'),
               ),
             ],
           ),
@@ -485,9 +481,8 @@ class _ExpenseRow extends ConsumerWidget {
     final confirmed = await showAppDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Delete this expense?'),
-        content: const Text(
-          "This reverses every share it created — anyone owed money for it "
+        title: const Text.localized('Delete this expense?'),
+        content: const Text.localized("This reverses every share it created — anyone owed money for it "
           "won't be anymore. This can't be undone.",
         ),
         actions: [
@@ -511,6 +506,6 @@ class _ExpenseRow extends ConsumerWidget {
     if (!context.mounted) return;
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Expense deleted')));
+      ..showSnackBar(const SnackBar(content: Text.localized('Expense deleted')));
   }
 }

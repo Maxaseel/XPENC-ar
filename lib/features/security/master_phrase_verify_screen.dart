@@ -43,7 +43,7 @@ class _MasterPhraseVerifyScreenState
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
-        const SnackBar(content: Text('Master recovery phrase turned off')),
+        const SnackBar(content: Text.localized('Master recovery phrase turned off')),
       );
   }
 
@@ -51,15 +51,14 @@ class _MasterPhraseVerifyScreenState
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Turn off recovery phrase')),
+      appBar: AppTopBar(title: const Text.localized('Turn off recovery phrase')),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Enter your master recovery phrase to turn this off.',
+              Text.localized('Enter your master recovery phrase to turn this off.',
                 style: theme.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20),

@@ -24,11 +24,11 @@ class OcrCorrectionScreen extends ConsumerWidget {
     final sent = ref.watch(sentOcrCorrectionsProvider).valueOrNull ?? const [];
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('OCR corrections')),
+      appBar: AppTopBar(title: const Text.localized('OCR corrections')),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.push('/more/capture/ocr-feedback/new'),
         icon: const AppIcon(Icons.add),
-        label: const Text('Test a screenshot'),
+        label: const Text.localized('Test a screenshot'),
       ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 100).plusNavBar(context),
@@ -36,8 +36,7 @@ class OcrCorrectionScreen extends ConsumerWidget {
           AppCard(
             child: Padding(
               padding: const EdgeInsets.all(16),
-              child: Text(
-                'Optional and entirely on-device. Pick a screenshot to see '
+              child: Text.localized('Optional and entirely on-device. Pick a screenshot to see '
                 "what OCR reads and mark whether it's right. Sharing a "
                 'correction hands over only the extracted text — never the '
                 'image — to ${AppInfo.feedbackEmail}, and only if you tap '
@@ -53,8 +52,7 @@ class OcrCorrectionScreen extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 40),
               child: Center(
-                child: Text(
-                  'No corrections yet',
+                child: Text.localized('No corrections yet',
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -86,8 +84,7 @@ class OcrCorrectionScreen extends ConsumerWidget {
           if (sent.isNotEmpty) ...[
             Padding(
               padding: const EdgeInsets.fromLTRB(4, 20, 4, 10),
-              child: Text(
-                'SENT',
+              child: Text.localized('SENT',
                 style: theme.textTheme.labelSmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                   fontWeight: FontWeight.w700,
@@ -122,8 +119,7 @@ class OcrCorrectionScreen extends ConsumerWidget {
                         ..hideCurrentSnackBar()
                         ..showSnackBar(
                           const SnackBar(
-                            content: Text(
-                              "Couldn't open anything to send this — your "
+                            content: Text.localized("Couldn't open anything to send this — your "
                               'corrections are still saved, try again later.',
                             ),
                           ),
@@ -134,7 +130,7 @@ class OcrCorrectionScreen extends ConsumerWidget {
                     messenger
                       ..hideCurrentSnackBar()
                       ..showSnackBar(
-                        const SnackBar(content: Text('Opened for sending')),
+                        const SnackBar(content: Text.localized('Opened for sending')),
                       );
                   },
                   child: Text(

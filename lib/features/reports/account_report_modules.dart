@@ -632,9 +632,9 @@ class _HistoryBodyState extends ConsumerState<_HistoryBody> {
             const SizedBox(height: 12),
             SegmentedButton<int>(
               segments: const [
-                ButtonSegment(value: 6, label: Text('6 months')),
-                ButtonSegment(value: 12, label: Text('1 year')),
-                ButtonSegment(value: 24, label: Text('2 years')),
+                ButtonSegment(value: 6, label: Text.localized('6 months')),
+                ButtonSegment(value: 12, label: Text.localized('1 year')),
+                ButtonSegment(value: 24, label: Text.localized('2 years')),
               ],
               selected: {_months},
               showSelectedIcon: false,

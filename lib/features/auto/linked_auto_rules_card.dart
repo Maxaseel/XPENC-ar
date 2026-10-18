@@ -65,7 +65,7 @@ class LinkedAutoRulesCard extends ConsumerWidget {
                 if (rules.isNotEmpty)
                   TextButton(
                     onPressed: () => _setUp(context),
-                    child: const Text('Add'),
+                    child: const Text.localized('Add'),
                   ),
               ],
             ),

@@ -71,8 +71,7 @@ class _AddChoiceSheet extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  'New transaction',
+                child: Text.localized('New transaction',
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
@@ -81,8 +80,8 @@ class _AddChoiceSheet extends ConsumerWidget {
             ),
             AppListTile(
               leading: const AppIcon(Icons.add_circle_outline_rounded),
-              title: const Text('Start from scratch'),
-              subtitle: const Text('A blank transaction.'),
+              title: const Text.localized('Start from scratch'),
+              subtitle: const Text.localized('A blank transaction.'),
               onTap: () =>
                   Navigator.of(context).pop(const _AddChoiceResult.blank()),
             ),
@@ -91,8 +90,7 @@ class _AddChoiceSheet extends ConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(20, 12, 20, 4),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    'TEMPLATES',
+                  child: Text.localized('TEMPLATES',
                     style: theme.textTheme.labelSmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                       fontWeight: FontWeight.w700,
@@ -141,8 +139,7 @@ class _AddChoiceSheet extends ConsumerWidget {
       context: context,
       builder: (dialogContext) => AlertDialog(
         title: Text('Delete "${t.name}"?'),
-        content: const Text(
-          "This only removes the template — transactions already made from "
+        content: const Text.localized("This only removes the template — transactions already made from "
           "it are untouched.",
         ),
         actions: [

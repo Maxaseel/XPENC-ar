@@ -152,11 +152,11 @@ class _TransactionFiltersSheetState
               child: Row(
                 children: [
                   Expanded(
-                    child: Text('Filters', style: theme.textTheme.titleLarge),
+                    child: Text.localized('Filters', style: theme.textTheme.titleLarge),
                   ),
                   TextButton(
                     onPressed: _clearAll,
-                    child: const Text('Clear all'),
+                    child: const Text.localized('Clear all'),
                   ),
                 ],
               ),
@@ -179,7 +179,7 @@ class _TransactionFiltersSheetState
                           ),
                           ButtonSegment(
                             value: _DateFilterMode.week,
-                            label: Text('Week'),
+                            label: Text.localized('Week'),
                           ),
                         ],
                         selected: {_dateMode},
@@ -233,7 +233,7 @@ class _TransactionFiltersSheetState
                             _dateRange = null;
                             _dateMode = _DateFilterMode.custom;
                           }),
-                          child: const Text('Clear date range'),
+                          child: const Text.localized('Clear date range'),
                         ),
                       ),
                     if (accounts.isNotEmpty) ...[
@@ -318,7 +318,7 @@ class _TransactionFiltersSheetState
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
               child: FilledButton(
                 onPressed: _apply,
-                child: const Text('Apply'),
+                child: const Text.localized('Apply'),
               ),
             ),
           ],

@@ -22,7 +22,7 @@ class ArchivedAutoRulesScreen extends ConsumerWidget {
     final rules = ref.watch(archivedRecurringRulesProvider);
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Archived auto rules')),
+      appBar: AppTopBar(title: const Text.localized('Archived auto rules')),
       body: rules.isEmpty
           ? Padding(
               padding: const EdgeInsets.fromLTRB(32, 48, 32, 24),
@@ -34,8 +34,7 @@ class ArchivedAutoRulesScreen extends ConsumerWidget {
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
                   const SizedBox(height: 16),
-                  Text(
-                    'No paused auto rules.',
+                  Text.localized('No paused auto rules.',
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
@@ -88,8 +87,7 @@ class _ArchivedRuleTile extends ConsumerWidget {
         overflow: TextOverflow.ellipsis,
         style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
       ),
-      subtitle: Text(
-        'Paused',
+      subtitle: Text.localized('Paused',
         style: theme.textTheme.bodySmall?.copyWith(
           color: theme.colorScheme.onSurfaceVariant,
         ),

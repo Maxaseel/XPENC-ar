@@ -40,15 +40,13 @@ class BudgetStartDaySheet extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            'Budget cycle start day',
+          Text.localized('Budget cycle start day',
             style: theme.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.w700,
             ),
           ),
           const SizedBox(height: 8),
-          Text(
-            'Dashboard, Budgets and Stats will treat this day as the start '
+          Text.localized('Dashboard, Budgets and Stats will treat this day as the start '
             'of a "month" — pick the 1st for an ordinary calendar month, or '
             'e.g. your payday if you\'d rather track spending payday-to-'
             'payday.',

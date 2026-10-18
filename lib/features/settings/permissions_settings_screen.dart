@@ -79,7 +79,7 @@ class _PermissionsSettingsScreenState extends State<PermissionsSettingsScreen> {
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Open settings'),
+            child: const Text.localized('Open settings'),
           ),
         ],
       ),
@@ -97,7 +97,7 @@ class _PermissionsSettingsScreenState extends State<PermissionsSettingsScreen> {
     );
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Permissions')),
+      appBar: AppTopBar(title: const Text.localized('Permissions')),
       body: ListView(
         // Explicit padding drops ListView's nav-bar inset; re-add it (#137).
         padding: EdgeInsets.fromLTRB(
@@ -107,8 +107,7 @@ class _PermissionsSettingsScreenState extends State<PermissionsSettingsScreen> {
           32 + MediaQuery.of(context).padding.bottom,
         ),
         children: [
-          Text(
-            'Everything here is optional. A feature that needs a permission '
+          Text.localized('Everything here is optional. A feature that needs a permission '
             'asks the first time you use it, and works without it where it '
             'can.',
             style: muted?.copyWith(height: 1.5),
@@ -178,7 +177,7 @@ class _PermissionsSettingsScreenState extends State<PermissionsSettingsScreen> {
           OutlinedButton.icon(
             onPressed: () => AppPermissions.openSettings(),
             icon: const AppIcon(Icons.open_in_new_rounded, size: 18),
-            label: const Text('Open system app settings'),
+            label: const Text.localized('Open system app settings'),
           ),
         ],
       ),

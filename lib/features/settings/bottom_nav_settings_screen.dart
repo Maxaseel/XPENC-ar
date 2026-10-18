@@ -47,7 +47,7 @@ class BottomNavSettingsScreen extends ConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Customize bottom nav')),
+      appBar: AppTopBar(title: const Text.localized('Customize bottom nav')),
       body: ListView(
         // Explicit padding drops ListView's nav-bar inset; re-add it (#137).
         padding: EdgeInsets.fromLTRB(
@@ -57,8 +57,7 @@ class BottomNavSettingsScreen extends ConsumerWidget {
           32 + MediaQuery.of(context).padding.bottom,
         ),
         children: [
-          Text(
-            'Dashboard and More always stay put. Pick what goes in the two '
+          Text.localized('Dashboard and More always stay put. Pick what goes in the two '
             'slots next to the ➕ button.',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
@@ -84,9 +83,8 @@ class BottomNavSettingsScreen extends ConsumerWidget {
           AppCard(
             margin: EdgeInsets.zero,
             child: AppSwitchListTile(
-              title: const Text('Show labels'),
-              subtitle: const Text(
-                'Show each item\'s text under its icon. Off keeps icons only.',
+              title: const Text.localized('Show labels'),
+              subtitle: const Text.localized('Show each item\'s text under its icon. Off keeps icons only.',
               ),
               value: showLabels,
               onChanged: (v) => ref.read(dbProvider).setShowBottomNavLabels(v),
@@ -101,8 +99,7 @@ class BottomNavSettingsScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'On some phones the on-screen back/home buttons sit over '
+                  Text.localized('On some phones the on-screen back/home buttons sit over '
                     'the bottom nav bar or the PIN unlock keypad. Raise this '
                     'if either looks cut off or hard to tap.',
                     style: theme.textTheme.bodySmall?.copyWith(
@@ -113,8 +110,7 @@ class BottomNavSettingsScreen extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Extra space',
+                      Text.localized('Extra space',
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
@@ -183,8 +179,7 @@ class _PinnedRow extends StatelessWidget {
           const SizedBox(width: 10),
           Text(label, style: TextStyle(color: cs.onSurfaceVariant)),
           const Spacer(),
-          Text(
-            'Fixed',
+          Text.localized('Fixed',
             style: TextStyle(
               color: cs.onSurfaceVariant,
               fontWeight: FontWeight.w600,

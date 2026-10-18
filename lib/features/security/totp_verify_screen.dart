@@ -73,7 +73,7 @@ class _TotpVerifyScreenState extends ConsumerState<TotpVerifyScreen> {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
-        const SnackBar(content: Text('Authenticator app turned off')),
+        const SnackBar(content: Text.localized('Authenticator app turned off')),
       );
   }
 
@@ -81,15 +81,14 @@ class _TotpVerifyScreenState extends ConsumerState<TotpVerifyScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Turn off authenticator app')),
+      appBar: AppTopBar(title: const Text.localized('Turn off authenticator app')),
       body: SafeArea(
         child: Column(
           children: [
             const Spacer(flex: 2),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Text(
-                'Enter a current code from your authenticator app to turn '
+              child: Text.localized('Enter a current code from your authenticator app to turn '
                 'this off.',
                 style: theme.textTheme.bodyMedium,
                 textAlign: TextAlign.center,
@@ -97,8 +96,7 @@ class _TotpVerifyScreenState extends ConsumerState<TotpVerifyScreen> {
             ),
             const SizedBox(height: 18),
             if (_error)
-              Text(
-                'Wrong code',
+              Text.localized('Wrong code',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.error,
                 ),

@@ -88,8 +88,7 @@ class StatsScreen extends ConsumerWidget {
           const SizedBox(height: 12),
         ],
         const SizedBox(height: 12),
-        Text(
-          'Transfers between your own accounts are never counted as income '
+        Text.localized('Transfers between your own accounts are never counted as income '
           'or expense.',
           textAlign: TextAlign.center,
           style: theme.textTheme.bodySmall?.copyWith(
@@ -103,7 +102,7 @@ class StatsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppTopBar(
-        title: const Text('Stats'),
+        title: const Text.localized('Stats'),
         actions: [
           IconButton(
             icon: const AppIcon(Icons.picture_as_pdf_outlined),
@@ -151,7 +150,7 @@ Future<void> _downloadReport(
   final categories = ref.read(categoryMapProvider);
   messenger
     ..hideCurrentSnackBar()
-    ..showSnackBar(const SnackBar(content: Text('Generating report...')));
+    ..showSnackBar(const SnackBar(content: Text.localized('Generating report...')));
   try {
     final file = await service.writeIncomeExpenseReportPdf(
       start: start,

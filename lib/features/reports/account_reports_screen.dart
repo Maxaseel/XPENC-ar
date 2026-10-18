@@ -31,7 +31,7 @@ class AccountReportsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     const modules = AccountReportModule.values;
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Account Reports')),
+      appBar: AppTopBar(title: const Text.localized('Account Reports')),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 32).plusNavBar(context),
         children: [
@@ -151,8 +151,7 @@ class _HeroCard extends ConsumerWidget {
               ),
             ],
             const SizedBox(height: 8),
-            Text(
-              'Cash + Bank + Cards. Debit cards draw from their bank and are '
+            Text.localized('Cash + Bank + Cards. Debit cards draw from their bank and are '
               'never counted twice.',
               style: theme.textTheme.bodySmall?.copyWith(
                 color: cs.onSurfaceVariant,
@@ -246,8 +245,7 @@ class _AllAccountsList extends ConsumerWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 4, bottom: 10),
-          child: Text(
-            'All accounts',
+          child: Text.localized('All accounts',
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w700,
             ),
@@ -258,8 +256,7 @@ class _AllAccountsList extends ConsumerWidget {
             if (list.isEmpty) {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 24),
-                child: Text(
-                  'No accounts yet.',
+                child: Text.localized('No accounts yet.',
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),

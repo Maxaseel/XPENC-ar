@@ -106,7 +106,7 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
     final name = await showAppDialog<String>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Save as template'),
+        title: const Text.localized('Save as template'),
         content: TextField(
           controller: controller,
           autofocus: true,
@@ -181,7 +181,7 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
       );
     } catch (_) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('Could not delete transaction')),
+        const SnackBar(content: Text.localized('Could not delete transaction')),
       );
     }
   }
@@ -945,8 +945,8 @@ Future<void> _openQuickActions(
       if (!tx.type.isCorrection) ...[
         AppListTile(
           leading: const AppIcon(Icons.content_copy_outlined),
-          title: const Text('Duplicate'),
-          subtitle: const Text('Add a new transaction with these details'),
+          title: const Text.localized('Duplicate'),
+          subtitle: const Text.localized('Add a new transaction with these details'),
           onTap: () {
             Navigator.of(sheetContext).pop();
             context.push('/add?duplicate=${tx.id}');
@@ -954,8 +954,8 @@ Future<void> _openQuickActions(
         ),
         AppListTile(
           leading: const AppIcon(Icons.bookmark_add_outlined),
-          title: const Text('Save as template'),
-          subtitle: const Text('Reuse these details from the ➕ button'),
+          title: const Text.localized('Save as template'),
+          subtitle: const Text.localized('Reuse these details from the ➕ button'),
           onTap: () {
             Navigator.of(sheetContext).pop();
             onCreateTemplate(tx, title);
@@ -973,7 +973,7 @@ Future<void> _openQuickActions(
       AppListTile(
         leading: const AppIcon(Icons.ios_share_rounded),
         title: const Text.localized('Share'),
-        subtitle: const Text('As a PDF receipt or an image card'),
+        subtitle: const Text.localized('As a PDF receipt or an image card'),
         onTap: () {
           Navigator.of(sheetContext).pop();
           shareTransaction(context, tx);

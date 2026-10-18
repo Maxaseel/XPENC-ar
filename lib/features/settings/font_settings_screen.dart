@@ -34,7 +34,7 @@ class FontSettingsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppTopBar(
-        title: const Text('Font'),
+        title: const Text.localized('Font'),
         actions: [
           IconButton(
             tooltip: 'Reset to default',
@@ -70,8 +70,7 @@ class FontSettingsScreen extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Size',
+                      Text.localized('Size',
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: cs.onSurfaceVariant,
                         ),
@@ -127,8 +126,7 @@ class FontSettingsScreen extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Weight',
+                      Text.localized('Weight',
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: cs.onSurfaceVariant,
                         ),
@@ -244,10 +242,9 @@ class _PreviewCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Grocery Shopping', style: theme.textTheme.titleLarge),
+            Text.localized('Grocery Shopping', style: theme.textTheme.titleLarge),
             const SizedBox(height: 6),
-            Text(
-              'Food & Dining · Today',
+            Text.localized('Food & Dining · Today',
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: cs.onSurfaceVariant,
               ),

@@ -58,7 +58,7 @@ class GroupBalancesScreen extends ConsumerWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Who owes whom'),
+            const Text.localized('Who owes whom'),
             if (group != null)
               Text(
                 group.name,
@@ -277,8 +277,7 @@ class _PairSheet extends ConsumerWidget {
             ),
             if (involvesMe) ...[
               const SizedBox(height: 6),
-              Text(
-                'Includes any repayments recorded on '
+              Text.localized('Includes any repayments recorded on '
                 "${nameOf(a ?? b)}'s page, so it can be less than the "
                 'expenses below add up to.',
                 style: theme.textTheme.bodySmall?.copyWith(
@@ -346,8 +345,7 @@ class _Note extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           Expanded(
-            child: Text(
-              'Your own balances include your repayments. Balances between '
+            child: Text.localized('Your own balances include your repayments. Balances between '
               "other members are for reference — settle-ups between them "
               "can't be recorded yet.",
               style: theme.textTheme.bodySmall?.copyWith(

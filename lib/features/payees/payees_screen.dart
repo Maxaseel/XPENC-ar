@@ -35,7 +35,7 @@ class PayeesScreen extends ConsumerWidget {
         slivers: [
           if (embedded) const TopBarInsetSliver(),
           if (!embedded)
-            SliverAppBar(pinned: true, title: const Text('Payees')),
+            SliverAppBar(pinned: true, title: const Text.localized('Payees')),
           SliverToBoxAdapter(
             child: _TotalsHeader(net: net, count: summaries.length),
           ),
@@ -234,8 +234,7 @@ class _EmptyPayees extends StatelessWidget {
             color: theme.colorScheme.onSurfaceVariant,
           ),
           const SizedBox(height: 16),
-          Text(
-            'No payees yet — name one on an expense or income to see it here.',
+          Text.localized('No payees yet — name one on an expense or income to see it here.',
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,

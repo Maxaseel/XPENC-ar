@@ -31,8 +31,7 @@ class _NoData extends StatelessWidget {
     return SizedBox(
       height: height,
       child: Center(
-        child: Text(
-          'No data yet',
+        child: Text.localized('No data yet',
           style: theme.textTheme.bodyMedium
               ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
         ),
@@ -570,8 +569,7 @@ class _BudgetCenterLabel extends StatelessWidget {
           ),
           if (slice.overspent) ...[
             const SizedBox(height: 2),
-            Text(
-              'Over budget',
+            Text.localized('Over budget',
               style: theme.textTheme.labelSmall?.copyWith(
                 color: AppColors.expense,
                 fontWeight: FontWeight.w700,

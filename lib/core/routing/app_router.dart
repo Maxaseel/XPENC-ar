@@ -103,7 +103,7 @@ void showRecognizedTextDialog(String text) {
   showAppDialog<void>(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('Recognised text'),
+      title: const Text.localized('Recognised text'),
       content: SingleChildScrollView(
         child: SelectableText(
           text.trim().isEmpty ? '(nothing recognised)' : text,
@@ -113,7 +113,7 @@ void showRecognizedTextDialog(String text) {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Close'),
+          child: const Text.localized('Close'),
         ),
       ],
     ),

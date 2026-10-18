@@ -37,7 +37,7 @@ class TagsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppTopBar(
-        title: const Text('Tags'),
+        title: const Text.localized('Tags'),
         actions: [
           IconButton(
             icon: const AppIcon(Icons.workspaces_outline),
@@ -90,8 +90,7 @@ class TagsScreen extends ConsumerWidget {
                   ),
                 ),
               const SizedBox(height: 20),
-              Text(
-                'A transaction can carry any number of tags. Deleting a tag '
+              Text.localized('A transaction can carry any number of tags. Deleting a tag '
                 "just removes it from whatever it was on — nothing else changes.",
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodySmall?.copyWith(
@@ -128,8 +127,7 @@ class _EmptyTags extends StatelessWidget {
             color: theme.colorScheme.onSurfaceVariant,
           ),
           const SizedBox(height: 16),
-          Text(
-            'No tags yet — tap + to add one.',
+          Text.localized('No tags yet — tap + to add one.',
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
@@ -200,8 +198,7 @@ Future<void> _confirmDelete(
     context: context,
     builder: (dialogContext) => AlertDialog(
       title: Text('Delete "${tag.name}"?'),
-      content: const Text(
-        "This removes the tag from every transaction that carries it. "
+      content: const Text.localized("This removes the tag from every transaction that carries it. "
         "The transactions themselves aren't touched.",
       ),
       actions: [
@@ -224,7 +221,7 @@ Future<void> _confirmDelete(
   await ref.read(dbProvider).deleteTag(tag.id);
   messenger
     ..hideCurrentSnackBar()
-    ..showSnackBar(const SnackBar(content: Text('Tag deleted')));
+    ..showSnackBar(const SnackBar(content: Text.localized('Tag deleted')));
 }
 
 Future<void> _openTagEditor(BuildContext context, {TagRow? existing}) {

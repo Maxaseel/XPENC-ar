@@ -169,8 +169,7 @@ class XpencScoreCard extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'XPENC SCORE',
+                    Text.localized('XPENC SCORE',
                       style: theme.textTheme.labelSmall?.copyWith(
                         color: cs.onSurfaceVariant,
                         letterSpacing: 0.8,
@@ -205,8 +204,7 @@ class XpencScoreCard extends ConsumerWidget {
                     Row(
                       children: [
                         Flexible(
-                          child: Text(
-                            'See breakdown',
+                          child: Text.localized('See breakdown',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: theme.textTheme.labelLarge?.copyWith(
@@ -247,7 +245,7 @@ class XpencScoreScreen extends ConsumerWidget {
     final grade = result.grade;
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('XPENC Score')),
+      appBar: AppTopBar(title: const Text.localized('XPENC Score')),
       body: ledger.isLoading
           ? const StatsSectionLoader(height: 240)
           : ListView(
@@ -361,8 +359,7 @@ class XpencScoreScreen extends ConsumerWidget {
                           ),
                           const SizedBox(height: 12),
                         ],
-                        Text(
-                          'Rules with nothing to judge (no budgets, no loans) '
+                        Text.localized('Rules with nothing to judge (no budgets, no loans) '
                           'are left out and the rest scaled to 100, so you '
                           'are never marked down for a feature you don\'t '
                           'use. Transfers between your own accounts and money '
@@ -373,8 +370,7 @@ class XpencScoreScreen extends ConsumerWidget {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        Text(
-                          'Grades: 80+ Excellent · 65+ Good · 50+ Fair · '
+                        Text.localized('Grades: 80+ Excellent · 65+ Good · 50+ Fair · '
                           '35+ Needs work · below 35 At risk.',
                           style: theme.textTheme.bodySmall?.copyWith(
                             fontWeight: FontWeight.w600,
@@ -385,8 +381,7 @@ class XpencScoreScreen extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                Text(
-                  'Calculated on this device from your own records. Not a '
+                Text.localized('Calculated on this device from your own records. Not a '
                   'credit score, and never shared.',
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodySmall?.copyWith(

@@ -61,7 +61,7 @@ Future<void> importDataFromFile(
     if (!context.mounted) return;
     messenger
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text("Couldn't read that file.")));
+      ..showSnackBar(const SnackBar(content: Text.localized("Couldn't read that file.")));
     return;
   }
 
@@ -69,7 +69,7 @@ Future<void> importDataFromFile(
   final confirmed = await showAppDialog<bool>(
     context: context,
     builder: (dialogContext) => AlertDialog(
-      title: const Text('Import this file?'),
+      title: const Text.localized('Import this file?'),
       content: Text(
         'Importing "${file.name}" replaces ALL current data on this phone — '
         'every account, transaction, budget and person — with its contents. '
@@ -103,8 +103,7 @@ Future<void> importDataFromFile(
       ..hideCurrentSnackBar()
       ..showSnackBar(
         const SnackBar(
-          content: Text(
-            'Imported. A safety copy of your previous data was saved.',
+          content: Text.localized('Imported. A safety copy of your previous data was saved.',
           ),
         ),
       );

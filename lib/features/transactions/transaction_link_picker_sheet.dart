@@ -58,8 +58,7 @@ class _TransactionLinkPickerSheetState
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
-              child: Text(
-                'Link transaction',
+              child: Text.localized('Link transaction',
                 style: theme.textTheme.titleLarge,
               ),
             ),

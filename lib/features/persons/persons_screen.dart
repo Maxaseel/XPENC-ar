@@ -80,7 +80,7 @@ class _PersonsScreenState extends ConsumerState<PersonsScreen>
       FilledButton(
         onPressed: () =>
             Navigator.of(dialogContext).pop(controller.text.trim()),
-        child: const Text('Next'),
+        child: const Text.localized('Next'),
       ),
     ];
     final theme = Theme.of(context);
@@ -93,7 +93,7 @@ class _PersonsScreenState extends ConsumerState<PersonsScreen>
             theme.colorScheme.secondary,
         icon: const AppIcon(Icons.group_add_rounded),
         builder: (dialogContext) => MorphDialogBody(
-          title: const Text('New group'),
+          title: const Text.localized('New group'),
           content: field(dialogContext),
           actions: actions(dialogContext),
         ),
@@ -102,7 +102,7 @@ class _PersonsScreenState extends ConsumerState<PersonsScreen>
       name = await showAppDialog<String>(
         context: context,
         builder: (dialogContext) => AlertDialog(
-          title: const Text('New group'),
+          title: const Text.localized('New group'),
           content: field(dialogContext),
           actions: actions(dialogContext),
         ),
@@ -142,7 +142,7 @@ class _PersonsScreenState extends ConsumerState<PersonsScreen>
       appBar: widget.embedded
           ? null
           : AppTopBar(
-              title: const Text('Persons'),
+              title: const Text.localized('Persons'),
               // Under Glass, Archived and Settled grow out of the bar's
               // capsule (the button's own context finds it).
               actions: [
@@ -263,8 +263,7 @@ class _IndividualTab extends ConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.all(40),
               child: Center(
-                child: Text(
-                  "Couldn't load people",
+                child: Text.localized("Couldn't load people",
                   style: TextStyle(color: theme.colorScheme.error),
                 ),
               ),
@@ -502,34 +501,34 @@ class _PersonTile extends ConsumerWidget {
         AppListTile(
           leading: const AppIcon(Icons.edit_outlined),
           title: const Text.localized('Edit'),
-          subtitle: const Text('Name, UPI ID, phone and more.'),
+          subtitle: const Text.localized('Name, UPI ID, phone and more.'),
           onTap: () => Navigator.of(sheetContext).pop(_PersonAction.edit),
         ),
         AppListTile(
           leading: const AppIcon(Icons.contacts_outlined),
-          title: const Text('Link contact'),
-          subtitle: const Text('Import their photo and phone number.'),
+          title: const Text.localized('Link contact'),
+          subtitle: const Text.localized('Import their photo and phone number.'),
           onTap: () =>
               Navigator.of(sheetContext).pop(_PersonAction.linkContact),
         ),
         if (person.isSettled)
           AppListTile(
             leading: const AppIcon(Icons.undo_rounded),
-            title: const Text('Move out of Settled'),
-            subtitle: const Text('Back to the Individual list.'),
+            title: const Text.localized('Move out of Settled'),
+            subtitle: const Text.localized('Back to the Individual list.'),
             onTap: () => Navigator.of(sheetContext).pop(_PersonAction.unsettle),
           )
         else if (balance.isZero)
           AppListTile(
             leading: const AppIcon(Icons.check_circle_outline_rounded),
             title: const Text.localized('Move to Settled'),
-            subtitle: const Text('Balance is zero. History stays intact.'),
+            subtitle: const Text.localized('Balance is zero. History stays intact.'),
             onTap: () => Navigator.of(sheetContext).pop(_PersonAction.settle),
           ),
         AppListTile(
           leading: const AppIcon(Icons.archive_outlined),
           title: const Text.localized('Archive'),
-          subtitle: const Text('Hide them. History stays intact.'),
+          subtitle: const Text.localized('Hide them. History stays intact.'),
           onTap: () => Navigator.of(sheetContext).pop(_PersonAction.archive),
         ),
         AppListTile(
@@ -540,7 +539,7 @@ class _PersonTile extends ConsumerWidget {
           title: Text.localized('Delete',
             style: TextStyle(color: theme.colorScheme.error),
           ),
-          subtitle: const Text('Permanently, with all their history.'),
+          subtitle: const Text.localized('Permanently, with all their history.'),
           onTap: () => Navigator.of(sheetContext).pop(_PersonAction.remove),
         ),
       ],
@@ -617,7 +616,7 @@ class _PersonTile extends ConsumerWidget {
     final confirmed = await showAppDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Archive person?'),
+        title: const Text.localized('Archive person?'),
         content: Text(
           '"${person.name}" will be hidden from your people. '
           'Their history stays intact.',
@@ -643,7 +642,7 @@ class _PersonTile extends ConsumerWidget {
     if (!context.mounted) return;
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Person archived')));
+      ..showSnackBar(const SnackBar(content: Text.localized('Person archived')));
   }
 
   Future<void> _confirmRemove(BuildContext context, WidgetRef ref) =>
@@ -668,8 +667,7 @@ class _GroupTab extends ConsumerWidget {
     return groupsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, _) => Center(
-        child: Text(
-          "Couldn't load groups",
+        child: Text.localized("Couldn't load groups",
           style: TextStyle(color: theme.colorScheme.error),
         ),
       ),
@@ -822,21 +820,21 @@ class _GroupTile extends ConsumerWidget {
         if (group.isSettled)
           AppListTile(
             leading: const AppIcon(Icons.undo_rounded),
-            title: const Text('Move out of Settled'),
-            subtitle: const Text('Back to the Group list.'),
+            title: const Text.localized('Move out of Settled'),
+            subtitle: const Text.localized('Back to the Group list.'),
             onTap: () => Navigator.of(sheetContext).pop(_GroupAction.unsettle),
           )
         else if (balance.isZero)
           AppListTile(
             leading: const AppIcon(Icons.check_circle_outline_rounded),
             title: const Text.localized('Move to Settled'),
-            subtitle: const Text('Balance is zero. History stays intact.'),
+            subtitle: const Text.localized('Balance is zero. History stays intact.'),
             onTap: () => Navigator.of(sheetContext).pop(_GroupAction.settle),
           ),
         AppListTile(
           leading: const AppIcon(Icons.archive_outlined),
           title: const Text.localized('Archive'),
-          subtitle: const Text('Hide it. Expense history stays intact.'),
+          subtitle: const Text.localized('Hide it. Expense history stays intact.'),
           onTap: () => Navigator.of(sheetContext).pop(_GroupAction.archive),
         ),
         AppListTile(
@@ -847,7 +845,7 @@ class _GroupTile extends ConsumerWidget {
           title: Text.localized('Delete',
             style: TextStyle(color: theme.colorScheme.error),
           ),
-          subtitle: const Text('Permanently, with all its expenses.'),
+          subtitle: const Text.localized('Permanently, with all its expenses.'),
           onTap: () => Navigator.of(sheetContext).pop(_GroupAction.remove),
         ),
       ],
@@ -881,7 +879,7 @@ class _GroupTile extends ConsumerWidget {
     final confirmed = await showAppDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Archive group?'),
+        title: const Text.localized('Archive group?'),
         content: Text(
           '"${group.name}" will be hidden. Its expense history stays intact.',
         ),
@@ -906,7 +904,7 @@ class _GroupTile extends ConsumerWidget {
     if (!context.mounted) return;
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Group archived')));
+      ..showSnackBar(const SnackBar(content: Text.localized('Group archived')));
   }
 
   Future<void> _confirmRemove(BuildContext context, WidgetRef ref) =>
@@ -939,7 +937,7 @@ class SettledScreen extends ConsumerWidget {
 
     if (people.isEmpty && groups.isEmpty) {
       return Scaffold(
-        appBar: AppTopBar(title: const Text('Settled')),
+        appBar: AppTopBar(title: const Text.localized('Settled')),
         body: const _EmptyNote(
           icon: Icons.check_circle_outline_rounded,
           text:
@@ -982,7 +980,7 @@ class SettledScreen extends ConsumerWidget {
     );
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Settled')),
+      appBar: AppTopBar(title: const Text.localized('Settled')),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 32).plusNavBar(context),
         children: [
@@ -1046,8 +1044,7 @@ class _EmptyGroups extends StatelessWidget {
             color: theme.colorScheme.onSurfaceVariant,
           ),
           const SizedBox(height: 16),
-          Text(
-            'No groups yet — tap + to split a shared expense across '
+          Text.localized('No groups yet — tap + to split a shared expense across '
             'several people.',
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyMedium?.copyWith(
@@ -1076,8 +1073,7 @@ class _EmptyPersons extends StatelessWidget {
             color: theme.colorScheme.onSurfaceVariant,
           ),
           const SizedBox(height: 16),
-          Text(
-            'No people yet — add someone you lent to or borrowed from.',
+          Text.localized('No people yet — add someone you lent to or borrowed from.',
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
@@ -1097,8 +1093,7 @@ class _FooterCaption extends StatelessWidget {
     final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(28, 16, 28, 32),
-      child: Text(
-        "Money you lend isn't an expense — it's still yours, just held by "
+      child: Text.localized("Money you lend isn't an expense — it's still yours, just held by "
         'someone else.',
         textAlign: TextAlign.center,
         style: theme.textTheme.bodySmall?.copyWith(

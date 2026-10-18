@@ -58,12 +58,11 @@ class LockScreenStyleSheet extends ConsumerWidget {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
-            child: Text('Lock screen style', style: theme.textTheme.titleLarge),
+            child: Text.localized('Lock screen style', style: theme.textTheme.titleLarge),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
-            child: Text(
-              'How the PIN pad looks on the lock screen and when you set or '
+            child: Text.localized('How the PIN pad looks on the lock screen and when you set or '
               'change your PIN.',
               style: theme.textTheme.bodySmall?.copyWith(
                 color: cs.onSurfaceVariant,

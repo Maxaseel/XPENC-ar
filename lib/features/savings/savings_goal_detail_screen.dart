@@ -33,8 +33,8 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
 
     if (progress == null) {
       return Scaffold(
-        appBar: AppTopBar(title: const Text('Savings goal')),
-        body: const Center(child: Text('Goal not found')),
+        appBar: AppTopBar(title: const Text.localized('Savings goal')),
+        body: const Center(child: Text.localized('Goal not found')),
       );
     }
 
@@ -115,7 +115,7 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
                     defaultCategoryId: detail.categoryId,
                   ),
                   icon: const AppIcon(Icons.add_rounded),
-                  label: const Text('Add funds'),
+                  label: const Text.localized('Add funds'),
                 ),
               ),
               const SizedBox(width: 12),
@@ -125,7 +125,7 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
                       ? () => _openFundsSheet(context, goalId, isAdd: false)
                       : null,
                   icon: const AppIcon(Icons.remove_rounded),
-                  label: const Text('Withdraw'),
+                  label: const Text.localized('Withdraw'),
                 ),
               ),
             ],
@@ -288,9 +288,8 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
           children: [
             AppListTile(
               leading: const AppIcon(Icons.tune_rounded),
-              title: const Text('Fix starting amount'),
-              subtitle: const Text(
-                'Correct "Saved" if it opened already showing money you '
+              title: const Text.localized('Fix starting amount'),
+              subtitle: const Text.localized('Correct "Saved" if it opened already showing money you '
                 "hadn't actually put in — common right after updating from "
                 '1.3.0.',
               ),
@@ -300,8 +299,7 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
             AppListTile(
               leading: const AppIcon(Icons.archive_outlined),
               title: const Text.localized('Archive'),
-              subtitle: const Text(
-                'Hides it from active goals. Its money and history stay.',
+              subtitle: const Text.localized('Hides it from active goals. Its money and history stay.',
               ),
               onTap: () => Navigator.of(sheetContext).pop(_GoalAction.archive),
             ),
@@ -315,8 +313,7 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
                   color: Theme.of(sheetContext).colorScheme.error,
                 ),
               ),
-              subtitle: const Text(
-                'Only for a goal with no funding history yet.',
+              subtitle: const Text.localized('Only for a goal with no funding history yet.',
               ),
               onTap: () => Navigator.of(sheetContext).pop(_GoalAction.delete),
             ),
@@ -345,13 +342,12 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
     final newAmount = await showAppDialog<Money>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Fix starting amount'),
+        title: const Text.localized('Fix starting amount'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Sets "Saved" directly — it does not create or change any '
+            const Text.localized('Sets "Saved" directly — it does not create or change any '
               'transaction.',
             ),
             const SizedBox(height: 16),
@@ -376,7 +372,7 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
                   ..hideCurrentSnackBar()
                   ..showSnackBar(
                     const SnackBar(
-                      content: Text('Enter a valid amount, zero or more.'),
+                      content: Text.localized('Enter a valid amount, zero or more.'),
                     ),
                   );
                 return;
@@ -410,7 +406,7 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
     if (!context.mounted) return;
     messenger
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Starting amount updated')));
+      ..showSnackBar(const SnackBar(content: Text.localized('Starting amount updated')));
   }
 
   Future<void> _confirmArchive(
@@ -424,8 +420,7 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text('Archive "${progress.account.name}"?'),
-        content: const Text(
-          "It stays in your history and net worth — this only hides it from "
+        content: const Text.localized("It stays in your history and net worth — this only hides it from "
           'the active goals list.',
         ),
         actions: [
@@ -446,7 +441,7 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
     navigator.pop();
     messenger
       ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Goal archived')));
+      ..showSnackBar(const SnackBar(content: Text.localized('Goal archived')));
   }
 
   Future<void> _confirmDelete(
@@ -460,8 +455,7 @@ class SavingsGoalDetailScreen extends ConsumerWidget {
       context: context,
       builder: (dialogContext) => AlertDialog(
         title: Text('Delete "${progress.account.name}"?'),
-        content: const Text(
-          'Permanent. A goal that has ever been funded refuses to delete — '
+        content: const Text.localized('Permanent. A goal that has ever been funded refuses to delete — '
           'archive it instead.',
         ),
         actions: [

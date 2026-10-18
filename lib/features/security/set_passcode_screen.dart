@@ -101,7 +101,7 @@ class _SetPasscodeScreenState extends ConsumerState<SetPasscodeScreen> {
           Navigator.of(context).pop();
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
-            ..showSnackBar(const SnackBar(content: Text('Passcode removed')));
+            ..showSnackBar(const SnackBar(content: Text.localized('Passcode removed')));
           return;
         }
         setState(() {
@@ -137,7 +137,7 @@ class _SetPasscodeScreenState extends ConsumerState<SetPasscodeScreen> {
         Navigator.of(context).pop();
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
-          ..showSnackBar(const SnackBar(content: Text('Passcode set')));
+          ..showSnackBar(const SnackBar(content: Text.localized('Passcode set')));
     }
   }
 
@@ -146,7 +146,7 @@ class _SetPasscodeScreenState extends ConsumerState<SetPasscodeScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppTopBar(title: const Text('Passcode')),
+      appBar: AppTopBar(title: const Text.localized('Passcode')),
       body: SafeArea(
         child: Column(
           children: [

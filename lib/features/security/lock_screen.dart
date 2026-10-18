@@ -267,8 +267,7 @@ class _LockScreenState extends ConsumerState<LockScreen> {
               padding: EdgeInsets.fromLTRB(16, 16, 16, 4),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  'Try another method',
+                child: Text.localized('Try another method',
                   style: TextStyle(fontWeight: FontWeight.w700),
                 ),
               ),
@@ -388,7 +387,7 @@ class _LockScreenState extends ConsumerState<LockScreen> {
                                   context,
                                   otherReadyMethods,
                                 ),
-                                child: const Text('Try another method'),
+                                child: const Text.localized('Try another method'),
                               ),
                             ],
                           ],
@@ -489,8 +488,7 @@ class _LockScreenState extends ConsumerState<LockScreen> {
             ),
             const SizedBox(height: 8),
           ],
-          Text(
-            'Enter your master recovery phrase to unlock XPENC.',
+          Text.localized('Enter your master recovery phrase to unlock XPENC.',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: cs.onSurfaceVariant,
             ),

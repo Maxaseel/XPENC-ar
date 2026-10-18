@@ -44,8 +44,7 @@ class CurrencySettingsScreen extends ConsumerWidget {
               contentPadding: const EdgeInsets.symmetric(horizontal: 16),
               leading: const AppIcon(Icons.payments_outlined),
               title: Text('${parentCurrency.symbol} ${parentCurrency.code}'),
-              subtitle: Text(
-                'Every total — Net Worth, Reports, Budgets — is shown in '
+              subtitle: Text.localized('Every total — Net Worth, Reports, Budgets — is shown in '
                 'this currency.',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: cs.onSurfaceVariant,
@@ -64,8 +63,7 @@ class CurrencySettingsScreen extends ConsumerWidget {
                   if (rates.isEmpty)
                     Padding(
                       padding: const EdgeInsets.all(16),
-                      child: Text(
-                        'No exchange rates yet. Add a currency below to give '
+                      child: Text.localized('No exchange rates yet. Add a currency below to give '
                         'an account its own currency — a bank account, '
                         'wallet or card can then carry that currency and '
                         'convert back to your parent currency using the '
@@ -85,7 +83,7 @@ class CurrencySettingsScreen extends ConsumerWidget {
                   AppListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     leading: const AppIcon(Icons.add_circle_outline_rounded),
-                    title: const Text('Add a currency'),
+                    title: const Text.localized('Add a currency'),
                     onTap: () => _addCurrency(context, ref),
                   ),
                 ],
@@ -97,8 +95,7 @@ class CurrencySettingsScreen extends ConsumerWidget {
             ),
             error: (_, _) => Padding(
               padding: const EdgeInsets.all(16),
-              child: Text(
-                'Could not load exchange rates.',
+              child: Text.localized('Could not load exchange rates.',
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: cs.onSurfaceVariant,
                 ),
@@ -241,7 +238,7 @@ class _AddRateDialogState extends State<_AddRateDialog> {
           const SizedBox(height: 4),
           AppListTile(
             contentPadding: EdgeInsets.zero,
-            title: const Text('Effective date'),
+            title: const Text.localized('Effective date'),
             subtitle: Text(_dateFormat.format(_effectiveAt)),
             trailing: const AppIcon(Icons.calendar_today_outlined),
             onTap: _pickDate,

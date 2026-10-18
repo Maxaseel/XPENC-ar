@@ -89,8 +89,7 @@ class SettingsScreen extends ConsumerWidget {
               contentPadding: const EdgeInsets.symmetric(horizontal: 16),
               leading: const BrandMark(size: 34),
               title: const Text('${AppInfo.name} · ${AppInfo.version}'),
-              subtitle: Text(
-                'Developer, links and build info',
+              subtitle: Text.localized('Developer, links and build info',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),

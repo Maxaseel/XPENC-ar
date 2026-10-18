@@ -50,8 +50,7 @@ class ThemePickerSheet extends ConsumerWidget {
                   color: theme.colorScheme.secondary,
                 ),
                 const SizedBox(width: 10),
-                Text(
-                  'Theme',
+                Text.localized('Theme',
                   style: theme.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
@@ -59,8 +58,7 @@ class ThemePickerSheet extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: 4),
-            Text(
-              'Money colours never change — green is always income.',
+            Text.localized('Money colours never change — green is always income.',
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -79,8 +77,7 @@ class ThemePickerSheet extends ConsumerWidget {
               ),
             ],
             const SizedBox(height: 20),
-            Text(
-              'Appearance',
+            Text.localized('Appearance',
               style: theme.textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w700,
               ),
@@ -98,17 +95,17 @@ class ThemePickerSheet extends ConsumerWidget {
                           ButtonSegment(
                             value: ThemeMode.system,
                             icon: AppIcon(Icons.brightness_auto_rounded),
-                            label: Text('System'),
+                            label: Text.localized('System'),
                           ),
                           ButtonSegment(
                             value: ThemeMode.light,
                             icon: AppIcon(Icons.light_mode_rounded),
-                            label: Text('Light'),
+                            label: Text.localized('Light'),
                           ),
                           ButtonSegment(
                             value: ThemeMode.dark,
                             icon: AppIcon(Icons.dark_mode_rounded),
-                            label: Text('Dark'),
+                            label: Text.localized('Dark'),
                           ),
                         ],
                         selected: {current.mode},

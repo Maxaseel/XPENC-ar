@@ -67,9 +67,25 @@ jobs:
           cat > android/key.properties <<EOF
           storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
-          keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
+          keyAlias=upload
           storeFile=$GITHUB_WORKSPACE/android/xpenc-release.jks
           EOF
+
+      - name: Validate release signing key
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          test -s android/xpenc-release.jks
+          keytool -certreq \
+            -storetype JKS \
+            -keystore android/xpenc-release.jks \
+            -storepass "$KEYSTORE_PASSWORD" \
+            -keypass "$KEY_PASSWORD" \
+            -alias upload \
+            -file "$RUNNER_TEMP/xpenc-signing-check.csr" \
+            >/dev/null
+          rm -f "$RUNNER_TEMP/xpenc-signing-check.csr"
 
       # `--enforce-lockfile` refuses to silently rewrite pubspec.lock if it's
       # out of sync with pubspec.yaml — F-Droid's own reproducible build uses
